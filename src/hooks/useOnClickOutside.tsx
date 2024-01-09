@@ -1,23 +1,44 @@
-import { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
 export default function useOnClickOutside(
-  ref: React.RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement>,
   handler: VoidFunction,
 ) {
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
+    const listener = (e: MouseEvent) => {
       console.log(ref);
-      if (!ref.current || ref.current.contains(event.target as Node)) {
-        return;
+      e.stopPropagation();
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        handler();
       }
-      handler();
     };
 
     document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
     return () => {
       document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
     };
   }, [ref, handler]);
 }
+
+/* import { RefObject, useEffect } from "react";
+
+export default function useOnClickOutside(
+  ref: RefObject<HTMLElement>,
+  callback: () => void,
+) {
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      e.stopPropagation();
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        callback();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, callback]);
+}
+ */
