@@ -11,7 +11,7 @@ interface Props {
   onConfirm?: VoidFunction;
   styleClass?: string;
 }
-const ConfirmModal = ({
+const Dialog = ({
   isOpen,
   onClose,
   onConfirm,
@@ -20,22 +20,23 @@ const ConfirmModal = ({
   message,
   styleClass,
 }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDialogElement>(null);
   useOnClickOutside(ref, () => {
     onClose();
   });
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black-6 cursor-pointer">
+    <>
+      <div className="fixed top-0 left-0 w-full h-full  bg-black/60 cursor-pointer" />
       {type === "confirm" && (
-        <div
-          className="w-[87.2%] web:w-[327px]  h-[176px] mx-auto absolute top-[30%] left-[50%] translate-x-[-50%] rounded-md bg-white flex flex-col justify-evenly"
+        <dialog
+          className="w-[87.2%] web:w-[327px] h-[176px] mx-auto absolute top-[30%] rounded-md bg-white flex flex-col justify-evenly shadow-md "
           ref={ref}
         >
           {theme === "withdraw" && (
             <>
-              <p className="text-lg font-bold text-center leading-6">
+              <p className=" text-lg font-bold text-center leading-6">
                 정말로 탈퇴 하시겠어요?
               </p>
               <div className="flex flex-row justify-between items-between px-[72px]">
@@ -73,10 +74,10 @@ const ConfirmModal = ({
               </div>
             </>
           )}
-        </div>
+        </dialog>
       )}
       {type === "alert" && (
-        <div
+        <dialog
           className="w-[87.2%] web:w-[327px]  h-[140px] mx-auto absolute top-[30%] left-[50%] translate-x-[-50%] rounded-md bg-white flex flex-col justify-evenly"
           ref={ref}
         >
@@ -89,10 +90,10 @@ const ConfirmModal = ({
               onClickFn={onClose}
             />
           </div>
-        </div>
+        </dialog>
       )}
-    </div>
+    </>
   );
 };
 
-export default ConfirmModal;
+export default Dialog;
