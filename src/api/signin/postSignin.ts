@@ -6,6 +6,7 @@ const postSignin = async (body: { id: string; password: string }) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(body),
     },
   );

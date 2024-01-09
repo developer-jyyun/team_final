@@ -11,6 +11,7 @@ interface Props {
   name: string;
   id: string;
   theme?: string;
+  errorMessage?: string;
   onInputChange?: (value: string) => void;
 }
 
@@ -20,6 +21,7 @@ const SigninInput = ({
   name,
   id,
   theme,
+  errorMessage,
   onInputChange,
 }: Props) => {
   const [focus, setFocus] = useState(false);
@@ -83,9 +85,11 @@ const SigninInput = ({
         </div>
       )}
 
-      <div className="absolute top-[calc(100%+8px)] left-4">
-        <SignupErrorText text="잘못된 유형의 이메일 입니다. 수정해주세요." />
-      </div>
+      {errorMessage && (
+        <div className="absolute top-[calc(100%+8px)] left-4">
+          <SignupErrorText text={errorMessage} />
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import postSignin from "@/api/signin/postSignin";
 import Button from "@/app/_component/common/atom/Button";
+import validateEmail from "@/utils/validateEmail";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -21,6 +22,8 @@ const EmailSigninForm = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+
   const handleEmailInputChange = (inputValue: string) => {
     setEmailValue(inputValue);
   };
@@ -33,8 +36,20 @@ const EmailSigninForm = () => {
   };
 
   const handleLogin = async () => {
-    const data = await postSignin({ id: emailValue, password: passwordValue });
-    console.log(data);
+    if (!validateEmail(emailValue)) {
+      setEmailErrorMessage("잘못된 유형의 이메일 입니다. 수정해주세요.");
+    } else {
+      const data = await postSignin({
+        id: emailValue,
+        password: passwordValue,
+      });
+
+      if (data.code === 200) {
+        console.log("로그인 성공");
+      } else if (data.code === 409) {
+        setEmailErrorMessage("입력하신 이메일은 존재하지 않습니다.");
+      }
+    }
   };
 
   return (
@@ -49,6 +64,7 @@ const EmailSigninForm = () => {
         type="text"
         name="signin-email"
         id="signin-email"
+        errorMessage={emailErrorMessage}
         onInputChange={handleEmailInputChange}
       />
       <SigninInput
@@ -59,7 +75,7 @@ const EmailSigninForm = () => {
         onInputChange={handlePasswordInputChange}
       />
 
-      <div className="w-full grow flex items-end">
+      <div className="w-[327px] grow flex items-end web:w-full">
         <Button
           text="로그인"
           disabled={emailValue === "" || passwordValue === ""}
