@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-export default function useOnClickOutside(ref: React.RefObject<HTMLDivElement>, handler: () => void) {
+export default function useOnClickOutside(
+  ref: React.RefObject<HTMLElement>,
+  handler: VoidFunction,
+) {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       console.log(ref);
@@ -10,11 +13,11 @@ export default function useOnClickOutside(ref: React.RefObject<HTMLDivElement>, 
       handler();
     };
 
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
     return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
     };
   }, [ref, handler]);
 }
