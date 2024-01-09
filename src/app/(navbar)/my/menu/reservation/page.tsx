@@ -10,7 +10,7 @@ const ReservationPage = () => {
         개의 패키지 상품
       </h2>
       <ul>
-        <ReservationItem />
+        <ReservationItem theme="reservationMenu" />
       </ul>
     </MenuSection>
   );
