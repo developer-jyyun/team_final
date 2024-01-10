@@ -2,6 +2,7 @@
 
 import postSignin from "@/api/signin/postSignin";
 import Button from "@/app/_component/common/atom/Button";
+import useSignupStateStore from "@/store/useSignupStateStore";
 import validateEmail from "@/utils/validateEmail";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import TermsForm from "./TermsForm";
 
 const EmailSigninForm = () => {
   const router = useRouter();
+  const signupState = useSignupStateStore();
 
   const [termsForm, setTermsForm] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -18,6 +20,13 @@ const EmailSigninForm = () => {
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
   }, [termsForm]);
+
+  useEffect(() => {
+    signupState.setIsCertification(false);
+    signupState.setIsSignup(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");

@@ -49,7 +49,8 @@ const EnterPassword = ({ setStep }: Props) => {
           id: signupInfo.email,
           password: passwordValue,
         });
-        if (signinData.code) {
+        if (signinData.code === 200) {
+          signupState.setIsSignup(false);
           setStep(4);
         }
       }
