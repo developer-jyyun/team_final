@@ -1,6 +1,7 @@
 "use client";
 
 import useCheckStateStore from "@/store/useCheckStateStore";
+import { useState } from "react";
 
 interface Props {
   text: string;
@@ -8,11 +9,20 @@ interface Props {
   required?: boolean;
   id?: number;
   theme: "sm" | "lg";
+  isAll?: boolean;
 }
 
-const Checkbox = ({ text, subText, required, id, theme }: Props) => {
+const Checkbox = ({
+  text,
+  subText,
+  required,
+  id,
+  theme,
+  isAll = true,
+}: Props) => {
   const checkState = useCheckStateStore();
   const checkItem = checkState.checkItems.filter((item) => item.id === id);
+  const [check, setCheck] = useState(false);
 
   const handleCheckboxClick = () => {
     if (checkItem[0].checked) {
@@ -28,6 +38,10 @@ const Checkbox = ({ text, subText, required, id, theme }: Props) => {
     }
   };
 
+  const handleCheckboxClickSingle = () => {
+    setCheck((prev) => !prev);
+  };
+
   return (
     <div
       className={`relative flex items-center p-${
@@ -38,27 +52,41 @@ const Checkbox = ({ text, subText, required, id, theme }: Props) => {
         <input
           type="checkbox"
           className="hidden"
-          checked={checkItem[0] ? checkItem[0].checked : false}
+          checked={isAll ? checkItem[0]?.checked || false : check}
           readOnly
         />
         <button
           type="button"
           className="w-[25px]"
-          onClick={handleCheckboxClick}
+          onClick={isAll ? handleCheckboxClick : handleCheckboxClickSingle}
         >
-          {checkItem[0] && checkItem[0].checked
-            ? (theme === "sm" && (
-                <img src="./icons/checkedIcon.svg" alt="체크" />
-              )) ||
-              (theme === "lg" && (
-                <img src="./icons/allCheckedIcon.svg" alt="체크" />
-              ))
-            : (theme === "sm" && (
-                <img src="./icons/checkIcon.svg" alt="체크" />
-              )) ||
-              (theme === "lg" && (
-                <img src="./icons/allCheckIcon.svg" alt="체크" />
-              ))}
+          {isAll
+            ? checkItem[0] && checkItem[0].checked
+              ? (theme === "sm" && (
+                  <img src="./icons/checkedIcon.svg" alt="체크" />
+                )) ||
+                (theme === "lg" && (
+                  <img src="./icons/allCheckedIcon.svg" alt="체크" />
+                ))
+              : (theme === "sm" && (
+                  <img src="./icons/checkIcon.svg" alt="체크" />
+                )) ||
+                (theme === "lg" && (
+                  <img src="./icons/allCheckIcon.svg" alt="체크" />
+                ))
+            : check
+              ? (theme === "sm" && (
+                  <img src="./icons/checkedIcon.svg" alt="체크" />
+                )) ||
+                (theme === "lg" && (
+                  <img src="./icons/allCheckedIcon.svg" alt="체크" />
+                ))
+              : (theme === "sm" && (
+                  <img src="./icons/checkIcon.svg" alt="체크" />
+                )) ||
+                (theme === "lg" && (
+                  <img src="./icons/allCheckIcon.svg" alt="체크" />
+                ))}
         </button>
       </div>
       <div>
