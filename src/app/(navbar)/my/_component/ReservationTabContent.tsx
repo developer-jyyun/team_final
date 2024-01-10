@@ -6,7 +6,7 @@ const ReservationTabContent = () => {
   return (
     <>
       <ul className="flex flex-col gap-2 justify-start items-center w-[95%]  mx-auto my-4 ">
-        <ReservationItem theme="ReservationTab" />
+        <ReservationItem theme="reservationTab" hashTag />
       </ul>
       <Button
         text="더보기"

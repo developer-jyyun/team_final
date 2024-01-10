@@ -1,12 +1,13 @@
 import Button from "@/app/_component/common/atom/Button";
+import Link from "next/link";
 
 interface Props {
   theme: string;
+  hashTag?: boolean;
 }
-const ReservationItem = ({ theme }: Props) => {
+const ReservationItem = ({ theme, hashTag }: Props) => {
   // 데이터 연동 후 제거
   const hashTags = ["일본", "체험/액티비티", "쇼핑"];
-
   return (
     <li className="w-full relative p-3 flex flex-row gap-2 border border-solid border-black rounded-md">
       <div className=" basis-1/3 rounded-md overflow-hidden">
@@ -20,14 +21,16 @@ const ReservationItem = ({ theme }: Props) => {
         <p className="flex flex-row items-center gap-10 ">
           <span className="font-bold text-md ">청룡의 해 얼리버드 특가</span>
         </p>
-        <p className="flex flex-row items-center justify-start gap-1">
-          {hashTags?.map((item) => (
-            <span className="border border-solid border-grey-4 rounded p-1 text-xs">
-              {item}
-            </span>
-          ))}
-        </p>
-        {theme === "reservationMenu" ? (
+        {hashTag && (
+          <p className="flex flex-row items-center justify-start gap-1">
+            {hashTags?.map((item) => (
+              <span className="border border-solid border-grey-4 rounded p-1 text-xs">
+                {item}
+              </span>
+            ))}
+          </p>
+        )}
+        {theme === "reservationMenu" && (
           <div className="flex justify-between items-end text-[11px] mt-1">
             <span className=" text-[11px] ">4박 5일</span>
             <span className=" text-[11px] ">24.01.01-24.01.25</span>
@@ -37,12 +40,18 @@ const ReservationItem = ({ theme }: Props) => {
               // TODO:: onClickFn  상세페이지 이동
             />
           </div>
-        ) : (
-          <Button
-            text="리뷰 쓰러 가기"
-            styleClass="rounded text-xs p-2 px-4 mt-4 bg-pink text-white"
-            // TODO:: onClickFn 리뷰 목록 이동
-          />
+        )}
+        {theme === "reservationTab" && (
+          <Link href="/my/review">
+            <Button
+              text="리뷰 쓰러 가기"
+              styleClass="w-full rounded text-xs p-2 px-4 mt-4 bg-pink text-white"
+              // TODO:: onClickFn 리뷰 목록 이동
+            />
+          </Link>
+        )}
+        {theme === "review" && (
+          <p className=" text-[11px] ">24.01.01-24.01.25</p>
         )}
       </div>
     </li>
