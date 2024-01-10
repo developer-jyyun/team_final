@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/_component/common/atom/Button";
+import useSignupStateStore from "@/store/useSignupStateStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AllselectCheckbox from "./AllselectCheckbox";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const TermsForm = ({ setTermsForm }: Props) => {
+  const signupState = useSignupStateStore();
   const router = useRouter();
 
   const [action, setAction] = useState(true);
@@ -23,6 +25,7 @@ const TermsForm = ({ setTermsForm }: Props) => {
   };
 
   const handleAgree = () => {
+    signupState.setIsSignup(true);
     router.push("/email-signup");
   };
 

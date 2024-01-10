@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import DefaultHeader from "../../_component/common/layout/DefaultHeader";
+import EmailAuth from "./_component/EmailAuth";
+import EnterName from "./_component/EnterName";
+import EnterPassword from "./_component/EnterPassword";
 import SignupComplete from "./_component/SignupComplete";
-import SignupStepOne from "./_component/SignupStepOne";
-import SignupStepTwo from "./_component/SignupStepTwo";
 
 const EmailSignupPage = () => {
   const [step, setStep] = useState(1);
 
-  if (step === 3) {
+  if (step === 4) {
     return <SignupComplete />;
   }
 
@@ -17,11 +18,12 @@ const EmailSignupPage = () => {
     <section>
       <DefaultHeader
         text="회원가입 "
-        subText={`(${step}/2)`}
+        subText={`(${step}/3)`}
         redirectUrl="/email-signin"
       />
-      {step === 1 && <SignupStepOne setStep={setStep} />}
-      {step === 2 && <SignupStepTwo setStep={setStep} />}
+      {step === 1 && <EmailAuth setStep={setStep} />}
+      {step === 2 && <EnterName setStep={setStep} />}
+      {step === 3 && <EnterPassword setStep={setStep} />}
     </section>
   );
 };

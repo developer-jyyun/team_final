@@ -20,7 +20,7 @@ const handlers = [
     });
   }),
 
-  http.get("/v1/users/email", () => {
+  http.post("/v1/users/email", () => {
     console.log("회원가입");
     return HttpResponse.json({
       code: 200,

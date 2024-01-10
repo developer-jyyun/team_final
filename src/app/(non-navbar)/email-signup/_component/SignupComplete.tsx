@@ -1,6 +1,16 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 const SignupComplete = () => {
+  const router = useRouter();
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/");
+    }, 1500);
+  }, [router]);
+
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <div

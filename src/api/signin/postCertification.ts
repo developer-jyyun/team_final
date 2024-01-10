@@ -1,6 +1,6 @@
-const postSignin = async (body: { id: string; password: string }) => {
+const postCertification = async (body: { email: string }) => {
   const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/login`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/confirm`,
     {
       method: "POST",
       headers: {
@@ -18,4 +18,4 @@ const postSignin = async (body: { id: string; password: string }) => {
   return result.json();
 };
 
-export default postSignin;
+export default postCertification;
