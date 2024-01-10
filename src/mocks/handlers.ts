@@ -131,17 +131,17 @@ const handlers = [
       {
         adId: 0,
         imageUrl:
-          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
       {
         adId: 1,
         imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
       {
         adId: 2,
         imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
     ];
 
