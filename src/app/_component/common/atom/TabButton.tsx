@@ -8,7 +8,7 @@ interface Props {
   selectedClass?: string;
 }
 
-const TabButtons = ({
+const TabButton = ({
   tabName,
   onClick,
   isSelected,
@@ -25,4 +25,4 @@ const TabButtons = ({
   );
 };
 
-export default TabButtons;
+export default TabButton;

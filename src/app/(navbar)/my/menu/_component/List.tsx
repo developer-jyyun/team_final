@@ -13,7 +13,7 @@ const List = ({ items }: Props) => {
           title={item.title}
           link={item.link}
           onClickFn={item.onClickFn}
-          categories={item.categories}
+          category={item.category}
           date={item.date}
           theme={item.theme}
           iconSrc={item.iconSrc}

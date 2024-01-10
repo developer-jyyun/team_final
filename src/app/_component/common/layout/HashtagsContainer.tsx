@@ -3,7 +3,7 @@ import { FetchResponse, HashtagItem } from "@/app/types";
 import React from "react";
 import Hashtag from "../atom/Hashtag";
 
-const HashtagsBox = async () => {
+const HashtagsContainer = async () => {
   const hashtags: FetchResponse<HashtagItem[]> = await getHashtags();
 
   return (
@@ -13,4 +13,4 @@ const HashtagsBox = async () => {
   );
 };
 
-export default HashtagsBox;
+export default HashtagsContainer;

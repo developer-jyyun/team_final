@@ -17,7 +17,7 @@ const MenuPage = () => {
     },
     {
       title: "예약내역",
-      link: "/my/menu/notice",
+      link: "/my/menu/reservation",
       theme: "menu",
     },
   ];

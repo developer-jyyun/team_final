@@ -9,14 +9,14 @@ const NoticePage = () => {
       title: "2024년 01월 유류 할증료 안내",
       link: "/my/menu/notice",
       theme: "notice",
-      categories: ["항공권 소식", "해외항공"],
+      category: ["항공권 소식", "해외항공"],
       date: "2023.12.12",
     },
     {
       title: "2024년 01월 유류 할증료 안내2",
       link: "/my/menu/privacy-policy",
       theme: "notice",
-      categories: ["항공권 소식", "해외항공"],
+      category: ["항공권 소식", "해외항공"],
       date: "2023.12.12",
     },
   ];
