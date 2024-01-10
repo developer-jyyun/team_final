@@ -4,7 +4,7 @@ import Link from "next/link";
 const ListItem = ({
   title,
   link,
-  categories,
+  category,
   date,
   theme = "menu",
   iconSrc = "/icons/rightArrowIcon.svg",
@@ -42,9 +42,9 @@ const ListItem = ({
         <Link href={link} className={`${baseClass} ${commonClass}`}>
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
-              {categories?.map((category) => (
+              {category?.map((item: string) => (
                 <span className="py-1 px-2 text-[11px] text-black-4 border border-1 border-solid border-black-6 rounded-xl">
-                  {category}
+                  {item}
                 </span>
               ))}
             </div>

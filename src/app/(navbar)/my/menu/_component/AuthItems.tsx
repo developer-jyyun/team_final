@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ListItemProps } from "@/app/types";
+import Dialog from "@/app/_component/common/layout/Dialog";
 import List from "./List";
-import ConfirmModal from "./ConfirmModal";
 import Withdraw from "./Withdraw";
 
 // TODO:: 비회원 사용자에게는 노출 X
@@ -48,13 +48,15 @@ const AuthItems = () => {
   return (
     <>
       {!isWithdrawing && <List items={AuthMenu} />}
-      <ConfirmModal
+      <Dialog
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={() => {
           setIsModalOpen(false);
           handleWithdraw();
         }}
+        theme="withdraw"
+        type="confirm"
       />
       {isWithdrawing && <Withdraw />}
     </>

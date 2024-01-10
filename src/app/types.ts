@@ -15,7 +15,7 @@ export interface HashtagItem {
 export interface ListItemProps {
   title: string;
   link?: string;
-  categories?: string[];
+  category?: string[];
   date?: string;
   theme?: "menu" | "notice" | "faq";
   iconSrc?: string;
