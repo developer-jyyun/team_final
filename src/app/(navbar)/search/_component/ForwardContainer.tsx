@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const ForwardBox = () => {
+const ForwardContainer = () => {
   return (
     <div className="flex flex-col justify-evenly items-center h-56 bg-blue-1">
       <p className="text-black-2 font-semibold text-[18px]">패키지 상품 찾기</p>
@@ -22,4 +22,4 @@ const ForwardBox = () => {
   );
 };
 
-export default ForwardBox;
+export default ForwardContainer;

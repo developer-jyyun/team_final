@@ -1,8 +1,8 @@
 import React from "react";
-import ForwardBox from "./_component/ForwardBox";
+import ForwardContainer from "./_component/ForwardContainer";
 import ContentsContainer from "../../_component/common/layout/ContentsContainer";
 import SearchHeader from "./_component/SearchHeader";
-import HashtagsContainer from "../../_component/common/layout/HashtagsContainer";
+import HashtagsContainer from "./_component/HashtagsContainer";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +16,7 @@ const SearchPage = () => {
       <ContentsContainer title="최근 많이 본 여행지">
         <div>card items</div>
       </ContentsContainer>
-      <ForwardBox />
+      <ForwardContainer />
     </div>
   );
 };
