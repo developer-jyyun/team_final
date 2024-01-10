@@ -31,7 +31,7 @@ const config: Config = {
         "grey-e": "#eee",
 
         blue: "#0059E3",
-        "main-blue": "#5C77FF",
+        "blue-main": "#5C77FF",
         "blue-transparent": "rgba(1, 82, 207, 0.50)",
         "blue-1": "#F4F8FF",
         red: "#EE1439",
@@ -41,15 +41,13 @@ const config: Config = {
         brown: "#3D1200",
         green: "#03C75B",
         "lime-sub1": "#17D410",
-        "lime-sub2": "#17D410",
+        "lime-sub2": "#0EAD08",
         pink: "#FF3D73",
         "pink-main": "#FF3478",
         "pink-sub1": "#FE546E",
         "pink-sub2": "#E42E5F",
         "pink-transparent": "rgba(255, 239, 239, 0.6)",
         "pink-1": "#FE516F",
-        "pink-2": "#FF3478",
-
         yellow: "#FFDB6D",
       },
       borderRadius: {
