@@ -1,6 +1,11 @@
 import React from "react";
+import Button from "@/app/_component/common/atom/Button";
 
-const ReservationInfo = () => {
+interface Props {
+  onComplete: () => void;
+}
+
+const ReservationInfo = ({ onComplete }: Props) => {
   return (
     <div>
       <div className="p-4 border-b-2 font-bold">
@@ -254,12 +259,10 @@ const ReservationInfo = () => {
           </p>
         </div>
         <div className="flex justify-center">
-          <button
-            type="button"
-            className="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
-          >
-            동의합니다.
-          </button>
+          <Button
+            text="동의합니다"
+            styleClass="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
+          />
         </div>
         <div className="flex justify-between mx-10 p-6">
           <div className="text-base">
@@ -322,12 +325,11 @@ const ReservationInfo = () => {
           될 수 있습니다.
         </p>
         <div className="flex justify-center">
-          <button
-            type="button"
-            className="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
-          >
-            예약하기
-          </button>
+          <Button
+            text="예약하기"
+            styleClass="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
+            onClickFn={onComplete}
+          />
         </div>
       </div>
     </div>
