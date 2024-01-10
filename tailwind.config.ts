@@ -19,6 +19,7 @@ const config: Config = {
         "black-2": "#222",
         "black-3": "#333",
         "black-4": "#444",
+        "black-5": "#555",
         "black-6": "#666",
         "grey-1": "#eee",
         "grey-2": "#ddd",
