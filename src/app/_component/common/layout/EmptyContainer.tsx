@@ -5,7 +5,7 @@ interface Props {
   imgUrl?: string;
   children?: React.ReactNode;
 }
-const EmptyBox = ({
+const EmptyContainer = ({
   text,
   imgUrl = "/assets/sadMainLogo.svg",
   children,
@@ -21,4 +21,4 @@ const EmptyBox = ({
   );
 };
 
-export default EmptyBox;
+export default EmptyContainer;

@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const ContentsBox = ({ title, children }: Props) => {
+const ContentsContainer = ({ title, children }: Props) => {
   return (
     <section className="px-6">
       <p className="my-6 text-black-2 font-semibold text-lg whitespace-pre-line">
@@ -16,4 +16,4 @@ const ContentsBox = ({ title, children }: Props) => {
   );
 };
 
-export default ContentsBox;
+export default ContentsContainer;

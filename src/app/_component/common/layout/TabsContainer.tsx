@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Tabs from "@/app/_component/common/atom/Tabs";
-import TabButtons from "@/app/_component/common/atom/TabButtons";
+import Tab from "@/app/_component/common/atom/Tab";
+import TabButton from "@/app/_component/common/atom/TabButton";
 
 interface Props {
   tabs: {
@@ -23,9 +23,9 @@ const TabsContainer = ({ tabs, tabButtonStyle }: Props) => {
   };
   return (
     <article>
-      <Tabs
+      <Tab
         buttons={tabs.map((tab) => (
-          <TabButtons
+          <TabButton
             isSelected={selectedTab === tab.name}
             key={tab.name}
             onClick={() => handleSelect(tab.name)}
@@ -36,7 +36,7 @@ const TabsContainer = ({ tabs, tabButtonStyle }: Props) => {
         ))}
       >
         {tabs.find((tab) => tab.name === selectedTab)?.content}
-      </Tabs>
+      </Tab>
     </article>
   );
 };
