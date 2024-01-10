@@ -4,7 +4,7 @@ interface Props {
   children: ReactNode;
   buttons: ReactNode[];
 }
-const Tabs = ({ children, buttons }: Props) => {
+const Tab = ({ children, buttons }: Props) => {
   return (
     <>
       <ul className="flex items-center justify-start overflow-x-auto">
@@ -15,4 +15,4 @@ const Tabs = ({ children, buttons }: Props) => {
   );
 };
 
-export default Tabs;
+export default Tab;
