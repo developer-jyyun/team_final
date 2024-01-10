@@ -2,7 +2,9 @@
 
 import Button from "@/app/_component/common/atom/Button";
 import useInput from "@/hooks/useInput";
+import useSignupStateStore from "@/store/useSignupStateStore";
 import { useRef, useState } from "react";
+import CertificationCount from "./CertificationCount";
 import SignupErrorText from "./SignupErrorText";
 
 interface Props {
@@ -26,6 +28,8 @@ const SigninInput = ({
   onClickFn,
   onInputChange,
 }: Props) => {
+  const signupState = useSignupStateStore();
+
   const [focus, setFocus] = useState(false);
   const input = useInput("");
 
@@ -74,7 +78,7 @@ const SigninInput = ({
 
       {theme === "button" && (
         <Button
-          text="인증 요청"
+          text={signupState.isCertification ? "다시 요청" : "인증 요청"}
           theme="md"
           styleClass="text-blue rounded-lg bg-white absolute top-1/2 right-[6px] -translate-y-1/2  disabled:text-blue-transparent  disabled:bg-[rgba(255,255,255,0.7)]"
           disabled={input.value === ""}
@@ -84,7 +88,7 @@ const SigninInput = ({
 
       {theme === "count" && (
         <div className="text-blue text-sm absolute top-1/2 right-4 -translate-y-1/2 web:right-6">
-          <div>06 : 13</div>
+          <CertificationCount />
         </div>
       )}
 
