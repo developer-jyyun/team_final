@@ -2,6 +2,8 @@ import React from "react";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import SearchEmpty from "./_component/SearchEmpty";
 
+export const dynamic = "force-dynamic";
+
 const SearchResultPage = () => {
   const empty = true; // 임시 변수입니다!
   return (
