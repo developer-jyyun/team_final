@@ -24,7 +24,7 @@ const IconButton = ({ href, text, basic, active }: Props) => {
   return (
     <Link href={href}>
       <img src={basic} alt={`${text} 아이콘`} />
-      <p className="text-grey-5 text-center">{text}</p>
+      <p className="text-grey-b text-center">{text}</p>
     </Link>
   );
 };
