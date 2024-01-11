@@ -206,11 +206,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
             </p>
           </div>
         </div>
-        
+
         <div className="flex justify-between mx-2 pt-4 px-8">
           <div className="flex items-center text-pink text-xs font-medium">
             <p>총 결제금액</p>
-
           </div>
           <div className="text-pink-main text-xl font-bold">
             <p>
@@ -319,7 +318,6 @@ const ReservationInfo = ({ onComplete }: Props) => {
         </p>
 
         <div className="flex justify-center my-6">
-
           <Button
             text="예약하기"
             styleClass="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
