@@ -35,6 +35,7 @@ const EmailSigninForm = () => {
 
   const handleEmailInputChange = (inputValue: string) => {
     setEmailValue(inputValue);
+    if (emailErrorMessage !== "") setEmailErrorMessage("");
   };
   const handlePasswordInputChange = (inputValue: string) => {
     setPasswordValue(inputValue);
@@ -56,6 +57,7 @@ const EmailSigninForm = () => {
 
       if (data.code === 200) {
         console.log("로그인 성공");
+        router.push("/"); // 임시
       } else if (data.code === 409) {
         setEmailErrorMessage("입력하신 이메일은 존재하지 않습니다.");
       }
