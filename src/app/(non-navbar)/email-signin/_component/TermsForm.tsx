@@ -3,7 +3,7 @@
 import Button from "@/app/_component/common/atom/Button";
 import useCheckStateStore from "@/store/useCheckStateStore";
 import useSignupStateStore from "@/store/useSignupStateStore";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import AllselectCheckbox from "./AllselectCheckbox";
 import Checkbox from "./Checkbox";
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const TermsForm = ({ setTermsForm }: Props) => {
+  const pathname = usePathname();
   const checkState = useCheckStateStore();
   const signupState = useSignupStateStore();
   const router = useRouter();
@@ -21,9 +22,16 @@ const TermsForm = ({ setTermsForm }: Props) => {
 
   const handleOutsideClick = () => {
     setAction(false);
-    setTimeout(() => {
-      setTermsForm(false);
-    }, 200);
+    if (pathname === "/email-signup") {
+      router.push("/email-signin");
+      setTimeout(() => {
+        setTermsForm(false);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setTermsForm(false);
+      }, 200);
+    }
   };
 
   const handleAgree = () => {
@@ -56,7 +64,7 @@ const TermsForm = ({ setTermsForm }: Props) => {
             className="absolute left-5 top-1/2 -translate-y-1/2"
             onClick={handleOutsideClick}
           >
-            <img src="./icons/exitButtonIcon.svg" alt="나가기 버튼" />
+            <img src="/icons/exitButtonIcon.svg" alt="나가기 버튼" />
           </button>
           <span className="text-lg text-black-1 font-semibold absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
             약관 동의
