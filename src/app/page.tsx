@@ -9,8 +9,8 @@ import HomeThemePackage from "./_component/home/HomeThemePackage";
 const Home = async () => {
   return (
     <section className="web:w-[500px] mx-auto">
-      <DefaultHeader text="" theme="main" />
-      <div className="w-[90%] flex flex-col items-center [&>*:nth-child(n)]:mb-10 mx-auto">
+      <DefaultHeader text="/" theme="main" />
+      <div className="w-[327px] web:w-[90%] flex flex-col items-center [&>*:nth-child(n)]:mb-10 mx-auto">
         {/* 광고구좌 */}
         <HomeAdvertisements />
         {/* 해시태그 검색 */}
