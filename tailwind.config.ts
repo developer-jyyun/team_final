@@ -13,6 +13,10 @@ const config: Config = {
         mo: "375px",
         web: "500px",
       },
+      fontSize: {
+        xxs: "10px",
+        xxl: "28px",
+      },
       colors: {
         black: "#000",
         "black-1": "#111",
