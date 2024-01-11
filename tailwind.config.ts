@@ -38,6 +38,7 @@ const config: Config = {
         "red-1": "#EE1616",
         orange: "#E67100",
         white: "#fff",
+        "white-5": "#f5f5f5",
         brown: "#3D1200",
         green: "#03C75B",
         "lime-sub1": "#17D410",
@@ -46,8 +47,8 @@ const config: Config = {
         "pink-main": "#FF3478",
         "pink-sub1": "#FE546E",
         "pink-sub2": "#E42E5F",
+        "pink-sub3": "#FE516F",
         "pink-transparent": "rgba(255, 239, 239, 0.6)",
-        "pink-1": "#FE516F",
         yellow: "#FFDB6D",
       },
       borderRadius: {
