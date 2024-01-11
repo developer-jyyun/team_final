@@ -62,9 +62,9 @@ const AllselectCheckbox = ({ text, subText, requiredNum, children }: Props) => {
           <button type="button" onClick={handleAllCheckboxClick}>
             {checkState.checkItems.filter((item) => item.checked).length ===
             children.length ? (
-              <img src="./icons/allCheckedIcon.svg" alt="전체 동의" />
+              <img src="/icons/allCheckedIcon.svg" alt="전체 동의" />
             ) : (
-              <img src="./icons/allCheckIcon.svg" alt="전체 동의" />
+              <img src="/icons/allCheckIcon.svg" alt="전체 동의" />
             )}
           </button>
         </div>
