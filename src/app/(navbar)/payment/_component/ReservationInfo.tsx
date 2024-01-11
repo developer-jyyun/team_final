@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
-import EditIcon from "../../../../../public/icons/editIcon2.svg";
+import EditIcon from "../../../../../public/icons/editIcon.svg";
 import BottomArrowIcon from "../../../../../public/icons/bottomArrowIcon.svg";
 import RightArrowIcon from "../../../../../public/icons/rightArrowIcon.svg";
 import CheckIcon from "../../../../../public/icons/checkIcon2.svg";
