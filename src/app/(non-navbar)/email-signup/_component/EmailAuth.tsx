@@ -42,9 +42,11 @@ const EmailAuth = ({ setStep }: Props) => {
   const handleEmailInputChange = (inputValue: string) => {
     setEmailValue(inputValue);
     signupState.setIsCertification(false);
+    if (emailErrorMessage !== "") setEmailErrorMessage("");
   };
   const handleCodeInputChange = (inputValue: string) => {
     setCodeValue(inputValue);
+    if (codeErrorMessage !== "") setCodeErrorMessage("");
   };
 
   const handleCertification = async () => {

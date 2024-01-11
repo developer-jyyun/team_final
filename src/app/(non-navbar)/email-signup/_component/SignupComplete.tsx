@@ -8,7 +8,7 @@ const SignupComplete = () => {
   useEffect(() => {
     setTimeout(() => {
       router.push("/");
-    }, 1500);
+    }, 1000);
   }, [router]);
 
   return (
