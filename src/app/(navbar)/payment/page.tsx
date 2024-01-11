@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import ProgressBar from "./_component/ProgressBar";
 import TopStatus from "./_component/TopStatus";
 import ReservationInfo from "./_component/ReservationInfo";
@@ -13,11 +14,14 @@ const Payment = () => {
     setIsReservationComplete(true);
   };
 
+  const progress = isReservationComplete ? 100 : 50;
+
   return (
     <section>
+      <DefaultHeader text="" redirectUrl="/" theme="main" />
       <TopStatus isReservationComplete={isReservationComplete} />
       <div className="sticky top-0">
-        <ProgressBar progress={100} />
+        <ProgressBar progress={progress} />
       </div>
       {isReservationComplete ? (
         <ReservationDone />

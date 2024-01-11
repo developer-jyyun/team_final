@@ -13,6 +13,9 @@ const config: Config = {
         mo: "375px",
         web: "500px",
       },
+      fontSize: {
+        xxs: "10px",
+      },
       colors: {
         black: "#000",
         "black-1": "#111",
@@ -29,6 +32,7 @@ const config: Config = {
         "grey-c": "#ccc",
         "grey-d": "#ddd",
         "grey-e": "#eee",
+        "grey-transparent": "rgba(238, 238, 238, 0.4)",
 
         blue: "#0059E3",
         "blue-main": "#5C77FF",
@@ -49,6 +53,8 @@ const config: Config = {
         "pink-sub2": "#E42E5F",
         "pink-sub3": "#FE516F",
         "pink-transparent": "rgba(255, 239, 239, 0.6)",
+        "pink-transparent-2": "rgba(255, 239, 239, 0.4)",
+        "pink-1": "#FE516F",
         yellow: "#FFDB6D",
       },
       borderRadius: {
