@@ -59,9 +59,11 @@ const EnterPassword = ({ setStep }: Props) => {
 
   const handlePasswordInputChange = (inputValue: string) => {
     setPasswordValue(inputValue);
+    if (passwordErrorMessage !== "") setPasswordErrorMessage("");
   };
   const handleVerifyInputChange = (inputValue: string) => {
     setVerifyPassword(inputValue);
+    if (verifyErrorMessage !== "") setVerifyErrorMessage("");
   };
 
   return (
