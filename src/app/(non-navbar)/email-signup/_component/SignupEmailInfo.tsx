@@ -1,7 +1,7 @@
 const SignupEmailInfo = () => {
   return (
     <div className="flex w-full rounded-lg bg-[#eee] p-4">
-      <div className="mr-[6px] pt-[3px] web:pt-[6px]">
+      <div className="mr-[6px] pt-[2px] web:pt-[5px]">
         <img src="./icons/infoIcon.svg" alt="정보" className="web:w-4" />
       </div>
       <div className="text-xs text-black-6 font-normal w-[269px] web:w-[340px] web:text-base">
