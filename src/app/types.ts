@@ -5,10 +5,8 @@ export interface FetchResponse<T> {
 }
 
 // search 페이지 관련 데이터
-export interface HashtagItem {
-  name: string;
-  searchedCount: number;
-  rank: number;
+export interface HashtagNames {
+  hashtags: string[];
 }
 
 // mypage
