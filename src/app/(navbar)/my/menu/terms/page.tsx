@@ -1,9 +1,9 @@
 import InnerSection from "../../_component/InnerSection";
-import TermsTemplate from "./_components/TermsTemplate";
+import TermsTemplate from "../_component/TermsTemplate";
 
 const TermsPage = () => {
   return (
-    <InnerSection text="서비스 이용 약관" backUrl="/my">
+    <InnerSection text="서비스 이용 약관" backUrl="/my/menu">
       <h1 className="mb-4 p-2.5 bg-pink-transparent rounded-lg text-lg text-black-2 font-semibold">
         (주) LET’S 이용약관
       </h1>
@@ -11,7 +11,6 @@ const TermsPage = () => {
         {/* 제1장 */}
         <article className="mb-10">
           <TermsTemplate
-            first
             title="[제1장 총칙]"
             subTitle="제1조 (목적)"
             content={`이 약관(이하 “약관”이라 합니다)은 LET'S(이하 "회사"라 합니다)이
