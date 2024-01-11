@@ -5,17 +5,12 @@ interface Props {
 }
 
 const ProgressBar = ({ progress }: Props) => {
-  const progressWidth = `w-[${progress}%]`;
+  const progressWidth = progress === 100 ? `w-full` : `w-1/2`;
+
   return (
-    <div>
-      <div className="bg-white sticky top-0  p-2 ">
-        <div className="w-4/5 mx-auto rounded-full">
-          <div
-            className={`${progressWidth} bg-pink text-white text-xs font-bold text-blue-100 text-center leading-none rounded-full`}
-          >
-            {progress}%
-          </div>
-        </div>
+    <div className="sticky top-0 px-4">
+      <div className="w-full mx-auto rounded-full bg-gray-200">
+        <div className={`${progressWidth} bg-pink py-0.5 rounded-full`} />
       </div>
     </div>
   );
