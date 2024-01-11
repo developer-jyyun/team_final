@@ -1,5 +1,5 @@
 import getHashtags from "@/api/search/getHashtags";
-import { FetchResponse, HashtagNames } from "@/app/types";
+import type { FetchResponse, HashtagNames } from "@/app/types";
 import React from "react";
 import Hashtag from "./Hashtag";
 
