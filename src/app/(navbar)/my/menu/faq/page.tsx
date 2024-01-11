@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemProps } from "@/app/types";
 import List from "../_component/List";
-import MenuSection from "../_component/MenuSection";
+import InnerSection from "../../_component/InnerSection";
 
 const FaqPage = () => {
   const faqMenu: ListItemProps[] = [
@@ -19,11 +19,11 @@ const FaqPage = () => {
     },
   ];
   return (
-    <MenuSection text="자주 묻는 질문" backUrl="/my/menu">
+    <InnerSection text="자주 묻는 질문" backUrl="/my/menu">
       <ul className="flex flex-col gap-3">
         <List items={faqMenu} />
       </ul>
-    </MenuSection>
+    </InnerSection>
   );
 };
 

@@ -10,7 +10,7 @@ const ListItem = ({
   iconSrc = "/icons/rightArrowIcon.svg",
   onClickFn,
 }: ListItemProps) => {
-  const baseClass = "w-full flex p-4 rounded-[10px] bg-grey-1 ";
+  const baseClass = "w-full flex p-4 rounded-[10px] bg-grey-e ";
   const menuClass =
     "flex-row justify-between items-center text-black-4 bg-opacity-40";
   const commonClass =

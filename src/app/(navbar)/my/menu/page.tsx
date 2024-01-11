@@ -1,7 +1,7 @@
 import { ListItemProps } from "@/app/types";
 import List from "./_component/List";
 import AuthItems from "./_component/AuthItems";
-import MenuSection from "./_component/MenuSection";
+import InnerSection from "../_component/InnerSection";
 
 const MenuPage = () => {
   const myMenu: ListItemProps[] = [
@@ -35,7 +35,7 @@ const MenuPage = () => {
   ];
 
   return (
-    <MenuSection text="메뉴" backUrl="/my">
+    <InnerSection text="메뉴" backUrl="/my">
       <ul className="flex flex-col gap-2">
         <List items={myMenu} />
       </ul>
@@ -45,7 +45,7 @@ const MenuPage = () => {
       <ul className="flex flex-col gap-2">
         <AuthItems />
       </ul>
-    </MenuSection>
+    </InnerSection>
   );
 };
 

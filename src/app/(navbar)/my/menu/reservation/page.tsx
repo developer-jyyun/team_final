@@ -1,10 +1,16 @@
+import InnerSection from "../../_component/InnerSection";
 import ReservationItem from "../../_component/ReservationItem";
-import MenuSection from "../_component/MenuSection";
 
 // TODO:: 여백 색상 상세 디자인 확정 시 작업
 const ReservationPage = () => {
   return (
-    <MenuSection text="예약 내역" backUrl="/my">
+    <InnerSection
+      text="예약 내역"
+      backUrl="/my"
+      iconSrc="/icons/dotMenuIcon.svg"
+      iconUrl="/my/menu"
+      iconAlt="메뉴 아이콘"
+    >
       <h2 className="font-bold text-black-2 text-lg mb-8">
         총 <span className="text-pink-main ">N</span>
         개의 패키지 상품
@@ -12,7 +18,7 @@ const ReservationPage = () => {
       <ul>
         <ReservationItem theme="reservationMenu" hashTag />
       </ul>
-    </MenuSection>
+    </InnerSection>
   );
 };
 
