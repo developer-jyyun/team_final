@@ -76,7 +76,6 @@ const HomeAdvertisements = () => {
               width={327}
               height={240}
               style={{ height: "240px" }}
-              sizes="100vw"
               className="rounded-lg web:w-[100%]"
               onClick={() => {
                 router.push("/"); // 추후 200_광고및프로모션구좌 페이지 URL 결정시 수정 예정
