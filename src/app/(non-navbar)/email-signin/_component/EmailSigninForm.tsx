@@ -101,7 +101,7 @@ const EmailSigninForm = () => {
             router.push("/signin");
           }}
         />
-        <span className="w-[1px] h-[22px] bg-grey-3 my-2 mx-4" />
+        <span className="w-[1px] h-[22px] bg-grey-c my-2 mx-4" />
         <Button text="이메일로 회원가입" theme="md" onClickFn={openTermsForm} />
       </div>
       {termsForm && portalElement

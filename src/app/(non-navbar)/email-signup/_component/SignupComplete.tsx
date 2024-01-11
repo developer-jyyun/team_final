@@ -17,7 +17,7 @@ const SignupComplete = () => {
         className="w-[250px] h-[250px] bg-cover bg-no-repeat bg-center web:w-[300px] web:h-[300px]"
         style={{ backgroundImage: "url(./assets/signupComplete.png)" }}
       />
-      <p className="text-grey-4 text-sm font-medium mt-14 web:mt-7 web:text-base">
+      <p className="text-black-8 text-sm font-medium mt-14 web:mt-7 web:text-base">
         로그인 완료
       </p>
       <b className="text-center text-[28px] font-bold mt-4 web:text-3xl">

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Let's",
   icons: {
-    icon: "./assets/mainLogo.svg",
+    icon: "/assets/mainLogo.svg",
   },
 };
 

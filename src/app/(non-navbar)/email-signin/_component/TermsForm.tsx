@@ -56,7 +56,7 @@ const TermsForm = ({ setTermsForm }: Props) => {
             className="absolute left-5 top-1/2 -translate-y-1/2"
             onClick={handleOutsideClick}
           >
-            <img src="./icons/exitButtonIcon.svg" alt="나가기 버튼" />
+            <img src="/icons/exitButtonIcon.svg" alt="나가기 버튼" />
           </button>
           <span className="text-lg text-black-1 font-semibold absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
             약관 동의

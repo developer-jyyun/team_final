@@ -63,29 +63,29 @@ const Checkbox = ({
           {isAll
             ? checkItem[0] && checkItem[0].checked
               ? (theme === "sm" && (
-                  <img src="./icons/checkedIcon.svg" alt="체크" />
+                  <img src="/icons/checkedIcon.svg" alt="체크" />
                 )) ||
                 (theme === "lg" && (
-                  <img src="./icons/allCheckedIcon.svg" alt="체크" />
+                  <img src="/icons/allCheckedIcon.svg" alt="체크" />
                 ))
               : (theme === "sm" && (
-                  <img src="./icons/checkIcon.svg" alt="체크" />
+                  <img src="/icons/checkIcon.svg" alt="체크" />
                 )) ||
                 (theme === "lg" && (
-                  <img src="./icons/allCheckIcon.svg" alt="체크" />
+                  <img src="/icons/allCheckIcon.svg" alt="체크" />
                 ))
             : check
               ? (theme === "sm" && (
-                  <img src="./icons/checkedIcon.svg" alt="체크" />
+                  <img src="/icons/checkedIcon.svg" alt="체크" />
                 )) ||
                 (theme === "lg" && (
-                  <img src="./icons/allCheckedIcon.svg" alt="체크" />
+                  <img src="/icons/allCheckedIcon.svg" alt="체크" />
                 ))
               : (theme === "sm" && (
-                  <img src="./icons/checkIcon.svg" alt="체크" />
+                  <img src="/icons/checkIcon.svg" alt="체크" />
                 )) ||
                 (theme === "lg" && (
-                  <img src="./icons/allCheckIcon.svg" alt="체크" />
+                  <img src="/icons/allCheckIcon.svg" alt="체크" />
                 ))}
         </button>
       </div>

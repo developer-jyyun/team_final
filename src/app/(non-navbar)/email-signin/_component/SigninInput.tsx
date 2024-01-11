@@ -54,14 +54,14 @@ const SigninInput = ({
         className={`absolute ${focus ? "-top-2" : "top-1/2"} ${
           focus ? "left-0" : "left-4"
         } -translate-y-1/2 ${
-          focus ? "text-black-2" : "text-grey-4"
+          focus ? "text-black-2" : "text-black-8"
         } duration-500 ${focus ? "text-[13px]" : "text-4"}`}
         onClick={handleFocus}
       >
         {title}
       </div>
       <input
-        className="h-[50px] bg-grey-1 outline-none border-none rounded-lg pl-4 caret-blue"
+        className="h-[50px] bg-grey-e outline-none border-none rounded-lg pl-4 caret-blue"
         type={type}
         name={name}
         id={id}
