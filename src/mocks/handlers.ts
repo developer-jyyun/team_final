@@ -67,61 +67,22 @@ const handlers = [
 
   http.get("/v1/search/hashtags", () => {
     const hashtags = [
-      {
-        name: "자연",
-        searchedCount: 1,
-        rank: 9,
-      },
-      {
-        name: "건강/웰니스",
-        searchedCount: 443,
-        rank: 1,
-      },
-      {
-        name: "허니문",
-        searchedCount: 133,
-        rank: 3,
-      },
-      {
-        name: "다이닝/미식",
-        searchedCount: 333,
-        rank: 2,
-      },
-      {
-        name: "로컬",
-        searchedCount: 43,
-        rank: 4,
-      },
-      {
-        name: "문화/역사",
-        searchedCount: 13,
-        rank: 6,
-      },
-      {
-        name: "휴양/레저",
-        searchedCount: 33,
-        rank: 5,
-      },
-      {
-        name: "쇼핑",
-        searchedCount: 3,
-        rank: 7,
-      },
-      {
-        name: "체험/액티비티",
-        searchedCount: 2,
-        rank: 8,
-      },
-      {
-        name: "골프/스포츠",
-        searchedCount: 0,
-        rank: 10,
-      },
+      "건강/웰니스",
+      "자연",
+      "허니문",
+      "다이닝/미식",
+      "로컬",
+      "문화/역사",
+      "자연",
+      "휴양/레저",
+      "쇼핑",
+      "골프/스포츠",
+      "체험/액티비티",
     ];
 
     return HttpResponse.json({
       code: 200,
-      data: hashtags,
+      data: { hashtags },
     });
   }),
 
@@ -131,17 +92,17 @@ const handlers = [
       {
         adId: 0,
         imageUrl:
-          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
       {
         adId: 1,
         imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
       {
         adId: 2,
         imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
       },
     ];
 
