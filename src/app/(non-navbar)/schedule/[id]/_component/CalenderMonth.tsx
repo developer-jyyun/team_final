@@ -5,28 +5,38 @@ interface Props {
   todayMonth: number;
   selectedYear: number;
   setSelectedMonth: React.Dispatch<React.SetStateAction<number>>;
+  setSelectState: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const NUMBER_IN_ONE_LINE = 3;
+const MONTH_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const CENTER_ITEM = 1;
+const LAST_ITEM = 1;
 
 const CalenderMonth = ({
   todayYear,
   todayMonth,
   selectedYear,
   setSelectedMonth,
+  setSelectState,
 }: Props) => {
-  const Month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const handleClickMonth = (month: number) => {
-    setSelectedMonth(month);
+  const handleClickMonth = (select: number) => {
+    setSelectedMonth(select);
+    setSelectState("date");
   };
 
   return (
     <div className="flex flex-wrap mt-3 web:mt-5">
-      {Month.map((item, index) => {
+      {MONTH_LIST.map((item, index) => {
         return (
           <div
             key={item}
-            className={`flex justify-${
-              index % 3 === 1 ? "center" : index % 3 === 2 ? "end" : "start"
+            className={`flex ${
+              index % NUMBER_IN_ONE_LINE === CENTER_ITEM
+                ? "justify-center"
+                : index % NUMBER_IN_ONE_LINE === LAST_ITEM
+                  ? "justify-end"
+                  : "justify-start"
             } items-center w-1/3 mb-3 web:w-1/4 web:justify-center`}
           >
             <Button
