@@ -1,10 +1,13 @@
+import formatDigitNumber from "./formatDigitNumber";
 import { getFirstDayInMonth } from "./getMonthInDate";
 
 interface Day {
   dayId: number;
   dayItem: null | number;
   isCurrentMonth: boolean;
-  type: "sat" | "sun" | "cur" | null;
+  type: "sat" | "sun" | null;
+  date: string;
+  isToday: boolean;
 }
 
 interface Week {
@@ -16,6 +19,8 @@ const VIEW_WEEK_LENGTH = 6;
 const VIEW_DAY_LENGTH = 7;
 const SUNDAY_NUMBER = 0;
 const SATURDAY_NUMBER = 6;
+const JANUARY_STRING = "01";
+const DECEMBER_STRING = "12";
 
 const addAnotherMonth = (
   days: Week[],
@@ -23,13 +28,46 @@ const addAnotherMonth = (
   prevMonthInDate: number,
 ) => {
   let prevStart = prevMonthInDate - firstDay + 1;
+  let changeMonthFlag = false;
   days.forEach((day) => {
     day.weekItem.forEach((item) => {
-      if (item.dayItem === null) {
+      const dateArr = item.date.split("-");
+      if (item.dayItem === null && !changeMonthFlag) {
+        if (dateArr[1] === JANUARY_STRING) {
+          dateArr[0] = (Number(dateArr[0]) - 1).toString();
+          dateArr[1] = DECEMBER_STRING;
+        } else {
+          dateArr[1] = formatDigitNumber(Number(dateArr[1]) - 1).toString();
+        }
+
+        dateArr[2] = formatDigitNumber(prevStart).toString();
+
+        const newDate = dateArr.join("-");
+
         item.dayItem = prevStart;
         item.isCurrentMonth = false;
+        item.date = newDate;
+
+        prevStart += 1;
+      } else if (item.dayItem === null && changeMonthFlag) {
+        if (dateArr[1] === DECEMBER_STRING) {
+          dateArr[0] = (Number(dateArr[0]) + 1).toString();
+          dateArr[1] = JANUARY_STRING;
+        } else {
+          dateArr[1] = formatDigitNumber(Number(dateArr[1]) + 1).toString();
+        }
+
+        dateArr[2] = formatDigitNumber(prevStart).toString();
+
+        const newDate = dateArr.join("-");
+
+        item.dayItem = prevStart;
+        item.isCurrentMonth = false;
+        item.date = newDate;
+
         prevStart += 1;
       } else {
+        changeMonthFlag = true;
         prevStart = 1;
       }
     });
@@ -64,13 +102,9 @@ const generateDays = (
         dayItem: null,
         isCurrentMonth: true,
         type:
-          j === SUNDAY_NUMBER
-            ? "sun"
-            : j === SATURDAY_NUMBER
-              ? "sat"
-              : count === today
-                ? "cur"
-                : null,
+          j === SUNDAY_NUMBER ? "sun" : j === SATURDAY_NUMBER ? "sat" : null,
+        date: `${year}-${formatDigitNumber(month)}-${formatDigitNumber(count)}`,
+        isToday: count === today,
       };
       if ((i === 0 && j < firstDayInLastMonth) || count > daysInMonth) {
         day.dayItem = null;

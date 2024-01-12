@@ -1,12 +1,8 @@
 "use client";
 
-import {
-  COUNT_DIGIT,
-  ONE_MINUTE,
-  ONE_SECOND,
-  THOUSAND_MILLISECONDS,
-} from "@/app/constants";
+import { ONE_MINUTE, ONE_SECOND, THOUSAND_MILLISECONDS } from "@/app/constants";
 import useSignupStateStore from "@/store/useSignupStateStore";
+import formatDigitNumber from "@/utils/formatDigitNumber";
 import { useEffect, useState } from "react";
 
 const CertificationCount = () => {
@@ -37,9 +33,7 @@ const CertificationCount = () => {
   const formatTime = (timer: number): string => {
     const minutes = Math.floor(timer / ONE_MINUTE);
     const seconds = timer % ONE_MINUTE;
-    return `${minutes.toString().padStart(COUNT_DIGIT, "0")} : ${seconds
-      .toString()
-      .padStart(COUNT_DIGIT, "0")}`;
+    return `${formatDigitNumber(minutes)} : ${formatDigitNumber(seconds)}`;
   };
 
   return <div className={`text-${fontColor}`}>{formatTime(time)}</div>;

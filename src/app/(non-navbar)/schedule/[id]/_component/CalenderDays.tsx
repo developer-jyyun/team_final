@@ -56,12 +56,15 @@ const CalenderDays = ({
     type: string | null,
     isCurrentMonth: boolean,
     dayItem: number | null,
+    isToday: boolean,
   ) => {
     if (!isCurrentMonth) {
       if (type === "sat") return "text-[#BBD1ED]";
       if (type === "sun") return "text-[#FCC]";
       return "text-grey-d";
     }
+
+    if (isToday && isCurrent()) return "text-[#71DD4B]";
 
     if (type === "sat") {
       return (dayItem as number) < today.date && isCurrent()
@@ -74,8 +77,6 @@ const CalenderDays = ({
         ? "text-[#FCC]"
         : "text-[#E44C4B]";
     }
-
-    if (type === "cur" && isCurrent()) return "text-[#71DD4B]";
 
     if (type === null && isCurrent() && today.date > (dayItem as number)) {
       return "text-grey-d";
@@ -101,6 +102,7 @@ const CalenderDays = ({
                     day.type,
                     day.isCurrentMonth,
                     day.dayItem,
+                    day.isToday,
                   )}`}
                 >
                   {day.dayItem}
