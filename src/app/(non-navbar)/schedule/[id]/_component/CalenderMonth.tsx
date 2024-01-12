@@ -11,7 +11,7 @@ interface Props {
 const NUMBER_IN_ONE_LINE = 3;
 const MONTH_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const CENTER_ITEM = 1;
-const LAST_ITEM = 1;
+const LAST_ITEM = 2;
 
 const CalenderMonth = ({
   todayYear,
