@@ -2,9 +2,9 @@ import IconButton from "../atom/IconButton";
 
 const BottomNav = () => {
   return (
-    <nav className="fixed bottom-0 w-full h-[56px] bg-white flex justify-center ">
+    <nav className="fixed bottom-0 w-full h-[56px] bg-white flex justify-center items-center">
       <ul className="w-[500px] flex justify-around">
-        <li className="">
+        <li>
           <IconButton
             href="/"
             text="홈"

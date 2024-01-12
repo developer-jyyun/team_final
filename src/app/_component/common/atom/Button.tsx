@@ -8,7 +8,7 @@ interface Props {
 }
 
 const themes: { [key: string]: string } = {
-  wide: "w-full h-[56px] disabled:bg-grey-3 hover:bg-[#bb1e4a] bg-pink disabled:text-grey-4 text-white font-bold rounded-xl",
+  wide: "w-full h-[56px] disabled:bg-grey-c hover:bg-[#bb1e4a] bg-pink disabled:text-black-8 text-white font-bold rounded-xl",
   md: "p-[8px]",
 };
 

@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  text: string;
+  text?: string;
   subText?: string;
   redirectUrl?: string;
   theme?: string;
@@ -11,7 +14,7 @@ interface Props {
 }
 
 const DefaultHeader = ({
-  text,
+  text = "",
   subText = "",
   redirectUrl,
   theme = "default",
@@ -19,15 +22,26 @@ const DefaultHeader = ({
   iconSrc,
   iconAlt,
 }: Props) => {
+  const router = useRouter();
+
   return (
     <div className="flex relative w-full h-[48px]">
-      {redirectUrl && (
+      {redirectUrl ? (
         <Link
           href={redirectUrl}
           className="absolute left-[32px] top-1/2 -translate-y-1/2"
         >
           <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
         </Link>
+      ) : (
+        <div
+          className="absolute left-[32px] top-1/2 -translate-y-1/2"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
+        </div>
       )}
 
       <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-[18px] text-black-2 font-semibold">
