@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemProps } from "@/app/types";
 import List from "../_component/List";
-import MenuSection from "../_component/MenuSection";
+import InnerSection from "../../_component/InnerSection";
 
 const NoticePage = () => {
   const noticeMenu: ListItemProps[] = [
@@ -21,11 +21,11 @@ const NoticePage = () => {
     },
   ];
   return (
-    <MenuSection text="공지사항" backUrl="/my/menu">
+    <InnerSection text="공지사항" backUrl="/my/menu">
       <ul className="flex flex-col gap-3">
         <List items={noticeMenu} />
       </ul>
-    </MenuSection>
+    </InnerSection>
   );
 };
 

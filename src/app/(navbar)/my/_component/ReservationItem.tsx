@@ -1,5 +1,6 @@
 import Button from "@/app/_component/common/atom/Button";
 import Link from "next/link";
+import Chip from "./Chip";
 
 interface Props {
   theme: string;
@@ -9,38 +10,30 @@ const ReservationItem = ({ theme, hashTag }: Props) => {
   // 데이터 연동 후 제거
   const hashTags = ["일본", "체험/액티비티", "로컬 다이닝"];
   return (
-    <li className="w-full relative  flex flex-row justify-between gap-4">
-      <div className="width-1/3 shrink-0 rounded-lg overflow-hidden">
+    <li className="w-full h-[90px] relative  flex flex-row justify-between gap-[18px]">
+      <div className="w-[90px] shrink-0 rounded-lg overflow-hidden">
         <img
           className="w-full h-full"
           src="//source.unsplash.com/90x90?japan"
           alt="예약내역 이미지"
         />
       </div>
-      <div
-        className="width-2/3  flex flex-col justify-center gap-2.5
-      web:w-full"
-      >
-        <p className="flex flex-row items-center gap-10 max-w-[75%] ">
-          <span className="font-medium text-lg text-black-2 whitespace-nowrap truncate text-ellipsis">
+      <div className="w-2/3  flex flex-col justify-center web:w-full">
+        <p className="flex flex-row items-center gap-10 max-w-[90%] ">
+          <span className="font-medium text-lg text-black-2 truncate ">
             청룡의 해 얼리버드 특가ㅎㅎㅎㅎㅎㅎ
           </span>
         </p>
-        {hashTag && (
-          <p className="flex flex-row items-center justify-start gap-1">
-            {hashTags?.map((item) => (
-              <span className="border text-black-4 border-solid border-black-6 rounded-xl text-[11px] py-1 px-2 web:text-sm">
-                {item}
-              </span>
-            ))}
-          </p>
-        )}
+        <div className="mt-2.5 mb-3">
+          {hashTag && <Chip chipData={hashTags} />}
+        </div>
         {theme === "reservationMenu" && (
-          <div className="flex justify-start items-center text-[11px] gap-2 web:gap-6">
-            <span className="text-red-1 text-[10px] text-xsfont-size web:text-sm ">
-              4박 5일
-            </span>
-            <span className="text-red-1 text-xs text-xsfont-size font-medium web:text-sm ">
+          <div
+            className="flex justify-start items-center text-[11px] 
+          gap-2 web:gap-6"
+          >
+            <span className="text-red-1 text-xxs web:text-sm ">4박 5일</span>
+            <span className="text-red-1 text-xs font-medium web:text-sm ">
               24.01.01-24.01.25
             </span>
             <Button
@@ -54,7 +47,8 @@ const ReservationItem = ({ theme, hashTag }: Props) => {
           <Link href="/my/review">
             <Button
               text="리뷰 쓰러 가기"
-              styleClass="w-full rounded text-xs p-2 px-4 mt-4 bg-pink-main text-white"
+              styleClass="w-full rounded-xl text-xs font-semibold
+              p-1 bg-pink text-white"
               // TODO:: onClickFn 리뷰 목록 이동
             />
           </Link>
