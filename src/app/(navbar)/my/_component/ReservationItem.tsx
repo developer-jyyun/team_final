@@ -49,6 +49,7 @@ const ReservationItem = ({ theme, hashTag }: Props) => {
               text="리뷰 쓰러 가기"
               styleClass="w-full rounded-xl text-xs font-semibold
               p-1 bg-pink text-white"
+              // TODO:: 목록 이동
             />
           </Link>
         )}{" "}
