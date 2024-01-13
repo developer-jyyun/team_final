@@ -1,10 +1,11 @@
 "use client";
 
-// import CalenderDays from "./CalenderDays";
-// import CalenderWeeks from "./CalenderWeeks";
-import { useEffect, useState } from "react";
+import { getMonthInDate } from "@/utils/getMonthInDate";
+import { useState } from "react";
+import CalenderDays from "./CalenderDays";
 import CalenderHeader from "./CalenderHeader";
 import CalenderMonth from "./CalenderMonth";
+import CalenderWeeks from "./CalenderWeeks";
 
 const Calender = () => {
   const today = {
@@ -14,35 +15,42 @@ const Calender = () => {
     day: new Date().getDay(),
   };
 
+  const [selectState, setSelectState] = useState("date");
+
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
 
-  // 콘솔 확인용 제거 예정
-  // useEffect(() => {
-  //   console.log(selectedYear);
-  // }, [selectedYear]);
-
-  const monthlyDate = new Date(selectedYear, selectedMonth, 0).getDate();
-
-  // 콘솔 확인용 제거 예정
-  useEffect(() => {
-    console.log(monthlyDate);
-  }, [monthlyDate]);
+  const monthInDate = getMonthInDate(selectedYear, selectedMonth);
 
   return (
     <div>
       <CalenderHeader
+        selectState={selectState}
         selectedYear={selectedYear}
+        selectedMonth={selectedMonth}
         setSelectedYear={setSelectedYear}
-      />
-      {/* <CalenderWeeks /> */}
-      <CalenderMonth
-        todayMonth={today.month}
-        todayYear={today.year}
-        selectedYear={selectedYear}
         setSelectedMonth={setSelectedMonth}
+        setSelectState={setSelectState}
       />
-      {/* <CalenderDays /> */}
+      {selectState === "month" ? (
+        <CalenderMonth
+          todayMonth={today.month}
+          todayYear={today.year}
+          selectedYear={selectedYear}
+          setSelectedMonth={setSelectedMonth}
+          setSelectState={setSelectState}
+        />
+      ) : (
+        <>
+          <CalenderWeeks />
+          <CalenderDays
+            today={today}
+            selectedYear={selectedYear}
+            selectedMonth={selectedMonth}
+            monthInDate={monthInDate}
+          />
+        </>
+      )}
     </div>
   );
 };
