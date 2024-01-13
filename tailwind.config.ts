@@ -15,6 +15,7 @@ const config: Config = {
       },
       fontSize: {
         xxs: "10px",
+        xxl: "28px",
       },
       colors: {
         black: "#000",

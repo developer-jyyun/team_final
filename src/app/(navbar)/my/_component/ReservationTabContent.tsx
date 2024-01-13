@@ -4,16 +4,15 @@ import ReservationItem from "./ReservationItem";
 
 const ReservationTabContent = () => {
   return (
-    <>
-      <ul className="flex flex-col gap-2 justify-start items-center w-[95%]  mx-auto my-4 ">
+    <div className="flex flex-col items-center">
+      <ul className="flex flex-col gap-2 justify-start items-center w-[95.111%]  mx-auto mt-5 ">
         <ReservationItem theme="reservationTab" hashTag />
       </ul>
       <Button
         text="더보기"
-        styleClass="bg-gray-100 w-full flex justify-center gap-4 z-5  text-center items-center py-2 fixed bottom-[60px] max-w-[500px] w-full"
-        icon="/icons/bottomArrowIcon.svg"
+        styleClass="mt-8 py-1 px-2 rounded-xl text-black-6  border border-solid border-black-6 "
       />
-    </>
+    </div>
   );
 };
 
