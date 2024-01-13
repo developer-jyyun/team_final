@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
+import Link from "next/link";
 import EditIcon from "../../../../../public/icons/editIcon.svg";
 import BottomArrowIcon from "../../../../../public/icons/bottomArrowIcon.svg";
 import RightArrowIcon from "../../../../../public/icons/rightArrowIcon.svg";
@@ -115,7 +116,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
               onChange={handleAdultChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
@@ -134,7 +135,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
               onChange={handleChildChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
@@ -153,7 +154,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
               onChange={handleInfantChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
@@ -284,9 +285,17 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
       <div className="p-4 border-b">
         <p className="text-black-5 text-xs text-center font-normal">
-          <span className="mx-4">서비스 이용약관</span>/
-          <span className="mx-4">개인정보 처리방침</span>/
-          <span className="mx-4">공지사항</span>
+          <span className="mx-4">
+            <Link href="/my/menu/terms">서비스 이용약관</Link>
+          </span>
+          /
+          <span className="mx-4">
+            <Link href="/my/menu/privacy">개인정보 처리방침</Link>
+          </span>
+          /
+          <span className="mx-4">
+            <Link href="/my/menu/notice">공지사항</Link>
+          </span>
         </p>
         <p className="text-black-4 text-xs text-center font-semibold my-5">
           LET’S
