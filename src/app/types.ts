@@ -19,3 +19,18 @@ export interface ListItemProps {
   iconSrc?: string;
   onClickFn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
+// schdule
+
+export interface DateInfo {
+  availableDateId: number;
+  date: string;
+  adultPrice: number;
+  lodgeDays: number;
+  tripDays: number;
+}
+
+export interface ScheduleResponseData {
+  code: number;
+  data: DateInfo[];
+}

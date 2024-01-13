@@ -10,7 +10,11 @@ const SchedulePage = () => {
       <div className="flex flex-col h-full px-7 web:px-8">
         <Calender />
         <SelectedProduct />
-        <Button text="선택 완료" theme="wide" styleClass="mb-4" />
+        <Button
+          text="선택 완료"
+          theme="wide"
+          styleClass="-translate-y-3 web:-translate-y-3"
+        />
       </div>
     </section>
   );
