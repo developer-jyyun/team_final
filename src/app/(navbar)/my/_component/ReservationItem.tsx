@@ -39,7 +39,7 @@ const ReservationItem = ({ theme, hashTag }: Props) => {
             <Button
               text="전체 보기"
               styleClass="rounded-lg text-xs py-1 px-2 bg-pink-main text-white mb-0.5"
-              // TODO:: onClickFn  상세페이지 이동
+              // TODO::상세페이지 이동
             />
           </div>
         )}
@@ -49,12 +49,14 @@ const ReservationItem = ({ theme, hashTag }: Props) => {
               text="리뷰 쓰러 가기"
               styleClass="w-full rounded-xl text-xs font-semibold
               p-1 bg-pink text-white"
-              // TODO:: onClickFn 리뷰 목록 이동
+              // TODO:: 목록 이동
             />
           </Link>
-        )}
+        )}{" "}
         {theme === "review" && (
-          <p className=" text-[11px] ">24.01.01-24.01.25</p>
+          <p className="text-black-6 font-medium text-sm ">
+            2024.01.01 - 2024.01.25
+          </p>
         )}
       </div>
     </li>
