@@ -23,7 +23,7 @@ const Calender = () => {
   const monthInDate = getMonthInDate(selectedYear, selectedMonth);
 
   return (
-    <div>
+    <div className="z-10">
       <CalenderHeader
         selectState={selectState}
         selectedYear={selectedYear}
