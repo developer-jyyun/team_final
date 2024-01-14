@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { availableResponseData, details } from "./data/packageScheduleData";
 
 const handlers = [
   http.get("/api/hi", () => {
@@ -6,6 +7,7 @@ const handlers = [
     return HttpResponse.json("hi");
   }),
 
+  // 로그인 회원가입
   http.post("/v1/users/email/confirm", () => {
     console.log("인증번호 요청");
     return HttpResponse.json({
@@ -63,6 +65,13 @@ const handlers = [
         },
       },
     );
+  }),
+
+  // 일정 예약
+  http.get("/v1/packages/:id/available-dates", () => {
+    console.log("가능한 일정 조회");
+
+    return HttpResponse.json(availableResponseData);
   }),
 
   http.get("/v1/search/hashtags", () => {
@@ -214,6 +223,27 @@ const handlers = [
       code: 200,
       data: packagesList,
       page: pages,
+    });
+  }),
+
+  // 패키지 상세
+  http.get("/v1/packages/:id", ({ request }) => {
+    console.log("패키지 상세 조회");
+    const url = new URL(request.url);
+    const departDate = url.searchParams.get("departDate");
+    let newData;
+    if (departDate) {
+      const foundData = details.find(
+        (detail) => detail.departureDatetime.date === departDate,
+      );
+      newData = foundData || null;
+    } else {
+      newData = details[0] || null;
+    }
+
+    return HttpResponse.json({
+      code: 200,
+      data: newData,
     });
   }),
 ];

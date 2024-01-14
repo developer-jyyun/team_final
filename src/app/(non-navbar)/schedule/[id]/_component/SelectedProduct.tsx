@@ -1,4 +1,14 @@
+"use client";
+
+import useScheduleDateStore from "@/store/useScheduleDateStore";
+
 const SelectedProduct = () => {
+  const scheduleDate = useScheduleDateStore();
+
+  if (scheduleDate.data === null) {
+    return "";
+  }
+
   return (
     <div className="flex flex-col justify-end grow -translate-y-12 web:-translate-y-9">
       <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
@@ -16,7 +26,7 @@ const SelectedProduct = () => {
             <span className="text-black-4 text-xs web:text-sm">18:28 출발</span>
           </div>
           <div className="text-pink-main text-lg font-semibold web:text-xl">
-            1,718,665원 (3박 4일)
+            {scheduleDate.data.totalPrice.adult.toLocaleString()}원 (3박 4일)
           </div>
         </div>
       </div>
