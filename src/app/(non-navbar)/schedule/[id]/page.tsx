@@ -37,7 +37,7 @@ const SchedulePage = async ({ params }: { params: { id: string } }) => {
         <Button
           text="선택 완료"
           theme="wide"
-          styleClass="-translate-y-3 web:-translate-y-3"
+          styleClass="-translate-y-12 web:-translate-y-5"
         />
       </div>
     </section>

@@ -6,11 +6,24 @@ const SelectedProduct = () => {
   const scheduleDate = useScheduleDateStore();
 
   if (scheduleDate.data === null) {
-    return "";
+    return (
+      <div className="flex flex-col justify-end grow -translate-y-16 web:-translate-y-11">
+        <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
+          선택된 상품
+        </h1>
+        <div className="flex animate-pulse">
+          <div className="w-[60px] h-[60px] mr-[14px] bg-grey-d rounded-md" />
+          <div className="flex flex-col justify-center">
+            <div className="w-[180px] h-[25px] bg-grey-d rounded-md mb-1" />
+            <div className="w-[180px] h-[25px] bg-grey-d rounded-md" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col justify-end grow -translate-y-12 web:-translate-y-9">
+    <div className="flex flex-col justify-end grow -translate-y-16 web:-translate-y-11">
       <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
         선택된 상품
       </h1>
