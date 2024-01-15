@@ -26,23 +26,38 @@ const DefaultHeader = ({
 
   return (
     <div className="flex relative w-full h-[48px]">
-      {redirectUrl ? (
-        <Link
-          href={redirectUrl}
-          className="absolute left-[32px] top-1/2 -translate-y-1/2"
-        >
-          <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
-        </Link>
-      ) : (
-        <div
-          className="absolute left-[32px] top-1/2 -translate-y-1/2"
-          onClick={() => {
-            router.back();
-          }}
-        >
-          <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
-        </div>
-      )}
+      {/* 
+      메인 페이지인지를 판단하기 위한 외부 삼항 연산자
+      넘겨받은 theme 값이 default인 경우, 내부 삼항 연산자 로직으로
+      default가 아닌 경우(메인 페이지), null을 반환해 화살표 노출하지 않음
+      */}
+      {theme === "default" ? (
+        redirectUrl ? (
+          <Link
+            href={redirectUrl}
+            className="absolute left-[32px] top-1/2 -translate-y-1/2"
+          >
+            <img
+              src="/icons/leftArrowIcon.svg"
+              alt="왼쪽 화살표"
+              width="24px"
+            />
+          </Link>
+        ) : (
+          <div
+            className="absolute left-[32px] top-1/2 -translate-y-1/2"
+            onClick={() => {
+              router.back();
+            }}
+          >
+            <img
+              src="/icons/leftArrowIcon.svg"
+              alt="왼쪽 화살표"
+              width="24px"
+            />
+          </div>
+        )
+      ) : null}
 
       <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-[18px] text-black-2 font-semibold">
         {theme === "default" && (
