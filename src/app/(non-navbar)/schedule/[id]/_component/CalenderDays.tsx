@@ -1,12 +1,11 @@
 "use client";
 
-import getPackageDetail from "@/api/items/getPackageDetail";
-import getAvailableDates from "@/api/schedule/getAvailableDates";
+import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
+import useScheduleListQuery from "@/hooks/query/useScheduleListQuery";
 import useScheduleDateStore from "@/store/useScheduleDateStore";
 import formatDigitNumber from "@/utils/formatDigitNumber";
 import generateDays from "@/utils/generateDays";
 import { getMonthInDate } from "@/utils/getMonthInDate";
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -30,23 +29,18 @@ const CalenderDays = ({
   selectedMonth,
   monthInDate,
 }: Props) => {
-  const scheduleDate = useScheduleDateStore();
   const params = useParams();
-  const { data: schedule } = useQuery({
-    queryKey: ["schedule-date", params.id],
-    queryFn: async () => {
-      return getAvailableDates(Number(params.id));
-    },
-  });
-  const { data: packageData, refetch } = useQuery({
-    queryKey: ["package-detail", params.id],
-    queryFn: async () => {
-      return getPackageDetail(Number(params.id), scheduleDate.date);
-    },
-    enabled: false,
-  });
+
+  const scheduleDate = useScheduleDateStore();
+
+  const { data: schedule } = useScheduleListQuery(params.id);
+  const { data: packageDetail, refetch: detailRefetch } = usePackageDetailQuery(
+    params.id,
+    scheduleDate.date,
+  );
 
   const prevMonthInDate = getMonthInDate(selectedYear, selectedMonth - 1);
+
   const [days, setDays] = useState(
     generateDays(
       selectedYear,
@@ -99,10 +93,10 @@ const CalenderDays = ({
   ]);
 
   useEffect(() => {
-    scheduleDate.updateData(packageData.data);
+    scheduleDate.updateData(packageDetail.data);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scheduleDate.data, packageData.data]);
+  }, [scheduleDate.data, packageDetail.data]);
 
   const getDateColor = (
     type: string | null,
@@ -130,7 +124,7 @@ const CalenderDays = ({
     };
 
     await changeDate();
-    await refetch();
+    await detailRefetch();
   };
 
   const stringPriceToNumber = (price: string) => {
@@ -171,11 +165,11 @@ const CalenderDays = ({
                       day.dateData,
                     )} rounded-[50%] ${
                       isAvailable(day.date, day.dateData) &&
-                      day.date === packageData.data.departureDatetime.date &&
+                      day.date === packageDetail.data.departureDatetime.date &&
                       "bg-pink-main"
                     } ${
                       isAvailable(day.date, day.dateData) &&
-                      day.date === packageData.data.departureDatetime.date &&
+                      day.date === packageDetail.data.departureDatetime.date &&
                       "text-white"
                     }`}
                     disabled={!isAvailable(day.date, day.dateData)}

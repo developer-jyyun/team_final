@@ -32,8 +32,12 @@ const SelectedProduct = () => {
         선택된 상품
       </h1>
       <div className="flex">
-        <div className="w-[60px] h-[60px] mr-[14px]">
-          <img src="/assets/signupComplete.png" alt="여행 상품 메인" />
+        <div className="w-[60px] h-[60px] mr-[14px] rounded-md overflow-hidden">
+          <img
+            src={scheduleDate.data.imageUrls[0]}
+            alt="여행 상품 메인"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="flex flex-col justify-center">
           <div>
