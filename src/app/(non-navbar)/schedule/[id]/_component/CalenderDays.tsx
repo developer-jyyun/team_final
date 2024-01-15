@@ -1,10 +1,13 @@
 "use client";
 
-import { availableResponseData } from "@/mocks/data/packageScheduleData";
+import getPackageDetail from "@/api/items/getPackageDetail";
+import getAvailableDates from "@/api/schedule/getAvailableDates";
+import useScheduleDateStore from "@/store/useScheduleDateStore";
 import formatDigitNumber from "@/utils/formatDigitNumber";
 import generateDays from "@/utils/generateDays";
 import { getMonthInDate } from "@/utils/getMonthInDate";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -27,11 +30,23 @@ const CalenderDays = ({
   selectedMonth,
   monthInDate,
 }: Props) => {
-  const router = useRouter();
+  const scheduleDate = useScheduleDateStore();
   const params = useParams();
-  const searchParams = useSearchParams();
-  const prevMonthInDate = getMonthInDate(selectedYear, selectedMonth - 1);
+  const { data: schedule } = useQuery({
+    queryKey: ["schedule-date", params.id],
+    queryFn: async () => {
+      return getAvailableDates(Number(params.id));
+    },
+  });
+  const { data: packageData, refetch } = useQuery({
+    queryKey: ["package-detail", params.id],
+    queryFn: async () => {
+      return getPackageDetail(Number(params.id), scheduleDate.date);
+    },
+    enabled: false,
+  });
 
+  const prevMonthInDate = getMonthInDate(selectedYear, selectedMonth - 1);
   const [days, setDays] = useState(
     generateDays(
       selectedYear,
@@ -39,10 +54,9 @@ const CalenderDays = ({
       monthInDate,
       prevMonthInDate,
       today.date,
-      availableResponseData.data,
+      schedule.data,
     ),
   );
-  const [selectedDate, setSelectedDate] = useState(searchParams.get("d"));
 
   const isCurrent = () => {
     return today.year === selectedYear && today.month === selectedMonth;
@@ -72,10 +86,23 @@ const CalenderDays = ({
         monthInDate,
         prevMonthInDate,
         today.date,
-        availableResponseData.data,
+        schedule.data,
       ),
     );
-  }, [selectedYear, selectedMonth, monthInDate, prevMonthInDate, today.date]);
+  }, [
+    selectedYear,
+    selectedMonth,
+    monthInDate,
+    prevMonthInDate,
+    today.date,
+    schedule.data,
+  ]);
+
+  useEffect(() => {
+    scheduleDate.updateData(packageData.data);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scheduleDate.data, packageData.data]);
 
   const getDateColor = (
     type: string | null,
@@ -97,9 +124,13 @@ const CalenderDays = ({
     return "";
   };
 
-  const handleClickDate = (date: string) => {
-    setSelectedDate(date);
-    router.replace(`/schedule/${params.id}?d=${date}`);
+  const handleClickDate = async (date: string) => {
+    const changeDate = async () => {
+      scheduleDate.updateDate(date);
+    };
+
+    await changeDate();
+    await refetch();
   };
 
   const stringPriceToNumber = (price: string) => {
@@ -140,11 +171,11 @@ const CalenderDays = ({
                       day.dateData,
                     )} rounded-[50%] ${
                       isAvailable(day.date, day.dateData) &&
-                      day.date === selectedDate &&
+                      day.date === packageData.data.departureDatetime.date &&
                       "bg-pink-main"
                     } ${
                       isAvailable(day.date, day.dateData) &&
-                      day.date === selectedDate &&
+                      day.date === packageData.data.departureDatetime.date &&
                       "text-white"
                     }`}
                     disabled={!isAvailable(day.date, day.dateData)}

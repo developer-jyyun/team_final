@@ -42,7 +42,7 @@ const CalenderHeader = ({
   };
 
   return (
-    <div className="flex items-center justify-between h-10 mt-9 web:mt-5">
+    <div className="flex items-center justify-between h-10 mt-2">
       <button
         type="button"
         onClick={handleClickPrevYear}
