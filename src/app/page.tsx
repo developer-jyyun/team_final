@@ -8,22 +8,26 @@ import HomeThemePackage from "./_component/home/HomeThemePackage";
 
 const Home = async () => {
   return (
-    <section className="web:w-[500px] mx-auto">
-      <DefaultHeader text="/" theme="main" />
-      <div className="w-[327px] web:w-[90%] flex flex-col items-center [&>*:nth-child(n)]:mb-10 mx-auto">
-        {/* 광고구좌 */}
-        <HomeAdvertisements />
-        {/* 해시태그 검색 */}
-        <HomeHashtags />
-        {/* 패키지 컨셉 */}
-        <HomeThemePackage />
-        {/* 찬반토론 */}
-        <HomeProsAndCons />
-        {/* 초특가 패키지 목록 */}
-        <HomePackages />
-      </div>
+    <>
+      <main>
+        <section className="w-full flex flex-col items-center">
+          <DefaultHeader text="/" theme="main" />
+          <div className="w-[327px] web:w-[90%] [&>*:nth-child(n)]:mb-10">
+            {/* 광고구좌 */}
+            <HomeAdvertisements />
+            {/* 해시태그 검색 */}
+            <HomeHashtags />
+            {/* 패키지 컨셉 */}
+            <HomeThemePackage />
+            {/* 찬반토론 */}
+            <HomeProsAndCons />
+            {/* 초특가 패키지 목록 */}
+            <HomePackages />
+          </div>
+        </section>
+      </main>
       <BottomNav />
-    </section>
+    </>
   );
 };
 
