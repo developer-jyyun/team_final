@@ -6,12 +6,12 @@ const DetailBottomButton = () => {
       className={`flex justify-between items-center w-full h-20 px-6 py-5 web:h-24`}
     >
       <Button
-        text="asd"
+        text="1:1 비교하기"
         theme="wide"
         styleClass="h-[40px] w-[151px] web:h-[50px] web:w-[215px]"
       />
       <Button
-        text="asd"
+        text="예약하기"
         theme="wide"
         styleClass="h-[40px] w-[151px] web:h-[50px] web:w-[215px]"
       />

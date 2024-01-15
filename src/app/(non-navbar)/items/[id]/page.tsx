@@ -1,13 +1,28 @@
+import getPackageDetail from "@/api/items/getPackageDetail";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
-import DetailSwiper from "./_component/DetailSwiper";
-import ItemDetailBottom from "./_component/ItemDetailBottom";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import DettailMain from "./_component/DettailMain";
 
-const ItemsPage = () => {
+const ItemsPage = async ({ params }: { params: { id: string } }) => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["package-detail", params.id],
+    queryFn: async () => {
+      return getPackageDetail(Number(params.id));
+    },
+  });
+  const dehydrateState = dehydrate(queryClient);
+
   return (
     <div className="w-full">
       <DefaultHeader theme="main" />
-      <DetailSwiper />
-      <ItemDetailBottom />
+      <HydrationBoundary state={dehydrateState}>
+        <DettailMain />
+      </HydrationBoundary>
     </div>
   );
 };
