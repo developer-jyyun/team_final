@@ -56,6 +56,7 @@ const config: Config = {
         "pink-transparent": "rgba(255, 239, 239, 0.6)",
         "pink-transparent-2": "rgba(255, 239, 239, 0.4)",
         "pink-1": "#FE516F",
+        "pink-2": "#FFEFEF",
         yellow: "#FFDB6D",
       },
       borderRadius: {
