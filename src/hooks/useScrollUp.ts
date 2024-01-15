@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import useScrollStore from "@/store/useScrollStore";
+import { useEffect } from "react";
 
 const useScrollUp = () => {
   const scrollStore = useScrollStore();
@@ -8,14 +8,16 @@ const useScrollUp = () => {
     let lastScroll = 0;
     let debounce: NodeJS.Timeout;
     const handleScroll = () => {
+      const currentScroll = window.scrollY;
+
       if (debounce) {
         clearTimeout(debounce);
       }
 
       debounce = setTimeout(() => {
-        const currentScroll = window.scrollY;
-
-        scrollStore.setScroll(lastScroll > currentScroll);
+        scrollStore.setScroll(
+          Math.floor(lastScroll) >= Math.floor(currentScroll),
+        );
 
         lastScroll = currentScroll;
       }, 100);
