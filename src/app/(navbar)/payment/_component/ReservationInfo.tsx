@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
-import EditIcon from "../../../../../public/icons/editIcon.svg";
-import BottomArrowIcon from "../../../../../public/icons/bottomArrowIcon.svg";
-import RightArrowIcon from "../../../../../public/icons/rightArrowIcon.svg";
-import CheckIcon from "../../../../../public/icons/checkIcon2.svg";
+import BottomMyPageMenu from "./BottomMyPageMenu";
 
 interface Props {
   onComplete: () => void;
@@ -97,7 +94,12 @@ const ReservationInfo = ({ onComplete }: Props) => {
             <p className="text-black-2 text-sm font-semibold">010-1234-5678</p>
           </div>
           <div className="absolute p-1 top-3.5 right-3.5">
-            <Image src={EditIcon} alt="수정 아이콘" />
+            <Image
+              src="/icons/editIcon.svg"
+              alt="수정 아이콘"
+              width={24}
+              height={24}
+            />
           </div>
         </div>
       </div>
@@ -109,58 +111,73 @@ const ReservationInfo = ({ onComplete }: Props) => {
         <div className="flex justify-around">
           <div className="flex flex-col relative">
             <span className="px-2 mb-2 text-xxs text-black-6">
-              성인 <strong className="text-grey-a">(만 12세 이상)</strong>
+              성인 <b className="text-grey-a">(만 12세 이상)</b>
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
               onChange={handleAdultChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
               ))}
             </select>
             <div className="pointer-events-none absolute top-9 right-0 flex items-center px-2  text-sm">
-              <Image src={BottomArrowIcon} alt="하단화살표" />
+              <Image
+                src="/icons/bottomArrowIcon.svg"
+                alt="하단화살표"
+                width={18}
+                height={18}
+              />
             </div>
           </div>
 
           <div className="flex flex-col relative">
             <span className="px-2 mb-2 text-xxs text-black-6">
-              소아 <strong className="text-grey-a">(만 12세 미만)</strong>
+              소아 <b className="text-grey-a">(만 12세 미만)</b>
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
               onChange={handleChildChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
               ))}
             </select>
             <div className="pointer-events-none absolute top-9 right-0 flex items-center px-2 text-sm">
-              <Image src={BottomArrowIcon} alt="하단화살표" />
+              <Image
+                src="/icons/bottomArrowIcon.svg"
+                alt="하단화살표"
+                width={18}
+                height={18}
+              />
             </div>
           </div>
 
           <div className="flex flex-col relative">
             <span className="px-2 mb-2 text-xxs text-black-6">
-              유아 <strong className="text-grey-a">(만 2세 미만)</strong>
+              유아 <b className="text-grey-a">(만 2세 미만)</b>
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
               onChange={handleInfantChange}
             >
-              {Array.from({ length: 11 }, (_, i) => (
+              {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
                 </option>
               ))}
             </select>
             <div className="pointer-events-none absolute top-9 right-0 flex items-center px-2 text-sm">
-              <Image src={BottomArrowIcon} alt="하단화살표" />
+              <Image
+                src="/icons/bottomArrowIcon.svg"
+                alt="하단화살표"
+                width={18}
+                height={18}
+              />
             </div>
           </div>
         </div>
@@ -170,7 +187,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
         <div className="py-3 ml-3">
           <h4 className="text-black-2 text-lg font-semibold">
             요청사항
-            <strong className="text-black-6 text-sm font-normal">(선택)</strong>
+            <b className="text-black-6 text-sm font-normal">(선택)</b>
           </h4>
         </div>
         <div className="mx-2">
@@ -194,15 +211,15 @@ const ReservationInfo = ({ onComplete }: Props) => {
           <div className="text-right text-black-2 text-sm font-semibold leading-normal">
             <p>
               876,543
-              <strong className="text-black-4 text-xxs font-normal">원</strong>
+              <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
               876,543
-              <strong className="text-black-4 text-xxs font-normal">원</strong>
+              <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
               100,000
-              <strong className="text-black-4 text-xxs font-normal">원</strong>
+              <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
           </div>
         </div>
@@ -213,7 +230,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
           </div>
           <div className="text-pink-main text-xl font-bold">
             <p>
-              100,000<strong>원</strong>
+              100,000<b>원</b>
             </p>
           </div>
         </div>
@@ -230,52 +247,95 @@ const ReservationInfo = ({ onComplete }: Props) => {
         <div className="py-3 ml-3">
           <h4 className="text-black-2 text-lg font-semibold">
             약관동의
-            <strong className="text-black-4 text-sm font-medium">(필수)</strong>
+            <b className="text-black-4 text-sm font-medium">(필수)</b>
           </h4>
           <div className="mt-4 mx-4">
             <div className="flex ml-2 mb-4">
-              <Image src={CheckIcon} alt="체크전이미지" />
+              <Image
+                src="/icons/checkIcon2.svg"
+                alt="체크전이미지"
+                width={24}
+                height={24}
+              />
               <p className="ml-2 text-black-2 text-lg font-semibold">
                 전체동의
-                <strong className="ml-1 text-xs font-normal">
-                  (선택 포함)
-                </strong>
+                <b className="ml-1 text-xs font-normal">(선택 포함)</b>
               </p>
             </div>
             <div className="flex bg-pink-transparent-2 p-2 my-2 rounded-lg relative">
-              <Image src={CheckIcon} alt="체크전이미지" />
+              <Image
+                src="/icons/checkIcon2.svg"
+                alt="체크전이미지"
+                width={24}
+                height={24}
+              />
               <p className="ml-2 text-black-4 text-base font-normal">
                 취소수수료 동의
               </p>
               <div className="absolute right-4">
-                <Image src={RightArrowIcon} alt="우측화살표" />
+                <Image
+                  src="/icons/rightArrowIcon.svg"
+                  alt="우측화살표"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
             <div className="flex bg-pink-transparent-2 p-2 my-2 rounded-lg relative">
-              <Image src={CheckIcon} alt="체크전이미지" />
+              <Image
+                src="/icons/checkIcon2.svg"
+                alt="체크전이미지"
+                width={24}
+                height={24}
+              />
               <p className="ml-2 text-black-4 text-base font-normal">
                 개인정보 수집, 이용
               </p>
               <div className="absolute right-4">
-                <Image src={RightArrowIcon} alt="우측화살표" />
+                <Image
+                  src="/icons/rightArrowIcon.svg"
+                  alt="우측화살표"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
             <div className="flex bg-pink-transparent-2 p-2 my-2 rounded-lg relative">
-              <Image src={CheckIcon} alt="체크전이미지" />
+              <Image
+                src="/icons/checkIcon2.svg"
+                alt="체크전이미지"
+                width={24}
+                height={24}
+              />
               <p className="ml-2 text-black-4 text-base font-normal">
                 고유식별정보 수집, 이용
               </p>
               <div className="absolute right-4">
-                <Image src={RightArrowIcon} alt="우측화살표" />
+                <Image
+                  src="/icons/rightArrowIcon.svg"
+                  alt="우측화살표"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
             <div className="flex bg-pink-transparent-2 p-2 my-2 rounded-lg relative">
-              <Image src={CheckIcon} alt="체크전이미지" />
+              <Image
+                src="/icons/checkIcon2.svg"
+                alt="체크전이미지"
+                width={24}
+                height={24}
+              />
               <p className="ml-2 text-black-4 text-base font-normal">
                 개인정보 제3자 제공동의
               </p>
               <div className="absolute right-4">
-                <Image src={RightArrowIcon} alt="우측화살표" />
+                <Image
+                  src="/icons/rightArrowIcon.svg"
+                  alt="우측화살표"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
           </div>
@@ -284,9 +344,14 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
       <div className="p-4 border-b">
         <p className="text-black-5 text-xs text-center font-normal">
-          <span className="mx-4">서비스 이용약관</span>/
-          <span className="mx-4">개인정보 처리방침</span>/
-          <span className="mx-4">공지사항</span>
+          <BottomMyPageMenu href="/my/menu/terms">
+            서비스 이용약관
+          </BottomMyPageMenu>
+          /
+          <BottomMyPageMenu href="/my/menu/privacy">
+            개인정보 처리방침
+          </BottomMyPageMenu>
+          /<BottomMyPageMenu href="/my/menu/notice">공지사항</BottomMyPageMenu>
         </p>
         <p className="text-black-4 text-xs text-center font-semibold my-5">
           LET’S
