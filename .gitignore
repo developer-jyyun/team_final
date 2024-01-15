@@ -38,3 +38,6 @@ next-env.d.ts
 
 # SWC output
 .swc/
+
+# IDE
+/.vscode/settings.json

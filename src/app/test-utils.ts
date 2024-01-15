@@ -1,6 +1,6 @@
 import { render, RenderOptions } from "@testing-library/react";
 import { ReactElement } from "react";
-import RQProvider from "./_component/RQProvider";
+import RQProvider from "./_component/common/RQProvider";
 
 const container = (
   ui: ReactElement,
