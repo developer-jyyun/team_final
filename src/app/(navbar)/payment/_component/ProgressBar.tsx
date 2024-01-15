@@ -5,7 +5,7 @@ interface Props {
 }
 
 const ProgressBar = ({ progress }: Props) => {
-  const progressWidth = progress === 100 ? `w-full` : `w-1/2`;
+  const progressWidth = progress === 100 ? `w-full` : `w-0`;
 
   return (
     <div className="sticky top-0 px-4">
