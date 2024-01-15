@@ -1,13 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import CheckIcon from "../../../../../public/icons/checkIcon3.svg";
+import Step from "./Step";
 
 const ReservationDone = () => {
   return (
     <div className="mx-4">
       <div className="mt-10 mb-5">
         <h3 className="flex">
-          <Image src={CheckIcon} alt="완료 아이콘" className="mr-2" />
+          <Image
+            src="/icons/checkIcon3.svg"
+            alt="완료 아이콘"
+            width={20}
+            height={20}
+            className="mr-2"
+          />
           예약이 정상적으로 접수되었습니다.
         </h3>
       </div>
@@ -39,46 +45,17 @@ const ReservationDone = () => {
       <div className="mt-10 ml-2">
         <h4 className="text-black-4 text-sm font-semibold">
           예약하기가 완료되셨나요?
-          <strong className="ml-1 text-black-6 text-xs font-normal">
+          <b className="ml-1 text-black-6 text-xs font-normal">
             (예약하기 이후 단계입니다.)
-          </strong>
+          </b>
         </h4>
       </div>
       <div className="mt-3 px-6 py-3 bg-grey-transparent rounded-lg">
-        <div className="mb-2">
-          <span className="mr-3 py-1 px-2 border border-grey-d rounded-xl bg-white text-black-5 text-sm font-light">
-            STEP 1
-          </span>
-          <span className="text-black-5 text-sm font-semibold">
-            예약접수 / 완료 (현재단계)
-          </span>
-        </div>
-        <div className="mb-2">
-          <span className="mr-3 py-1 px-2 border border-grey-d rounded-xl bg-white text-black-5 text-sm font-light">
-            STEP 2
-          </span>
-          <span className="text-black-5 text-sm font-semibold">
-            예약접수 / 완료 (현재단계)
-          </span>
-        </div>
-        <div className="mb-2">
-          <span className="mr-3 py-1 px-2 border border-grey-d rounded-xl bg-white text-black-5 text-sm font-light">
-            STEP 3
-          </span>
-          <span className="text-black-5 text-sm font-semibold">상품 결제</span>
-        </div>
-        <div className="mb-2">
-          <span className="mr-3 py-1 px-2 border border-grey-d rounded-xl bg-white text-black-5 text-sm font-light">
-            STEP 4
-          </span>
-          <span className="text-black-5 text-sm font-semibold">예약 확정</span>
-        </div>
-        <div className="mb-2">
-          <span className="mr-3 py-1 px-2 border border-grey-d rounded-xl bg-white text-black-5 text-sm font-light">
-            STEP 5
-          </span>
-          <span className="text-black-5 text-sm font-semibold">출발</span>
-        </div>
+        <Step number="1" description="예약접수 / 완료 (현재단계)" current />
+        <Step number="2" description="예약접수 / 완료 (현재단계)" current />
+        <Step number="3" description="상품 결제" current />
+        <Step number="4" description="예약 확정" current />
+        <Step number="5" description="출발" current />
       </div>
     </div>
   );
