@@ -41,7 +41,7 @@ const HomeAdvertisements = () => {
   }, []);
 
   return (
-    <div className="w-[100%] h-[240px] relative">
+    <div className="w-full h-[240px] px-6 relative">
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -69,7 +69,7 @@ const HomeAdvertisements = () => {
         scrollbar={{ draggable: true, hide: true }}
       >
         {adsData?.map((ads) => (
-          <SwiperSlide key={ads.imageUrl}>
+          <SwiperSlide key={ads.adId}>
             <Image
               src={ads.imageUrl}
               alt="테스트이미지"
