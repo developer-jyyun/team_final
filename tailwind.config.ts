@@ -64,6 +64,9 @@ const config: Config = {
         lg: "12px",
         xl: "91px",
       },
+      boxShadow: {
+        dark: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+      },
       keyframes: {
         // 약관 동의 애니메이션
         transparencyAnimation: {
