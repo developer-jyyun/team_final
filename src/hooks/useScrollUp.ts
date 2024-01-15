@@ -6,12 +6,19 @@ const useScrollUp = () => {
 
   useEffect(() => {
     let lastScroll = 0;
+    let debounce: NodeJS.Timeout;
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
+      if (debounce) {
+        clearTimeout(debounce);
+      }
 
-      scrollStore.setScroll(lastScroll > currentScroll);
+      debounce = setTimeout(() => {
+        const currentScroll = window.scrollY;
 
-      lastScroll = currentScroll;
+        scrollStore.setScroll(lastScroll > currentScroll);
+
+        lastScroll = currentScroll;
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll);
