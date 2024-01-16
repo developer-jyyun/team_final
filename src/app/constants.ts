@@ -5,3 +5,4 @@ export const COUNT_DIGIT = 2;
 
 // search page
 export const MAX_NUM_OF_COL = 5;
+export const CATEGORY_COLORS = ["#FFF6DB", "#E6EEFA", "#FFEFEF", "#FAFAFA"];

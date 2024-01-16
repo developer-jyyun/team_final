@@ -9,6 +9,11 @@ export interface HashtagNames {
   hashtags: string[];
 }
 
+export interface ConceptItem {
+  name: string;
+  imageUrl: string;
+}
+
 // mypage
 export interface ListItemProps {
   title: string;
