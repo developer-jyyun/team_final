@@ -1,6 +1,7 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import { DateTime } from "@/app/types";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -10,11 +11,14 @@ import DetailTypography from "./DetailTypography";
 import ItemDetailBottom from "./ItemDetailBottom";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
+import TravelDate from "./TravelDate";
 
 const DettailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
   const [viewMore, setViewMore] = useState(false);
+
+  // console.log(packageDetail);
 
   return (
     <div
@@ -55,6 +59,11 @@ const DettailMain = () => {
           </CenterContainer>
         </div>
         <PackageInfo infoData={packageDetail.data.info} />
+        <TravelDate
+          departureDatetime={packageDetail.data.departureDatetime as DateTime}
+          endDatetime={packageDetail.data.endDatetime as DateTime}
+          transporation={packageDetail.data.transporation as string}
+        />
       </div>
       <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
     </div>
