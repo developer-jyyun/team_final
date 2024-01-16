@@ -1,6 +1,6 @@
+import ColorContainer from "@/app/_component/common/atom/ColorContainer";
 import type { InclusionExclusion } from "@/app/types";
 import DetailTypography from "./DetailTypography";
-import GrayContainer from "./GrayContainer";
 
 interface Props {
   inclusionList: InclusionExclusion[];
@@ -11,9 +11,8 @@ const InclusionExclusionContainer = ({
   inclusionList,
   exclusionList,
 }: Props) => {
-  // console.log(inclusionList, exclusionList);
   return (
-    <GrayContainer>
+    <ColorContainer bg="gray-light" size="md">
       <div className="mb-5">
         <DetailTypography color={3} size={14} bold={600}>
           포함 / 불포함 사항
@@ -60,7 +59,7 @@ const InclusionExclusionContainer = ({
           })}
         </div>
       </div>
-    </GrayContainer>
+    </ColorContainer>
   );
 };
 

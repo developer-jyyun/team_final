@@ -1,7 +1,7 @@
+import ColorContainer from "@/app/_component/common/atom/ColorContainer";
 import type { DateTime } from "@/app/types";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 import DetailTypography from "./DetailTypography";
-import GrayContainer from "./GrayContainer";
 
 interface Props {
   departureDatetime: DateTime;
@@ -15,7 +15,7 @@ const TravelDate = ({
   transporation,
 }: Props) => {
   return (
-    <GrayContainer>
+    <ColorContainer bg="gray-light" size="md">
       <div className="flex items-center mb-[11px]">
         <div className="w-20">
           <DetailTypography color={4}>교통편</DetailTypography>
@@ -48,7 +48,7 @@ const TravelDate = ({
           </DetailTypography>
         </div>
       </div>
-    </GrayContainer>
+    </ColorContainer>
   );
 };
 

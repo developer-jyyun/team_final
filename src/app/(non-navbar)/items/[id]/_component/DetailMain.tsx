@@ -2,7 +2,6 @@
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
-import type { DateTime, Reservation } from "@/app/types";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -35,7 +34,14 @@ const DetailMain = () => {
         />
       ),
     },
-    { name: "일정표", content: <ScheduleDetail /> },
+    {
+      name: "일정표",
+      content: (
+        <ScheduleDetail
+          departureDatetime={packageDetail.data.departureDatetime}
+        />
+      ),
+    },
     { name: "리뷰", content: <Reviews /> },
   ];
 
@@ -79,13 +85,11 @@ const DetailMain = () => {
         </div>
         <PackageInfo infoData={packageDetail.data.info} />
         <TravelDate
-          departureDatetime={packageDetail.data.departureDatetime as DateTime}
-          endDatetime={packageDetail.data.endDatetime as DateTime}
-          transporation={packageDetail.data.transporation as string}
+          departureDatetime={packageDetail.data.departureDatetime}
+          endDatetime={packageDetail.data.endDatetime}
+          transporation={packageDetail.data.transporation}
         />
-        <ChangeDateButton
-          reservation={packageDetail.data.reservation as Reservation}
-        />
+        <ChangeDateButton reservation={packageDetail.data.reservation} />
         <TabsContainer
           tabs={tabsData}
           tabButtonStyle={{

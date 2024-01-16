@@ -1,7 +1,7 @@
+import ColorContainer from "@/app/_component/common/atom/ColorContainer";
 import type { Price } from "@/app/types";
 import formatDigitNumber from "@/utils/formatDigitNumber";
 import DetailTypography from "./DetailTypography";
-import GrayContainer from "./GrayContainer";
 
 interface Props {
   totalPrice: Price;
@@ -31,7 +31,7 @@ const PriceDetail = ({ totalPrice }: Props) => {
   };
 
   return (
-    <GrayContainer>
+    <ColorContainer bg="gray-light" size="md">
       <div className="mb-5">
         <DetailTypography color={3} size={14} bold={600}>
           상품가격
@@ -112,7 +112,7 @@ const PriceDetail = ({ totalPrice }: Props) => {
           </DetailTypography>
         </div>
       </div>
-    </GrayContainer>
+    </ColorContainer>
   );
 };
 
