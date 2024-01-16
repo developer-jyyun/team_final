@@ -1,4 +1,4 @@
-import { DateTime } from "@/app/types";
+import type { DateTime } from "@/app/types";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 import DetailTypography from "./DetailTypography";
 import GrayContainer from "./GrayContainer";

@@ -1,4 +1,4 @@
-import { InclusionExclusion } from "@/app/types";
+import type { InclusionExclusion } from "@/app/types";
 import InclusionExclusionContainer from "./InclusionExclusionContainer";
 
 interface Props {

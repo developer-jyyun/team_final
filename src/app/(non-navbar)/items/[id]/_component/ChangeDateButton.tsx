@@ -1,5 +1,5 @@
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
-import { Reservation } from "@/app/types";
+import type { Reservation } from "@/app/types";
 import DetailTypography from "./DetailTypography";
 
 interface Props {

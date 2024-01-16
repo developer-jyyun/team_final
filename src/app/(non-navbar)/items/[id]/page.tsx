@@ -1,6 +1,6 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
-import { PackageResponseData } from "@/app/types";
+import type { PackageResponseData } from "@/app/types";
 import {
   HydrationBoundary,
   QueryClient,

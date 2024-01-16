@@ -2,7 +2,7 @@
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
-import { DateTime, Reservation } from "@/app/types";
+import type { DateTime, Reservation } from "@/app/types";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
 import { useState } from "react";
