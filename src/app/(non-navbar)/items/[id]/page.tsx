@@ -8,6 +8,14 @@ import {
 } from "@tanstack/react-query";
 import DetailMain from "./_component/DetailMain";
 
+export const generateStaticParams = async () => {
+  const ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  return ids.map((id) => ({
+    slug: id.toString(),
+  }));
+};
+
 export const generateMetadata = async ({
   params,
 }: {
