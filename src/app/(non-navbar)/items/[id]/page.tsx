@@ -5,7 +5,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import DettailMain from "./_component/DettailMain";
+import DetailMain from "./_component/DetailMain";
 
 const ItemsPage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
@@ -21,7 +21,7 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
     <div className="w-full">
       <DefaultHeader theme="main" />
       <HydrationBoundary state={dehydrateState}>
-        <DettailMain />
+        <DetailMain />
       </HydrationBoundary>
     </div>
   );
