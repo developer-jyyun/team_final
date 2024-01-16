@@ -41,7 +41,7 @@ const HomeAdvertisements = () => {
   }, []);
 
   return (
-    <div className="w-full h-[240px] px-6 relative">
+    <div className="w-full h-[240px] px-6 mb-10 relative">
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;

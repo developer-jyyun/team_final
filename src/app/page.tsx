@@ -13,7 +13,7 @@ const Home = async () => {
       <main>
         <section className="w-full">
           <DefaultHeader text="/" theme="main" />
-          <div className="flex flex-col items-center [&>*:nth-child(n)]:mb-10">
+          <div className="flex flex-col items-center">
             {/* 광고구좌 */}
             <HomeAdvertisements />
             {/* 해시태그 검색 */}

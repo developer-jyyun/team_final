@@ -164,6 +164,25 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/polls", () => {
+    console.log("테마 패키지 목록 조회");
+    const pollsInfo = [
+      {
+        alreadySubmitted: false,
+        subject: "여러분들의 여행 스타일은?",
+        pollId: 0,
+        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+        B: ["온 김에", "다 해보자!"],
+      },
+    ];
+
+    return HttpResponse.json(pollsInfo, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+
   http.get("v1/packages/top-views", () => {
     console.log("가장 많이 본 패키지 목록");
     const packagesList = [
