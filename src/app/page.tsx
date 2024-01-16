@@ -23,7 +23,9 @@ const Home = async () => {
               <HomeThemePackage />
             </ContentsContainer>
             {/* 찬반토론 */}
-            <HomeProsAndCons />
+            <ContentsContainer title="찬반 토론 참여">
+              <HomeProsAndCons />
+            </ContentsContainer>
             {/* 초특가 패키지 목록 */}
             <HomePackages />
           </div>
