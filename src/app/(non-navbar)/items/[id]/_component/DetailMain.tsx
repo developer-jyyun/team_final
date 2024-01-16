@@ -14,7 +14,7 @@ import PackageTagBadge from "./PackageTagBadge";
 import TravelDate from "./TravelDate";
 import ChangeDateButton from "./ChangeDateButton";
 
-const DettailMain = () => {
+const DetailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
   const [viewMore, setViewMore] = useState(false);
@@ -74,4 +74,4 @@ const DettailMain = () => {
   );
 };
 
-export default DettailMain;
+export default DetailMain;
