@@ -58,7 +58,7 @@ const ConceptsList = () => {
   return (
     <ul className="flex flex-wrap items-center justify-between gap-6">
       {dummy.map((concept, idx) => {
-        const bgColor = `bg-[${CATEGORY_COLORS[idx % 4]}]`;
+        const bgColor = CATEGORY_COLORS[idx % 4];
         return (
           <Concept key={concept.name} concept={concept} bgColor={bgColor} />
         );

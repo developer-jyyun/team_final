@@ -1,7 +1,5 @@
 import type { ConceptItem } from "@/app/types";
 
-import React from "react";
-
 interface Props {
   concept: ConceptItem;
   bgColor: string;
@@ -10,7 +8,8 @@ interface Props {
 const Concept = ({ concept, bgColor }: Props) => {
   return (
     <div
-      className={`flex justify-center items-center gap-5 h-20 w-[150px] rounded-lg ${bgColor}`}
+      className={`flex justify-center items-center gap-5 h-20 w-[150px] rounded-lg`}
+      style={{ backgroundColor: bgColor }}
     >
       <img
         className="w-8 h-8"
