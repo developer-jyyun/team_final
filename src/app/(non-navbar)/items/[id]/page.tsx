@@ -7,6 +7,14 @@ import {
 } from "@tanstack/react-query";
 import DetailMain from "./_component/DetailMain";
 
+export const generateStaticParams = () => {
+  const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  return ids.map((id) => ({
+    slug: id,
+  }));
+};
+
 const ItemsPage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
