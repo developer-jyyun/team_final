@@ -14,26 +14,38 @@ const TravelDate = ({
   transporation,
 }: Props) => {
   return (
-    <div className="border-2 border-solid border-red py-6 px-8">
-      <div className="flex items-center">
-        <DetailTypography color={4}>교통편</DetailTypography>
-        <DetailTypography size={14} bold={600}>
-          {transporation}
-        </DetailTypography>
+    <div className="rounded-lg bg-[#FAFAFA] py-6 px-8 mt-[29px]">
+      <div className="flex items-center mb-[11px]">
+        <div className="w-20">
+          <DetailTypography color={4}>교통편</DetailTypography>
+        </div>
+        <div>
+          <DetailTypography size={14} bold={600}>
+            {transporation}
+          </DetailTypography>
+        </div>
+      </div>
+      <div className="flex items-center mb-[11px]">
+        <div className="w-20">
+          <DetailTypography color={4}>출발일시</DetailTypography>
+        </div>
+        <div>
+          <DetailTypography size={14} bold={600}>
+            {ReplaceHyphenWithDot(departureDatetime.date)}{" "}
+            {departureDatetime.dayOfWeek} {departureDatetime.time}
+          </DetailTypography>
+        </div>
       </div>
       <div className="flex items-center">
-        <DetailTypography color={4}>출발일시</DetailTypography>
-        <DetailTypography size={14} bold={600}>
-          {ReplaceHyphenWithDot(departureDatetime.date)}{" "}
-          {departureDatetime.dayOfWeek} {departureDatetime.time}
-        </DetailTypography>
-      </div>
-      <div className="flex items-center">
-        <DetailTypography color={4}>도착일시</DetailTypography>
-        <DetailTypography size={14} bold={600}>
-          {ReplaceHyphenWithDot(endDatetime.date)} {endDatetime.dayOfWeek}{" "}
-          {endDatetime.time}
-        </DetailTypography>
+        <div className="w-20">
+          <DetailTypography color={4}>도착일시</DetailTypography>
+        </div>
+        <div>
+          <DetailTypography size={14} bold={600}>
+            {ReplaceHyphenWithDot(endDatetime.date)} {endDatetime.dayOfWeek}{" "}
+            {endDatetime.time}
+          </DetailTypography>
+        </div>
       </div>
     </div>
   );
