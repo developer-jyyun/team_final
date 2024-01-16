@@ -1,5 +1,6 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
+import { PackageResponseData } from "@/app/types";
 import {
   HydrationBoundary,
   QueryClient,
@@ -7,12 +8,17 @@ import {
 } from "@tanstack/react-query";
 import DetailMain from "./_component/DetailMain";
 
-export const generateStaticParams = () => {
-  const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const item: { code: number; data: PackageResponseData } =
+    await getPackageDetail(Number(params.id));
 
-  return ids.map((id) => ({
-    slug: id,
-  }));
+  return {
+    title: item.data.title,
+  };
 };
 
 const ItemsPage = async ({ params }: { params: { id: string } }) => {
