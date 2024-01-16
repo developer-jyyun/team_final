@@ -1,13 +1,17 @@
 "use client";
 
 import Button from "@/app/_component/common/atom/Button";
+import { TAB_PAGE_SIZE } from "@/app/constants";
 import { MyReview } from "@/app/types";
 import useMyReviewsQuery from "@/hooks/query/useMyReviewsQuery";
 import { useState } from "react";
 
 const MyReviewTabContent = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError, error } = useMyReviewsQuery(page, 3);
+  const { data, isLoading, isError, error } = useMyReviewsQuery(
+    page,
+    TAB_PAGE_SIZE,
+  );
 
   const handleLoadMore = () => {
     setPage((prev) => {

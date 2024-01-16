@@ -4,11 +4,15 @@ import Button from "@/app/_component/common/atom/Button";
 import React, { useState } from "react";
 import { MyOrder } from "@/app/types";
 import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
+import { TAB_PAGE_SIZE } from "@/app/constants";
 import ReservationItem from "./ReservationItem";
 
 const ReservationTabContent = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError, error } = useMyOrdersQuery(page, 3);
+  const { data, isLoading, isError, error } = useMyOrdersQuery(
+    page,
+    TAB_PAGE_SIZE,
+  );
 
   const handleLoadMore = () => {
     setPage((prev) => {
