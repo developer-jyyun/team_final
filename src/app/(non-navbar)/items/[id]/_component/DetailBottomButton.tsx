@@ -1,20 +1,32 @@
-import Button from "@/app/_component/common/atom/Button";
+"use client";
 
-const DetailBottomButton = () => {
+interface Props {
+  viewMore: boolean;
+}
+
+const DetailBottomButton = ({ viewMore }: Props) => {
+  const getBorderStyle = () => {
+    if (!viewMore) return "";
+
+    return "border-t-[0.6px] border-solid border-grey-d";
+  };
+
   return (
     <nav
-      className={`flex justify-between items-center w-full h-20 px-6 py-5 web:h-24 bg-white`}
+      className={`flex justify-between items-center p-6 h-20 bg-white ${getBorderStyle()} web:p-4 web:w-[500px]`}
     >
-      <Button
-        text="1:1 비교하기"
-        theme="wide"
-        styleClass="h-[40px] w-[151px] web:h-[50px] web:w-[215px]"
-      />
-      <Button
-        text="예약하기"
-        theme="wide"
-        styleClass="h-[40px] w-[151px] web:h-[50px] web:w-[215px]"
-      />
+      <button
+        type="button"
+        className="w-[151px] h-[40px] bg-pink rounded-lg text-white text-lg font-bold web:w-[210px]"
+      >
+        1:1 비교하기
+      </button>
+      <button
+        type="button"
+        className="w-[151px] h-[40px] bg-pink rounded-lg text-white text-lg font-bold web:w-[210px]"
+      >
+        예약하기
+      </button>
     </nav>
   );
 };

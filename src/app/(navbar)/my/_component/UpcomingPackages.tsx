@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import useMyUpcomingPackageQuery from "@/hooks/query/useMyUpcomingPackageQuery";
 import Chip from "./Chip";
 
 const UpcomingPackages = () => {
+  const { data, isLoading, isError, error } = useMyUpcomingPackageQuery();
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>⚠ {error.message} ⚠</div>;
   return (
     <article className="mx-auto mt-8 mb-10">
       <h2 className="w-full font-semibold text-lg tracking-[0.18px] mb-6">
@@ -21,18 +26,20 @@ const UpcomingPackages = () => {
           <div className="flex flex-col justify-center gap-1 overflow-hidden">
             <p>
               <span className="font-semibold text-xs text-white bg-pink px-2 py-1 rounded-lg">
-                D- 30
+                D- {data.dday}
               </span>
             </p>
             <h2 className="font-medium text-md truncate max-w-[70%]">
-              오사카 특별 패키지 🔥🔥🔥🔥🔥🔥🔥🔥
+              {data.title}
             </h2>
             <p className="flex flex-row items-center gap-2 text-grey-4">
-              <Chip name="일본" />
-              <span className="text-[11px] py-1">2023.01.01 - 2023.01.01</span>
+              <Chip name={data.nationName} />
+              <span className="text-[11px] py-1">
+                {data.departureDate} - {data.endDate}
+              </span>
             </p>
           </div>
-          <Link href="/">
+          <Link href={`/items/${data.packageId}`}>
             <img src="/icons/rightArrowIcon.svg" alt="자세히 보기 아이콘" />
           </Link>
         </div>

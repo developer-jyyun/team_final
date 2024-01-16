@@ -1,21 +1,32 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import { DateTime, Reservation } from "@/app/types";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import BadgeList from "./BadgeList";
 import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
+import ItemDetailBottom from "./ItemDetailBottom";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
-// import ItemDetailBottom from "./ItemDetailBottom";
+import TravelDate from "./TravelDate";
+import ChangeDateButton from "./ChangeDateButton";
 
-const DettailMain = () => {
+const DetailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
+  const [viewMore, setViewMore] = useState(false);
+
+  // console.log(packageDetail.data.reservation);
 
   return (
-    <div className="overflow-hidden">
+    <div
+      className={`overflow-hidden ${
+        viewMore ? "pb-[30px]" : "h-[700px] web:h-[630px]"
+      }`}
+    >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-6 web:px-4">
         <BadgeList>
@@ -49,10 +60,18 @@ const DettailMain = () => {
           </CenterContainer>
         </div>
         <PackageInfo infoData={packageDetail.data.info} />
+        <TravelDate
+          departureDatetime={packageDetail.data.departureDatetime as DateTime}
+          endDatetime={packageDetail.data.endDatetime as DateTime}
+          transporation={packageDetail.data.transporation as string}
+        />
+        <ChangeDateButton
+          reservation={packageDetail.data.reservation as Reservation}
+        />
       </div>
-      {/* <ItemDetailBottom /> */}
+      <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
     </div>
   );
 };
 
-export default DettailMain;
+export default DetailMain;

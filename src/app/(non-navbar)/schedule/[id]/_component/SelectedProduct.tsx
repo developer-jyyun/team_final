@@ -1,13 +1,10 @@
 "use client";
 
 import useScheduleDateStore from "@/store/useScheduleDateStore";
+import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 
 const SelectedProduct = () => {
   const scheduleDate = useScheduleDateStore();
-
-  const formatSelectedItemDate = (date: string) => {
-    return date.replace(/-/g, ".");
-  };
 
   if (scheduleDate.data === null) {
     return (
@@ -42,7 +39,7 @@ const SelectedProduct = () => {
         <div className="flex flex-col justify-center">
           <div>
             <span className="text-black-2 font-medium mr-3 web:text-lg">
-              {formatSelectedItemDate(scheduleDate.data.departureDatetime.date)}
+              {ReplaceHyphenWithDot(scheduleDate.data.departureDatetime.date)}
             </span>
             <span className="text-black-4 text-xs web:text-sm">
               {scheduleDate.data.departureDatetime.time} 출발

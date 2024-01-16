@@ -263,6 +263,166 @@ const handlers = [
       data: newData,
     });
   }),
+
+  // 내 정보 조회
+  http.get("/v1/my/info", async () => {
+    console.log("내 정보 조회");
+    const myInfo = {
+      email: "user@example.com",
+      username: "홍길동",
+      phone: "010-1234-5678",
+      addr1: "서울특별시 강남구",
+      addr2: "역삼동 123-45",
+      postCode: "06178",
+    };
+    return HttpResponse.json(myInfo, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+  // 다가오는 패키지
+  http.get("/v1/my/upcoming-package", async () => {
+    console.log("출발일이 다가오는 패키지");
+    const upComingPackage = {
+      packageId: 0,
+      imageUrl: "//source.unsplash.com/500x500?america",
+      title: "오사카 특별 패키지",
+      dday: 30,
+      nationName: "일본",
+      departureDate: "2024-02-01",
+      endDate: "2024-02-05",
+    };
+    return HttpResponse.json(upComingPackage, {
+      headers: {
+        Cookie: "connect.sid=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+
+  // 내가 쓴 리뷰 목록
+  http.get("/v1/reviews/my", async () => {
+    console.log("내가 쓴 리뷰 목록");
+    const myReview = {
+      data: [
+        {
+          packageId: 0,
+          reviewId: 0,
+          content: "오로지 우리 식구만의 첫 해외여행1",
+          createdAt: "2010-01-01",
+          averageStars: 5.0,
+          productScore: 5,
+          scheduleScore: 5,
+          guideScore: 5,
+          appointmentScore: 5,
+        },
+        {
+          packageId: 1,
+          reviewId: 1,
+          content: "오로지 우리 식구만의 첫 해외여행2",
+          createdAt: "2010-01-02",
+          averageStars: 4.5,
+          productScore: 4,
+          scheduleScore: 5,
+          guideScore: 4,
+          appointmentScore: 5,
+        },
+        {
+          packageId: 2,
+          reviewId: 2,
+          content: "오로지 우리 식구만의 첫 해외여행3",
+          createdAt: "2010-01-03",
+          averageStars: 4.0,
+          productScore: 4,
+          scheduleScore: 4,
+          guideScore: 4,
+          appointmentScore: 4,
+        },
+      ],
+      page: {
+        totalElements: 15, // 총 리뷰의 수
+        currentElements: 3, // 현재 페이지에 보여지는 리뷰의 수
+        totalPages: 4, // 총 페이지 수 초기 3개 노출, 나머지 5개씩
+        currentPage: 1, // 현재 페이지 번호
+      },
+    };
+
+    return HttpResponse.json(myReview, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+
+  // 예약내역
+  http.get("/v1/orders", async () => {
+    console.log("예약내역");
+    const myOrders = {
+      data: [
+        {
+          orderCode: "2023122910352",
+          availableDateId: 0,
+          package: {
+            packageId: 1,
+            imageUrl: "//source.unsplash.com/90x90?japan",
+            nationName: "일본",
+            title: "청룡의 해 얼리버드 특가1",
+            hashtags: ["일본", "체험", "로컬 다이닝"],
+            lodgeDays: 1, // 1박
+            tripDays: 2, // 2일
+            travelPeriod: "24.02.01~24.02.05",
+            isWish: false,
+            reviewed: false, // 리뷰 작성 여부
+          },
+        },
+
+        {
+          orderCode: "2023123010352",
+          availableDateId: 0,
+          package: {
+            packageId: 2,
+            imageUrl: "//source.unsplash.com/90x90?japan",
+            nationName: "일본",
+            title: "청룡의 해 얼리버드 특가2",
+            hashtags: ["일본", "체험/액티비티", "로컬 다이닝"],
+            lodgeDays: 1, // 1박
+            tripDays: 2, // 2일
+            travelPeriod: "24.02.01~24.02.05",
+            isWish: false,
+            reviewed: false, // 리뷰 작성 여부
+          },
+        },
+        {
+          orderCode: "2024122910352",
+          availableDateId: 0,
+          package: {
+            packageId: 3,
+            imageUrl: "//source.unsplash.com/90x90?japan",
+            nationName: "일본",
+            title: "청룡의 해 얼리버드 특가3",
+            hashtags: ["일본", "체험", "로컬 다이닝"],
+            lodgeDays: 1, // 1박
+            tripDays: 2, // 2일
+            travelPeriod: "24.02.01~24.02.05",
+            isWish: false,
+            reviewed: false, // 리뷰 작성 여부
+          },
+        },
+      ],
+      page: {
+        currentPage: 0, // 현재 페이지
+        totalPage: 0, // 끝 페이지
+        currentElements: 0, // 현재 보여지는 목록의 개수
+        totalElements: 0, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+      },
+    };
+
+    return HttpResponse.json(myOrders, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
 ];
 
 export default handlers;
