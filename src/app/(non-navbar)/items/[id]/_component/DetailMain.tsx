@@ -1,25 +1,42 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import { DateTime, Reservation } from "@/app/types";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
+import ChangeDateButton from "./ChangeDateButton";
 import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
+import Introduction from "./Introduction";
 import ItemDetailBottom from "./ItemDetailBottom";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
+import Reviews from "./Reviews";
+import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
-import ChangeDateButton from "./ChangeDateButton";
 
 const DetailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
   const [viewMore, setViewMore] = useState(false);
 
-  // console.log(packageDetail.data.reservation);
+  const tabsData = [
+    {
+      name: "상품소개",
+      content: (
+        <Introduction
+          introImageUrls={packageDetail.data.introImageUrls}
+          inclusionList={packageDetail.data.inclusionList}
+          exclusionList={packageDetail.data.exclusionList}
+        />
+      ),
+    },
+    { name: "일정표", content: <ScheduleDetail /> },
+    { name: "리뷰", content: <Reviews /> },
+  ];
 
   return (
     <div
@@ -67,6 +84,13 @@ const DetailMain = () => {
         />
         <ChangeDateButton
           reservation={packageDetail.data.reservation as Reservation}
+        />
+        <TabsContainer
+          tabs={tabsData}
+          tabButtonStyle={{
+            defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
+            selectedClass: "py-1 text-black  border-b-2 border-pink",
+          }}
         />
       </div>
       <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
