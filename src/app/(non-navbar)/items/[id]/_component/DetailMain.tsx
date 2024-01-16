@@ -31,6 +31,7 @@ const DetailMain = () => {
           introImageUrls={packageDetail.data.introImageUrls}
           inclusionList={packageDetail.data.inclusionList}
           exclusionList={packageDetail.data.exclusionList}
+          totalPrice={packageDetail.data.totalPrice}
         />
       ),
     },
@@ -41,7 +42,7 @@ const DetailMain = () => {
   return (
     <div
       className={`overflow-hidden ${
-        viewMore ? "pb-[30px]" : "h-[700px] web:h-[630px]"
+        viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
       }`}
     >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />

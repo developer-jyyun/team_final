@@ -21,7 +21,7 @@ const InclusionExclusionContainer = ({
       </div>
       <div className="flex">
         <div className="w-1/2">
-          <div className="mb-1">
+          <div className="mb-2">
             <DetailTypography color={3} size={14} bold={500}>
               포함 사항
             </DetailTypography>
