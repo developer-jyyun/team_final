@@ -3,19 +3,25 @@
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import BadgeList from "./BadgeList";
 import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
+import ItemDetailBottom from "./ItemDetailBottom";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
-// import ItemDetailBottom from "./ItemDetailBottom";
 
 const DettailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
+  const [viewMore, setViewMore] = useState(false);
 
   return (
-    <div className="overflow-hidden">
+    <div
+      className={`overflow-hidden ${
+        viewMore ? "pb-[30px]" : "h-[700px] web:h-[630px]"
+      }`}
+    >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-6 web:px-4">
         <BadgeList>
@@ -50,7 +56,7 @@ const DettailMain = () => {
         </div>
         <PackageInfo infoData={packageDetail.data.info} />
       </div>
-      {/* <ItemDetailBottom /> */}
+      <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
     </div>
   );
 };

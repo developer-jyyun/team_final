@@ -1,21 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import useScrollUp from "@/hooks/useScrollUp";
 import DetailBottomButton from "./DetailBottomButton";
 import DetailMoreButton from "./DetailMoreButton";
 
-const ItemDetailBottom = () => {
-  const [viewMore, setViewMore] = useState(false);
+interface Props {
+  viewMore: boolean;
+  setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const getNavStyle = () => {
-    if (viewMore) return "";
-    else return "fixed bottom-0 web:w-[500px]";
+const ItemDetailBottom = ({ viewMore, setViewMore }: Props) => {
+  const isScrollUp = useScrollUp();
+
+  const getAnimation = () => {
+    if (!viewMore) return "";
+
+    if (isScrollUp) return "animate-positionTopAnimation";
+    else return "animate-positionTopAnimationReverse";
   };
 
   return (
-    <div className={`${getNavStyle()} w-full`}>
+    <div className={`fixed bottom-0 ${getAnimation()} w-full web:w-[500px]`}>
       {viewMore || <DetailMoreButton setViewMore={setViewMore} />}
-      <DetailBottomButton />
+      <DetailBottomButton viewMore={viewMore} />
     </div>
   );
 };
