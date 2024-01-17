@@ -1,10 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Step from "./Step";
+import ProgressBar from "./ProgressBar";
 
 const ReservationDone = () => {
   return (
     <div className="mx-4">
+      <div className="sticky top-0">
+        <ProgressBar progress={100} />
+      </div>
       <div className="mt-10 mb-5">
         <h3 className="flex">
           <Image
