@@ -41,9 +41,8 @@ const HomePackages = () => {
   ];
 
   return (
-    <div className="w-[90%]">
-      <p className="font-bold text-left">지금 핫한 초특가 상품</p>
-      <div className="flex text-grey-4 gap-2 ">
+    <div className="w-full">
+      <div className=" flex text-grey-4 gap-2 ">
         {nations.map((nation) => (
           <p
             className="first:text-pink px-1 py-2 text-xs whitespace-nowrap"
