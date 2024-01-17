@@ -8,8 +8,6 @@ import RangeSlider from "../my/review/_components/RangeSlider";
 import SearchButton from "./_component/SearchButton";
 import DestinationsList from "./_component/DestinationsList";
 
-export const dynamic = "force-dynamic";
-
 const SearchFilterPage = () => {
   return (
     <section className="w-full flex flex-col items-center">
