@@ -19,17 +19,6 @@ export interface CategoryItem {
   imageUrl: string;
 }
 
-// mypage
-export interface ListItemProps {
-  title: string;
-  link?: string;
-  category?: string[];
-  date?: string;
-  theme?: "menu" | "notice" | "faq";
-  iconSrc?: string;
-  onClickFn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
 // schdule
 
 export interface DateInfo {
@@ -96,4 +85,62 @@ export interface PackageResponseData {
     phone: string;
   };
   isWish: boolean;
+}
+
+// mypage
+export interface ListItemProps {
+  title: string;
+  link?: string;
+  category?: string[];
+  date?: string;
+  theme?: "menu" | "notice" | "faq";
+  iconSrc?: string;
+  onClickFn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export interface MyReview {
+  packageId: number;
+  reviewId: number;
+  content: string;
+  createdAt: string;
+  averageStars: number;
+  productScore: number;
+  scheduleScore: number;
+  guideScore: number;
+  appointmentScore: number;
+}
+
+export interface Page {
+  currentPage: number;
+  totalPage: number;
+  currentElements: number;
+  totalElements: number;
+}
+
+export interface MyReviewData {
+  packages: MyReview[];
+  page: Page;
+}
+export interface MyOrderPackage {
+  packageId: number;
+  imageUrl: string;
+  nationName: string;
+  title: string;
+  hashtags: string[];
+  lodgeDays: number;
+  tripDays: number;
+  travelPeriod: string;
+  isWish: boolean;
+  reviewed: boolean;
+}
+
+export interface MyOrder {
+  orderCode: string;
+  availableDateId: number;
+  package: MyOrderPackage;
+}
+
+export interface MyOrderList {
+  data: MyOrder[];
+  page: Page;
 }
