@@ -1,4 +1,5 @@
-import { DateTime } from "@/app/types";
+import ColorContainer from "@/app/_component/common/atom/ColorContainer";
+import type { DateTime } from "@/app/types";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 import DetailTypography from "./DetailTypography";
 
@@ -14,7 +15,7 @@ const TravelDate = ({
   transporation,
 }: Props) => {
   return (
-    <div className="rounded-lg bg-[#FAFAFA] py-6 px-8 mt-[29px]">
+    <ColorContainer bg="gray-light" size="md">
       <div className="flex items-center mb-[11px]">
         <div className="w-20">
           <DetailTypography color={4}>교통편</DetailTypography>
@@ -47,7 +48,7 @@ const TravelDate = ({
           </DetailTypography>
         </div>
       </div>
-    </div>
+    </ColorContainer>
   );
 };
 
