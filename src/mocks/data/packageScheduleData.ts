@@ -146,6 +146,9 @@ export const details = [
     },
     imageUrls: [
       "https://tourimage.interpark.com/product/tour/00161/A50/1000/A5019085_1_880.jpg",
+      "https://tourimage.interpark.com/product/tour/00161/A50/1000/A5019085_2_953.jpg",
+      "https://tourimage.interpark.com/Spot/137/12348/201605/6359918902617540740.jpg",
+      "https://tourimage.interpark.com/Spot/137/12348/201605/6359918902617540741.jpg",
     ],
     nationName: "나라 이름",
     continentName: "대륙 이름",
