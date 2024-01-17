@@ -6,6 +6,8 @@ import SearchButton from "./_component/SearchButton";
 import PriceRangeBar from "./_component/PriceRangeBar";
 import DestinationsList from "./_component/DestinationsList";
 
+export const dynamic = "force-dynamic";
+
 const SearchFilterPage = () => {
   return (
     <section className="w-full flex flex-col items-center">
