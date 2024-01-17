@@ -14,6 +14,11 @@ export interface ConceptItem {
   imageUrl: string;
 }
 
+export interface CategoryItem {
+  name: string;
+  imageUrl: string;
+}
+
 // mypage
 export interface ListItemProps {
   title: string;
