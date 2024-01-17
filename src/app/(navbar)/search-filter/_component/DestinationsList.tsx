@@ -12,7 +12,7 @@ const DestinationsList = async ({ type }: Props) => {
   return (
     <ul className="flex flex-wrap justify-between gap-4 mb-4">
       {destinations.data[type].map((item: DestinationItem) => (
-        <Destination data={item} />
+        <Destination key={item.name} data={item} />
       ))}
     </ul>
   );
