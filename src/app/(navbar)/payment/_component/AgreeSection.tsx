@@ -1,6 +1,6 @@
 import React, { useEffect, ReactNode } from "react";
 import Image from "next/image";
-import useBottomScrollListener from "../hooks/useBottomScrollListener";
+import useBottomScrollListener from "../_hooks/useBottomScrollListener";
 import BottomScroll from "./BottomScroll";
 
 interface Props {

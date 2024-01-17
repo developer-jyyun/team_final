@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
 import BottomMyPageMenu from "./BottomMyPageMenu";
 import AgreeSection from "./AgreeSection";
+import ProgressBar from "./ProgressBar";
 
 interface Props {
   onComplete: () => void;
@@ -12,12 +13,28 @@ const ReservationInfo = ({ onComplete }: Props) => {
   const [adultClass, setAdultClass] = useState("text-grey-c");
   const [childClass, setChildClass] = useState("text-grey-c");
   const [infantClass, setInfantClass] = useState("text-grey-c");
+  const [progress, setProgress] = useState(0);
   const [sectionStatus, setSectionStatus] = useState({
     section1: false,
     section2: false,
     section3: false,
     section4: false,
   });
+
+  const updateProgress = useCallback(() => {
+    const sectionsCompleted = [
+      adultClass !== "text-grey-c",
+      childClass !== "text-grey-c",
+      infantClass !== "text-grey-c",
+      sectionStatus.section1,
+      sectionStatus.section2,
+      sectionStatus.section3,
+      sectionStatus.section4,
+    ].filter(Boolean).length;
+
+    const newProgress = (sectionsCompleted / 7) * 100;
+    setProgress(newProgress);
+  }, [adultClass, childClass, infantClass, sectionStatus]);
 
   const [allAgreedImageSrc, setAllAgreedImageSrc] = useState(
     "/icons/checkIcon2.svg",
@@ -33,6 +50,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
   };
 
   useEffect(() => {
+    updateProgress();
     const allSectionsActive = Object.values(sectionStatus).every(
       (status) => status,
     );
@@ -44,28 +62,41 @@ const ReservationInfo = ({ onComplete }: Props) => {
         allSectionsActive ? "/icons/checkedIcon2.svg" : "/icons/checkIcon2.svg",
       );
     }
-  }, [sectionStatus, allAgreedImageSrc]);
+  }, [
+    sectionStatus,
+    allAgreedImageSrc,
+    adultClass,
+    childClass,
+    infantClass,
+    updateProgress,
+  ]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAdultClass(
       event.target.value === "0" ? "text-grey-c" : "text-pink-main",
     );
+    updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setChildClass(
       event.target.value === "0" ? "text-grey-c" : "text-pink-main",
     );
+    updateProgress();
   };
 
   const handleInfantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setInfantClass(
       event.target.value === "0" ? "text-grey-c" : "text-pink-main",
     );
+    updateProgress();
   };
 
   return (
     <div>
+      <div className="sticky top-0">
+        <ProgressBar progress={progress} />
+      </div>
       <div className="p-4">
         <div className="py-3 ml-3">
           <h4 className="text-lg text-black-2 font-semibold">예약상품정보</h4>
