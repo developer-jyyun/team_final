@@ -27,7 +27,9 @@ const Home = async () => {
               <HomeProsAndCons />
             </ContentsContainer>
             {/* 초특가 패키지 목록 */}
-            <HomePackages />
+            <ContentsContainer title="지금 핫한 초특가 상품">
+              <HomePackages />
+            </ContentsContainer>
           </div>
         </section>
       </main>
