@@ -4,9 +4,11 @@ import ContentsContainer from "@/app/_component/common/layout/ContentsContainer"
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import React from "react";
 import ConceptsList from "./_component/ConceptsList";
-import CategoriesList from "./_component/CategoriesList";
 import RangeSlider from "../my/review/_components/RangeSlider";
 import SearchButton from "./_component/SearchButton";
+import DestinationsList from "./_component/DestinationsList";
+
+export const dynamic = "force-dynamic";
 
 const SearchFilterPage = () => {
   return (
@@ -25,8 +27,8 @@ const SearchFilterPage = () => {
         <ConceptsList />
       </ContentsContainer>
       <ContentsContainer title="어디로 갈까?">
-        <CategoriesList type="nation" />
-        <CategoriesList type="continent" />
+        <DestinationsList type="nation" />
+        <DestinationsList type="continent" />
       </ContentsContainer>
       <SearchButton disabled={false}>
         <p className="font-medium text-lg">

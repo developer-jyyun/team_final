@@ -14,7 +14,7 @@ export interface ConceptItem {
   imageUrl: string;
 }
 
-export interface CategoryItem {
+export interface DestinationItem {
   name: string;
   imageUrl: string;
 }

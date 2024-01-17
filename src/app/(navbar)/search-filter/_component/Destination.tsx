@@ -1,10 +1,10 @@
-import type { CategoryItem } from "@/app/types";
+import type { DestinationItem } from "@/app/types";
 
 interface Props {
-  data: CategoryItem;
+  data: DestinationItem;
 }
 
-const Category = ({ data }: Props) => {
+const Destination = ({ data }: Props) => {
   return (
     <div className="w-[98px]">
       <div className="w-full h-[100px] py-2.5 px-[9px] bg-grey-e rounded-[12px]">
@@ -21,4 +21,4 @@ const Category = ({ data }: Props) => {
   );
 };
 
-export default Category;
+export default Destination;
