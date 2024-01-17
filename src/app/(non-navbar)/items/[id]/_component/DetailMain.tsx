@@ -39,6 +39,7 @@ const DetailMain = () => {
       content: (
         <ScheduleDetail
           departureDatetime={packageDetail.data.departureDatetime}
+          endDatetime={packageDetail.data.endDatetime}
         />
       ),
     },
@@ -52,7 +53,7 @@ const DetailMain = () => {
       }`}
     >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
-      <div className="px-6 web:px-4">
+      <div className="px-8">
         <BadgeList>
           {packageDetail.data.hashtags.map((hashtag: string) => {
             return <PackageTagBadge key={hashtag} text={hashtag} />;

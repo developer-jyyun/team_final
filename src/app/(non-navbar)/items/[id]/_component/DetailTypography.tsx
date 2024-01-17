@@ -15,7 +15,7 @@ const DetailTypography = ({
   align,
   size,
   bold,
-  styleClass,
+  styleClass = "",
 }: Props) => {
   const generateColorStyle = () => {
     if (color === 1) return "text-black-1";
@@ -42,14 +42,14 @@ const DetailTypography = ({
   };
 
   const generateSizeStyle = () => {
-    if (size === 8) return "text-[8px] web:text-[10px]";
-    if (size === 10) return "text-[10px] web:text-xs";
-    if (size === 12) return "text-xs web:text-sm";
-    if (size === 13) return "text-[13px] web:text-[15px]";
-    if (size === 14) return "text-sm web:text-base";
-    if (size === 16) return "web:text-lg";
-    if (size === 18) return "text-lg web:text-xl";
-    if (size === 20) return "text-xl web:text-2xl";
+    if (size === 8) return "text-[8px] web:text-xs";
+    if (size === 10) return "text-[10px] web:text-sm";
+    if (size === 12) return "text-xs web:text-[15px]";
+    if (size === 13) return "text-[13px] web:text-base";
+    if (size === 14) return "text-sm web:text-lg";
+    if (size === 16) return "web:text-xl";
+    if (size === 18) return "text-lg web:text-2xl";
+    if (size === 20) return "text-xl web:text-3xl";
     return "text-xs";
   };
 
