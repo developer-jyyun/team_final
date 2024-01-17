@@ -24,17 +24,27 @@ const ReservationInfo = ({ onComplete }: Props) => {
   );
 
   const handleSectionChange = (section: string, isActive: boolean) => {
-    setSectionStatus((prev) => ({ ...prev, [section]: isActive }));
+    setSectionStatus((prev) => {
+      if (section in prev) {
+        return { ...prev, [section]: isActive };
+      }
+      return prev;
+    });
   };
 
   useEffect(() => {
     const allSectionsActive = Object.values(sectionStatus).every(
       (status) => status,
     );
-    setAllAgreedImageSrc(
-      allSectionsActive ? "/icons/checkedIcon2.svg" : "/icons/checkIcon2.svg",
-    );
-  }, [sectionStatus]);
+    if (
+      (allSectionsActive && allAgreedImageSrc !== "/icons/checkedIcon2.svg") ||
+      (!allSectionsActive && allAgreedImageSrc !== "/icons/checkIcon2.svg")
+    ) {
+      setAllAgreedImageSrc(
+        allSectionsActive ? "/icons/checkedIcon2.svg" : "/icons/checkIcon2.svg",
+      );
+    }
+  }, [sectionStatus, allAgreedImageSrc]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAdultClass(
