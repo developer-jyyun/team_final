@@ -48,7 +48,7 @@ const DetailMain = () => {
 
   return (
     <div
-      className={`overflow-hidden ${
+      className={`${!viewMore && "overflow-hidden"} ${
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
       }`}
     >
@@ -97,6 +97,7 @@ const DetailMain = () => {
             defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
             selectedClass: "py-1 text-black  border-b-2 border-pink",
           }}
+          sticky
         />
       </div>
       <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
