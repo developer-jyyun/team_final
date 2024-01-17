@@ -2,6 +2,7 @@ import getPackageDetail from "@/api/items/getPackageDetail";
 import getAvailableDates from "@/api/schedule/getAvailableDates";
 import Button from "@/app/_component/common/atom/Button";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
+import { PackageResponseData } from "@/app/types";
 import {
   HydrationBoundary,
   QueryClient,
@@ -9,6 +10,19 @@ import {
 } from "@tanstack/react-query";
 import Calender from "./_component/Calender";
 import SelectedProduct from "./_component/SelectedProduct";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const item: { code: number; data: PackageResponseData } =
+    await getPackageDetail(Number(params.id));
+
+  return {
+    title: `일정-${item.data.title}`,
+  };
+};
 
 const SchedulePage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();

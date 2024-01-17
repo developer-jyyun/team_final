@@ -5,3 +5,6 @@ export const COUNT_DIGIT = 2;
 
 // search page
 export const MAX_NUM_OF_COL = 5;
+
+// my page
+export const TAB_PAGE_SIZE = 3;
