@@ -9,24 +9,24 @@ import {
 import DetailMain from "./_component/DetailMain";
 
 export const generateMetadata = async ({
-  searchParams,
+  params,
 }: {
-  searchParams: { d: string };
+  params: { id: string };
 }) => {
   const item: { code: number; data: PackageResponseData } =
-    await getPackageDetail(Number(searchParams.d));
+    await getPackageDetail(Number(params.id));
 
   return {
     title: item.data.title,
   };
 };
 
-const ItemsPage = async ({ searchParams }: { searchParams: { d: string } }) => {
+const ItemsPage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["package-detail", searchParams.d],
+    queryKey: ["package-detail", params.id.toString()],
     queryFn: async () => {
-      return getPackageDetail(Number(searchParams.d));
+      return getPackageDetail(Number(params.id));
     },
   });
   const dehydrateState = dehydrate(queryClient);

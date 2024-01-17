@@ -5,20 +5,15 @@ const getPackageDetail = async (id: number, query?: string | null) => {
   } else {
     url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/${id}`;
   }
+  const result = await fetch(url, {
+    cache: "no-store",
+  });
 
-  try {
-    const result = await fetch(url, {
-      cache: "no-store",
-    });
-    if (!result.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    return await result.json();
-  } catch (error) {
-    console.log(error);
-    throw error;
+  if (!result.ok) {
+    throw new Error("Failed to fetch data");
   }
+
+  return result.json();
 };
 
 export default getPackageDetail;

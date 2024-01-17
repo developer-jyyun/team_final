@@ -3,7 +3,7 @@
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -18,10 +18,8 @@ import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
 
 const DetailMain = () => {
-  const searchParams = useSearchParams();
-  const { data: packageDetail } = usePackageDetailQuery(
-    searchParams.get("d") as string,
-  );
+  const params = useParams();
+  const { data: packageDetail } = usePackageDetailQuery(params.id);
   const [viewMore, setViewMore] = useState(false);
 
   const tabsData = [
