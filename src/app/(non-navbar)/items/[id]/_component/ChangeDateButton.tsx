@@ -1,5 +1,5 @@
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
-import { Reservation } from "@/app/types";
+import type { Reservation } from "@/app/types";
 import DetailTypography from "./DetailTypography";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const ChangeDateButton = ({ reservation }: Props) => {
   return (
-    <div className="mt-4">
+    <div className="mt-4 mb-14">
       <button
         type="button"
         className="w-full py-3 mb-2 rounded-[58px] border-[0.6px] border-solid border-pink"

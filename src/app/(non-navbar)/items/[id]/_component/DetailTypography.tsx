@@ -42,6 +42,7 @@ const DetailTypography = ({
   };
 
   const generateSizeStyle = () => {
+    if (size === 8) return "text-[8px] web:text-[10px]";
     if (size === 10) return "text-[10px] web:text-xs";
     if (size === 12) return "text-xs web:text-sm";
     if (size === 13) return "text-[13px] web:text-[15px]";
