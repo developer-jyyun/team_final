@@ -9,6 +9,16 @@ export interface HashtagNames {
   hashtags: string[];
 }
 
+export interface ConceptItem {
+  name: string;
+  imageUrl: string;
+}
+
+export interface DestinationItem {
+  name: string;
+  imageUrl: string;
+}
+
 // schdule
 
 export interface DateInfo {
