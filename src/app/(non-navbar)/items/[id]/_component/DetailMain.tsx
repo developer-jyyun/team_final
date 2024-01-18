@@ -1,6 +1,7 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useParams } from "next/navigation";
@@ -50,7 +51,7 @@ const DetailMain = () => {
     <div
       className={`${!viewMore && "overflow-hidden"} ${
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
-      }`}
+      } relative`}
     >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
@@ -105,10 +106,9 @@ const DetailMain = () => {
         setViewMore={setViewMore}
         packageDetail={packageDetail.data}
       />
+      <ScrollToUpButton />
     </div>
   );
 };
 
 export default DetailMain;
-
-// window.scrollTo({ top: tabY });
