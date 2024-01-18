@@ -8,7 +8,7 @@ const PriceRangeBar = () => {
   const [value, setValue] = useState(200);
 
   return (
-    <ContentsContainer title="여행 예산부터!">
+    <ContentsContainer title="여행 예산부터!" subTitle="1인기준">
       <RangeSlider
         onChange={setValue}
         value={value}

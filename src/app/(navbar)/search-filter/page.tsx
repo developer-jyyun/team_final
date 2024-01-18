@@ -13,10 +13,10 @@ const SearchFilterPage = () => {
     <section className="w-full flex flex-col items-center">
       <DefaultHeader text="내가 원하는 여행 찾기" />
       <PriceRangeBar />
-      <ContentsContainer title="어떤 컨셉으로 놀까?">
+      <ContentsContainer title="어떤 컨셉으로 놀까?" subTitle="복수 선택 가능">
         <ConceptsList />
       </ContentsContainer>
-      <ContentsContainer title="어디로 갈까?">
+      <ContentsContainer title="어디로 갈까?" subTitle="복수 선택 가능">
         <DestinationsList type="nation" />
         <DestinationsList type="continent" />
       </ContentsContainer>
