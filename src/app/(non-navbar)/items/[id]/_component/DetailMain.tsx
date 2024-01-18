@@ -100,7 +100,11 @@ const DetailMain = () => {
           sticky
         />
       </div>
-      <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
+      <ItemDetailBottom
+        viewMore={viewMore}
+        setViewMore={setViewMore}
+        packageDetail={packageDetail.data}
+      />
     </div>
   );
 };
