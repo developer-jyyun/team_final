@@ -10,6 +10,7 @@ const MenuList = ({ menuItem }: Props) => {
     <>
       {menuItem.map((menu) => (
         <MenuListItem
+          key={menu.text}
           text={menu.text}
           link={menu.link}
           theme={menu.theme}
