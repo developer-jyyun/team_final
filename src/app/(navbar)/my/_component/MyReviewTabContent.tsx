@@ -4,7 +4,8 @@ import Button from "@/app/_component/common/atom/Button";
 import { TAB_PAGE_SIZE } from "@/app/constants";
 import { MyReview } from "@/app/types";
 import useMyReviewsQuery from "@/hooks/query/useMyReviewsQuery";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useDeleteReviewMutation from "@/hooks/query/useDeleteReviewMutation";
 import NoItem from "./NoItem";
 
 const MyReviewTabContent = () => {
@@ -19,6 +20,19 @@ const MyReviewTabContent = () => {
       const nextPage = prev + 1;
       return nextPage;
     });
+  };
+
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    if (data) {
+      setReviews(data);
+    }
+  }, [data]);
+  console.log("reviews", reviews);
+
+  const deleteReview = useDeleteReviewMutation();
+  const handleDeleteReview = (reviewId: number) => {
+    deleteReview.mutate(reviewId);
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -66,7 +80,11 @@ const MyReviewTabContent = () => {
                     </dd>
                   </dl>
                 </div>
-                <button type="button" className="absolute top-[6.76px] right-0">
+                <button
+                  type="button"
+                  onClick={() => handleDeleteReview(review.reviewId)}
+                  className="absolute top-[6.76px] right-0"
+                >
                   <img src="/icons/deleteIcon.svg" alt="리뷰 삭제 아이콘" />
                 </button>
               </li>
