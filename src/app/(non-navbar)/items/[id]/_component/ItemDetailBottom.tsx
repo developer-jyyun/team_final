@@ -20,7 +20,9 @@ const ItemDetailBottom = ({ viewMore, setViewMore }: Props) => {
   };
 
   return (
-    <div className={`fixed bottom-0 ${getAnimation()} w-full web:w-[500px]`}>
+    <div
+      className={`fixed bottom-0 z-50 ${getAnimation()} w-full web:w-[500px]`}
+    >
       {viewMore || <DetailMoreButton setViewMore={setViewMore} />}
       <DetailBottomButton viewMore={viewMore} />
     </div>
