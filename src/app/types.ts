@@ -88,16 +88,6 @@ export interface PackageResponseData {
 }
 
 // mypage
-export interface ListItemProps {
-  title: string;
-  link?: string;
-  category?: string[];
-  date?: string;
-  theme?: "menu" | "notice" | "faq";
-  iconSrc?: string;
-  onClickFn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
 export interface MyReview {
   packageId: number;
   reviewId: number;
@@ -143,4 +133,26 @@ export interface MyOrder {
 export interface MyOrderList {
   data: MyOrder[];
   page: Page;
+}
+
+export interface ListItemProps {
+  text?: string;
+  link?: string;
+  theme?: string;
+  iconSrc?: string;
+  onClickFn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+export interface CommonListData {
+  id: number;
+  title: string;
+  createdAt: string;
+  categories: string[];
+}
+
+export interface NoticeData extends CommonListData {
+  noticeId: number;
+}
+
+export interface FaqData extends CommonListData {
+  faqId: number;
 }

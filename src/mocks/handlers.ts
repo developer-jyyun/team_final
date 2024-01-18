@@ -392,12 +392,9 @@ const handlers = [
       addr2: "역삼동 123-45",
       postCode: "06178",
     };
-    return HttpResponse.json(myInfo, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myInfo);
   }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     console.log("출발일이 다가오는 패키지");
@@ -410,11 +407,7 @@ const handlers = [
       departureDate: "2024-02-01",
       endDate: "2024-02-05",
     };
-    return HttpResponse.json(upComingPackage, {
-      headers: {
-        Cookie: "connect.sid=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(upComingPackage);
   }),
 
   // 내가 쓴 리뷰 목록
@@ -463,12 +456,7 @@ const handlers = [
         currentPage: 1, // 현재 페이지 번호
       },
     };
-
-    return HttpResponse.json(myReview, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myReview);
   }),
 
   // 예약내역
@@ -534,11 +522,63 @@ const handlers = [
       },
     };
 
-    return HttpResponse.json(myOrders, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myOrders);
+  }),
+
+  // 공지사항 글 목록
+  http.get("/v1/notices", async () => {
+    console.log("공지사항 글 목록");
+    const noticeList = {
+      data: [
+        {
+          noticeId: 0,
+          title: "2023년 01월 유료 할증료 안내",
+          createdAt: "2010-01-01",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 1,
+          title: "2024년 01월 유료 할증료 안내",
+          createdAt: "2010-01-02",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 2,
+          title: "공지사항 3",
+          createdAt: "2010-01-03",
+          categories: ["항공권 소식", "해외항공"],
+        },
+      ],
+    };
+    return HttpResponse.json(noticeList);
+  }),
+
+  // 자주 묻는 질문 글 목록
+  http.get("/v1/faq", async () => {
+    console.log("자주 묻는 질문 글 목록");
+    const faqList = {
+      data: [
+        {
+          faqId: 0,
+          title: "자동로그인 해제 방법을 알려주세요 1",
+          createdAt: "2010-01-01",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 1,
+          title: "자동로그인 해제 방법을 알려주세요 2",
+          createdAt: "2010-01-02",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 2,
+          title: "자동로그인 해제 방법을 알려주세요 3",
+          createdAt: "2010-01-03",
+          categories: ["기타서비스", "자동로그인"],
+        },
+      ],
+    };
+    return HttpResponse.json(faqList);
   }),
 ];
 

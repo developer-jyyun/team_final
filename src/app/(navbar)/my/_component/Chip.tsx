@@ -1,19 +1,17 @@
 interface Props {
   chipData?: string[];
   name?: string;
+  borderColor?: string;
 }
 
-const Chip = ({ chipData, name }: Props) => {
+const Chip = ({ chipData, name, borderColor = "border-grey-a" }: Props) => {
+  const chipClass = `text-[11px] text-black-4 border border-solid rounded-xl py-1 px-2 web:text-sm ${borderColor}`;
   return (
     <>
       {chipData && (
         <p className="flex flex-row items-center justify-start gap-1">
           {chipData.map((chip) => (
-            <span
-              // TODO::key값 변경필요
-              key={chip}
-              className=" text-black-4 border border-solid border-grey-a rounded-xl text-[11px] py-1 px-2 web:text-sm"
-            >
+            <span key={chip} className={chipClass}>
               {chip}
             </span>
           ))}

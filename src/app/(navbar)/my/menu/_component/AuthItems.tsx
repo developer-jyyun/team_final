@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ListItemProps } from "@/app/types";
 import Dialog from "@/app/_component/common/layout/Dialog";
-import List from "./List";
 import Withdraw from "./Withdraw";
+import MenuList from "./MenuList";
 
 // TODO:: 비회원 사용자에게는 노출 X
 const AuthItems = () => {
@@ -34,12 +34,12 @@ const AuthItems = () => {
   };
   const AuthMenu: ListItemProps[] = [
     {
-      title: "로그아웃",
+      text: "로그아웃",
       theme: "menu",
       onClickFn: handleLogout,
     },
     {
-      title: "회원 탈퇴",
+      text: "회원 탈퇴",
       theme: "menu",
       onClickFn: confirmWithdraw,
     },
@@ -47,7 +47,7 @@ const AuthItems = () => {
 
   return (
     <>
-      {!isWithdrawing && <List items={AuthMenu} />}
+      {!isWithdrawing && <MenuList menuItem={AuthMenu} />}
       <Dialog
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
