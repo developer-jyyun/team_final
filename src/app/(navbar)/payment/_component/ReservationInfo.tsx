@@ -13,6 +13,11 @@ const ReservationInfo = ({ onComplete }: Props) => {
   const [adultClass, setAdultClass] = useState("text-grey-c");
   const [childClass, setChildClass] = useState("text-grey-c");
   const [infantClass, setInfantClass] = useState("text-grey-c");
+  const [adultSelected, setAdultSelected] = useState(false);
+  const [childSelected, setChildSelected] = useState(false);
+  const [infantSelected, setInfantSelected] = useState(false);
+  const [isReservationButtonActive, setIsReservationButtonActive] =
+    useState(false);
   const [progress, setProgress] = useState(0);
   const [sectionStatus, setSectionStatus] = useState({
     section1: false,
@@ -23,9 +28,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   const updateProgress = useCallback(() => {
     const sectionsCompleted = [
-      adultClass !== "text-grey-c",
-      childClass !== "text-grey-c",
-      infantClass !== "text-grey-c",
+      adultSelected,
+      childSelected,
+      infantSelected,
       sectionStatus.section1,
       sectionStatus.section2,
       sectionStatus.section3,
@@ -34,7 +39,16 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
     const newProgress = (sectionsCompleted / 7) * 100;
     setProgress(newProgress);
-  }, [adultClass, childClass, infantClass, sectionStatus]);
+    setIsReservationButtonActive(newProgress === 100);
+  }, [
+    adultSelected,
+    childSelected,
+    infantSelected,
+    sectionStatus.section1,
+    sectionStatus.section2,
+    sectionStatus.section3,
+    sectionStatus.section4,
+  ]);
 
   const [allAgreedImageSrc, setAllAgreedImageSrc] = useState(
     "/icons/checkIcon2.svg",
@@ -42,10 +56,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   const handleSectionChange = (section: string, isActive: boolean) => {
     setSectionStatus((prev) => {
-      if (section in prev) {
-        return { ...prev, [section]: isActive };
-      }
-      return prev;
+      const newStatus = { ...prev, [section]: isActive };
+      updateProgress();
+      return newStatus;
     });
   };
 
@@ -72,29 +85,38 @@ const ReservationInfo = ({ onComplete }: Props) => {
   ]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAdultSelected(true);
     setAdultClass(
-      event.target.value === "0" ? "text-grey-c" : "text-pink-main",
+      event.target.value === "-" || event.target.value === "0"
+        ? "text-grey-c"
+        : "text-pink-main",
     );
     updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setChildSelected(true);
     setChildClass(
-      event.target.value === "0" ? "text-grey-c" : "text-pink-main",
+      event.target.value === "-" || event.target.value === "0"
+        ? "text-grey-c"
+        : "text-pink-main",
     );
     updateProgress();
   };
 
   const handleInfantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInfantSelected(true);
     setInfantClass(
-      event.target.value === "0" ? "text-grey-c" : "text-pink-main",
+      event.target.value === "-" || event.target.value === "0"
+        ? "text-grey-c"
+        : "text-pink-main",
     );
     updateProgress();
   };
 
   return (
     <div>
-      <div className="sticky top-0">
+      <div className="sticky top-0 pb-2 bg-white z-10">
         <ProgressBar progress={progress} />
       </div>
       <div className="p-4">
@@ -182,6 +204,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
               onChange={handleAdultChange}
             >
+              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -206,6 +229,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
               onChange={handleChildChange}
             >
+              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -230,6 +254,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
               onChange={handleInfantChange}
             >
+              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -753,8 +778,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
         <div className="flex justify-center my-6">
           <Button
             text="예약하기"
-            styleClass="rounded-lg bg-pink text-white py-2 px-24 cursor-pointer"
-            onClickFn={onComplete}
+            styleClass={`rounded-lg bg-pink text-white py-2 px-24 cursor-pointer ${
+              !isReservationButtonActive ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            onClickFn={isReservationButtonActive ? onComplete : undefined}
           />
         </div>
       </div>
