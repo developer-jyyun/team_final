@@ -281,6 +281,42 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/themes", () => {
+    console.log("테마 패키지 목록 조회");
+    const themes = [
+      { themeId: 0, name: "베스트", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 1, name: "골프/스포츠", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 2, name: "허니문", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 3, name: "자연경관", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 4, name: "문화/역사", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 5, name: "체험/액티비티", imageUrl: "/assets/mainLogo.svg" },
+    ];
+
+    return HttpResponse.json({
+      code: 200,
+      data: themes,
+    });
+  }),
+
+  http.get("/v1/polls", () => {
+    console.log("테마 패키지 목록 조회");
+    const pollsInfo = [
+      {
+        alreadySubmitted: false,
+        subject: "여러분들의 여행 스타일은?",
+        pollId: 0,
+        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+        B: ["온 김에", "다 해보자!"],
+      },
+    ];
+
+    return HttpResponse.json(pollsInfo, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+
   http.get("v1/packages/top-views", () => {
     console.log("가장 많이 본 패키지 목록");
     const packagesList = [
