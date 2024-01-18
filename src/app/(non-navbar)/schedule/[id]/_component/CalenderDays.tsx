@@ -151,7 +151,7 @@ const CalenderDays = ({
         return (
           <div
             key={week.weekId}
-            className="flex justify-between text-black-2 text-sm font-medium h-[53px] web:text-base"
+            className="flex justify-between text-black-2 text-sm font-medium h-[47px] web:text-base"
           >
             {week.weekItem.map((day) => {
               return (
@@ -183,7 +183,7 @@ const CalenderDays = ({
                     className={`text-center text-[9px] ${getPriceColor(
                       day.isToday,
                       day.dateData,
-                    )} web:text-[11px]`}
+                    )} -mt-1 web:text-[11px]`}
                   >
                     {day.isToday && isCurrent() ? "오늘" : day.dateData}
                   </div>

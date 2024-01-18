@@ -24,7 +24,7 @@ const SelectedProduct = () => {
   }
 
   return (
-    <div className="flex flex-col justify-end grow -translate-y-16 web:-translate-y-11">
+    <div className="flex flex-col justify-end grow -translate-y-5 web:-translate-y-11">
       <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
         선택된 상품
       </h1>
