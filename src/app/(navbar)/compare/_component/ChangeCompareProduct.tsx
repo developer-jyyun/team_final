@@ -6,6 +6,7 @@ import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
 import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
+import MyPicProduct from "./MyPicProduct";
 
 const ChangeCompareProduct = () => {
   return (
@@ -159,6 +160,18 @@ const ChangeCompareProduct = () => {
           </div>
         </div>
         <MoreButton />
+      </div>
+      <div>
+        <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
+          내가 고른 상품과 유사한 추천 상품 보기
+        </h3>
+        <div className="flex flex-col">
+          <MyPicProduct />
+          <MyPicProduct />
+          <MyPicProduct />
+          <MyPicProduct />
+          <MyPicProduct />
+        </div>
       </div>
     </div>
   );
