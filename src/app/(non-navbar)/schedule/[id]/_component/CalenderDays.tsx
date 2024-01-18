@@ -52,26 +52,6 @@ const CalenderDays = ({
     ),
   );
 
-  const isCurrent = () => {
-    return today.year === selectedYear && today.month === selectedMonth;
-  };
-
-  const isPrev = (date: string) => {
-    const dateNumber = Number(date.split("-").join(""));
-    return (
-      dateNumber <
-      Number(
-        `${formatDigitNumber(today.year)}${formatDigitNumber(
-          today.month,
-        )}${formatDigitNumber(today.date)}`,
-      )
-    );
-  };
-
-  const isAvailable = (date: string, dateData: string | null) => {
-    return !(isPrev(date) || dateData === null);
-  };
-
   useEffect(() => {
     setDays(
       generateDays(
@@ -97,6 +77,26 @@ const CalenderDays = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleDate.data, packageDetail.data]);
+
+  const isCurrent = () => {
+    return today.year === selectedYear && today.month === selectedMonth;
+  };
+
+  const isPrev = (date: string) => {
+    const dateNumber = Number(date.split("-").join(""));
+    return (
+      dateNumber <
+      Number(
+        `${formatDigitNumber(today.year)}${formatDigitNumber(
+          today.month,
+        )}${formatDigitNumber(today.date)}`,
+      )
+    );
+  };
+
+  const isAvailable = (date: string, dateData: string | null) => {
+    return !(isPrev(date) || dateData === null);
+  };
 
   const getDateColor = (
     type: string | null,
@@ -144,7 +144,6 @@ const CalenderDays = ({
       return "text-red";
     }
   };
-
   return (
     <div>
       {days.map((week) => {

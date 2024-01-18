@@ -19,7 +19,7 @@ export const generateMetadata = async ({
     await getPackageDetail(Number(params.id));
 
   return {
-    title: `일정-${item.data.title}`,
+    title: item.code === 200 ? `일정-${item.data.title}` : "아무것도 없어요...",
   };
 };
 
