@@ -15,6 +15,8 @@ const PriceRangeBar = () => {
         max={500}
         min={0}
         step={50}
+        mark="show"
+        unit="만원"
       />
     </ContentsContainer>
   );
