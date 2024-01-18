@@ -1,6 +1,7 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import getPackageReveiws from "@/api/items/getPackageReviews";
 import getPackageScore from "@/api/items/getPackageScore";
+import getPackageSchedules from "@/api/schedule/getPackageSchedules";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import type { PackageResponseData } from "@/app/types";
 import {
@@ -35,6 +36,12 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
     queryKey: ["package-detail", "score"],
     queryFn: async () => {
       return getPackageScore(Number(params.id));
+    },
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["package-detail", "schedule"],
+    queryFn: async () => {
+      return getPackageSchedules(Number(params.id));
     },
   });
   await queryClient.prefetchInfiniteQuery({
