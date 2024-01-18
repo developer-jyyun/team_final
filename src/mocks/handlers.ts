@@ -417,6 +417,105 @@ const handlers = [
     });
   }),
 
+  // 패키지 리뷰
+  http.get("/v1/reviews/packages/:id/list", ({ request }) => {
+    const url = new URL(request.url);
+    const reviewPage = Number(url.searchParams.get("page")) || 1;
+
+    console.log(`${reviewPage} 페이지`);
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        data: [
+          {
+            reviewId: reviewPage,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 2,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 3,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 4,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 5,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 6,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+        ],
+        page: {
+          currentPage: reviewPage,
+          totalPage: 10,
+          currentElements: 6,
+          totalElements: 0,
+        },
+      },
+    });
+  }),
+
+  // 패키지 리뷰 평점
+  http.get("/v1/reviews/packages/:id/list/summary", async () => {
+    console.log("패키지 리뷰 평점");
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        count: 0,
+        averageStars: 4.8,
+        averageProductScore: 4.2,
+        averageScheduleScore: 3.4,
+        averageGuideScore: 4.4,
+        averageAppointmentScore: 5,
+      },
+    });
+  }),
+
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
     console.log("내 정보 조회");

@@ -87,6 +87,25 @@ export interface PackageResponseData {
   isWish: boolean;
 }
 
+export interface ScheduleInfo {
+  day: number;
+  schedule: string[];
+  breakfast: string;
+  lunch: string;
+  dinner: string;
+}
+
+export interface PackageReview {
+  reviewId: number;
+  content: string;
+  createdAt: string;
+  averageStars: number;
+  productScore: number;
+  scheduleScore: number;
+  guideScore: number;
+  appointmentScore: number;
+}
+
 // mypage
 export interface MyReview {
   packageId: number;

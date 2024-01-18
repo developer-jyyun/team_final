@@ -70,6 +70,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-white":
           "linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%)",
+        "gradient-red": "linear-gradient(270deg, #FF3D73 2.25%, #FF758A 100%);",
       },
       keyframes: {
         // 약관 동의 애니메이션

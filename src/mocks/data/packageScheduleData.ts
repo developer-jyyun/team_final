@@ -1153,3 +1153,83 @@ export const packageSchedules = [
     dinner: "",
   },
 ];
+
+export const reviewSummary = {
+  count: 0,
+  averageStars: 4.8, // 0.0~5.0
+  averageProductScore: 4.2, // 상품정보 점수, 0~5
+  averageScheduleScore: 3.4, // 일정구성 점수, 0~5
+  averageGuideScore: 4.4, // 가이드 친절도 점수, 0~5
+  averageAppointmentScore: 5, // 가이드 시간/일정 준수 점수, 0~5
+};
+
+export const reviewList = {
+  data: [
+    {
+      reviewId: 0,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 1,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 2,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 3,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 4,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 5,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+  ],
+  page: {
+    currentPage: 0, // 현재 페이지
+    totalPage: 0, // 끝 페이지
+    currentElements: 0, // 현재 보여지는 목록의 개수
+    totalElements: 0, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+  },
+};
