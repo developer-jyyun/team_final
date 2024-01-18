@@ -54,7 +54,7 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full">
-      <DefaultHeader theme="main" />
+      <DefaultHeader theme="main" back />
       <HydrationBoundary state={dehydrateState}>
         <DetailMain />
       </HydrationBoundary>
