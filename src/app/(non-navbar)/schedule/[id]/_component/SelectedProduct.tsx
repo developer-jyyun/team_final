@@ -2,13 +2,24 @@
 
 import useScheduleDateStore from "@/store/useScheduleDateStore";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
+import { useRouter, useParams } from "next/navigation";
 
 const SelectedProduct = () => {
+  const router = useRouter();
+  const params = useParams();
   const scheduleDate = useScheduleDateStore();
+
+  const handleSelect = () => {
+    if (scheduleDate.date) {
+      router.push(`/items/${params.id}?departDate=${scheduleDate.date}`);
+    } else {
+      router.push(`/items/${params.id}`);
+    }
+  };
 
   if (scheduleDate.data === null) {
     return (
-      <div className="flex flex-col justify-end grow -translate-y-16 web:-translate-y-11">
+      <div className="flex flex-col justify-end grow -translate-y-2 web:-translate-y-2">
         <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
           선택된 상품
         </h1>
@@ -19,12 +30,18 @@ const SelectedProduct = () => {
             <div className="w-[190px] h-[25px] bg-grey-d rounded-md" />
           </div>
         </div>
+        <button
+          type="button"
+          className="w-full h-[46px] web:h-[56px] mt-4 disabled:bg-grey-c hover:bg-[#bb1e4a] bg-pink disabled:text-black-8 text-white font-bold rounded-xl"
+        >
+          선택 완료
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col justify-end grow -translate-y-5 web:-translate-y-11">
+    <div className="flex flex-col justify-end grow -translate-y-2 web:-translate-y-2">
       <h1 className="text-black-4 text-xs font-normal py-1 web:text-base">
         선택된 상품
       </h1>
@@ -51,6 +68,13 @@ const SelectedProduct = () => {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        className="w-full h-[46px] web:h-[56px] mt-4 disabled:bg-grey-c hover:bg-[#bb1e4a] bg-pink disabled:text-black-8 text-white font-bold rounded-xl"
+        onClick={handleSelect}
+      >
+        선택 완료
+      </button>
     </div>
   );
 };
