@@ -392,12 +392,9 @@ const handlers = [
       addr2: "역삼동 123-45",
       postCode: "06178",
     };
-    return HttpResponse.json(myInfo, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myInfo);
   }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     console.log("출발일이 다가오는 패키지");
@@ -410,11 +407,7 @@ const handlers = [
       departureDate: "2024-02-01",
       endDate: "2024-02-05",
     };
-    return HttpResponse.json(upComingPackage, {
-      headers: {
-        Cookie: "connect.sid=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(upComingPackage);
   }),
 
   // 내가 쓴 리뷰 목록
@@ -463,14 +456,8 @@ const handlers = [
         currentPage: 1, // 현재 페이지 번호
       },
     };
-
-    return HttpResponse.json(myReview, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myReview);
   }),
-
   // 예약내역
   http.get("/v1/orders", async () => {
     console.log("예약내역");
@@ -534,11 +521,7 @@ const handlers = [
       },
     };
 
-    return HttpResponse.json(myOrders, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myOrders);
   }),
 ];
 
