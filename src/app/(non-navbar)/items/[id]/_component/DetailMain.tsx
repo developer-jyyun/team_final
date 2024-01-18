@@ -106,3 +106,5 @@ const DetailMain = () => {
 };
 
 export default DetailMain;
+
+// window.scrollTo({ top: tabY });

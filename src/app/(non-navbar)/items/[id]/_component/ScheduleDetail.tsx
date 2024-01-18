@@ -1,5 +1,5 @@
 import ColorContainer from "@/app/_component/common/atom/ColorContainer";
-import type { DateTime } from "@/app/types";
+import type { DateTime, ScheduleInfo } from "@/app/types";
 import { packageSchedules } from "@/mocks/data/packageScheduleData";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 import DetailTypography from "./DetailTypography";
@@ -7,14 +7,6 @@ import DetailTypography from "./DetailTypography";
 interface Props {
   departureDatetime: DateTime;
   endDatetime: DateTime;
-}
-
-interface ScheduleInfo {
-  day: number;
-  schedule: string[];
-  breakfast: string;
-  lunch: string;
-  dinner: string;
 }
 
 const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
@@ -90,7 +82,7 @@ const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
 
   return (
     <div className="mt-6">
-      <DetailTypography variant="h1" size={18} bold={600} styleClass="mt-6">
+      <DetailTypography variant="h1" size={18} bold={600}>
         일정표
       </DetailTypography>
       <ColorContainer bg="gray" size="sm">
