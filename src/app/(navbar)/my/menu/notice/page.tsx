@@ -1,29 +1,19 @@
-import React from "react";
-import { ListItemProps } from "@/app/types";
-import List from "../_component/List";
+"use client";
+
+import useNoticeListQuery from "@/hooks/query/useNoticeListQuery";
 import InnerSection from "../../_component/InnerSection";
+import DataList from "../_component/DataList";
 
 const NoticePage = () => {
-  const noticeMenu: ListItemProps[] = [
-    {
-      title: "2024년 01월 유류 할증료 안내",
-      link: "/my/menu/notice",
-      theme: "notice",
-      category: ["항공권 소식", "해외항공"],
-      date: "2023.12.12",
-    },
-    {
-      title: "2024년 01월 유류 할증료 안내2",
-      link: "/my/menu/privacy-policy",
-      theme: "notice",
-      category: ["항공권 소식", "해외항공"],
-      date: "2023.12.12",
-    },
-  ];
+  const { data, isLoading, isError, error } = useNoticeListQuery();
+  console.log("데이터 확인:", data);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>⚠ {error.message}⚠</div>;
   return (
     <InnerSection text="공지사항" backUrl="/my/menu">
       <ul className="flex flex-col gap-3">
-        <List items={noticeMenu} />
+        <DataList data={data} theme="notice" />
       </ul>
     </InnerSection>
   );

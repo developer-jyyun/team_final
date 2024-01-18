@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import getPackages from "@/api/home/getPackages";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { NATION_LISTS } from "@/app/constants";
+import useHomePackageQuery from "@/hooks/query/useHomePackageQuery";
 
 interface PackageInfo {
   packageId: number;
@@ -19,69 +19,66 @@ interface PackageInfo {
 
 const HomePackages = () => {
   const [packages, setPackages] = useState<PackageInfo[]>([]);
-  const { data } = useQuery({
-    queryKey: ["packages"],
-    queryFn: getPackages,
-  });
+  const [activeNation, setActiveNation] = useState("전체");
+  const { data, isLoading, isError, error } = useHomePackageQuery();
 
   useEffect(() => {
     setPackages(data?.data);
   }, [data?.data]);
 
-  // 레이아웃 표시용 상수입니다. 디자인 및 기능 구체화하면서 제거 예정입니다!
-  const nations = [
-    "전체",
-    "일본",
-    "동남아",
-    "유럽",
-    "오세아니아",
-    "북미",
-    "중동",
-    "중남미",
-  ];
+  const handleActiveNation = (nation: string) => {
+    setActiveNation(nation);
+  };
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>⚠ {error.message}⚠</div>;
 
   return (
-    <div className="w-[90%]">
-      <p className="font-bold text-left">지금 핫한 초특가 상품</p>
-      <div className="flex text-grey-4 gap-2 ">
-        {nations.map((nation) => (
-          <p
-            className="first:text-pink px-1 py-2 text-xs whitespace-nowrap"
+    <div className="w-full">
+      <div className="flex text-grey-4">
+        {NATION_LISTS.map((nation) => (
+          <div
+            className={`px-2 py-1 text-[11px] whitespace-nowrap ${
+              activeNation === nation ? "text-pink" : "text-grey-a"
+            }`}
             key={nation}
+            onClick={() => handleActiveNation(nation)}
           >
             {nation}
-          </p>
+          </div>
         ))}
       </div>
       {packages?.map((singlePackage) => (
-        <div className="flex gap-4 pt-4" key={singlePackage.packageId}>
+        <div className="flex gap-[18px] pt-4" key={singlePackage.packageId}>
           <Image
             src={singlePackage.imageUrl}
             alt="패키지 이미지"
-            width={100}
-            height={104}
-            style={{ width: "100px", height: "104px" }}
+            width={90}
+            height={90}
             className="rounded-lg"
           />
-          <div className="flex flex-col pt-4 gap-3">
-            <div className="font-bold">{singlePackage.title}</div>
-            <div className="flex gap-2">
+          <div className="h-[90px] flex flex-col pt-1 gap-1.5">
+            <div className="text-black-2 text-lg font-medium">
+              {singlePackage.title}
+            </div>
+            <div className="flex gap-1">
               {singlePackage.hashtags.map((hashtag) => (
                 <div
-                  className="border border-solid border-black rounded-md px-2 text-xs whitespace-nowrap"
+                  className="border-[0.6px] border-solid border-black-6 text-black-4 rounded-[39px] px-2 py-1 text-[11px] whitespace-nowrap"
                   key={hashtag}
                 >
                   {hashtag}
                 </div>
               ))}
             </div>
-            <div className="flex gap-1 text-red">
-              <div>{`${singlePackage.lodgeDays}박 ${singlePackage.tripDays}일`}</div>
-              <div className="font-bold">{`${singlePackage.minPrice}원`}</div>
+            <div className="flex items-center pt-0.5 gap-1 text-red-1">
+              <div className="text-xxs">{`${singlePackage.lodgeDays}박 ${singlePackage.tripDays}일`}</div>
+              <div className="text-sm font-medium">{`${singlePackage.minPrice}원`}</div>
             </div>
           </div>
         </div>
       ))}
+      {/* TODO: 더보기 버튼 추가 / 관련 동작 추가 */}
     </div>
   );
 };

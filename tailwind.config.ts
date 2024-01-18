@@ -74,6 +74,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-white":
           "linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%)",
+        "gradient-red": "linear-gradient(270deg, #FF3D73 2.25%, #FF758A 100%);",
         "custom-gradient-pink":
           "linear-gradient(122deg, #FF7B99 4.25%, #FF3478 104.25%)",
         "custom-gradient-green":

@@ -9,3 +9,15 @@ export const CATEGORY_COLORS = ["#FFF6DB", "#E6EEFA", "#FFEFEF", "#FAFAFA"];
 
 // my page
 export const TAB_PAGE_SIZE = 3;
+
+// home page
+export const NATION_LISTS = [
+  "전체",
+  "일본",
+  "대만",
+  "유럽",
+  "베트남",
+  "북미",
+  "아프리카",
+  "남미",
+];
