@@ -116,7 +116,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   return (
     <div>
-      <div className="sticky top-0">
+      <div className="sticky top-0 pb-2 bg-white z-10">
         <ProgressBar progress={progress} />
       </div>
       <div className="p-4">

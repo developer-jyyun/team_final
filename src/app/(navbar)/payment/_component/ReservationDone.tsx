@@ -6,7 +6,7 @@ import ProgressBar from "./ProgressBar";
 const ReservationDone = () => {
   return (
     <div className="mx-4">
-      <div className="sticky top-0">
+      <div className="sticky top-0 pb-2 bg-white">
         <ProgressBar progress={100} />
       </div>
       <div className="mt-10 mb-5">
