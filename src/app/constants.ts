@@ -14,10 +14,10 @@ export const TAB_PAGE_SIZE = 3;
 export const NATION_LISTS = [
   "전체",
   "일본",
-  "동남아",
+  "대만",
   "유럽",
-  "오세아니아",
+  "베트남",
   "북미",
-  "중동",
+  "아프리카",
   "남미",
 ];
