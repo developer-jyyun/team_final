@@ -17,11 +17,16 @@ import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
+import ItemNotFound from "./ItemNotFound";
 
 const DetailMain = () => {
   const params = useParams();
   const { data: packageDetail } = usePackageDetailQuery(params.id);
   const [viewMore, setViewMore] = useState(false);
+
+  if (packageDetail.code === 404) {
+    return <ItemNotFound />;
+  }
 
   const tabsData = [
     {

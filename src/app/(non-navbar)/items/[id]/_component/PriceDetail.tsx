@@ -1,6 +1,9 @@
+"use client";
+
 import ColorContainer from "@/app/_component/common/atom/ColorContainer";
 import type { Price } from "@/app/types";
 import formatDigitNumber from "@/utils/formatDigitNumber";
+import { useCallback } from "react";
 import DetailTypography from "./DetailTypography";
 
 interface Props {
@@ -8,7 +11,7 @@ interface Props {
 }
 
 const PriceDetail = ({ totalPrice }: Props) => {
-  const getUnder12YearsDate = () => {
+  const getUnder12YearsDate = useCallback(() => {
     const today = new Date();
 
     const birthYear = today.getFullYear() - 12;
@@ -28,7 +31,7 @@ const PriceDetail = ({ totalPrice }: Props) => {
         birthDate.getMonth() + 1,
       )}.${birthDate.getDate() + 1}`,
     };
-  };
+  }, []);
 
   return (
     <ColorContainer bg="gray-light" size="md">

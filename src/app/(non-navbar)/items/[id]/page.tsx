@@ -15,11 +15,11 @@ export const generateMetadata = async ({
 }: {
   params: { id: string };
 }) => {
-  const item: { code: number; data: PackageResponseData } =
+  const item: { code: number; data?: PackageResponseData } =
     await getPackageDetail(Number(params.id));
 
   return {
-    title: item.data.title,
+    title: item.code === 200 ? item.data?.title : "아무것도 없어요...",
   };
 };
 
