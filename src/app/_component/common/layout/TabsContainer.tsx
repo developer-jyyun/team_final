@@ -13,9 +13,10 @@ interface Props {
     defaultClass?: string;
     selectedClass?: string;
   };
+  sticky?: boolean;
 }
 
-const TabsContainer = ({ tabs, tabButtonStyle }: Props) => {
+const TabsContainer = ({ tabs, tabButtonStyle, sticky = false }: Props) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0].name);
 
   const handleSelect = (tabName: string) => {
@@ -34,6 +35,7 @@ const TabsContainer = ({ tabs, tabButtonStyle }: Props) => {
             selectedClass={tabButtonStyle?.selectedClass}
           />
         ))}
+        sticky={sticky}
       >
         {tabs.find((tab) => tab.name === selectedTab)?.content}
       </Tab>
