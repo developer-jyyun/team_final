@@ -281,6 +281,42 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/themes", () => {
+    console.log("테마 패키지 목록 조회");
+    const themes = [
+      { themeId: 0, name: "베스트", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 1, name: "골프/스포츠", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 2, name: "허니문", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 3, name: "자연경관", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 4, name: "문화/역사", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 5, name: "체험/액티비티", imageUrl: "/assets/mainLogo.svg" },
+    ];
+
+    return HttpResponse.json({
+      code: 200,
+      data: themes,
+    });
+  }),
+
+  http.get("/v1/polls", () => {
+    console.log("테마 패키지 목록 조회");
+    const pollsInfo = [
+      {
+        alreadySubmitted: false,
+        subject: "여러분들의 여행 스타일은?",
+        pollId: 0,
+        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+        B: ["온 김에", "다 해보자!"],
+      },
+    ];
+
+    return HttpResponse.json(pollsInfo, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
+    });
+  }),
+
   http.get("v1/packages/top-views", () => {
     console.log("가장 많이 본 패키지 목록");
     const packagesList = [
@@ -381,6 +417,105 @@ const handlers = [
     });
   }),
 
+  // 패키지 리뷰
+  http.get("/v1/reviews/packages/:id/list", ({ request }) => {
+    const url = new URL(request.url);
+    const reviewPage = Number(url.searchParams.get("page")) || 1;
+
+    console.log(`${reviewPage} 페이지`);
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        data: [
+          {
+            reviewId: reviewPage,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 2,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 3,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 4,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 5,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 6,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+        ],
+        page: {
+          currentPage: reviewPage,
+          totalPage: 10,
+          currentElements: 6,
+          totalElements: 0,
+        },
+      },
+    });
+  }),
+
+  // 패키지 리뷰 평점
+  http.get("/v1/reviews/packages/:id/list/summary", async () => {
+    console.log("패키지 리뷰 평점");
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        count: 0,
+        averageStars: 4.8,
+        averageProductScore: 4.2,
+        averageScheduleScore: 3.4,
+        averageGuideScore: 4.4,
+        averageAppointmentScore: 5,
+      },
+    });
+  }),
+
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
     console.log("내 정보 조회");
@@ -392,12 +527,9 @@ const handlers = [
       addr2: "역삼동 123-45",
       postCode: "06178",
     };
-    return HttpResponse.json(myInfo, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myInfo);
   }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     console.log("출발일이 다가오는 패키지");
@@ -410,11 +542,7 @@ const handlers = [
       departureDate: "2024-02-01",
       endDate: "2024-02-05",
     };
-    return HttpResponse.json(upComingPackage, {
-      headers: {
-        Cookie: "connect.sid=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(upComingPackage);
   }),
 
   // 내가 쓴 리뷰 목록
@@ -463,12 +591,7 @@ const handlers = [
         currentPage: 1, // 현재 페이지 번호
       },
     };
-
-    return HttpResponse.json(myReview, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myReview);
   }),
 
   // 예약내역
@@ -534,11 +657,63 @@ const handlers = [
       },
     };
 
-    return HttpResponse.json(myOrders, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myOrders);
+  }),
+
+  // 공지사항 글 목록
+  http.get("/v1/notices", async () => {
+    console.log("공지사항 글 목록");
+    const noticeList = {
+      data: [
+        {
+          noticeId: 0,
+          title: "2023년 01월 유료 할증료 안내",
+          createdAt: "2010-01-01",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 1,
+          title: "2024년 01월 유료 할증료 안내",
+          createdAt: "2010-01-02",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 2,
+          title: "공지사항 3",
+          createdAt: "2010-01-03",
+          categories: ["항공권 소식", "해외항공"],
+        },
+      ],
+    };
+    return HttpResponse.json(noticeList);
+  }),
+
+  // 자주 묻는 질문 글 목록
+  http.get("/v1/faq", async () => {
+    console.log("자주 묻는 질문 글 목록");
+    const faqList = {
+      data: [
+        {
+          faqId: 0,
+          title: "자동로그인 해제 방법을 알려주세요 1",
+          createdAt: "2010-01-01",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 1,
+          title: "자동로그인 해제 방법을 알려주세요 2",
+          createdAt: "2010-01-02",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 2,
+          title: "자동로그인 해제 방법을 알려주세요 3",
+          createdAt: "2010-01-03",
+          categories: ["기타서비스", "자동로그인"],
+        },
+      ],
+    };
+    return HttpResponse.json(faqList);
   }),
 ];
 

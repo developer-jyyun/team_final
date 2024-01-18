@@ -1,4 +1,6 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
+import getPackageReveiws from "@/api/items/getPackageReviews";
+import getPackageScore from "@/api/items/getPackageScore";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import type { PackageResponseData } from "@/app/types";
 import {
@@ -28,6 +30,18 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
     queryFn: async () => {
       return getPackageDetail(Number(params.id));
     },
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["package-detail", "score"],
+    queryFn: async () => {
+      return getPackageScore(Number(params.id));
+    },
+  });
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["package-detail", "reviews"],
+    queryFn: ({ pageParam = 1 }) =>
+      getPackageReveiws(Number(params.id), pageParam),
+    initialPageParam: 1,
   });
   const dehydrateState = dehydrate(queryClient);
 
