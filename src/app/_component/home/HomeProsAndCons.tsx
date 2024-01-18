@@ -32,11 +32,11 @@ const HomeProsAndCons = () => {
   }, []);
 
   return (
+    // TODO: 찬반토론 이미지 넘어오는대로 추가 수정 예정입니다!
     <div>
       {polls?.map((poll) => (
-        <div className="w-full relative">
+        <div className="w-full relative" key={`poll-${poll.pollId}`}>
           <Button
-            key={`poll-${poll.pollId}`}
             text={`${poll.A.map((letter) => letter).join("")} VS ${poll.B.map(
               (letter) => letter,
             ).join(" ")}`}

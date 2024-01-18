@@ -32,14 +32,10 @@ const HomeThemePackage = () => {
   return (
     <div className="grid grid-cols-3 grid-rows-2 place-items-center gap-6">
       {themes.map((singleTheme) => (
-        <div className="h-full w-[93px]" key={singleTheme.name}>
-          <Image
-            src={singleTheme.imageUrl}
-            alt="테스트이미지"
-            width={93}
-            height={93}
-            style={{ width: "93px", height: "93px" }}
-          />
+        <div key={`theme-${singleTheme.name}`}>
+          <div className="w-[93px] h-[93px] relative">
+            <Image src={singleTheme.imageUrl} alt="테스트이미지" fill />
+          </div>
           <p className="pt-2.5 text-center">{singleTheme.name}</p>
         </div>
       ))}

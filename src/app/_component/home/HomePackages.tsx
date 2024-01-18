@@ -78,6 +78,7 @@ const HomePackages = () => {
           </div>
         </div>
       ))}
+      {/* TODO: 더보기 버튼 추가 / 관련 동작 추가 */}
     </div>
   );
 };
