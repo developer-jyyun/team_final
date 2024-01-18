@@ -1,27 +1,21 @@
+"use client";
+
 import React from "react";
-import { ListItemProps } from "@/app/types";
-import List from "../_component/List";
+import useFaqListQuery from "@/hooks/query/useFaqListQuery";
 import InnerSection from "../../_component/InnerSection";
+import DataList from "../_component/DataList";
 
 const FaqPage = () => {
-  const faqMenu: ListItemProps[] = [
-    {
-      title: "자동 로그인 해제 방법을 알려주세요.",
-      link: "/my/menu/notice",
-      theme: "faq",
-      category: ["자동 로그인", "기타 서비스"],
-    },
-    {
-      title: "자주 묻는 질문 2",
-      link: "/my/menu/privacy-policy",
-      theme: "faq",
-      category: ["자동 로그인", "기타 서비스"],
-    },
-  ];
+  const { data, isLoading, isError, error } = useFaqListQuery();
+  console.log("데이터 확인:", data);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>⚠ {error.message}⚠</div>;
+
   return (
     <InnerSection text="자주 묻는 질문" backUrl="/my/menu">
       <ul className="flex flex-col gap-3">
-        <List items={faqMenu} />
+        <DataList data={data} theme="faq" />
       </ul>
     </InnerSection>
   );
