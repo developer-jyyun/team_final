@@ -39,6 +39,7 @@ const DetailMain = () => {
       content: (
         <ScheduleDetail
           departureDatetime={packageDetail.data.departureDatetime}
+          endDatetime={packageDetail.data.endDatetime}
         />
       ),
     },
@@ -47,12 +48,12 @@ const DetailMain = () => {
 
   return (
     <div
-      className={`overflow-hidden ${
+      className={`${!viewMore && "overflow-hidden"} ${
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
       }`}
     >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
-      <div className="px-6 web:px-4">
+      <div className="px-8">
         <BadgeList>
           {packageDetail.data.hashtags.map((hashtag: string) => {
             return <PackageTagBadge key={hashtag} text={hashtag} />;
@@ -96,6 +97,7 @@ const DetailMain = () => {
             defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
             selectedClass: "py-1 text-black  border-b-2 border-pink",
           }}
+          sticky
         />
       </div>
       <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />

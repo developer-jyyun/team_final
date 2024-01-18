@@ -74,6 +74,7 @@ const handlers = [
     return HttpResponse.json(availableResponseData);
   }),
 
+  // 검색 관련
   http.get("/v1/search/hashtags", () => {
     const hashtags = [
       "건강/웰니스",
@@ -92,6 +93,139 @@ const handlers = [
     return HttpResponse.json({
       code: 200,
       data: { hashtags },
+    });
+  }),
+
+  http.get("/v1/search/options/hashtags", () => {
+    const data = [
+      {
+        name: "자연",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "휴양/레저",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "문화/역사",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "체험/액티비티",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "건강/웰니스",
+        imageUrl:
+          " https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "스포츠/골프",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "쇼핑",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "로컬",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "다이닝/미식",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "허니문",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+    ];
+
+    return HttpResponse.json({
+      code: 200,
+      data,
+    });
+  }),
+  http.get("/v1/search/options/destinations", () => {
+    const data = {
+      nation: [
+        {
+          name: "일본",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "중국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "태국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "베트남",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "미국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "대만",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+      ],
+      continent: [
+        {
+          name: "아시아",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "오세아니아",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "유럽",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "아프리카",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "북미",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "남미",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+      ],
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data,
     });
   }),
 

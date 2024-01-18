@@ -13,7 +13,7 @@ const bgs: { [key: string]: string } = {
 };
 
 const sizes: { [key: string]: string } = {
-  sm: "py-3 px-3 mt-4",
+  sm: "py-[14px] px-[14px] mt-4",
   md: "py-6 px-8 mt-[29px]",
 };
 

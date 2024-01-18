@@ -44,7 +44,7 @@ const DetailSwiper = ({ imgUrls }: Props) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <SwiperBadge slideIndex={slideIndex} slideLength={4} />
+      <SwiperBadge slideIndex={slideIndex} slideLength={imgUrls.length} />
     </div>
   );
 };
