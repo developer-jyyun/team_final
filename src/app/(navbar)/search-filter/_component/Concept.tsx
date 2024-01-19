@@ -1,4 +1,8 @@
+"use client";
+
 import type { ConceptItem } from "@/app/types";
+import useSearchFilterStore from "@/store/useSearchFilterStore";
+import { useState } from "react";
 
 interface Props {
   concept: ConceptItem;
@@ -6,9 +10,19 @@ interface Props {
 }
 
 const Concept = ({ concept, bgColor }: Props) => {
+  const [selected, setSelected] = useState(false);
+  const { setConcepts } = useSearchFilterStore();
+
+  const handleClick = () => {
+    setConcepts(concept.name);
+    setSelected((prev) => !prev);
+  };
   return (
     <div
-      className={`flex justify-center items-center gap-5 h-20 w-[150px] rounded-lg`}
+      onClick={handleClick}
+      className={`flex justify-center items-center gap-5 h-20 w-[150px] rounded-lg ${
+        selected && "opacity-50"
+      }`}
       style={{ backgroundColor: bgColor }}
     >
       <img
