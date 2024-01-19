@@ -90,7 +90,7 @@ const EmailAuth = ({ setStep }: Props) => {
             id="certification"
             name="certification"
             title="인증번호"
-            type="number"
+            type="text"
             theme="count"
             errorMessage={codeErrorMessage}
             onInputChange={handleCodeInputChange}
@@ -105,7 +105,7 @@ const EmailAuth = ({ setStep }: Props) => {
             text="다음"
             theme="wide"
             onClickFn={handleNextStep}
-            disabled={codeValue.length !== 6}
+            disabled={codeValue.length !== 8}
           />
         </div>
       </div>

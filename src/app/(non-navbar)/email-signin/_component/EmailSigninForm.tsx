@@ -87,7 +87,7 @@ const EmailSigninForm = () => {
         onInputChange={handlePasswordInputChange}
       />
 
-      <div className="w-[327px] grow flex items-end web:w-full">
+      <div className="w-[340px] grow flex items-end web:w-full">
         <Button
           text="로그인"
           disabled={emailValue === "" || passwordValue === ""}
@@ -95,7 +95,7 @@ const EmailSigninForm = () => {
           onClickFn={handleLogin}
         />
       </div>
-      <div className="flex mb-20 mt-2 items-center text-[13px] text-black-4 font-normal">
+      <div className="flex mb-10 mt-2 items-center text-[13px] text-black-4 font-normal">
         <Button
           text="비밀번호 재설정"
           theme="md"
