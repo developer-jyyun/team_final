@@ -1,5 +1,6 @@
-const getPackageDetail = async (id: number, query?: string | null) => {
+const getPackageDetail = async (id: number, query: string | null) => {
   let url;
+  console.log(query);
   if (query) {
     url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/${id}?departDate=${query}`;
   } else {
