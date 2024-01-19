@@ -33,10 +33,10 @@ const Dialog = ({
 
   return (
     <>
-      <div className="z-[1000] fixed top-0 left-0 w-full h-full  bg-black/60 cursor-pointer" />
+      <div className="z-[500] fixed top-0 left-0 w-full h-full  bg-black/60 cursor-pointer" />
       {type === "confirm" && (
         <dialog
-          className="z-[1100] w-[87.2%] web:w-[327px] h-[176px] mx-auto absolute top-[30%] rounded-md bg-white flex flex-col justify-evenly shadow-md "
+          className="z-[550] w-[87.2%] web:w-[327px] h-[176px] mx-auto absolute top-[30%] rounded-md bg-white flex flex-col justify-evenly shadow-md "
           ref={ref}
         >
           {theme === "withdraw" && (

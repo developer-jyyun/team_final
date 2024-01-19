@@ -127,6 +127,7 @@ const DetailMain = () => {
             selectedClass: "py-1 text-black  border-b-2 border-pink",
           }}
           sticky
+          scroll
         />
       </div>
       <ItemDetailBottom
