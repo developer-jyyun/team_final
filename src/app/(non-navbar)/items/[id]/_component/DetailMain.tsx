@@ -30,7 +30,7 @@ const DetailMain = () => {
   );
   const [viewMore, setViewMore] = useState(false);
   // 이후 로그인 유저 구분
-  const [, setIsLogin] = useState(false);
+  // const [, setIsLogin] = useState(false);
 
   if (packageDetail.code === 404) {
     return <ItemNotFound />;
@@ -133,7 +133,7 @@ const DetailMain = () => {
       <ItemDetailBottom
         viewMore={viewMore}
         setViewMore={setViewMore}
-        setIsLogin={setIsLogin}
+        // setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
       <ScrollToUpButton />
