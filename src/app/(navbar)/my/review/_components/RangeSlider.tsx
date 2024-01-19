@@ -40,13 +40,30 @@ const RangeSlider = ({
       />
       {mark === "show" && (
         <div className="relative w-full text-black-9 text-xs font-normal leading-normal">
-          <span className="absolute">{min + unit}</span>
           <span
-            className={`absolute left-[${progressPercentage}%] text-pink font-medium`}
+            className="absolute"
+            style={progressPercentage < 30 ? { opacity: 0 } : { opacity: 100 }}
+          >
+            {min + unit}
+          </span>
+          <span
+            className={`absolute text-pink font-medium`}
+            style={
+              value === min
+                ? { left: 0 }
+                : value === max
+                  ? { right: 0 }
+                  : { left: `${progressPercentage - 5}%` }
+            }
           >
             {value + unit}
           </span>
-          <span className="absolute right-0">{max + unit}</span>
+          <span
+            className="absolute right-0"
+            style={progressPercentage > 70 ? { opacity: 0 } : { opacity: 100 }}
+          >
+            {max + unit}
+          </span>
         </div>
       )}
     </div>
