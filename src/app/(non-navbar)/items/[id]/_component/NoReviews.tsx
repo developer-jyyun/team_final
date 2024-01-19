@@ -1,7 +1,11 @@
 import Link from "next/link";
 import DetailTypography from "./DetailTypography";
 
-const NoReviews = () => {
+interface Props {
+  user: string;
+}
+
+const NoReviews = ({ user }: Props) => {
   return (
     <div className="w-full">
       <div className="mt-10">
@@ -16,7 +20,7 @@ const NoReviews = () => {
         </DetailTypography>
         <div className="flex justify-center mt-1">
           <Link
-            href={"/"}
+            href={user === "" ? "/" : "/my"}
             className="border-[1px] border-solid border-pink text-pink rounded-[6px] px-2 py-1 m-2"
           >
             리뷰 작성하러 가기

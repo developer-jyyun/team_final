@@ -12,12 +12,13 @@ import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
 import Introduction from "./Introduction";
 import ItemDetailBottom from "./ItemDetailBottom";
+import ItemNotFound from "./ItemNotFound";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
-import ItemNotFound from "./ItemNotFound";
+// import Dialog from "@/app/_component/common/layout/Dialog";
 
 const DetailMain = () => {
   const params = useParams();
@@ -28,6 +29,8 @@ const DetailMain = () => {
     searchParams.get("departDate"),
   );
   const [viewMore, setViewMore] = useState(false);
+  // 이후 로그인 유저 구분
+  // const [, setIsLogin] = useState(false);
 
   if (packageDetail.code === 404) {
     return <ItemNotFound />;
@@ -54,7 +57,10 @@ const DetailMain = () => {
         />
       ),
     },
-    { name: "리뷰", content: <Reviews /> },
+    {
+      name: "리뷰",
+      content: <Reviews user={packageDetail.data.myInfo?.username} />,
+    },
   ];
 
   return (
@@ -63,6 +69,18 @@ const DetailMain = () => {
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
       } relative`}
     >
+      {/* 이후 로그인 유저 구분 */}
+      {/* <Dialog
+        isOpen={isLogin}
+        type="confirm"
+        theme="login"
+        onClose={() => {
+          setIsLogin(false);
+        }}
+        onConfirm={() => {
+          router.push("/signin");
+        }}
+      /> */}
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
         <BadgeList>
@@ -101,7 +119,7 @@ const DetailMain = () => {
           endDatetime={packageDetail.data.endDatetime}
           transporation={packageDetail.data.transporation}
         />
-        <ChangeDateButton reservation={packageDetail.data.reservation} />
+        <ChangeDateButton packageDetail={packageDetail.data} />
         <TabsContainer
           tabs={tabsData}
           tabButtonStyle={{
@@ -109,11 +127,13 @@ const DetailMain = () => {
             selectedClass: "py-1 text-black  border-b-2 border-pink",
           }}
           sticky
+          scroll
         />
       </div>
       <ItemDetailBottom
         viewMore={viewMore}
         setViewMore={setViewMore}
+        // setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
       <ScrollToUpButton />
