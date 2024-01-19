@@ -59,7 +59,7 @@ const DetailMain = () => {
     },
     {
       name: "리뷰",
-      content: <Reviews user={packageDetail.data.myInfo.username} />,
+      content: <Reviews user={packageDetail.data.myInfo?.username} />,
     },
   ];
 
