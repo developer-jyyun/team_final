@@ -72,7 +72,11 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
                   <DetailTypography color={3} size={14}>
                     인원선택
                   </DetailTypography>
-                  <DetailTypography color={3} size={10} styleClass="mb-1 ml-1">
+                  <DetailTypography
+                    color={3}
+                    size={10}
+                    styleClass="mb-[1px] ml-1 web:mb-1"
+                  >
                     (필수)
                   </DetailTypography>
                 </div>

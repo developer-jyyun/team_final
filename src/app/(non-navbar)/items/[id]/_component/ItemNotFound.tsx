@@ -6,7 +6,7 @@ const ItemNotFound = () => {
     <div className="w-full">
       <div className="mt-16 web:mt-20">
         <div className="flex justify-center mb-6">
-          <img src="/assets/mainLogo.svg" alt="메인 로고" className="w-40" />
+          <img src="/assets/withdraw.png" alt="메인 로고" className="w-40" />
         </div>
         <DetailTypography variant="h1" color={4} size={16} align="center">
           요청하신 상품이 존재하지 않습니다

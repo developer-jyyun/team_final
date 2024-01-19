@@ -22,6 +22,9 @@ const Error = ({
     <div className="w-full">
       <DefaultHeader theme="main" />
       <div className="mt-28">
+        <div className="flex justify-center mb-6">
+          <img src="/assets/withdraw.png" alt="메인 로고" className="w-40" />
+        </div>
         <DetailTypography variant="h1" color={4} size={18} align="center">
           오류가 발생했습니다..
         </DetailTypography>
