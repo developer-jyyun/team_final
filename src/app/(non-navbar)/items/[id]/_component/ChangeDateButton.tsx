@@ -1,5 +1,8 @@
+"use client";
+
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
-import { Reservation } from "@/app/types";
+import type { Reservation } from "@/app/types";
+import { useParams, useRouter } from "next/navigation";
 import DetailTypography from "./DetailTypography";
 
 interface Props {
@@ -7,11 +10,16 @@ interface Props {
 }
 
 const ChangeDateButton = ({ reservation }: Props) => {
+  const router = useRouter();
+  const params = useParams();
   return (
-    <div className="mt-4">
+    <div className="mt-4 mb-14">
       <button
         type="button"
         className="w-full py-3 mb-2 rounded-[58px] border-[0.6px] border-solid border-pink"
+        onClick={() => {
+          router.push(`/schedule/${params.id}`);
+        }}
       >
         <DetailTypography color="pink" size={14} bold={500} align="center">
           출발일 변경

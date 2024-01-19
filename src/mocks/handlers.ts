@@ -1,5 +1,10 @@
 import { http, HttpResponse } from "msw";
-import { availableResponseData, details } from "./data/packageScheduleData";
+import {
+  availableResponseData,
+  details,
+  packageSchedules,
+} from "./data/packageScheduleData";
+import myReviewData from "./data/myReviewData";
 
 const handlers = [
   http.get("/api/hi", () => {
@@ -74,6 +79,7 @@ const handlers = [
     return HttpResponse.json(availableResponseData);
   }),
 
+  // 검색 관련
   http.get("/v1/search/hashtags", () => {
     const hashtags = [
       "건강/웰니스",
@@ -92,6 +98,139 @@ const handlers = [
     return HttpResponse.json({
       code: 200,
       data: { hashtags },
+    });
+  }),
+
+  http.get("/v1/search/options/hashtags", () => {
+    const data = [
+      {
+        name: "자연",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "휴양/레저",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "문화/역사",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "체험/액티비티",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "건강/웰니스",
+        imageUrl:
+          " https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "스포츠/골프",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "쇼핑",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "로컬",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "다이닝/미식",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+      {
+        name: "허니문",
+        imageUrl:
+          "https://i.pinimg.com/564x/c7/f3/13/c7f31359d0e2717a54f7bd115b1d146d.jpg",
+      },
+    ];
+
+    return HttpResponse.json({
+      code: 200,
+      data,
+    });
+  }),
+  http.get("/v1/search/options/destinations", () => {
+    const data = {
+      nation: [
+        {
+          name: "일본",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "중국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "태국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "베트남",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "미국",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+        {
+          name: "대만",
+          imageUrl:
+            "https://i.pinimg.com/736x/85/3c/48/853c480177507a21e208d5a11d99e398.jpg",
+        },
+      ],
+      continent: [
+        {
+          name: "아시아",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "오세아니아",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "유럽",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "아프리카",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "북미",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+        {
+          name: "남미",
+          imageUrl:
+            "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+        },
+      ],
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data,
     });
   }),
 
@@ -144,6 +283,42 @@ const handlers = [
     return HttpResponse.json({
       code: 200,
       data: advertisementInfo,
+    });
+  }),
+
+  http.get("/v1/themes", () => {
+    console.log("테마 패키지 목록 조회");
+    const themes = [
+      { themeId: 0, name: "베스트", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 1, name: "골프/스포츠", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 2, name: "허니문", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 3, name: "자연경관", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 4, name: "문화/역사", imageUrl: "/assets/mainLogo.svg" },
+      { themeId: 5, name: "체험/액티비티", imageUrl: "/assets/mainLogo.svg" },
+    ];
+
+    return HttpResponse.json({
+      code: 200,
+      data: themes,
+    });
+  }),
+
+  http.get("/v1/polls", () => {
+    console.log("테마 패키지 목록 조회");
+    const pollsInfo = [
+      {
+        alreadySubmitted: false,
+        subject: "여러분들의 여행 스타일은?",
+        pollId: 0,
+        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+        B: ["온 김에", "다 해보자!"],
+      },
+    ];
+
+    return HttpResponse.json(pollsInfo, {
+      headers: {
+        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+      },
     });
   }),
 
@@ -247,6 +422,114 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/packages/:id/schedules", () => {
+    console.log("패키지 스케줄 조회");
+
+    return HttpResponse.json({
+      code: 200,
+      data: packageSchedules,
+    });
+  }),
+
+  // 패키지 리뷰
+  http.get("/v1/reviews/packages/:id/list", ({ request }) => {
+    const url = new URL(request.url);
+    const reviewPage = Number(url.searchParams.get("page")) || 1;
+
+    console.log(`${reviewPage} 페이지`);
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        data: [
+          {
+            reviewId: reviewPage,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 2,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 3,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 4,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 5,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+          {
+            reviewId: reviewPage + 6,
+            content: `오로지 우리 식구만의 첫 해외여행 ${reviewPage} 페이지`,
+            createdAt: "2010-01-01",
+            averageStars: 0.0,
+            productScore: 0,
+            scheduleScore: 0,
+            guideScore: 0,
+            appointmentScore: 0,
+          },
+        ],
+        page: {
+          currentPage: reviewPage,
+          totalPage: 10,
+          currentElements: 6,
+          totalElements: 0,
+        },
+      },
+    });
+  }),
+
+  // 패키지 리뷰 평점
+  http.get("/v1/reviews/packages/:id/list/summary", async () => {
+    console.log("패키지 리뷰 평점");
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        count: 0,
+        averageStars: 4.8,
+        averageProductScore: 4.2,
+        averageScheduleScore: 3.4,
+        averageGuideScore: 4.4,
+        averageAppointmentScore: 5,
+      },
+    });
+  }),
+
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
     console.log("내 정보 조회");
@@ -258,12 +541,9 @@ const handlers = [
       addr2: "역삼동 123-45",
       postCode: "06178",
     };
-    return HttpResponse.json(myInfo, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myInfo);
   }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     console.log("출발일이 다가오는 패키지");
@@ -276,63 +556,26 @@ const handlers = [
       departureDate: "2024-02-01",
       endDate: "2024-02-05",
     };
-    return HttpResponse.json(upComingPackage, {
-      headers: {
-        Cookie: "connect.sid=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(upComingPackage);
   }),
 
   // 내가 쓴 리뷰 목록
   http.get("/v1/reviews/my", async () => {
     console.log("내가 쓴 리뷰 목록");
-    const myReview = {
-      data: [
-        {
-          packageId: 0,
-          reviewId: 0,
-          content: "오로지 우리 식구만의 첫 해외여행1",
-          createdAt: "2010-01-01",
-          averageStars: 5.0,
-          productScore: 5,
-          scheduleScore: 5,
-          guideScore: 5,
-          appointmentScore: 5,
-        },
-        {
-          packageId: 1,
-          reviewId: 1,
-          content: "오로지 우리 식구만의 첫 해외여행2",
-          createdAt: "2010-01-02",
-          averageStars: 4.5,
-          productScore: 4,
-          scheduleScore: 5,
-          guideScore: 4,
-          appointmentScore: 5,
-        },
-        {
-          packageId: 2,
-          reviewId: 2,
-          content: "오로지 우리 식구만의 첫 해외여행3",
-          createdAt: "2010-01-03",
-          averageStars: 4.0,
-          productScore: 4,
-          scheduleScore: 4,
-          guideScore: 4,
-          appointmentScore: 4,
-        },
-      ],
-      page: {
-        totalElements: 15, // 총 리뷰의 수
-        currentElements: 3, // 현재 페이지에 보여지는 리뷰의 수
-        totalPages: 4, // 총 페이지 수 초기 3개 노출, 나머지 5개씩
-        currentPage: 1, // 현재 페이지 번호
-      },
-    };
+    return HttpResponse.json(myReviewData);
+  }),
 
-    return HttpResponse.json(myReview, {
+  // 리뷰 삭제
+  http.delete("/v1/reviews/:reviewId", (info) => {
+    const { reviewId } = info.params;
+    myReviewData.data = myReviewData.data.filter(
+      (review) => review.reviewId !== Number(reviewId),
+    );
+
+    return new HttpResponse(JSON.stringify({ code: 200 }), {
+      status: 200,
       headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+        "Content-Type": "application/json",
       },
     });
   }),
@@ -400,11 +643,63 @@ const handlers = [
       },
     };
 
-    return HttpResponse.json(myOrders, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
+    return HttpResponse.json(myOrders);
+  }),
+
+  // 공지사항 글 목록
+  http.get("/v1/notices", async () => {
+    console.log("공지사항 글 목록");
+    const noticeList = {
+      data: [
+        {
+          noticeId: 0,
+          title: "2023년 01월 유료 할증료 안내",
+          createdAt: "2010-01-01",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 1,
+          title: "2024년 01월 유료 할증료 안내",
+          createdAt: "2010-01-02",
+          categories: ["항공권 소식", "해외항공"],
+        },
+        {
+          noticeId: 2,
+          title: "공지사항 3",
+          createdAt: "2010-01-03",
+          categories: ["항공권 소식", "해외항공"],
+        },
+      ],
+    };
+    return HttpResponse.json(noticeList);
+  }),
+
+  // 자주 묻는 질문 글 목록
+  http.get("/v1/faq", async () => {
+    console.log("자주 묻는 질문 글 목록");
+    const faqList = {
+      data: [
+        {
+          faqId: 0,
+          title: "자동로그인 해제 방법을 알려주세요 1",
+          createdAt: "2010-01-01",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 1,
+          title: "자동로그인 해제 방법을 알려주세요 2",
+          createdAt: "2010-01-02",
+          categories: ["기타서비스", "자동로그인"],
+        },
+        {
+          faqId: 2,
+          title: "자동로그인 해제 방법을 알려주세요 3",
+          createdAt: "2010-01-03",
+          categories: ["기타서비스", "자동로그인"],
+        },
+      ],
+    };
+    return HttpResponse.json(faqList);
   }),
 ];
 

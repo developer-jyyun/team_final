@@ -1107,3 +1107,129 @@ export const details = [
     isWish: false, // 비로그인 시에는 항상 false
   },
 ];
+
+export const packageSchedules = [
+  {
+    day: 1,
+    schedule: [
+      "[09:50] 인천공항 제1여객터미널 미팅",
+      "[11:20] LET001 인천공항 출발",
+      "오사카 이동 후",
+      "오사카 최고의 쇼핑과 먹거리 신사이바시 / 도톤보리 관광",
+      "호텔 체크인 후 휴식",
+    ],
+    breakfast: "",
+    lunch: "",
+    dinner: "",
+  },
+  {
+    day: 2,
+    schedule: [
+      "호텔 조식 후",
+      "버스이동 (08:00~ 08:30) ▶호텔 - USJ - 교토 관광 -USJ (18:000 - 호텔)",
+      "◆1.선택◆ 교토 관광 (추가요금 없음) 중/석식 포함",
+      "가이드와 교토 이동",
+      "유니버셜 스튜디오는 가이드가 동행하지 않습니다.",
+      "※ 유니버셜 스튜디오 익스프레스 티켓은 개별 구매입니다.",
+      "※ 여행사에서는 따로 판매하지 않습니다.",
+      "오사카 이동",
+      "호텔 체크인 후 휴식",
+    ],
+    breakfast: "호텔식",
+    lunch: "",
+    dinner: "",
+  },
+  {
+    day: 3,
+    schedule: [
+      "호텔 조식 후",
+      "일본관광공사 면세점 입점",
+      "간사이공항으로 이동",
+      "[16:30] LET002 간사이 공항 도착",
+      "[18:30] LET002 인천 국제공항 도착",
+    ],
+    breakfast: "호텔식",
+    lunch: "",
+    dinner: "",
+  },
+];
+
+export const reviewSummary = {
+  count: 0,
+  averageStars: 4.8, // 0.0~5.0
+  averageProductScore: 4.2, // 상품정보 점수, 0~5
+  averageScheduleScore: 3.4, // 일정구성 점수, 0~5
+  averageGuideScore: 4.4, // 가이드 친절도 점수, 0~5
+  averageAppointmentScore: 5, // 가이드 시간/일정 준수 점수, 0~5
+};
+
+export const reviewList = {
+  data: [
+    {
+      reviewId: 0,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 1,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 2,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 3,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 4,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+    {
+      reviewId: 5,
+      content: "오로지 우리 식구만의 첫 해외여행",
+      createdAt: "2010-01-01",
+      averageStars: 0.0,
+      productScore: 0,
+      scheduleScore: 0,
+      guideScore: 0,
+      appointmentScore: 0,
+    },
+  ],
+  page: {
+    currentPage: 0, // 현재 페이지
+    totalPage: 0, // 끝 페이지
+    currentElements: 0, // 현재 보여지는 목록의 개수
+    totalElements: 0, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+  },
+};
