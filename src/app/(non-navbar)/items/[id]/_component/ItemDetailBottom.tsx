@@ -15,10 +15,16 @@ import StorePerson from "./StorePerson";
 interface Props {
   viewMore: boolean;
   setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   packageDetail: PackageResponseData;
 }
 
-const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
+const ItemDetailBottom = ({
+  viewMore,
+  setViewMore,
+  setIsLogin,
+  packageDetail,
+}: Props) => {
   const isScrollUp = useScrollUp();
   const paymentStore = usePaymentStore();
   const router = useRouter();
@@ -32,6 +38,8 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
 
   const [totalPrice, setTotalPrice] = useState(packageDetail.totalPrice.adult);
 
+  // console.log(packageDetail.myInfo);
+
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
   }, [reservation]);
@@ -44,6 +52,10 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   };
 
   const handlePayment = () => {
+    if (packageDetail.myInfo.username === "") {
+      setIsLogin(true);
+    }
+    // 이후 로그인 유저 구분
     const newDepartureDate = packageDetail.departureDatetime.date.split("-");
     const newEndDate = packageDetail.endDatetime.date.split("-");
     paymentStore.setPaymentData({

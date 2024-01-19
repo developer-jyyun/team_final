@@ -8,7 +8,11 @@ import ReviewItem from "./ReviewItem";
 import ReviewRangeList from "./ReviewRangeList";
 import NoReviews from "./NoReviews";
 
-const Reviews = () => {
+interface Props {
+  user: string;
+}
+
+const Reviews = ({ user }: Props) => {
   const params = useParams();
   const {
     data: reviews,
@@ -17,7 +21,6 @@ const Reviews = () => {
     isFetching,
   } = usePackageReveiwQuery(params.id as string);
   const { data: score } = usePackageScoreQuery(params.id as string);
-  console.log(reviews?.pages[0].data.data);
 
   const boxRef = useRef(null);
 
@@ -48,7 +51,7 @@ const Reviews = () => {
   }, [isFetching, hasNextPage, fetchNextPage]);
 
   if (reviews?.pages[0].data.data.length === 0) {
-    return <NoReviews />;
+    return <NoReviews user={user} />;
   }
 
   return (
