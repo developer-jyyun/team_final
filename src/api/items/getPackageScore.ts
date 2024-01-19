@@ -1,16 +1,16 @@
 const getPackageScore = async (id: number) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/reviews/packages/${id}/list/summary`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  if (!result.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/reviews/packages/${id}/list/summary`,
+      {
+        cache: "no-store",
+      },
+    );
+    return await result.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return result.json();
 };
 
 export default getPackageScore;

@@ -52,26 +52,6 @@ const CalenderDays = ({
     ),
   );
 
-  const isCurrent = () => {
-    return today.year === selectedYear && today.month === selectedMonth;
-  };
-
-  const isPrev = (date: string) => {
-    const dateNumber = Number(date.split("-").join(""));
-    return (
-      dateNumber <
-      Number(
-        `${formatDigitNumber(today.year)}${formatDigitNumber(
-          today.month,
-        )}${formatDigitNumber(today.date)}`,
-      )
-    );
-  };
-
-  const isAvailable = (date: string, dateData: string | null) => {
-    return !(isPrev(date) || dateData === null);
-  };
-
   useEffect(() => {
     setDays(
       generateDays(
@@ -97,6 +77,26 @@ const CalenderDays = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleDate.data, packageDetail.data]);
+
+  const isCurrent = () => {
+    return today.year === selectedYear && today.month === selectedMonth;
+  };
+
+  const isPrev = (date: string) => {
+    const dateNumber = Number(date.split("-").join(""));
+    return (
+      dateNumber <
+      Number(
+        `${formatDigitNumber(today.year)}${formatDigitNumber(
+          today.month,
+        )}${formatDigitNumber(today.date)}`,
+      )
+    );
+  };
+
+  const isAvailable = (date: string, dateData: string | null) => {
+    return !(isPrev(date) || dateData === null);
+  };
 
   const getDateColor = (
     type: string | null,
@@ -144,14 +144,13 @@ const CalenderDays = ({
       return "text-red";
     }
   };
-
   return (
     <div>
       {days.map((week) => {
         return (
           <div
             key={week.weekId}
-            className="flex justify-between text-black-2 text-sm font-medium h-[53px] web:text-base"
+            className="flex justify-between text-black-2 text-sm font-medium h-[47px] web:text-base"
           >
             {week.weekItem.map((day) => {
               return (
@@ -183,7 +182,7 @@ const CalenderDays = ({
                     className={`text-center text-[9px] ${getPriceColor(
                       day.isToday,
                       day.dateData,
-                    )} web:text-[11px]`}
+                    )} -mt-1 web:text-[11px]`}
                   >
                     {day.isToday && isCurrent() ? "오늘" : day.dateData}
                   </div>

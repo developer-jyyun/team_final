@@ -1,9 +1,10 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -16,11 +17,21 @@ import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
+import ItemNotFound from "./ItemNotFound";
 
 const DetailMain = () => {
   const params = useParams();
-  const { data: packageDetail } = usePackageDetailQuery(params.id);
+  const searchParams = useSearchParams();
+
+  const { data: packageDetail } = usePackageDetailQuery(
+    params.id,
+    searchParams.get("departDate"),
+  );
   const [viewMore, setViewMore] = useState(false);
+
+  if (packageDetail.code === 404) {
+    return <ItemNotFound />;
+  }
 
   const tabsData = [
     {
@@ -50,7 +61,7 @@ const DetailMain = () => {
     <div
       className={`${!viewMore && "overflow-hidden"} ${
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
-      }`}
+      } relative`}
     >
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
@@ -100,11 +111,14 @@ const DetailMain = () => {
           sticky
         />
       </div>
-      <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
+      <ItemDetailBottom
+        viewMore={viewMore}
+        setViewMore={setViewMore}
+        packageDetail={packageDetail.data}
+      />
+      <ScrollToUpButton />
     </div>
   );
 };
 
 export default DetailMain;
-
-// window.scrollTo({ top: tabY });

@@ -1,5 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { availableResponseData, details } from "./data/packageScheduleData";
+import {
+  availableResponseData,
+  details,
+  packageSchedules,
+} from "./data/packageScheduleData";
 import myReviewData from "./data/myReviewData";
 
 const handlers = [
@@ -415,6 +419,15 @@ const handlers = [
     return HttpResponse.json({
       code: 200,
       data: newData,
+    });
+  }),
+
+  http.get("/v1/packages/:id/schedules", () => {
+    console.log("패키지 스케줄 조회");
+
+    return HttpResponse.json({
+      code: 200,
+      data: packageSchedules,
     });
   }),
 

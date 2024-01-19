@@ -1,6 +1,7 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import getPackageReveiws from "@/api/items/getPackageReviews";
 import getPackageScore from "@/api/items/getPackageScore";
+import getPackageSchedules from "@/api/schedule/getPackageSchedules";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import type { PackageResponseData } from "@/app/types";
 import {
@@ -15,11 +16,11 @@ export const generateMetadata = async ({
 }: {
   params: { id: string };
 }) => {
-  const item: { code: number; data: PackageResponseData } =
+  const item: { code: number; data?: PackageResponseData } =
     await getPackageDetail(Number(params.id));
 
   return {
-    title: item.data.title,
+    title: item.code === 200 ? item.data?.title : "아무것도 없어요...",
   };
 };
 
@@ -37,6 +38,12 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
       return getPackageScore(Number(params.id));
     },
   });
+  await queryClient.prefetchQuery({
+    queryKey: ["package-detail", "schedule"],
+    queryFn: async () => {
+      return getPackageSchedules(Number(params.id));
+    },
+  });
   await queryClient.prefetchInfiniteQuery({
     queryKey: ["package-detail", "reviews"],
     queryFn: ({ pageParam = 1 }) =>
@@ -47,7 +54,7 @@ const ItemsPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full">
-      <DefaultHeader theme="main" />
+      <DefaultHeader theme="main" back />
       <HydrationBoundary state={dehydrateState}>
         <DetailMain />
       </HydrationBoundary>

@@ -11,6 +11,7 @@ interface Props {
   iconUrl?: string;
   iconSrc?: string;
   iconAlt?: string;
+  back?: boolean;
 }
 
 const DefaultHeader = ({
@@ -21,6 +22,7 @@ const DefaultHeader = ({
   iconUrl,
   iconSrc,
   iconAlt,
+  back = false,
 }: Props) => {
   const router = useRouter();
 
@@ -44,7 +46,8 @@ const DefaultHeader = ({
             />
           </Link>
         ) : (
-          <div
+          <button
+            type="button"
             className="absolute left-[32px] top-1/2 -translate-y-1/2"
             onClick={() => {
               router.back();
@@ -55,7 +58,7 @@ const DefaultHeader = ({
               alt="왼쪽 화살표"
               width="24px"
             />
-          </div>
+          </button>
         )
       ) : null}
 
@@ -78,6 +81,17 @@ const DefaultHeader = ({
         >
           <img src={iconSrc} alt={iconAlt} width="24" />
         </Link>
+      )}
+      {back && (
+        <button
+          type="button"
+          className="absolute left-[32px] top-1/2 -translate-y-1/2"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
+        </button>
       )}
     </div>
   );
