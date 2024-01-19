@@ -1,13 +1,17 @@
 const deleteMyReview = async (reviewId: number) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/reviews/${reviewId}`,
-    { method: "DELETE" },
-  );
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/reviews/${reviewId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
 
-  if (!result.ok) {
-    throw new Error("리뷰 삭제를 실패했습니다.");
+    return await result.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return result.json();
 };
 export default deleteMyReview;
