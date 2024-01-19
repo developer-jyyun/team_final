@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface Date {
   date: string | null;
@@ -21,9 +21,15 @@ interface Props {
   paymentData: Payment;
   setPaymentData: (data: Payment) => void;
   resetPaymentData: VoidFunction;
+  increaseAdult: VoidFunction;
+  decreaseAdult: VoidFunction;
+  increaseInfant: VoidFunction;
+  decreaseInfant: VoidFunction;
+  increaseBaby: VoidFunction;
+  decreaseBaby: VoidFunction;
 }
 
-export const usePaymentStore = create<Props>()(
+const usePaymentStore = create<Props>()(
   persist(
     (set) => ({
       paymentData: {
@@ -50,9 +56,51 @@ export const usePaymentStore = create<Props>()(
             totalPrice: 0,
           },
         }),
+      increaseAdult: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            adult: state.paymentData.adult + 1,
+          },
+        })),
+      decreaseAdult: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            adult: state.paymentData.adult - 1,
+          },
+        })),
+      increaseInfant: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            infant: state.paymentData.infant + 1,
+          },
+        })),
+      decreaseInfant: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            infant: state.paymentData.infant - 1,
+          },
+        })),
+      increaseBaby: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            baby: state.paymentData.baby + 1,
+          },
+        })),
+      decreaseBaby: () =>
+        set((state) => ({
+          paymentData: {
+            ...state.paymentData,
+            baby: state.paymentData.baby - 1,
+          },
+        })),
     }),
     {
-      name: "payment-storage",
+      name: "pp-s",
       storage: createJSONStorage(() => sessionStorage),
     },
   ),

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Tab from "@/app/_component/common/atom/Tab";
 import TabButton from "@/app/_component/common/atom/TabButton";
 
@@ -14,16 +14,35 @@ interface Props {
     selectedClass?: string;
   };
   sticky?: boolean;
+  scroll?: boolean;
 }
 
-const TabsContainer = ({ tabs, tabButtonStyle, sticky = false }: Props) => {
+const TabsContainer = ({
+  tabs,
+  tabButtonStyle,
+  sticky = false,
+  scroll = false,
+}: Props) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0].name);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    if (boxRef.current) {
+      const rect = boxRef.current.getBoundingClientRect();
+      setScrollTop(rect.y);
+    }
+  }, []);
 
   const handleSelect = (tabName: string) => {
     setSelectedTab(tabName);
+    if (scroll && window.scrollY > scrollTop) {
+      window.scrollTo({ top: scrollTop, behavior: "smooth" });
+    }
   };
+
   return (
-    <article>
+    <article ref={boxRef}>
       <Tab
         buttons={tabs.map((tab) => (
           <TabButton

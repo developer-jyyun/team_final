@@ -3,6 +3,8 @@
 import BottomSlideModal from "@/app/_component/common/layout/BottomSlideModal";
 import type { PackageResponseData } from "@/app/types";
 import useScrollUp from "@/hooks/useScrollUp";
+import usePaymentStore from "@/store/usePaymentStore";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import DetailBottomButton from "./DetailBottomButton";
@@ -13,11 +15,14 @@ import StorePerson from "./StorePerson";
 interface Props {
   viewMore: boolean;
   setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   packageDetail: PackageResponseData;
 }
 
 const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   const isScrollUp = useScrollUp();
+  const paymentStore = usePaymentStore();
+  const router = useRouter();
 
   const [reservation, setReservation] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -27,6 +32,8 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   const [babyStore, setBabyStore] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(packageDetail.totalPrice.adult);
+
+  // console.log(packageDetail.myInfo);
 
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
@@ -40,9 +47,13 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   };
 
   const handlePayment = () => {
+    // if (!packageDetail.myInfo) {
+    //   setIsLogin(true);
+    // }
+    // 이후 로그인 유저 구분
     const newDepartureDate = packageDetail.departureDatetime.date.split("-");
     const newEndDate = packageDetail.endDatetime.date.split("-");
-    console.log({
+    paymentStore.setPaymentData({
       title: packageDetail.title,
       tripDay: `${packageDetail.lodgeDays}박 ${packageDetail.tripDays}일`,
       departureDate: {
@@ -58,6 +69,7 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
       baby: babyStore,
       totalPrice: totalPrice,
     });
+    router.push("/payment");
   };
 
   return (

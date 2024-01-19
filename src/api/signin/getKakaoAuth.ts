@@ -1,9 +1,8 @@
-const deleteMyReview = async (reviewId: number) => {
+const getKakaoAuth = async () => {
   try {
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/reviews/${reviewId}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`,
       {
-        method: "DELETE",
         credentials: "include",
       },
     );
@@ -14,4 +13,5 @@ const deleteMyReview = async (reviewId: number) => {
     throw error;
   }
 };
-export default deleteMyReview;
+
+export default getKakaoAuth;
