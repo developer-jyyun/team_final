@@ -34,6 +34,7 @@ const config: Config = {
         "grey-d": "#ddd",
         "grey-e": "#eee",
         "grey-transparent": "rgba(238, 238, 238, 0.4)",
+        "grey-bar": "rgba(238, 238, 238, 0.6)",
 
         blue: "#0059E3",
         "blue-main": "#5C77FF",
@@ -48,6 +49,8 @@ const config: Config = {
         green: "#03C75B",
         "lime-sub1": "#17D410",
         "lime-sub2": "#0EAD08",
+        "lime-sub3": "#05B200",
+        "lime-sub4": "#E8FFE7",
         pink: "#FF3D73",
         "pink-main": "#FF3478",
         "pink-sub1": "#FE546E",
@@ -57,6 +60,7 @@ const config: Config = {
         "pink-transparent-2": "rgba(255, 239, 239, 0.4)",
         "pink-1": "#FE516F",
         "pink-2": "#FFEFEF",
+        "pink-3": "#FFF5F5",
         yellow: "#FFDB6D",
       },
       borderRadius: {
@@ -71,6 +75,10 @@ const config: Config = {
         "gradient-white":
           "linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%)",
         "gradient-red": "linear-gradient(270deg, #FF3D73 2.25%, #FF758A 100%);",
+        "custom-gradient-pink":
+          "linear-gradient(122deg, #FF7B99 4.25%, #FF3478 104.25%)",
+        "custom-gradient-green":
+          "linear-gradient(122deg, #17D510 4.25%, #0EAD08 104.25%)",
       },
       keyframes: {
         // 약관 동의 애니메이션
