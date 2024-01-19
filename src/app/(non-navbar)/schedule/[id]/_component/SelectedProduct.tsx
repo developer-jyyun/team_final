@@ -33,6 +33,7 @@ const SelectedProduct = () => {
         <button
           type="button"
           className="w-full h-[46px] web:h-[56px] mt-4 disabled:bg-grey-c hover:bg-[#bb1e4a] bg-pink disabled:text-black-8 text-white font-bold rounded-xl"
+          disabled
         >
           선택 완료
         </button>
