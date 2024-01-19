@@ -87,7 +87,7 @@ const EmailSigninForm = () => {
         onInputChange={handlePasswordInputChange}
       />
 
-      <div className="w-[340px] grow flex items-end web:w-full">
+      <div className="w-[327px] grow flex items-end web:w-full">
         <Button
           text="로그인"
           disabled={emailValue === "" || passwordValue === ""}
