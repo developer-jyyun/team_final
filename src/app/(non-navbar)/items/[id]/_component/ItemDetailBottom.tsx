@@ -3,6 +3,8 @@
 import BottomSlideModal from "@/app/_component/common/layout/BottomSlideModal";
 import type { PackageResponseData } from "@/app/types";
 import useScrollUp from "@/hooks/useScrollUp";
+import usePaymentStore from "@/store/usePaymentStore";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import DetailBottomButton from "./DetailBottomButton";
@@ -18,6 +20,8 @@ interface Props {
 
 const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   const isScrollUp = useScrollUp();
+  const paymentStore = usePaymentStore();
+  const router = useRouter();
 
   const [reservation, setReservation] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -42,7 +46,7 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   const handlePayment = () => {
     const newDepartureDate = packageDetail.departureDatetime.date.split("-");
     const newEndDate = packageDetail.endDatetime.date.split("-");
-    console.log({
+    paymentStore.setPaymentData({
       title: packageDetail.title,
       tripDay: `${packageDetail.lodgeDays}박 ${packageDetail.tripDays}일`,
       departureDate: {
@@ -58,6 +62,7 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
       baby: babyStore,
       totalPrice: totalPrice,
     });
+    router.push("/payment");
   };
 
   return (

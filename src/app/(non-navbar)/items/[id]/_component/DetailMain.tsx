@@ -12,12 +12,12 @@ import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
 import Introduction from "./Introduction";
 import ItemDetailBottom from "./ItemDetailBottom";
+import ItemNotFound from "./ItemNotFound";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
-import ItemNotFound from "./ItemNotFound";
 
 const DetailMain = () => {
   const params = useParams();
@@ -101,7 +101,7 @@ const DetailMain = () => {
           endDatetime={packageDetail.data.endDatetime}
           transporation={packageDetail.data.transporation}
         />
-        <ChangeDateButton reservation={packageDetail.data.reservation} />
+        <ChangeDateButton packageDetail={packageDetail.data} />
         <TabsContainer
           tabs={tabsData}
           tabButtonStyle={{

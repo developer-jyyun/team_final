@@ -26,6 +26,7 @@ const StorePerson = ({
     if (store < 10) {
       setStore((prev) => prev + 1);
       setTotalPrice((prev) => prev + price);
+      // paymentStore.increaseAdult();
     }
   };
 
@@ -33,9 +34,12 @@ const StorePerson = ({
     if (text === "성인" && store > 1) {
       setStore((prev) => prev - 1);
       setTotalPrice((prev) => prev - price);
+
+      // paymentStore.decreaseAdult();
     } else if (store > 0) {
       setStore((prev) => prev - 1);
       setTotalPrice((prev) => prev - price);
+      // paymentStore.decreaseAdult();
     }
   };
 

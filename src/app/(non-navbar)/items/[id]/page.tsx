@@ -13,23 +13,31 @@ import DetailMain from "./_component/DetailMain";
 
 export const generateMetadata = async ({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { departDate: string };
 }) => {
   const item: { code: number; data?: PackageResponseData } =
-    await getPackageDetail(Number(params.id));
+    await getPackageDetail(Number(params.id), searchParams.departDate);
 
   return {
     title: item.code === 200 ? item.data?.title : "아무것도 없어요...",
   };
 };
 
-const ItemsPage = async ({ params }: { params: { id: string } }) => {
+const ItemsPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: { departDate: string };
+}) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["package-detail", params.id.toString()],
+    queryKey: ["package-detail", "detail"],
     queryFn: async () => {
-      return getPackageDetail(Number(params.id));
+      return getPackageDetail(Number(params.id), searchParams.departDate);
     },
   });
   await queryClient.prefetchQuery({
