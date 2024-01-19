@@ -52,7 +52,7 @@ export const usePaymentStore = create<Props>()(
         }),
     }),
     {
-      name: "payment-storage",
+      name: "pp-s",
       storage: createJSONStorage(() => sessionStorage),
     },
   ),
