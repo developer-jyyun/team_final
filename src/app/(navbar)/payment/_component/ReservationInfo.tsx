@@ -5,11 +5,29 @@ import BottomMyPageMenu from "./BottomMyPageMenu";
 import AgreeSection from "./AgreeSection";
 import ProgressBar from "./ProgressBar";
 
-interface Props {
-  onComplete: () => void;
+interface ReservationData {
+  title: string;
+  tripDay: string;
+  departureDate: {
+    date: string;
+    dayOfWeek: string;
+  };
+  endDate: {
+    date: string;
+    dayOfWeek: string;
+  };
+  adult: number;
+  infant: number;
+  baby: number;
+  totalPrice: number;
 }
 
-const ReservationInfo = ({ onComplete }: Props) => {
+interface Props {
+  onComplete: () => void;
+  reservationData: ReservationData;
+}
+
+const ReservationInfo = ({ onComplete, reservationData }: Props) => {
   const [adultClass, setAdultClass] = useState("text-grey-c");
   const [childClass, setChildClass] = useState("text-grey-c");
   const [infantClass, setInfantClass] = useState("text-grey-c");
@@ -114,6 +132,11 @@ const ReservationInfo = ({ onComplete }: Props) => {
     updateProgress();
   };
 
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text;
+    return `${text.substring(0, maxLength)}...`;
+  };
+
   return (
     <div>
       <div className="sticky top-0 pb-2 bg-white z-10">
@@ -129,7 +152,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
               상품명
             </span>
             <p className="text-sm text-black-2 font-semibold truncate w-[14ch]">
-              공백포함14글자이후로는...처리
+              {truncateText(reservationData.title, 14)}
             </p>
           </div>
           <div className="flex gap-12 items-center my-2 ml-3">
@@ -137,9 +160,14 @@ const ReservationInfo = ({ onComplete }: Props) => {
               여행기간
             </span>
             <div className="mt-4">
-              <p className="text-pink-main text-sm font-bold ">3박 4일</p>
+              <p className="text-pink-main text-sm font-bold ">
+                {reservationData.tripDay}
+              </p>
               <p className="text-black-2 text-sm font-semibold">
-                03.05(화) ~ 03.08(금)
+                {reservationData.departureDate.date}(
+                {reservationData.departureDate.dayOfWeek}) ~
+                {reservationData.endDate.date}(
+                {reservationData.endDate.dayOfWeek})
               </p>
             </div>
           </div>
