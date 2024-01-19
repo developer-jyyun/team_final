@@ -1,6 +1,5 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import getAvailableDates from "@/api/schedule/getAvailableDates";
-import Button from "@/app/_component/common/atom/Button";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import { PackageResponseData } from "@/app/types";
 import {
@@ -20,7 +19,7 @@ export const generateMetadata = async ({
     await getPackageDetail(Number(params.id));
 
   return {
-    title: `일정-${item.data.title}`,
+    title: item.code === 200 ? `일정-${item.data.title}` : "아무것도 없어요...",
   };
 };
 
@@ -48,11 +47,6 @@ const SchedulePage = async ({ params }: { params: { id: string } }) => {
           <Calender />
         </HydrationBoundary>
         <SelectedProduct />
-        <Button
-          text="선택 완료"
-          theme="wide"
-          styleClass="-translate-y-12 web:-translate-y-5"
-        />
       </div>
     </section>
   );

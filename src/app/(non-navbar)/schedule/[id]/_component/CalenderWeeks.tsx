@@ -10,7 +10,7 @@ const DAY_LIST = [
 
 const CalenderWeeks = () => {
   return (
-    <div className="flex justify-between h-12 mt-3">
+    <div className="flex justify-between h-10 mt-3">
       {DAY_LIST.map((day) => {
         return (
           <div
