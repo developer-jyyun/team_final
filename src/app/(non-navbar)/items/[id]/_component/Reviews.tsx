@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import DetailTypography from "./DetailTypography";
 import ReviewItem from "./ReviewItem";
 import ReviewRangeList from "./ReviewRangeList";
+import NoReviews from "./NoReviews";
 
 const Reviews = () => {
   const params = useParams();
@@ -16,7 +17,7 @@ const Reviews = () => {
     isFetching,
   } = usePackageReveiwQuery(params.id as string);
   const { data: score } = usePackageScoreQuery(params.id as string);
-  console.log(score);
+  console.log(reviews?.pages[0].data.data);
 
   const boxRef = useRef(null);
 
@@ -45,6 +46,10 @@ const Reviews = () => {
       }
     };
   }, [isFetching, hasNextPage, fetchNextPage]);
+
+  if (reviews?.pages[0].data.data.length === 0) {
+    return <NoReviews />;
+  }
 
   return (
     <div className="mt-6">
