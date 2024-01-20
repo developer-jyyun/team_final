@@ -1,3 +1,5 @@
+"use client";
+
 import DetailTypography from "../../items/[id]/_component/DetailTypography";
 
 const ViewResult = () => {
