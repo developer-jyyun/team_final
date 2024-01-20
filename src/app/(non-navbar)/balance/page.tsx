@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-query";
 import ViewOption from "./_component/ViewOption";
 
+export const dynamic = "force-dynamic";
+
 export const generateMetadata = async () => {
   const polls: FetchResponse<PollsFalse> = await getPolls();
 
