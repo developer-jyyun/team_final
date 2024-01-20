@@ -234,6 +234,26 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/search/count", ({ request }) => {
+    const url = new URL(request.url);
+    const maxPrice = url.searchParams.get("maxPrice");
+    const hashtags = url.searchParams.get("hashtags");
+    const nations = url.searchParams.get("nations");
+    const continents = url.searchParams.get("continents");
+    let count = 0;
+    if (maxPrice) count += 10;
+    if (hashtags) count += 10;
+    if (nations) count += 10;
+    if (continents) count += 10;
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        count,
+      },
+    });
+  }),
+
   http.get("/v1/advertisements", () => {
     console.log("광고구좌 목록 조회");
     const advertisements = [

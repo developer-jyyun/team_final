@@ -20,11 +20,7 @@ const SearchFilterPage = () => {
         <DestinationsList type="nation" />
         <DestinationsList type="continent" />
       </ContentsContainer>
-      <SearchButton disabled={false}>
-        <p className="font-medium text-lg">
-          검색된 <span className="font-extrabold">{"N"}</span>개의 상품 보기
-        </p>
-      </SearchButton>
+      <SearchButton />
     </section>
   );
 };

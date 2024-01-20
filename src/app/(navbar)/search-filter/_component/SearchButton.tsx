@@ -1,21 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
+import useSearchCount from "../_hooks/useSearchCount";
 
-interface Props {
-  disabled: boolean;
-  children: React.ReactNode;
-}
-const SearchButton = ({ disabled, children }: Props) => {
+const SearchButton = () => {
+  const { data } = useSearchCount();
+  const count = data?.data.count;
+
   return (
     <button
       type="button"
-      disabled={disabled}
+      disabled={count !== 0}
       className={`h-12 w-[327px] ${
-        disabled ? `bg-grey-e text-grey-8` : `bg-pink-main text-white`
+        count === 0 ? `bg-grey-e text-grey-8` : `bg-pink-main text-white`
       } rounded-[80px]`}
     >
       <Link href={`/search-result`} className="w-full">
-        {children}
+        <p className="font-medium text-lg">
+          검색된 <span className="font-extrabold">{count}</span>개의 상품 보기
+        </p>
       </Link>
     </button>
   );
