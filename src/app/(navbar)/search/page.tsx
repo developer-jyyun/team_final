@@ -3,6 +3,7 @@ import ForwardContainer from "./_component/ForwardContainer";
 import ContentsContainer from "../../_component/common/layout/ContentsContainer";
 import SearchHeader from "./_component/SearchHeader";
 import HashtagsList from "./_component/HashtagsList";
+import PackagesList from "./_component/PackagesList";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ const SearchPage = () => {
         </div>
       </ContentsContainer>
       <ContentsContainer title="최근 많이 본 여행지">
-        <div>card items</div>
+        <PackagesList />
       </ContentsContainer>
       <ForwardContainer />
     </div>

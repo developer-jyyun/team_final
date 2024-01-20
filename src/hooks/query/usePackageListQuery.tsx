@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const usePackageListQuery = (pageSize: number = 10) => {
   return useQuery({
-    queryKey: ["homePackage"],
+    queryKey: ["packages"],
     queryFn: () => {
       return getPackages(pageSize);
     },
