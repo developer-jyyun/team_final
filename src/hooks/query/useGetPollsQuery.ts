@@ -1,4 +1,4 @@
-import getPolls from "@/api/home/getPolls";
+import getPolls from "@/api/balance/getPolls";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetPollsQuery = () => {

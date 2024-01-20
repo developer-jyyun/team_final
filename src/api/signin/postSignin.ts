@@ -1,21 +1,26 @@
-const postSignin = async (body: { id: string; password: string }) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/login`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+const postSignin = async (body: { email: string; password: string }) => {
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(body),
       },
-      credentials: "include",
-      body: JSON.stringify(body),
-    },
-  );
+    );
 
-  if (!result.ok) {
-    throw new Error("Failed to fetch data");
+    const data = await result.json();
+
+    console.log(result);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return result.json();
 };
 
 export default postSignin;

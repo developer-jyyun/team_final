@@ -2,20 +2,20 @@
 
 import Dialog from "@/app/_component/common/layout/Dialog";
 import useGetPollsQuery from "@/hooks/query/useGetPollsQuery";
-import useGetPollsResult from "@/hooks/query/useGetPollsResult";
+// import useGetPollsResult from "@/hooks/query/useGetPollsResult";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DetailTypography from "../../items/[id]/_component/DetailTypography";
-import SelectA from "./SelectA";
-import SelectB from "./SelectB";
-import ViewResult from "./ViewResult";
+// import SelectA from "./SelectA";
+// import SelectB from "./SelectB";
+// import ViewResult from "./ViewResult";
 
 const ViewOption = () => {
   const router = useRouter();
   const { data: polls } = useGetPollsQuery();
-  const { data: pollsRessult } = useGetPollsResult();
+  // const { data: pollsRessult } = useGetPollsResult();
 
-  // console.log(pollsRessult);
+  console.log(polls);
   const [isLogin, setIsLogin] = useState(false);
 
   const [activeA] = useState(true);
@@ -33,9 +33,9 @@ const ViewOption = () => {
     return "icons/vsIcon.svg";
   };
 
-  // if (polls.data.alreadySubmitted) {
-  //   return <div>asd</div>;
-  // }
+  if (polls.code === 401) {
+    return <div>asd</div>;
+  }
 
   return (
     <div className="flex flex-col justify-center px-6 web:px-[52px]">
@@ -58,11 +58,11 @@ const ViewOption = () => {
           //   setBHover(false);
           // }}
         >
-          <SelectA
+          {/* <SelectA
             active={activeA}
             title={polls.data.A}
             setIsLogin={setIsLogin}
-          />
+          /> */}
         </div>
         <div
           className={`${bHover ? "z-10" : ""}`}
@@ -71,14 +71,14 @@ const ViewOption = () => {
           //   setAHover(false);
           // }}
         >
-          <SelectB
+          {/* <SelectB
             active={activeB}
             title={polls.data.B}
             setIsLogin={setIsLogin}
-          />
+          /> */}
         </div>
       </div>
-      {pollsRessult.code === 200 && <ViewResult />}
+      {/* {pollsRessult.code === 200 && <ViewResult />} */}
       <Dialog
         isOpen={isLogin}
         type="confirm"
