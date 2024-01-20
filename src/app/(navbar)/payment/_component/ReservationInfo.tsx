@@ -18,12 +18,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
   const [selectedAdult, setSelectedAdult] = useState(paymentData.adult);
   const [selectedChild, setSelectedChild] = useState(paymentData.infant);
   const [selectedInfant, setSelectedInfant] = useState(paymentData.baby);
-  const [adultClass, setAdultClass] = useState("text-grey-c");
-  const [childClass, setChildClass] = useState("text-grey-c");
-  const [infantClass, setInfantClass] = useState("text-grey-c");
-  const [adultSelected, setAdultSelected] = useState(false);
-  const [childSelected, setChildSelected] = useState(false);
-  const [infantSelected, setInfantSelected] = useState(false);
+  const [adultClass, setAdultClass] = useState("text-pink-main");
+  const [childClass, setChildClass] = useState("text-pink-main");
+  const [infantClass, setInfantClass] = useState("text-pink-main");
   const [isReservationButtonActive, setIsReservationButtonActive] =
     useState(false);
   const [progress, setProgress] = useState(0);
@@ -36,9 +33,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   const updateProgress = useCallback(() => {
     const sectionsCompleted = [
-      adultSelected,
-      childSelected,
-      infantSelected,
+      paymentData.adult >= 0,
+      paymentData.infant >= 0,
+      paymentData.baby >= 0,
       sectionStatus.section1,
       sectionStatus.section2,
       sectionStatus.section3,
@@ -49,9 +46,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
     setProgress(newProgress);
     setIsReservationButtonActive(newProgress === 100);
   }, [
-    adultSelected,
-    childSelected,
-    infantSelected,
+    paymentData.adult,
+    paymentData.infant,
+    paymentData.baby,
     sectionStatus.section1,
     sectionStatus.section2,
     sectionStatus.section3,
@@ -84,52 +81,33 @@ const ReservationInfo = ({ onComplete }: Props) => {
       );
     }
   }, [
+    updateProgress,
     sectionStatus,
     allAgreedImageSrc,
-    adultClass,
-    childClass,
-    infantClass,
-    updateProgress,
+    paymentData.adult,
+    paymentData.infant,
+    paymentData.baby,
   ]);
 
   useEffect(() => {
-    setSelectedAdult(paymentData.adult);
-    setSelectedChild(paymentData.infant);
-    setSelectedInfant(paymentData.baby);
+    setAdultClass(paymentData.adult > 0 ? "text-pink-main" : "text-grey-c");
+    setChildClass(paymentData.infant > 0 ? "text-pink-main" : "text-grey-c");
+    setInfantClass(paymentData.baby > 0 ? "text-pink-main" : "text-grey-c");
   }, [paymentData.adult, paymentData.infant, paymentData.baby]);
-
-  useEffect(() => {
-    setAdultClass(selectedAdult > 0 ? "text-pink-main" : "text-grey-c");
-  }, [selectedAdult]);
-
-  useEffect(() => {
-    setChildClass(selectedChild > 0 ? "text-pink-main" : "text-grey-c");
-  }, [selectedChild]);
-
-  useEffect(() => {
-    setInfantClass(selectedInfant > 0 ? "text-pink-main" : "text-grey-c");
-  }, [selectedInfant]);
-
-  useEffect(() => {
-    setAdultSelected(selectedAdult > 0);
-    setChildSelected(selectedChild > 0);
-    setInfantSelected(selectedInfant > 0);
-    updateProgress();
-  }, [selectedAdult, selectedChild, selectedInfant, updateProgress]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newAdultCount = parseInt(event.target.value, 10);
     setSelectedAdult(newAdultCount);
     setPaymentData({ ...paymentData, adult: newAdultCount });
-    setAdultSelected(true);
+    setAdultClass(newAdultCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newChildCount = parseInt(event.target.value, 10);
-    setSelectedInfant(newChildCount);
+    setSelectedChild(newChildCount);
     setPaymentData({ ...paymentData, infant: newChildCount });
-    setChildSelected(true);
+    setChildClass(newChildCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
@@ -137,7 +115,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
     const newInfantCount = parseInt(event.target.value, 10);
     setSelectedInfant(newInfantCount);
     setPaymentData({ ...paymentData, baby: newInfantCount });
-    setInfantSelected(true);
+    setInfantClass(newInfantCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
