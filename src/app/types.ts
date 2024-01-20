@@ -1,6 +1,6 @@
 // 데이터 패칭
 export interface FetchResponse<T> {
-  code: string;
+  code: number;
   data?: T;
 }
 
@@ -174,4 +174,18 @@ export interface NoticeData extends CommonListData {
 
 export interface FaqData extends CommonListData {
   faqId: number;
+}
+
+// balance
+
+export interface PollsTrue {
+  alreadySubmitted: boolean;
+}
+
+export interface PollsFalse {
+  alreadySubmitted: boolean;
+  subject: string;
+  pollId: number;
+  A: string[];
+  B: string[];
 }
