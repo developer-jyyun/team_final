@@ -2,7 +2,7 @@ interface Props {
   children: React.ReactNode;
   variant?: string;
   color?: string | number;
-  align?: string;
+  align?: "right" | "center" | "left";
   size?: number;
   bold?: number;
   styleClass?: string;
@@ -31,6 +31,8 @@ const DetailTypography = ({
     if (color === "f") return "text-white";
     if (color === "pink") return "text-pink";
     if (color === "pink-main") return "text-pink-main";
+    if (color === "pink-dark") return "text-[#FF2477]";
+    if (color === "green") return "text-[#05B200]";
     return "text-black-2";
   };
 
@@ -50,6 +52,8 @@ const DetailTypography = ({
     if (size === 16) return "web:text-xl";
     if (size === 18) return "text-lg web:text-2xl";
     if (size === 20) return "text-xl web:text-3xl";
+    if (size === 22) return "text-[22px] web:text-3xl";
+    if (size === 24) return "text-2xl web:text-[26px]";
     return "text-xs";
   };
 
@@ -64,7 +68,7 @@ const DetailTypography = ({
   if (variant === "h1") {
     return (
       <h1
-        className={`${generateColorStyle()} ${generateAlignStyle()} ${generateSizeStyle()} ${generateBoldStyle()} ${styleClass}`}
+        className={`${generateColorStyle()} ${generateAlignStyle()} ${generateSizeStyle()} ${generateBoldStyle()} ${styleClass} text`}
       >
         {children}
       </h1>

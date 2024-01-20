@@ -54,7 +54,7 @@ const handlers = [
       { code: 200 },
       {
         headers: {
-          "Set-Cookie": "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+          "Set-Cookie": "accessToken=msw-cookie;HttpOnly;Path=/",
         },
       },
     );
@@ -66,7 +66,7 @@ const handlers = [
       { code: 200 },
       {
         headers: {
-          "Set-Cookie": "connect.accessToken=;HttpOnly;Path=/;Max-Age=0",
+          "Set-Cookie": "accessToken=;HttpOnly;Path=/;Max-Age=0",
         },
       },
     );
@@ -303,24 +303,24 @@ const handlers = [
     });
   }),
 
-  http.get("/v1/polls", () => {
-    console.log("테마 패키지 목록 조회");
-    const pollsInfo = [
-      {
-        alreadySubmitted: false,
-        subject: "여러분들의 여행 스타일은?",
-        pollId: 0,
-        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
-        B: ["온 김에", "다 해보자!"],
-      },
-    ];
+  // http.get("/v1/polls", () => {
+  //   console.log("테마 패키지 목록 조회");
+  //   const pollsInfo = [
+  //     {
+  //       alreadySubmitted: false,
+  //       subject: "여러분들의 여행 스타일은?",
+  //       pollId: 0,
+  //       A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+  //       B: ["온 김에", "다 해보자!"],
+  //     },
+  //   ];
 
-    return HttpResponse.json(pollsInfo, {
-      headers: {
-        Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
-      },
-    });
-  }),
+  //   return HttpResponse.json(pollsInfo, {
+  //     headers: {
+  //       Cookie: "connect.accessToken=msw-cookie;HttpOnly;Path=/",
+  //     },
+  //   });
+  // }),
 
   http.get("v1/packages/top-views", () => {
     console.log("가장 많이 본 패키지 목록");
@@ -700,6 +700,89 @@ const handlers = [
       ],
     };
     return HttpResponse.json(faqList);
+  }),
+
+  http.get("/v1/polls", () => {
+    console.log("찬반 조회");
+
+    // 비 로그인
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        alreadySubmitted: false,
+        subject: "여러분들의 여행 스타일은?",
+        pollId: 0,
+        A: ["여행은", " 휴식이지"], // 줄바꿈을 기준으로 나눔
+        B: ["온 김에", "다 해보자!"],
+      },
+    });
+
+    // 로그인
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        alreadySubmitted: true,
+      },
+    });
+  }),
+
+  http.post("/v1/polls", async ({ request }) => {
+    console.log("찬반 투표");
+
+    // 비 로그인
+    return new HttpResponse(
+      JSON.stringify({
+        code: 401,
+      }),
+      { status: 401 },
+    );
+
+    // 로그인
+    const data = (await request.json()) as {
+      choose: string;
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data,
+    });
+  }),
+
+  http.get("/v1/polls/result", async () => {
+    console.log("찬반 결과");
+
+    // 비 로그인
+    return new HttpResponse(
+      JSON.stringify({
+        code: 401,
+        msg: "로그인 안됨",
+      }),
+      { status: 401 },
+    );
+
+    // 로그인
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        alreadySubmitted: true,
+        subject: "여러분들의 여행 스타일은?",
+        A: {
+          title: ["여행은", "휴식이지"],
+          linkHashtag: "휴양/레저",
+          count: 84,
+          percentage: 84,
+          selected: true,
+        },
+        B: {
+          title: ["온 김에", "다 해보자!"],
+          linkHashTag: "체험/액티비티",
+          count: 16,
+          percentage: 16,
+          selected: false,
+        },
+        totalCount: 100,
+      },
+    });
   }),
 ];
 

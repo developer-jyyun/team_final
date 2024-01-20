@@ -77,8 +77,12 @@ const config: Config = {
         "gradient-red": "linear-gradient(270deg, #FF3D73 2.25%, #FF758A 100%);",
         "custom-gradient-pink":
           "linear-gradient(122deg, #FF7B99 4.25%, #FF3478 104.25%)",
+        "custom-gradient-pink-2":
+          "linear-gradient(106deg, #FE546E 0%, #FF3478 100%)",
         "custom-gradient-green":
           "linear-gradient(122deg, #17D510 4.25%, #0EAD08 104.25%)",
+        "custom-gradient-green-2":
+          "linear-gradient(290deg, #0DAA08 0%, #19DB12 108.81%)",
       },
       keyframes: {
         // 약관 동의 애니메이션
