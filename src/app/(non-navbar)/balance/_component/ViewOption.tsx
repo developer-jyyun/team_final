@@ -15,7 +15,7 @@ const ViewOption = () => {
   const { data: polls } = useGetPollsQuery();
   const { data: pollsRessult } = useGetPollsResult();
 
-  // console.log(pollsRessult);
+  console.log(polls);
   const [isLogin, setIsLogin] = useState(false);
 
   const [activeA] = useState(true);
@@ -33,9 +33,9 @@ const ViewOption = () => {
     return "icons/vsIcon.svg";
   };
 
-  // if (polls.data.alreadySubmitted) {
-  //   return <div>asd</div>;
-  // }
+  if (polls.data.alreadySubmitted) {
+    return <div>asd</div>;
+  }
 
   return (
     <div className="flex flex-col justify-center px-6 web:px-[52px]">
