@@ -1,9 +1,10 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -11,16 +12,29 @@ import DetailSwiper from "./DetailSwiper";
 import DetailTypography from "./DetailTypography";
 import Introduction from "./Introduction";
 import ItemDetailBottom from "./ItemDetailBottom";
+import ItemNotFound from "./ItemNotFound";
 import PackageInfo from "./PackageInfo";
 import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
+// import Dialog from "@/app/_component/common/layout/Dialog";
 
 const DetailMain = () => {
   const params = useParams();
-  const { data: packageDetail } = usePackageDetailQuery(params.id);
+  const searchParams = useSearchParams();
+
+  const { data: packageDetail } = usePackageDetailQuery(
+    params.id,
+    searchParams.get("departDate"),
+  );
   const [viewMore, setViewMore] = useState(false);
+  // 이후 로그인 유저 구분
+  // const [, setIsLogin] = useState(false);
+
+  if (packageDetail.code === 404) {
+    return <ItemNotFound />;
+  }
 
   const tabsData = [
     {
@@ -43,15 +57,30 @@ const DetailMain = () => {
         />
       ),
     },
-    { name: "리뷰", content: <Reviews /> },
+    {
+      name: "리뷰",
+      content: <Reviews user={packageDetail.data.myInfo?.username} />,
+    },
   ];
 
   return (
     <div
       className={`${!viewMore && "overflow-hidden"} ${
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
-      }`}
+      } relative`}
     >
+      {/* 이후 로그인 유저 구분 */}
+      {/* <Dialog
+        isOpen={isLogin}
+        type="confirm"
+        theme="login"
+        onClose={() => {
+          setIsLogin(false);
+        }}
+        onConfirm={() => {
+          router.push("/signin");
+        }}
+      /> */}
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
         <BadgeList>
@@ -90,7 +119,7 @@ const DetailMain = () => {
           endDatetime={packageDetail.data.endDatetime}
           transporation={packageDetail.data.transporation}
         />
-        <ChangeDateButton reservation={packageDetail.data.reservation} />
+        <ChangeDateButton packageDetail={packageDetail.data} />
         <TabsContainer
           tabs={tabsData}
           tabButtonStyle={{
@@ -98,13 +127,18 @@ const DetailMain = () => {
             selectedClass: "py-1 text-black  border-b-2 border-pink",
           }}
           sticky
+          scroll
         />
       </div>
-      <ItemDetailBottom viewMore={viewMore} setViewMore={setViewMore} />
+      <ItemDetailBottom
+        viewMore={viewMore}
+        setViewMore={setViewMore}
+        // setIsLogin={setIsLogin}
+        packageDetail={packageDetail.data}
+      />
+      <ScrollToUpButton />
     </div>
   );
 };
 
 export default DetailMain;
-
-// window.scrollTo({ top: tabY });

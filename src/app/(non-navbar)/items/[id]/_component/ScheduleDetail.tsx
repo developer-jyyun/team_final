@@ -1,7 +1,11 @@
+"use client";
+
 import ColorContainer from "@/app/_component/common/atom/ColorContainer";
 import type { DateTime, ScheduleInfo } from "@/app/types";
-import { packageSchedules } from "@/mocks/data/packageScheduleData";
+import usePackageSchedulsQuery from "@/hooks/query/usePackageSchedulsQuery";
 import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
+import { useParams } from "next/navigation";
+import { useCallback } from "react";
 import DetailTypography from "./DetailTypography";
 
 interface Props {
@@ -10,7 +14,10 @@ interface Props {
 }
 
 const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
-  const getDatesBetween = (startDate: string, endDate: string) => {
+  const params = useParams();
+  const { data: packageSchedules } = usePackageSchedulsQuery(params.id);
+
+  const getDatesBetween = useCallback((startDate: string, endDate: string) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -27,7 +34,7 @@ const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
     return dates.map((date) =>
       ReplaceHyphenWithDot(date.toISOString().split("T")[0]),
     );
-  };
+  }, []);
 
   const getMealText = (index: number, scheduleInfo: ScheduleInfo) => {
     if (index === 0 || packageSchedules.length === index + 1) {
@@ -91,7 +98,7 @@ const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
           변경될 수 있으며, 변경 시 고객의 동의를 얻고 진행됩니다.
         </DetailTypography>
       </ColorContainer>
-      {packageSchedules.map((schedule, index) => {
+      {packageSchedules.data.map((schedule: ScheduleInfo, index: number) => {
         return (
           <div key={schedule.day} className="mt-8">
             <div className="flex items-end mb-[14px]">

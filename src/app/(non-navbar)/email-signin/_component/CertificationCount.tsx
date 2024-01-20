@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const CertificationCount = () => {
   const signupState = useSignupStateStore();
 
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(300);
   const [fontColor, setFontColor] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const CertificationCount = () => {
 
     if (time === 0) {
       setFontColor("red");
-      setTime(5);
+      setTime(300);
       signupState.setIsCertification(false);
     }
 

@@ -1,6 +1,5 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import getAvailableDates from "@/api/schedule/getAvailableDates";
-import Button from "@/app/_component/common/atom/Button";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import { PackageResponseData } from "@/app/types";
 import {
@@ -13,18 +12,26 @@ import SelectedProduct from "./_component/SelectedProduct";
 
 export const generateMetadata = async ({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { d: string };
 }) => {
   const item: { code: number; data: PackageResponseData } =
-    await getPackageDetail(Number(params.id));
+    await getPackageDetail(Number(params.id), searchParams.d);
 
   return {
-    title: `일정-${item.data.title}`,
+    title: item.code === 200 ? `일정-${item.data.title}` : "아무것도 없어요...",
   };
 };
 
-const SchedulePage = async ({ params }: { params: { id: string } }) => {
+const SchedulePage = async ({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: { d: string };
+}) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["schedule-date", params.id],
@@ -33,9 +40,9 @@ const SchedulePage = async ({ params }: { params: { id: string } }) => {
     },
   });
   await queryClient.prefetchQuery({
-    queryKey: ["package-detail", params.id],
+    queryKey: ["package-detail", "detail"],
     queryFn: async () => {
-      return getPackageDetail(Number(params.id));
+      return getPackageDetail(Number(params.id), searchParams.d);
     },
   });
   const dehydrateState = dehydrate(queryClient);
@@ -48,11 +55,6 @@ const SchedulePage = async ({ params }: { params: { id: string } }) => {
           <Calender />
         </HydrationBoundary>
         <SelectedProduct />
-        <Button
-          text="선택 완료"
-          theme="wide"
-          styleClass="-translate-y-12 web:-translate-y-5"
-        />
       </div>
     </section>
   );

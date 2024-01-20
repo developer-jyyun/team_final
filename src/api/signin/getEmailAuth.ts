@@ -1,16 +1,18 @@
 const getEmailAuth = async (email: string, code: string) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/verify/${code}?email=${email}`,
-    {
-      credentials: "include",
-    },
-  );
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/verify/${code}?email=${email}`,
+      {
+        credentials: "include",
+      },
+    );
 
-  if (!result.ok) {
-    throw new Error("Failed to fetch data");
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return result.json();
 };
 
 export default getEmailAuth;

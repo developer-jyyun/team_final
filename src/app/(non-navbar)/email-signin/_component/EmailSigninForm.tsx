@@ -50,17 +50,19 @@ const EmailSigninForm = () => {
       setEmailErrorMessage("잘못된 유형의 이메일 입니다. 수정해주세요.");
     } else {
       setEmailErrorMessage("");
+      // console.log(emailValue, passwordValue);
       const data = await postSignin({
-        id: emailValue,
+        email: emailValue,
         password: passwordValue,
       });
 
-      if (data.code === 200) {
-        console.log("로그인 성공");
-        router.push("/"); // 임시
-      } else if (data.code === 409) {
-        setEmailErrorMessage("입력하신 이메일은 존재하지 않습니다.");
-      }
+      console.log(data);
+      // if (data.code === 200) {
+      //   console.log("로그인 성공");
+      //   router.push("/"); // 임시
+      // } else if (data.code === 409) {
+      //   setEmailErrorMessage("입력하신 이메일은 존재하지 않습니다.");
+      // }
     }
   };
 
@@ -95,7 +97,7 @@ const EmailSigninForm = () => {
           onClickFn={handleLogin}
         />
       </div>
-      <div className="flex mb-20 mt-2 items-center text-[13px] text-black-4 font-normal">
+      <div className="flex mb-10 mt-2 items-center text-[13px] text-black-4 font-normal">
         <Button
           text="비밀번호 재설정"
           theme="md"

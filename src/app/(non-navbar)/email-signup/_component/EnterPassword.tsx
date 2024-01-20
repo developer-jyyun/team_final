@@ -46,7 +46,7 @@ const EnterPassword = ({ setStep }: Props) => {
 
       if (data.code === 200) {
         const signinData = await postSignin({
-          id: signupInfo.email,
+          email: signupInfo.email,
           password: passwordValue,
         });
         if (signinData.code === 200) {

@@ -1,21 +1,27 @@
 const postCertification = async (body: { email: string }) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/confirm`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/users/email/confirm`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(body),
       },
-      credentials: "include",
-      body: JSON.stringify(body),
-    },
-  );
+    );
+    const data = await result.json();
 
-  if (!result.ok) {
-    throw new Error("Failed to fetch data");
+    console.log(data);
+
+    // console.log(result);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return result.json();
 };
 
 export default postCertification;

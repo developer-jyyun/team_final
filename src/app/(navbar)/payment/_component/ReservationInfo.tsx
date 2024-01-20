@@ -304,12 +304,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
               <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
-              876,543
-              <b className="text-black-4 text-xxs font-normal">원</b>
+              0<b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
-              100,000
-              <b className="text-black-4 text-xxs font-normal">원</b>
+              0<b className="text-black-4 text-xxs font-normal">원</b>
             </p>
           </div>
         </div>

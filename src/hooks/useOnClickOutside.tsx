@@ -6,7 +6,7 @@ export default function useOnClickOutside(
 ) {
   useEffect(() => {
     const listener = (e: MouseEvent) => {
-      console.log(ref);
+      // console.log(ref);
       e.stopPropagation();
       if (ref.current && !ref.current.contains(e.target as Node)) {
         handler();
