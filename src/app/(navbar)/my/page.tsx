@@ -24,7 +24,7 @@ const MyPage = async () => {
       iconUrl="/my/menu"
       iconAlt="메뉴 아이콘"
     >
-      <UserInfo />
+      <UserInfo showEditIcon />
       <UpcomingPackages />
       <TabsContainer
         tabs={tabsData}
