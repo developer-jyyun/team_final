@@ -1,33 +1,23 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
+import usePaymentStore from "@/store/usePaymentStore";
 import BottomMyPageMenu from "./BottomMyPageMenu";
 import AgreeSection from "./AgreeSection";
 import ProgressBar from "./ProgressBar";
 
-interface ReservationData {
-  title: string;
-  tripDay: string;
-  departureDate: {
-    date: string;
-    dayOfWeek: string;
-  };
-  endDate: {
-    date: string;
-    dayOfWeek: string;
-  };
-  adult: number;
-  infant: number;
-  baby: number;
-  totalPrice: number;
-}
-
 interface Props {
   onComplete: () => void;
-  reservationData: ReservationData;
 }
 
-const ReservationInfo = ({ onComplete, reservationData }: Props) => {
+const ReservationInfo = ({ onComplete }: Props) => {
+  const { paymentData, setPaymentData } = usePaymentStore((state) => ({
+    paymentData: state.paymentData,
+    setPaymentData: state.setPaymentData,
+  }));
+  const [selectedAdult, setSelectedAdult] = useState(paymentData.adult);
+  const [selectedChild, setSelectedChild] = useState(paymentData.infant);
+  const [selectedInfant, setSelectedInfant] = useState(paymentData.baby);
   const [adultClass, setAdultClass] = useState("text-grey-c");
   const [childClass, setChildClass] = useState("text-grey-c");
   const [infantClass, setInfantClass] = useState("text-grey-c");
@@ -102,33 +92,45 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
     updateProgress,
   ]);
 
+  useEffect(() => {
+    setSelectedAdult(paymentData.adult);
+    setSelectedChild(paymentData.infant);
+    setSelectedInfant(paymentData.baby);
+  }, [paymentData.adult, paymentData.infant, paymentData.baby]);
+
+  useEffect(() => {
+    setAdultClass(selectedAdult > 0 ? "text-pink-main" : "text-grey-c");
+  }, [selectedAdult]);
+
+  useEffect(() => {
+    setChildClass(selectedChild > 0 ? "text-pink-main" : "text-grey-c");
+  }, [selectedChild]);
+
+  useEffect(() => {
+    setInfantClass(selectedInfant > 0 ? "text-pink-main" : "text-grey-c");
+  }, [selectedInfant]);
+
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newAdultCount = parseInt(event.target.value, 10);
+    setSelectedAdult(newAdultCount);
+    setPaymentData({ ...paymentData, adult: newAdultCount });
     setAdultSelected(true);
-    setAdultClass(
-      event.target.value === "-" || event.target.value === "0"
-        ? "text-grey-c"
-        : "text-pink-main",
-    );
     updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newChildCount = parseInt(event.target.value, 10);
+    setSelectedInfant(newChildCount);
+    setPaymentData({ ...paymentData, infant: newChildCount });
     setChildSelected(true);
-    setChildClass(
-      event.target.value === "-" || event.target.value === "0"
-        ? "text-grey-c"
-        : "text-pink-main",
-    );
     updateProgress();
   };
 
   const handleInfantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newInfantCount = parseInt(event.target.value, 10);
+    setSelectedInfant(newInfantCount);
+    setPaymentData({ ...paymentData, baby: newInfantCount });
     setInfantSelected(true);
-    setInfantClass(
-      event.target.value === "-" || event.target.value === "0"
-        ? "text-grey-c"
-        : "text-pink-main",
-    );
     updateProgress();
   };
 
@@ -146,43 +148,55 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
         <div className="py-3 ml-3">
           <h4 className="text-lg text-black-2 font-semibold">예약상품정보</h4>
         </div>
-        <div className="ml-2 p-3.5 bg-pink-transparent rounded-lg">
-          <div className="flex gap-12 items-center my-2 ml-3">
-            <span className="min-w-max mr-3 text-xs text-black-4 font-normal">
-              상품명
-            </span>
-            <p className="text-sm text-black-2 font-semibold truncate w-[14ch]">
-              {truncateText(reservationData.title, 14)}
-            </p>
-          </div>
-          <div className="flex gap-12 items-center my-2 ml-3">
-            <span className="min-w-max text-xs text-black-4 font-normal">
-              여행기간
-            </span>
-            <div className="mt-4">
-              <p className="text-pink-main text-sm font-bold ">
-                {reservationData.tripDay}
-              </p>
-              <p className="text-black-2 text-sm font-semibold">
-                {reservationData.departureDate.date}(
-                {reservationData.departureDate.dayOfWeek}) ~
-                {reservationData.endDate.date}(
-                {reservationData.endDate.dayOfWeek})
-              </p>
+        {paymentData && (
+          <div className="ml-2 p-3.5 bg-pink-transparent rounded-lg">
+            <div className="flex gap-12 items-center my-2 ml-3">
+              <span className="min-w-max mr-3 text-xs text-black-4 font-normal">
+                상품명
+              </span>
+              {paymentData.title && (
+                <p className="text-sm text-black-2 font-semibold truncate w-[22ch]">
+                  {truncateText(paymentData.title, 22)}
+                </p>
+              )}
+            </div>
+            <div className="flex gap-12 items-center my-2 ml-3">
+              <span className="min-w-max text-xs text-black-4 font-normal">
+                여행기간
+              </span>
+              <div className="mt-4">
+                {paymentData.tripDay && (
+                  <p className="text-pink-main text-sm font-bold ">
+                    {paymentData.tripDay}
+                  </p>
+                )}
+                {paymentData.departureDate &&
+                  paymentData.departureDate.date &&
+                  paymentData.endDate &&
+                  paymentData.endDate.date && (
+                    <p className="text-black-2 text-sm font-semibold">
+                      {paymentData.departureDate.date}(
+                      {paymentData.departureDate.dayOfWeek}) ~
+                      {paymentData.endDate.date}({paymentData.endDate.dayOfWeek}
+                      )
+                    </p>
+                  )}
+              </div>
+            </div>
+            <div className="flex gap-12 items-start my-4 ml-3">
+              <span className="min-w-max mt-0.5 text-xs text-black-4 font-normal">
+                결제정보
+              </span>
+              <div>
+                <p className="text-pink-main text-sm font-bold">상담 후 결제</p>
+                <p className="w-4/5 text-xs text-black-6 font-normal">
+                  예약을 신청한 후 담당자와 상담을 통해 가격 및 예약을
+                  확정합니다.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex gap-12 items-start my-4 ml-3">
-            <span className="min-w-max mt-0.5 text-xs text-black-4 font-normal">
-              결제정보
-            </span>
-            <div>
-              <p className="text-pink-main text-sm font-bold">상담 후 결제</p>
-              <p className="w-4/5 text-xs text-black-6 font-normal">
-                예약을 신청한 후 담당자와 상담을 통해 가격 및 예약을 확정합니다.
-              </p>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="p-4">
@@ -208,14 +222,6 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
             </span>
             <p className="text-black-2 text-sm font-semibold">010-1234-5678</p>
           </div>
-          <div className="absolute p-1 top-3.5 right-3.5">
-            <Image
-              src="/icons/editIcon.svg"
-              alt="수정 아이콘"
-              width={24}
-              height={24}
-            />
-          </div>
         </div>
       </div>
 
@@ -230,9 +236,9 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
+              value={selectedAdult}
               onChange={handleAdultChange}
             >
-              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -255,9 +261,9 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
+              value={selectedChild}
               onChange={handleChildChange}
             >
-              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -280,9 +286,9 @@ const ReservationInfo = ({ onComplete, reservationData }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
+              value={selectedInfant}
               onChange={handleInfantChange}
             >
-              <option value="-">-</option>
               {Array.from({ length: 21 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
