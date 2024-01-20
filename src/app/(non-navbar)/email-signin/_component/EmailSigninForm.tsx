@@ -95,7 +95,7 @@ const EmailSigninForm = () => {
           onClickFn={handleLogin}
         />
       </div>
-      <div className="flex mb-20 mt-2 items-center text-[13px] text-black-4 font-normal">
+      <div className="flex mb-10 mt-2 items-center text-[13px] text-black-4 font-normal">
         <Button
           text="비밀번호 재설정"
           theme="md"

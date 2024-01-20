@@ -21,7 +21,7 @@ const CertificationCount = () => {
 
     if (time === 0) {
       setFontColor("red");
-      setTime(5);
+      setTime(300);
       signupState.setIsCertification(false);
     }
 
