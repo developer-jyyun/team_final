@@ -1,7 +1,7 @@
 import getPolls from "@/api/balance/getPolls";
 import getPollsResult from "@/api/balance/getPollsResult";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
-import { FetchResponse, PollsFalse } from "@/app/types";
+// import { FetchResponse, PollsFalse } from "@/app/types";
 import {
   HydrationBoundary,
   QueryClient,
@@ -9,15 +9,14 @@ import {
 } from "@tanstack/react-query";
 import ViewOption from "./_component/ViewOption";
 
-export const dynamic = "force-dynamic";
-
 export const generateMetadata = async () => {
-  const polls: FetchResponse<PollsFalse> = await getPolls();
+  // const polls: FetchResponse<PollsFalse> = await getPolls();
 
   return {
-    title: polls.data?.alreadySubmitted
-      ? "Let's - 여행 찬반 토론"
-      : polls.data?.subject,
+    // title: polls.data?.alreadySubmitted
+    //   ? "Let's - 여행 찬반 토론"
+    //   : polls.data?.subject,
+    titile: "Let's - 여행 찬반 토론",
   };
 };
 
