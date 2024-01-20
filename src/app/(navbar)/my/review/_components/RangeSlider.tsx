@@ -6,9 +6,19 @@ interface Prop {
   max?: number;
   min?: number;
   step?: number;
+  mark?: "show" | "hidden";
+  unit?: string;
 }
 
-const RangeSlider = ({ value, onChange, max = 5, min = 0, step = 1 }: Prop) => {
+const RangeSlider = ({
+  value,
+  onChange,
+  max = 5,
+  min = 0,
+  step = 1,
+  mark = "hidden",
+  unit = "",
+}: Prop) => {
   const progressPercentage = (value / max) * 100;
 
   const progressStyle = {
@@ -26,7 +36,36 @@ const RangeSlider = ({ value, onChange, max = 5, min = 0, step = 1 }: Prop) => {
         step={step}
         onChange={(e) => onChange(Number(e.target.value))}
         style={progressStyle} // 임시 css 적용
+        list="options"
       />
+      {mark === "show" && (
+        <div className="relative w-full text-black-9 text-xs font-normal leading-normal">
+          <span
+            className="absolute"
+            style={progressPercentage < 30 ? { opacity: 0 } : { opacity: 100 }}
+          >
+            {min + unit}
+          </span>
+          <span
+            className={`absolute text-pink font-medium`}
+            style={
+              value === min
+                ? { left: 0 }
+                : value === max
+                  ? { right: 0 }
+                  : { left: `${progressPercentage - 5}%` }
+            }
+          >
+            {value + unit}
+          </span>
+          <span
+            className="absolute right-0"
+            style={progressPercentage > 70 ? { opacity: 0 } : { opacity: 100 }}
+          >
+            {max + unit}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
