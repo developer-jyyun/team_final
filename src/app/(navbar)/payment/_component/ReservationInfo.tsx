@@ -110,6 +110,13 @@ const ReservationInfo = ({ onComplete }: Props) => {
     setInfantClass(selectedInfant > 0 ? "text-pink-main" : "text-grey-c");
   }, [selectedInfant]);
 
+  useEffect(() => {
+    setAdultSelected(selectedAdult > 0);
+    setChildSelected(selectedChild > 0);
+    setInfantSelected(selectedInfant > 0);
+    updateProgress();
+  }, [selectedAdult, selectedChild, selectedInfant, updateProgress]);
+
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newAdultCount = parseInt(event.target.value, 10);
     setSelectedAdult(newAdultCount);
