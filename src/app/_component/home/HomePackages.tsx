@@ -3,24 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { NATION_LISTS } from "@/app/constants";
-import useHomePackageQuery from "@/hooks/query/useHomePackageQuery";
-
-interface PackageInfo {
-  packageId: number;
-  imageUrl: string;
-  nationName: string;
-  title: string;
-  hashtags: string[];
-  minPrice: number;
-  lodgeDays: number; // 1박
-  tripDays: number; // 2일
-  isWish: boolean; // 비로그인시에는 항상 false
-}
+import usePackageListQuery from "@/hooks/query/usePackageListQuery";
+import type { PackageInfo } from "@/app/types";
 
 const HomePackages = () => {
   const [packages, setPackages] = useState<PackageInfo[]>([]);
   const [activeNation, setActiveNation] = useState("전체");
-  const { data, isLoading, isError, error } = useHomePackageQuery();
+  const { data, isLoading, isError, error } = usePackageListQuery(5);
 
   useEffect(() => {
     setPackages(data?.data);
