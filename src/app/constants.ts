@@ -9,7 +9,8 @@ export const CATEGORY_COLORS = ["#FFF6DB", "#E6EEFA", "#FFEFEF", "#FAFAFA"];
 
 // my page
 export const TAB_PAGE_SIZE = 3;
-
+export const TITLE_CLASS =
+  "w-full font-semibold text-lg tracking-[0.18px] mb-6";
 // home page
 export const NATION_LISTS = [
   "전체",
