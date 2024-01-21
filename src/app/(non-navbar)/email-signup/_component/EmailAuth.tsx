@@ -7,7 +7,7 @@ import usePostCertificationMutation from "@/hooks/query/usePostCertificationMuta
 import useSignupInfoStore from "@/store/useSignupInfoStore";
 import useSignupStateStore from "@/store/useSignupStateStore";
 import validateEmail from "@/utils/validateEmail";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SignupEmailInfo from "./SignupEmailInfo";
 import SignupEmailWarning from "./SignupEmailWarning";
 
@@ -24,13 +24,9 @@ const EmailAuth = ({ setStep }: Props) => {
   const [emailValue, setEmailValue] = useState("");
   const [codeValue, setCodeValue] = useState("");
 
-  const { mutateAsync, isPending, isSuccess } = usePostCertificationMutation({
+  const { mutateAsync, isPending } = usePostCertificationMutation({
     email: emailValue,
   });
-
-  useEffect(() => {
-    console.log(isPending, isSuccess);
-  }, [isPending, isSuccess]);
 
   const { refetch } = useGetEmailAuthQuery(emailValue, codeValue);
 
