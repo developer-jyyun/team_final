@@ -4,7 +4,7 @@ import Button from "@/app/_component/common/atom/Button";
 import usePostSigninMutation from "@/hooks/query/usePostSigninMutation";
 import useSignupStateStore from "@/store/useSignupStateStore";
 import validateEmail from "@/utils/validateEmail";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import SigninInput from "./SigninInput";
@@ -12,6 +12,7 @@ import TermsForm from "./TermsForm";
 
 const EmailSigninForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const signupState = useSignupStateStore();
 
   const [emailValue, setEmailValue] = useState("");
@@ -60,7 +61,9 @@ const EmailSigninForm = () => {
       const res = await mutateAsync();
 
       if (res.code === 200) {
-        router.push("/");
+        if (searchParams.get("redirect"))
+          router.push(`${searchParams.get("redirect")}`);
+        else router.push("/");
       } else if (res.message === "비밀번호가 틀렸습니다.") {
         setPasswordErrorMessage(res.message);
       } else {
