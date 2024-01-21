@@ -136,7 +136,7 @@ const DetailMain = () => {
         setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
-      <ScrollToUpButton />
+      {viewMore && <ScrollToUpButton viewMore={viewMore} />}
     </div>
   );
 };
