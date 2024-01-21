@@ -614,7 +614,6 @@ const handlers = [
 
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
-    console.log("내 정보 조회");
     const myInfo = {
       email: "user@example.com",
       username: "홍길동",
@@ -628,7 +627,6 @@ const handlers = [
 
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
-    console.log("출발일이 다가오는 패키지");
     const upComingPackage = {
       packageId: 0,
       imageUrl: "//source.unsplash.com/500x500?america",
@@ -643,7 +641,6 @@ const handlers = [
 
   // 내가 쓴 리뷰 목록
   http.get("/v1/reviews/my", async () => {
-    console.log("내가 쓴 리뷰 목록");
     return HttpResponse.json(myReviewData);
   }),
 
@@ -664,7 +661,6 @@ const handlers = [
 
   // 예약내역
   http.get("/v1/orders", async () => {
-    console.log("예약내역");
     const myOrders = {
       data: [
         {
@@ -730,7 +726,6 @@ const handlers = [
 
   // 공지사항 글 목록
   http.get("/v1/notices", async () => {
-    console.log("공지사항 글 목록");
     const noticeList = {
       data: [
         {
@@ -754,6 +749,76 @@ const handlers = [
       ],
     };
     return HttpResponse.json(noticeList);
+  }),
+  // 공지사항 상세보기
+  http.get("/v1/notices/:noticeId", async (req) => {
+    const { noticeId } = req.params;
+    const noticeIdAsString = Array.isArray(noticeId) ? noticeId[0] : noticeId;
+    const numericNoticeId = parseInt(noticeIdAsString, 10);
+    let noticeDetail;
+    console.log(typeof req.params.noticeId);
+
+    if (numericNoticeId === 0) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 0,
+          title: "쉽고 빠른 패키지 예약 플랫폼 ‘LET’S’ 오픈☆1",
+          createdAt: "2010-01-01",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    } else if (numericNoticeId === 1) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 1,
+          title: "2024년 01월 유류 할증료 안내☆2",
+          createdAt: "2010-01-02",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    } else if (numericNoticeId === 2) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 2,
+          title: "공지사항3☆",
+          createdAt: "2010-01-03",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    }
+    return new Response(JSON.stringify(noticeDetail), {
+      status: 200,
+    });
   }),
 
   // 자주 묻는 질문 글 목록
@@ -782,6 +847,60 @@ const handlers = [
       ],
     };
     return HttpResponse.json(faqList);
+  }),
+
+  // 자주 묻는 질문 상세보기
+  http.get("/v1/faq/:faqId", async (req) => {
+    const { faqId } = req.params;
+    console.log(`faq ID ${faqId}의 상세내용`);
+    const faqIdAsString = Array.isArray(faqId) ? faqId[0] : faqId;
+    const numericFaqId = parseInt(faqIdAsString, 10);
+
+    let faqDetail;
+    if (numericFaqId === 0) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 0,
+          title: "예약하는 방법을 모르겠어요.",
+          createdAt: "2010-01-01",
+          categories: ["패키지", "예약"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    } else if (numericFaqId === 1) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 1,
+          title: "상품예약 후 변경이 가능한가요?",
+          createdAt: "2010-01-02 ",
+          categories: ["패키지", "변경"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    } else if (numericFaqId === 2) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 2,
+          title: "예약하는 혼자서 패키지 여행에 참여하고 싶은데 추가...",
+          createdAt: "2010-01-01",
+          categories: ["패키지", "기타"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    }
+
+    return new Response(JSON.stringify(faqDetail), {
+      status: 200,
+    });
   }),
 
   http.get("/v1/polls", () => {

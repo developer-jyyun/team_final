@@ -26,7 +26,7 @@ const ReservationItem = ({ orderData, theme, hashTag }: Props) => {
             </span>
           </p>
           <div className="mt-2.5 mb-3">
-            {hashTag && <Chip chipData={orderData.hashtags} />}
+            {hashTag && <Chip chipData={orderData.hashtags} gap="gap-1" />}
           </div>
           {theme === "reservationMenu" && (
             <div
