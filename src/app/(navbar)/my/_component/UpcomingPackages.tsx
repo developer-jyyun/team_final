@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import useMyUpcomingPackageQuery from "@/hooks/query/useMyUpcomingPackageQuery";
+import { TITLE_CLASS } from "@/app/constants";
 import Chip from "./Chip";
 
 const UpcomingPackages = () => {
@@ -11,9 +12,7 @@ const UpcomingPackages = () => {
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   return (
     <article className="mx-auto mt-8 mb-10">
-      <h2 className="w-full font-semibold text-lg tracking-[0.18px] mb-6">
-        다가오는 패키지가 있어요!
-      </h2>
+      <h2 className={TITLE_CLASS}>다가오는 패키지가 있어요!</h2>
       <div className="flex flex-wrap relative gap-[18px]">
         <div className=" w-[90px] rounded-md overflow-hidden">
           <img

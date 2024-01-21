@@ -9,6 +9,10 @@ export const CATEGORY_COLORS = ["#FFF6DB", "#E6EEFA", "#FFEFEF", "#FAFAFA"];
 
 // my page
 export const TAB_PAGE_SIZE = 3;
+export const TITLE_CLASS =
+  "w-full font-semibold text-lg tracking-[0.18px] mb-6";
+export const SUB_TITLE_CLASS =
+  "text-sm font-medium text-black-2 mt-3 mb-2.5 px-4";
 
 // home page
 export const NATION_LISTS = [
