@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Button from "@/app/_component/common/atom/Button";
 import usePaymentStore from "@/store/usePaymentStore";
+import getMyInfo from "@/api/my/getMyInfo";
 import BottomMyPageMenu from "./BottomMyPageMenu";
 import AgreeSection from "./AgreeSection";
 import ProgressBar from "./ProgressBar";
@@ -29,6 +30,14 @@ const ReservationInfo = ({ onComplete }: Props) => {
     section2: false,
     section3: false,
     section4: false,
+  });
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    username: "",
+    phone: "",
+    addr1: "",
+    addr2: "",
+    postCode: "",
   });
 
   const updateProgress = useCallback(() => {
@@ -124,6 +133,23 @@ const ReservationInfo = ({ onComplete }: Props) => {
     return `${text.substring(0, maxLength)}...`;
   };
 
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const data = await getMyInfo();
+        if (data && data.data) {
+          setUserInfo(data.data);
+        } else {
+          throw new Error("사용자 정보를 가져오는 데 실패했습니다");
+        }
+      } catch (error) {
+        console.error("fetch 작업 중 문제가 발생했습니다:", error);
+      }
+    }
+
+    fetchUserInfo();
+  }, []);
+
   return (
     <div>
       <div className="sticky top-0 pb-2 bg-white z-10">
@@ -193,19 +219,25 @@ const ReservationInfo = ({ onComplete }: Props) => {
             <span className="min-w-max mr-4 text-black-4 text-xs font-normal">
               예약자
             </span>
-            <p className="text-black-2 text-sm font-semibold">워너원</p>
+            <p className="text-black-2 text-sm font-semibold">
+              {userInfo.username || "예약자"}
+            </p>
           </div>
           <div className="flex gap-12 items-center my-2.5 ml-3">
             <span className="min-w-max mr-4 text-black-4 text-xs font-normal">
               이메일
             </span>
-            <p className="text-black-2 text-sm font-semibold">Lets@WinnerOne</p>
+            <p className="text-black-2 text-sm font-semibold">
+              {userInfo.email || "이메일"}
+            </p>
           </div>
           <div className="flex gap-12 items-start my-2.5 ml-3">
             <span className="min-w-max mr-1.5 text-black-4 text-xs font-normal">
               전화번호
             </span>
-            <p className="text-black-2 text-sm font-semibold">010-1234-5678</p>
+            <p className="text-black-2 text-sm font-semibold">
+              {userInfo.phone || "전화번호"}
+            </p>
           </div>
         </div>
       </div>
