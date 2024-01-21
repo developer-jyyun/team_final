@@ -11,7 +11,9 @@ const PackagesList = () => {
   if (isLoading) return <div>스켈렙톤 할 수 있으까,,</div>;
 
   return (
-    <div>{data?.data.map((item: PackageInfo) => <Package data={item} />)}</div>
+    <div className="h-[263px] overflow-auto whitespace-nowrap last:mr-0">
+      {data?.data.map((item: PackageInfo) => <Package data={item} />)}
+    </div>
   );
 };
 

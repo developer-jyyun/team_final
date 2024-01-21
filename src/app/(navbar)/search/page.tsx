@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const SearchPage = () => {
   return (
-    <div className="w-full flex flex-col">
+    <section className="w-full flex flex-col">
       <SearchHeader />
       <ContentsContainer title="여행 추천 태그">
         <div className="flex">
@@ -21,7 +21,7 @@ const SearchPage = () => {
         <PackagesList />
       </ContentsContainer>
       <ForwardContainer />
-    </div>
+    </section>
   );
 };
 
