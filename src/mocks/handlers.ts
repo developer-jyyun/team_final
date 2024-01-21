@@ -615,26 +615,33 @@ const handlers = [
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
     const myInfo = {
-      email: "user@example.com",
-      username: "홍길동",
-      phone: "010-1234-5678",
-      addr1: "서울특별시 강남구",
-      addr2: "역삼동 123-45",
-      postCode: "06178",
+      code: 200,
+      data: {
+        email: "user@example.com",
+        username: "위너원",
+        phone: "010-1234-5678",
+        addr1: "Gangnam-gu, Seoul",
+        addr2: "123-45 Yeoksam-dong",
+        postCode: "06178",
+      },
     };
+
     return HttpResponse.json(myInfo);
   }),
 
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     const upComingPackage = {
-      packageId: 0,
-      imageUrl: "//source.unsplash.com/500x500?america",
-      title: "오사카 특별 패키지",
-      dday: 30,
-      nationName: "일본",
-      departureDate: "2024-02-01",
-      endDate: "2024-02-05",
+      code: 200,
+      data: {
+        packageId: 0,
+        imageUrl: "//source.unsplash.com/500x500?america",
+        title: "오사카 특별 패키지",
+        dday: 30,
+        nationName: "일본",
+        departureDate: "2024-02-01",
+        endDate: "2024-02-05",
+      },
     };
     return HttpResponse.json(upComingPackage);
   }),
