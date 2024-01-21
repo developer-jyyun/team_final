@@ -1,13 +1,13 @@
 "use client";
 
-import getEmailAuth from "@/api/signin/getEmailAuth";
-import postCertification from "@/api/signin/postCertification";
 import SigninInput from "@/app/(non-navbar)/email-signin/_component/SigninInput";
 import Button from "@/app/_component/common/atom/Button";
+import useGetEmailAuthQuery from "@/hooks/query/useGetEmailAuthQuery";
+import usePostCertificationMutation from "@/hooks/query/usePostCertificationMutation";
 import useSignupInfoStore from "@/store/useSignupInfoStore";
 import useSignupStateStore from "@/store/useSignupStateStore";
 import validateEmail from "@/utils/validateEmail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignupEmailInfo from "./SignupEmailInfo";
 import SignupEmailWarning from "./SignupEmailWarning";
 
@@ -20,19 +20,33 @@ const EmailAuth = ({ setStep }: Props) => {
   const signupInfo = useSignupInfoStore();
 
   const [certification, setCertification] = useState(false);
+
   const [emailValue, setEmailValue] = useState("");
   const [codeValue, setCodeValue] = useState("");
+
+  const { mutateAsync, isPending, isSuccess } = usePostCertificationMutation({
+    email: emailValue,
+  });
+
+  useEffect(() => {
+    console.log(isPending, isSuccess);
+  }, [isPending, isSuccess]);
+
+  const { refetch } = useGetEmailAuthQuery(emailValue, codeValue);
+
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [codeErrorMessage, setCodeErrorMessage] = useState("");
 
   const handleNextStep = async () => {
     if (signupState.isCertification) {
-      const data = await getEmailAuth(emailValue, codeValue);
+      const res = (await refetch()).data;
 
-      if (data.code === 200) {
+      if (res.code === 200) {
         signupState.setCertificated(true);
         signupInfo.updateEmail(emailValue);
         setStep(2);
+      } else {
+        setCodeErrorMessage(res.message);
       }
     } else {
       setCodeErrorMessage("인증 시간이 만료되었습니다. 다시 요청해 주세요!");
@@ -58,14 +72,14 @@ const EmailAuth = ({ setStep }: Props) => {
       setEmailErrorMessage("잘못된 유형의 이메일 입니다. 수정해주세요.");
     } else {
       setEmailErrorMessage("");
-      const data = await postCertification({
-        email: emailValue,
-      });
 
-      if (data.code === 200) {
-        console.log("인증번호 요청 성공");
+      const res = await mutateAsync();
+
+      if (res.code === 200) {
         signupState.setIsCertification(true);
         setCertification(true);
+      } else {
+        setEmailErrorMessage("에러...");
       }
     }
   };
@@ -80,6 +94,7 @@ const EmailAuth = ({ setStep }: Props) => {
         errorMessage={emailErrorMessage}
         onClickFn={handleCertification}
         onInputChange={handleEmailInputChange}
+        isPending={isPending}
       />
       <div className="w-full -mt-1">
         <SignupEmailWarning />
