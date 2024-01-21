@@ -82,7 +82,7 @@ const HomeAdvertisements = () => {
                 fill
                 className="rounded-lg"
                 onClick={() => {
-                  router.push("/"); // 추후 200_광고및프로모션구좌 페이지 URL 결정시 수정 예정
+                  router.push(`advertisement/${ads.adId}`);
                 }}
               />
             </div>

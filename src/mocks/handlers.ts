@@ -259,18 +259,15 @@ const handlers = [
     const advertisements = [
       {
         adId: 0,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/6p92q9KD/japan.png",
       },
       {
         adId: 1,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/zG0LR9X3/taiwan.png",
       },
       {
         adId: 2,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/RV1JvWk7/europe.png",
       },
     ];
 
