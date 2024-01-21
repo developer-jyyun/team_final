@@ -5,7 +5,7 @@ import useMyUpcomingPackageQuery from "@/hooks/query/useMyUpcomingPackageQuery";
 import { TITLE_CLASS } from "@/app/constants";
 import Chip from "./Chip";
 
-const UpcomingPackages = () => {
+const UpcomingPackage = () => {
   const { data, isLoading, isError, error } = useMyUpcomingPackageQuery();
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -43,4 +43,4 @@ const UpcomingPackages = () => {
   );
 };
 
-export default UpcomingPackages;
+export default UpcomingPackage;
