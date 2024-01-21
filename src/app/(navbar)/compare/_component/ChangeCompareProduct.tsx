@@ -8,7 +8,11 @@ import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 
-const ChangeCompareProduct = () => {
+interface Props {
+  onChange: () => void;
+}
+
+const ChangeCompareProduct = ({ onChange }: Props) => {
   return (
     <div className="mx-6">
       <div className="flex justify-between mt-3">
@@ -16,13 +20,14 @@ const ChangeCompareProduct = () => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             고정상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             청룡의 해 얼리버드 특가
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-pink mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
         <SectionMargin />
@@ -30,13 +35,14 @@ const ChangeCompareProduct = () => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             비교상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             오사카/교토 3박 4일 올인원 패키지
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-green mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
       </div>
@@ -165,7 +171,7 @@ const ChangeCompareProduct = () => {
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <MyPicProduct />
           <MyPicProduct />
           <MyPicProduct />
