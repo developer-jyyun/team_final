@@ -32,7 +32,7 @@ const Package = ({ data }: Props) => {
         </p>
         <div className="flex gap-1">
           {data.hashtags.slice(0, 3).map((hashtag) => (
-            <Hashtag tagName={hashtag} />
+            <Hashtag key={hashtag} tagName={hashtag} />
           ))}
         </div>
         <div className="text-sm text-black-2 font-extrabold">
