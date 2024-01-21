@@ -171,7 +171,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <MyPicProduct />
           <MyPicProduct />
           <MyPicProduct />
