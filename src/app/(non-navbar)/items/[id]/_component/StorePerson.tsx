@@ -1,7 +1,6 @@
 "use client";
 
 import DetailTypography from "./DetailTypography";
-// import usePaymentStore from "@/store/usePaymentStore";
 
 interface Props {
   text: string;
@@ -20,13 +19,10 @@ const StorePerson = ({
   setStore,
   setTotalPrice,
 }: Props) => {
-  // const paymentStore = usePaymentStore();
-
   const handleClickPlus = () => {
     if (store < 10) {
       setStore((prev) => prev + 1);
       setTotalPrice((prev) => prev + price);
-      // paymentStore.increaseAdult();
     }
   };
 
@@ -34,12 +30,9 @@ const StorePerson = ({
     if (text === "성인" && store > 1) {
       setStore((prev) => prev - 1);
       setTotalPrice((prev) => prev - price);
-
-      // paymentStore.decreaseAdult();
-    } else if (store > 0) {
+    } else if (text !== "성인" && store > 0) {
       setStore((prev) => prev - 1);
       setTotalPrice((prev) => prev - price);
-      // paymentStore.decreaseAdult();
     }
   };
 

@@ -37,6 +37,7 @@ const ItemDetailBottom = ({
   const [babyStore, setBabyStore] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(packageDetail.totalPrice.adult);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
@@ -50,7 +51,17 @@ const ItemDetailBottom = ({
   };
 
   const handlePayment = () => {
-    if (!packageDetail.myInfo) {
+    if (
+      adultStore + infantStore + babyStore > packageDetail.reservation.remain ||
+      adultStore + infantStore + babyStore < packageDetail.reservation.min
+    ) {
+      const errorMessage =
+        adultStore + infantStore + babyStore > packageDetail.reservation.remain
+          ? `최대 ${packageDetail.reservation.remain}명까지 선택 가능합니다.`
+          : `최소 ${packageDetail.reservation.min}명 이상 선택해야 합니다.`;
+
+      setError(errorMessage);
+    } else if (!packageDetail.myInfo) {
       setIsLogin(true);
     } else {
       const newDepartureDate = packageDetail.departureDatetime.date.split("-");
@@ -83,7 +94,7 @@ const ItemDetailBottom = ({
         ? createPortal(
             <BottomSlideModal setReservation={setReservation}>
               <div className="p-4 border-[0.6px] border-solid border-grey-a rounded-lg">
-                <div className="flex items-end mb-9">
+                <div className="flex items-end">
                   <DetailTypography color={3} size={14}>
                     인원선택
                   </DetailTypography>
@@ -93,6 +104,11 @@ const ItemDetailBottom = ({
                     styleClass="mb-[1px] ml-1 web:mb-1"
                   >
                     (필수)
+                  </DetailTypography>
+                </div>
+                <div className="mb-3">
+                  <DetailTypography color="red" size={10}>
+                    {error}
                   </DetailTypography>
                 </div>
                 <StorePerson
