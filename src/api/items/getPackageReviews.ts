@@ -7,7 +7,9 @@ const getPackageReveiws = async (id: number, pageParam: number) => {
       },
     );
 
-    return await result.json();
+    const data = await result.json();
+
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
