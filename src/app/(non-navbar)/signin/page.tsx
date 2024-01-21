@@ -7,12 +7,16 @@ export const metadata: Metadata = {
   title: "Let's - 로그인",
 };
 
-const SigninPage = () => {
+const SigninPage = ({
+  searchParams,
+}: {
+  searchParams: { departDate: string };
+}) => {
   return (
     <div className="w-full">
       <div className="flex flex-col justify-center items-center mt-[180px]">
         <img
-          src="./assets/mainTitle.svg"
+          src="/assets/mainTitle.svg"
           alt="메인 타이틀"
           width="35%"
           className="mb-4"
@@ -29,7 +33,11 @@ const SigninPage = () => {
           <KakaoLoginButton />
         </div>
         <Link
-          href="/email-signin"
+          href={
+            searchParams.redirect
+              ? `/email-signin?redirect=${searchParams.redirect}`
+              : `/email-signin`
+          }
           className="text-black-4 text-xs font-medium web:text-base"
         >
           이메일로 시작하기 &gt;
