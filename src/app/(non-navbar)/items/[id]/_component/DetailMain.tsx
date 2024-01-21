@@ -2,9 +2,10 @@
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
+import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -18,9 +19,9 @@ import PackageTagBadge from "./PackageTagBadge";
 import Reviews from "./Reviews";
 import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
-// import Dialog from "@/app/_component/common/layout/Dialog";
 
 const DetailMain = () => {
+  const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
 
@@ -29,8 +30,8 @@ const DetailMain = () => {
     searchParams.get("departDate"),
   );
   const [viewMore, setViewMore] = useState(false);
-  // 이후 로그인 유저 구분
-  // const [, setIsLogin] = useState(false);
+
+  const [isLogin, setIsLogin] = useState(false);
 
   if (packageDetail.code === 404) {
     return <ItemNotFound />;
@@ -69,8 +70,7 @@ const DetailMain = () => {
         viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
       } relative`}
     >
-      {/* 이후 로그인 유저 구분 */}
-      {/* <Dialog
+      <Dialog
         isOpen={isLogin}
         type="confirm"
         theme="login"
@@ -80,7 +80,7 @@ const DetailMain = () => {
         onConfirm={() => {
           router.push("/signin");
         }}
-      /> */}
+      />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
         <BadgeList>
@@ -133,7 +133,7 @@ const DetailMain = () => {
       <ItemDetailBottom
         viewMore={viewMore}
         setViewMore={setViewMore}
-        // setIsLogin={setIsLogin}
+        setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
       <ScrollToUpButton />
