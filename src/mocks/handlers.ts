@@ -342,8 +342,10 @@ const handlers = [
   //   });
   // }),
 
-  http.get("v1/packages/top-views", () => {
-    console.log("가장 많이 본 패키지 목록");
+  http.get("v1/packages/top-views", ({ request }) => {
+    const url = new URL(request.url);
+    const pageSize = url.searchParams.get("pageSize");
+
     const packagesList = [
       {
         packageId: 0,
@@ -405,6 +407,66 @@ const handlers = [
         tripDays: 4, // 2일
         isWish: false, // 비로그인시에는 항상 false
       },
+      {
+        packageId: 5,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "유럽",
+        title: "로맨틱한 프랑스 여행",
+        hashtags: ["로맨스", "유럽", "역사"],
+        minPrice: 700000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 6,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "일본",
+        title: "도쿄의 현대 예술 탐방",
+        hashtags: ["아트", "일본", "도시"],
+        minPrice: 620000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
+      {
+        packageId: 7,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "남미",
+        title: "아마존 정글 탐험",
+        hashtags: ["자연", "아마존", "브라질"],
+        minPrice: 900000,
+        lodgeDays: 4,
+        tripDays: 7,
+        isWish: false,
+      },
+      {
+        packageId: 8,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "아프리카",
+        title: "사하라 사막 사파리",
+        hashtags: ["사파리", "아프리카", "자연"],
+        minPrice: 800000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 9,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "오세아니아",
+        title: "그레이트 오션 로드 여행",
+        hashtags: ["자연", "호주", "드라이브"],
+        minPrice: 850000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
     ];
 
     const pages = {
@@ -416,7 +478,7 @@ const handlers = [
 
     return HttpResponse.json({
       code: 200,
-      data: packagesList,
+      data: packagesList.slice(0, Number(pageSize)),
       page: pages,
     });
   }),

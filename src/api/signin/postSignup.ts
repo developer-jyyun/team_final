@@ -19,10 +19,6 @@ const postSignup = async (body: {
 
     const data = await result.json();
 
-    console.log(data);
-
-    // console.log(result);
-
     return data;
   } catch (error) {
     console.error(error);

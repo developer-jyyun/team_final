@@ -59,6 +59,18 @@ export interface InclusionExclusion {
   description: string;
 }
 
+export interface PackageInfo {
+  packageId: number;
+  imageUrl: string;
+  nationName: string;
+  title: string;
+  hashtags: string[];
+  minPrice: number;
+  lodgeDays: number;
+  tripDays: number;
+  isWish: boolean;
+}
+
 export interface PackageResponseData {
   packageId: number;
   hashtags: string[];

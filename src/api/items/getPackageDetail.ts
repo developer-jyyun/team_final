@@ -11,7 +11,9 @@ const getPackageDetail = async (id: number, query: string | null) => {
       cache: "no-store",
     });
 
-    return await result.json();
+    const data = await result.json();
+
+    return data;
   } catch (error) {
     console.error(error);
     throw error;

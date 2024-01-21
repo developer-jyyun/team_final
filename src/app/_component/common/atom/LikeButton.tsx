@@ -4,10 +4,11 @@ import React, { useState } from "react";
 
 interface Props {
   id: number;
+  isWish: boolean;
 }
 
-const LikeButton = ({ id }: Props) => {
-  const [isLike, setIsLike] = useState(false);
+const LikeButton = ({ id, isWish }: Props) => {
+  const [isLike, setIsLike] = useState(isWish);
 
   const handleClick = () => {
     setIsLike((prev) => !prev);
@@ -17,7 +18,7 @@ const LikeButton = ({ id }: Props) => {
   return (
     <button
       type="button"
-      className="w-6 m-1.5 rounded-full"
+      className="w-6 m-3 rounded-full absolute top-0 right-0"
       onClick={handleClick}
     >
       <img
