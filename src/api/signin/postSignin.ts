@@ -14,8 +14,6 @@ const postSignin = async (body: { email: string; password: string }) => {
 
     const data = await result.json();
 
-    console.log(result);
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);

@@ -8,6 +8,7 @@ const getEmailAuth = async (email: string, code: string) => {
     );
 
     const data = await result.json();
+
     return data;
   } catch (error) {
     console.error(error);

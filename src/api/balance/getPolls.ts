@@ -7,7 +7,9 @@ const getPolls = async () => {
 
     if (result.status === 401) return { code: 401 };
 
-    return await result.json();
+    const data = await result.json();
+
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
