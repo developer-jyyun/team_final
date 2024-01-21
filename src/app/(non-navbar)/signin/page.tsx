@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const SigninPage = ({
   searchParams,
 }: {
-  searchParams: { departDate: string };
+  searchParams: { redirect: string };
 }) => {
   return (
     <div className="w-full">
