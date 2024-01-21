@@ -8,7 +8,11 @@ import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 
-const ChangeCompareProduct = () => {
+interface Props {
+  onChange: () => void;
+}
+
+const ChangeCompareProduct = ({ onChange }: Props) => {
   return (
     <div className="mx-6">
       <div className="flex justify-between mt-3">
@@ -23,6 +27,7 @@ const ChangeCompareProduct = () => {
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-pink mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
         <SectionMargin />
@@ -37,6 +42,7 @@ const ChangeCompareProduct = () => {
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-green mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
       </div>
