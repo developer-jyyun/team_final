@@ -29,6 +29,7 @@
     "react/require-default-props": "off",
     "object-shorthand": 0,
     "no-nested-ternary": "off",
-    "jsx-a11y/control-has-associated-label": "off"
+    "jsx-a11y/control-has-associated-label": "off",
+    "react/no-array-index-key": "off"
   }
 }

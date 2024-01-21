@@ -19,8 +19,8 @@ const Introduction = ({
 }: Props) => {
   return (
     <div className="mt-6">
-      {introImageUrls.map((introImg) => {
-        return <img key={introImg} src={introImg} alt="상품 소개" />;
+      {introImageUrls.map((introImg, index) => {
+        return <img key={introImg + index} src={introImg} alt="상품 소개" />;
       })}
       <InclusionExclusionContainer
         inclusionList={inclusionList}
