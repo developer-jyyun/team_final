@@ -6,7 +6,10 @@ const getAvailableDates = async (id: number) => {
         cache: "no-store",
       },
     );
-    return await result.json();
+
+    const data = await result.json();
+
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
