@@ -5,7 +5,7 @@ interface Props {
   rank: number;
 }
 
-const Hashtag = ({ data, rank }: Props) => {
+const Keyword = ({ data, rank }: Props) => {
   return (
     <li className="mb-2 text-black-4 text-sm font-medium leading-5">
       <span className="mr-3 font-bold">{rank + 1}</span>
@@ -14,4 +14,4 @@ const Hashtag = ({ data, rank }: Props) => {
   );
 };
 
-export default Hashtag;
+export default Keyword;
