@@ -20,7 +20,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             고정상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             청룡의 해 얼리버드 특가
           </h3>
           <Button
@@ -35,7 +35,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             비교상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             오사카/교토 3박 4일 올인원 패키지
           </h3>
           <Button
