@@ -184,7 +184,9 @@ const ItemDetailBottom = ({
       <DetailBottomButton
         viewMore={viewMore}
         setReservation={setReservation}
+        packageId={packageDetail.packageId}
         setViewMore={setViewMore}
+        reservation={packageDetail.reservation}
       />
     </div>
   );

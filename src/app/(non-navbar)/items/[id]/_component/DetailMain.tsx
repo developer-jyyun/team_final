@@ -100,7 +100,7 @@ const DetailMain = () => {
   return (
     <div
       className={`${!viewMore && "overflow-hidden"} ${
-        viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
+        viewMore ? "pb-[80px]" : "h-screen"
       } relative`}
     >
       <Dialog
