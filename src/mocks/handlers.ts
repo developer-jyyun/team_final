@@ -254,6 +254,304 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/hashtag-search", ({ request }) => {
+    console.log("검색 -> 결과");
+    const url = new URL(request.url);
+    const keyword = url.searchParams.get("keyword");
+    let packages: unknown[];
+
+    if (keyword === "안녕") {
+      packages = [];
+    } else {
+      packages = [
+        {
+          packageId: 0,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "청룡의 해 얼리버드 특가",
+          hashtags: ["일본", "체험", "로컬 다이닝", "쇼핑"],
+          minPrice: 689000,
+          lodgeDays: 4, // 1박
+          tripDays: 5, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 1,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "나만 알고 싶은 호캉스 초특가",
+          hashtags: ["일본", "역사", "미식"],
+          minPrice: 433000,
+          lodgeDays: 2, // 1박
+          tripDays: 3, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 2,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "새해 소원 홀인원 초핫특가",
+          hashtags: ["일본", "골프", "레저"],
+          minPrice: 1783000,
+          lodgeDays: 8, // 1박
+          tripDays: 9, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 3,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "유럽",
+          title: "유럽 문화 탐방 특가",
+          hashtags: ["유럽", "문화", "체험"],
+          minPrice: 1862000,
+          lodgeDays: 3, // 1박
+          tripDays: 5, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 4,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "동남아",
+          title: "만나보자 옥태견 호핑 초특가",
+          hashtags: ["동남아", "액티비티", "자연경관", "레저"],
+          minPrice: 513000,
+          lodgeDays: 2, // 1박
+          tripDays: 4, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 5,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "유럽",
+          title: "로맨틱한 프랑스 여행",
+          hashtags: ["로맨스", "유럽", "역사"],
+          minPrice: 700000,
+          lodgeDays: 3,
+          tripDays: 6,
+          isWish: false,
+        },
+        {
+          packageId: 6,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "일본",
+          title: "도쿄의 현대 예술 탐방",
+          hashtags: ["아트", "일본", "도시"],
+          minPrice: 620000,
+          lodgeDays: 2,
+          tripDays: 5,
+          isWish: false,
+        },
+        {
+          packageId: 7,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "남미",
+          title: "아마존 정글 탐험",
+          hashtags: ["자연", "아마존", "브라질"],
+          minPrice: 900000,
+          lodgeDays: 4,
+          tripDays: 7,
+          isWish: false,
+        },
+        {
+          packageId: 8,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "아프리카",
+          title: "사하라 사막 사파리",
+          hashtags: ["사파리", "아프리카", "자연"],
+          minPrice: 800000,
+          lodgeDays: 3,
+          tripDays: 6,
+          isWish: false,
+        },
+        {
+          packageId: 9,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "오세아니아",
+          title: "그레이트 오션 로드 여행",
+          hashtags: ["자연", "호주", "드라이브"],
+          minPrice: 850000,
+          lodgeDays: 2,
+          tripDays: 5,
+          isWish: false,
+        },
+      ];
+    }
+
+    const pages = {
+      currentPage: 1, // 현재 페이지
+      totalPage: 1, // 끝 페이지
+      currentElements: packages.length, // 현재 보여지는 목록의 개수
+      totalElements: packages.length, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        packages,
+        page: pages,
+      },
+    });
+  }),
+
+  http.get("/v1/search", ({ request }) => {
+    console.log("필터 -> 결과");
+
+    const url = new URL(request.url);
+    const sortBy = url.searchParams.get("sortBy");
+    let packages = [
+      {
+        packageId: 0,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "청룡의 해 얼리버드 특가",
+        hashtags: ["일본", "체험", "로컬 다이닝", "쇼핑"],
+        minPrice: 689000,
+        lodgeDays: 4, // 1박
+        tripDays: 5, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 1,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "나만 알고 싶은 호캉스 초특가",
+        hashtags: ["일본", "역사", "미식"],
+        minPrice: 433000,
+        lodgeDays: 2, // 1박
+        tripDays: 3, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 2,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "새해 소원 홀인원 초핫특가",
+        hashtags: ["일본", "골프", "레저"],
+        minPrice: 1783000,
+        lodgeDays: 8, // 1박
+        tripDays: 9, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 3,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "유럽",
+        title: "유럽 문화 탐방 특가",
+        hashtags: ["유럽", "문화", "체험"],
+        minPrice: 1862000,
+        lodgeDays: 3, // 1박
+        tripDays: 5, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 4,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "동남아",
+        title: "만나보자 옥태견 호핑 초특가",
+        hashtags: ["동남아", "액티비티", "자연경관", "레저"],
+        minPrice: 513000,
+        lodgeDays: 2, // 1박
+        tripDays: 4, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 5,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "유럽",
+        title: "로맨틱한 프랑스 여행",
+        hashtags: ["로맨스", "유럽", "역사"],
+        minPrice: 700000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 6,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "일본",
+        title: "도쿄의 현대 예술 탐방",
+        hashtags: ["아트", "일본", "도시"],
+        minPrice: 620000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
+      {
+        packageId: 7,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "남미",
+        title: "아마존 정글 탐험",
+        hashtags: ["자연", "아마존", "브라질"],
+        minPrice: 900000,
+        lodgeDays: 4,
+        tripDays: 7,
+        isWish: false,
+      },
+      {
+        packageId: 8,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "아프리카",
+        title: "사하라 사막 사파리",
+        hashtags: ["사파리", "아프리카", "자연"],
+        minPrice: 800000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 9,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "오세아니아",
+        title: "그레이트 오션 로드 여행",
+        hashtags: ["자연", "호주", "드라이브"],
+        minPrice: 850000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
+    ];
+
+    if (sortBy === "price_asc")
+      packages = packages.sort((a, b) => a.minPrice - b.minPrice);
+    if (sortBy === "price_desc")
+      packages = packages.sort((a, b) => b.minPrice - a.minPrice);
+
+    const pages = {
+      currentPage: 1, // 현재 페이지
+      totalPage: 1, // 끝 페이지
+      currentElements: 10, // 현재 보여지는 목록의 개수
+      totalElements: 10, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        packages,
+        page: pages,
+      },
+    });
+  }),
+
   http.get("/v1/advertisements", () => {
     console.log("광고구좌 목록 조회");
     const advertisements = [
