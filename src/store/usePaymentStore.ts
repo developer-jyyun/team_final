@@ -108,6 +108,7 @@ const usePaymentStore = create<Props>()(
     {
       name: "pp-s",
       storage: createJSONStorage(() => sessionStorage),
+      skipHydration: true,
     },
   ),
 );
