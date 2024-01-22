@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignupComplete = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     setTimeout(() => {
-      router.push("/");
+      if (searchParams.get("redirect"))
+        router.push(`${searchParams.get("redirect")}`);
+      else router.push("/");
     }, 1000);
   }, [router]);
 
