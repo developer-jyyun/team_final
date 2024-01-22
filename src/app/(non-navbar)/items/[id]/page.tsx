@@ -1,7 +1,7 @@
 import getPackageReveiws from "@/api/items/getPackageReviews";
 import getPackageScore from "@/api/items/getPackageScore";
+import getAvailableDates from "@/api/schedule/getAvailableDates";
 import getPackageSchedules from "@/api/schedule/getPackageSchedules";
-import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import type { PackageResponseData } from "@/app/types";
 import {
   HydrationBoundary,
@@ -84,11 +84,17 @@ const ItemsPage = async ({
       getPackageReveiws(Number(params.id), pageParam),
     initialPageParam: 1,
   });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["schedule-date", params.id],
+    queryFn: async () => {
+      return getAvailableDates(Number(params.id));
+    },
+  });
   const dehydrateState = dehydrate(queryClient);
 
   return (
     <div className="w-full">
-      <DefaultHeader theme="main" back />
       <HydrationBoundary state={dehydrateState}>
         <DetailMain />
       </HydrationBoundary>

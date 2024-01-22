@@ -1,52 +1,55 @@
 "use client";
 
-import Button from "@/app/_component/common/atom/Button";
-import React, { useState } from "react";
 import { MyOrder } from "@/app/types";
 import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
-import { TAB_PAGE_SIZE } from "@/app/constants";
+import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import ReservationItem from "./ReservationItem";
 import NoItem from "./NoItem";
 
+const pageSize = 3;
 const ReservationTabContent = () => {
-  const [page, setPage] = useState(1);
-  const { data, isLoading, isError, error } = useMyOrdersQuery(
-    page,
-    TAB_PAGE_SIZE,
+  const {
+    data: orderData,
+    isFetching,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+  } = useMyOrdersQuery(pageSize, "tab");
+
+  const lastElementRef = useInfiniteScroll(
+    fetchNextPage,
+    isFetching,
+    hasNextPage,
   );
 
-  const handleLoadMore = () => {
-    setPage((prev) => {
-      const nextPage = prev + 1;
-      return nextPage;
-    });
-  };
-
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
+
+  if (orderData?.pages.every((page) => page.data.length === 0)) {
+    return <NoItem text="예약내역이 존재하지 않습니다." />;
+  }
+
   return (
-    <div className="flex flex-col items-center">
-      {data && data.length > 0 ? (
-        <>
-          <ul className="flex flex-col gap-2 justify-start items-center w-[95.111%]  mx-auto mt-5 ">
-            {data?.map((order: MyOrder) => (
-              <ReservationItem
-                key={order.orderCode}
-                theme="reservationTab"
-                hashTag
-                orderData={order.package}
-              />
-            ))}
-          </ul>
-          <Button
-            onClickFn={handleLoadMore}
-            text="더보기"
-            styleClass="mt-8 py-1 px-2 rounded-xl text-black-6  border border-solid border-black-6 "
-          />
-        </>
-      ) : (
-        <NoItem text="예약내역이 존재하지 않습니다." />
-      )}
+    <div className="flex flex-col items-center h-[45vh] overflow-y-scroll mt-5">
+      {orderData?.pages.map((page, pageIndex) => (
+        <ul
+          key={pageIndex}
+          className="flex flex-col gap-2 justify-start items-center w-[95.111%] mx-auto"
+        >
+          {page.data.map((order: MyOrder) => (
+            <ReservationItem
+              key={order.orderCode}
+              theme="reservationTab"
+              hashTag
+              orderData={order.package}
+            />
+          ))}
+        </ul>
+      ))}
+      <li ref={lastElementRef} className="w-full h-20 list-none">
+        {isFetching && <div>loading..🎈</div>}
+      </li>
     </div>
   );
 };

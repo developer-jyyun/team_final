@@ -116,6 +116,9 @@ const config: Config = {
         positionTopAnimation: "positionTopAnimation 0.2s ease-in-out forwards",
         positionTopAnimationReverse:
           "positionTopAnimationReverse 0.2s ease-in-out forwards",
+        positionTopAnimationDelay: "positionTopAnimation 0.7s ease-in-out forwards",
+        positionTopAnimationReverseDelay:
+          "positionTopAnimationReverse 0.7s ease-in-out forwards",
       },
       lineClamp: {
         2: "2",

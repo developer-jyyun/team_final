@@ -2,21 +2,24 @@
 
 interface Props {
   viewMore: boolean;
+  viewScroll: boolean;
 }
 
-const ScrollToUpButton = ({ viewMore }: Props) => {
+const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
   const handleUp = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const getAnimation = () => {
-    if (viewMore) return "animate-positionTopAnimation";
-    return "";
+    if (viewMore && viewScroll) return "animate-positionTopAnimationDelay";
+    return "animate-positionTopAnimationReverseDelay";
   };
 
   return (
     <div
-      className={`fixed z-50 ${getAnimation()} w-[40px] h-14 flex justify-center items-center`}
+      className={`${
+        viewMore ? "fixed" : "hidden"
+      } z-50 ${getAnimation()} w-[40px] h-14 flex justify-center items-center duration-700`}
     >
       <button
         type="button"

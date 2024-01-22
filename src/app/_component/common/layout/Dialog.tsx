@@ -83,7 +83,8 @@ const Dialog = ({
       )}
       {type === "alert" && (
         <dialog
-          className="w-[87.2%] web:w-[327px]  h-[140px] mx-auto absolute top-[30%] left-[50%] translate-x-[-50%] rounded-md bg-white flex flex-col justify-evenly"
+          // className="w-[87.2%] web:w-[327px]  h-[140px] mx-auto absolute top-[30%] left-[50%] translate-x-[-50%] rounded-md bg-white flex flex-col justify-evenly"
+          className="z-[550] w-[87.2%] web:w-[327px] h-[176px] mx-auto absolute top-[30%] rounded-md bg-white flex flex-col justify-evenly shadow-md"
           ref={ref}
         >
           <p className="text-4.5 font-bold text-left px-8">{message}</p>

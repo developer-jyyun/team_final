@@ -3,7 +3,7 @@
 import Button from "@/app/_component/common/atom/Button";
 import useCheckStateStore from "@/store/useCheckStateStore";
 import useSignupStateStore from "@/store/useSignupStateStore";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import AllselectCheckbox from "./AllselectCheckbox";
 import Checkbox from "./Checkbox";
@@ -13,10 +13,12 @@ interface Props {
 }
 
 const TermsForm = ({ setTermsForm }: Props) => {
+  const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const checkState = useCheckStateStore();
   const signupState = useSignupStateStore();
-  const router = useRouter();
 
   const [action, setAction] = useState(true);
 
@@ -36,7 +38,9 @@ const TermsForm = ({ setTermsForm }: Props) => {
 
   const handleAgree = () => {
     signupState.setIsSignup(true);
-    router.push("/email-signup");
+    if (searchParams.get("redirect"))
+      router.push(`/email-signup?redirect=${searchParams.get("redirect")}`);
+    else router.push("/email-signup");
   };
 
   return (
