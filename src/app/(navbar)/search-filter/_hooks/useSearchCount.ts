@@ -17,7 +17,7 @@ const useSearchCount = () => {
 
   useEffect(() => {
     refetch();
-  }, [price, concepts, nations, continents]);
+  }, [price, concepts, nations, continents, refetch]);
 
   return { data };
 };
