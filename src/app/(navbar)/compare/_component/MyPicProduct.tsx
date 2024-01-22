@@ -15,7 +15,7 @@ const MyPicProduct = () => {
             className="ml-6"
           />
         </h3>
-        <div className="flex gap-2">
+        <div className="flex gap-1">
           <span className="text-black-4 text-[11px] font-normal py-1 px-2 border-[0.6px] border-black-6 rounded-full">
             일본
           </span>
@@ -26,7 +26,7 @@ const MyPicProduct = () => {
             로컬 다이닝
           </span>
         </div>
-        <div>
+        <div className="mt-2.5">
           <p className="text-red-1 text-xxs font-light">
             4박 5일 <b className="ml-1 text-sm font-medium">689,000원</b>
           </p>

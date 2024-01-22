@@ -1,13 +1,14 @@
 "use client";
 
-import Button from "@/app/_component/common/atom/Button";
 import SigninInput from "@/app/(non-navbar)/email-signin/_component/SigninInput";
-import { useState } from "react";
-import validatePassword from "@/utils/validatePassword";
-import postSignup from "@/api/signin/postSignup";
+import Button from "@/app/_component/common/atom/Button";
+import Dialog from "@/app/_component/common/layout/Dialog";
+import usePostSigninMutation from "@/hooks/query/usePostSigninMutation";
+import usePostSignupMutation from "@/hooks/query/usePostSignupMutation";
 import useSignupInfoStore from "@/store/useSignupInfoStore";
 import useSignupStateStore from "@/store/useSignupStateStore";
-import postSignin from "@/api/signin/postSignin";
+import validatePassword from "@/utils/validatePassword";
+import { useState } from "react";
 
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -20,8 +21,22 @@ const EnterPassword = ({ setStep }: Props) => {
   const [passwordValue, setPasswordValue] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
 
+  const [modal, setModal] = useState(false);
+
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [verifyErrorMessage, setVerifyErrorMessage] = useState("");
+
+  const { mutateAsync: signup } = usePostSignupMutation({
+    email: signupInfo.email,
+    password: passwordValue,
+    isTermsAgreed: signupState.certificated,
+    username: signupInfo.name,
+  });
+
+  const { mutateAsync: signin } = usePostSigninMutation({
+    email: signupInfo.email,
+    password: passwordValue,
+  });
 
   const handleNextStep = async () => {
     if (!validatePassword(passwordValue)) {
@@ -37,22 +52,16 @@ const EnterPassword = ({ setStep }: Props) => {
     }
 
     if (validatePassword(passwordValue) && passwordValue === verifyPassword) {
-      const data = await postSignup({
-        email: signupInfo.email,
-        password: passwordValue,
-        isTermsAgreed: signupState.certificated,
-        username: signupInfo.name,
-      });
+      const res = await signup();
 
-      if (data.code === 200) {
-        const signinData = await postSignin({
-          email: signupInfo.email,
-          password: passwordValue,
-        });
-        if (signinData.code === 200) {
+      if (res.code === 200) {
+        const signinRes = await signin();
+        if (signinRes.code === 200) {
           signupState.setIsSignup(false);
           setStep(4);
         }
+      } else if (res.message === "이미 가입된 회원입니다.") {
+        setModal(true);
       }
     }
   };
@@ -67,7 +76,15 @@ const EnterPassword = ({ setStep }: Props) => {
   };
 
   return (
-    <div className="flex flex-col items-center pt-11 h-full px-6">
+    <div className="relative flex flex-col items-center pt-11 h-full px-6">
+      <Dialog
+        isOpen={modal}
+        type="alert"
+        message="이미 가입된 회원입니다."
+        onClose={() => {
+          setModal(false);
+        }}
+      />
       <SigninInput
         id="password"
         name="password"

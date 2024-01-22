@@ -1,10 +1,10 @@
 "use client";
 
-import postSignin from "@/api/signin/postSignin";
 import Button from "@/app/_component/common/atom/Button";
+import usePostSigninMutation from "@/hooks/query/usePostSigninMutation";
 import useSignupStateStore from "@/store/useSignupStateStore";
 import validateEmail from "@/utils/validateEmail";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import SigninInput from "./SigninInput";
@@ -12,7 +12,16 @@ import TermsForm from "./TermsForm";
 
 const EmailSigninForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const signupState = useSignupStateStore();
+
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+
+  const { mutateAsync } = usePostSigninMutation({
+    email: emailValue,
+    password: passwordValue,
+  });
 
   const [termsForm, setTermsForm] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -28,10 +37,8 @@ const EmailSigninForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
   const handleEmailInputChange = (inputValue: string) => {
     setEmailValue(inputValue);
@@ -39,6 +46,7 @@ const EmailSigninForm = () => {
   };
   const handlePasswordInputChange = (inputValue: string) => {
     setPasswordValue(inputValue);
+    if (passwordErrorMessage !== "") setPasswordErrorMessage("");
   };
 
   const openTermsForm = () => {
@@ -50,19 +58,17 @@ const EmailSigninForm = () => {
       setEmailErrorMessage("잘못된 유형의 이메일 입니다. 수정해주세요.");
     } else {
       setEmailErrorMessage("");
-      // console.log(emailValue, passwordValue);
-      const data = await postSignin({
-        email: emailValue,
-        password: passwordValue,
-      });
+      const res = await mutateAsync();
 
-      console.log(data);
-      // if (data.code === 200) {
-      //   console.log("로그인 성공");
-      //   router.push("/"); // 임시
-      // } else if (data.code === 409) {
-      //   setEmailErrorMessage("입력하신 이메일은 존재하지 않습니다.");
-      // }
+      if (res.code === 200) {
+        if (searchParams.get("redirect"))
+          router.push(`${searchParams.get("redirect")}`);
+        else router.push("/");
+      } else if (res.message === "비밀번호가 틀렸습니다.") {
+        setPasswordErrorMessage(res.message);
+      } else {
+        setEmailErrorMessage(res.message);
+      }
     }
   };
 
@@ -86,6 +92,7 @@ const EmailSigninForm = () => {
         type="password"
         name="signin-password"
         id="signin-password"
+        errorMessage={passwordErrorMessage}
         onInputChange={handlePasswordInputChange}
       />
 

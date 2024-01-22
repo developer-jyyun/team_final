@@ -30,10 +30,15 @@ const DetailBottomButton = ({
 
   const handleReservation = () => {
     if (viewMore) {
-      scrollToTop().then(() => {
+      if (window.scrollY === 0) {
         setReservation(true);
         setViewMore(false);
-      });
+      } else {
+        scrollToTop().then(() => {
+          setReservation(true);
+          setViewMore(false);
+        });
+      }
     } else {
       setReservation(true);
     }
