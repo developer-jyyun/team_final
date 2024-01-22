@@ -1,8 +1,6 @@
-"use client";
-
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Hashtag from "./Hashtag";
 
 interface Props {
@@ -10,14 +8,8 @@ interface Props {
 }
 
 const Package = ({ data }: Props) => {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/items/${data.packageId}`);
-  };
-
   return (
-    <div className="inline-block mr-3" onClick={handleClick}>
+    <Link href={`/items/${data.packageId}`} className="inline-block mr-3">
       <div className="w-[158px] relative">
         <img
           className="h-[180px] w-full object-cover rounded-[12px]"
@@ -39,7 +31,7 @@ const Package = ({ data }: Props) => {
           {`${data.minPrice.toLocaleString()}원~`}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
