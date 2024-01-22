@@ -8,7 +8,7 @@ const getMyOrders = async (page: number, pageSize: number) => {
     );
     const res = await result.json();
     console.log("order-data:", res);
-    return res.data;
+    return res;
   } catch (error) {
     console.error(error);
     throw error;

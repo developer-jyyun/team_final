@@ -7,7 +7,7 @@ const getMyInfo = async () => {
       },
     );
     const res = await result.json();
-    return res;
+    return res.data;
   } catch (error) {
     console.error(error);
     throw error;

@@ -5,8 +5,13 @@ import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import { useEffect, useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
 import DetailSwiper from "./DetailSwiper";
@@ -24,14 +29,42 @@ const DetailMain = () => {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const getUrl = () => {
+    if (searchParams.get("departDate")) {
+      return `${pathname}?departDate=${searchParams.get("departDate")}`;
+    } else {
+      return `${pathname}`;
+    }
+  };
 
   const { data: packageDetail } = usePackageDetailQuery(
     params.id,
     searchParams.get("departDate"),
   );
   const [viewMore, setViewMore] = useState(false);
+  const [viewScroll, setViewScroll] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setViewScroll(true);
+      } else {
+        setViewScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (packageDetail.code === 404) {
     return <ItemNotFound />;
@@ -78,7 +111,7 @@ const DetailMain = () => {
           setIsLogin(false);
         }}
         onConfirm={() => {
-          router.push("/signin");
+          router.push(`/signin?redirect=${getUrl()}`);
         }}
       />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
@@ -117,7 +150,7 @@ const DetailMain = () => {
         <TravelDate
           departureDatetime={packageDetail.data.departureDatetime}
           endDatetime={packageDetail.data.endDatetime}
-          transporation={packageDetail.data.transporation}
+          transporation={packageDetail.data.transportation}
         />
         <ChangeDateButton packageDetail={packageDetail.data} />
         <TabsContainer
@@ -136,7 +169,7 @@ const DetailMain = () => {
         setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
-      {viewMore && <ScrollToUpButton viewMore={viewMore} />}
+      <ScrollToUpButton viewMore={viewMore} viewScroll={viewScroll} />
     </div>
   );
 };

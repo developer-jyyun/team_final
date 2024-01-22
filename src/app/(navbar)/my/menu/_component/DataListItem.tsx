@@ -7,7 +7,7 @@ interface Props {
 }
 const DataListItem = ({ data, theme = "notice" }: Props) => {
   const listTitleClass =
-    "w-full flex p-4 rounded-[10px] bg-grey-e flex-col gap-2 items-between justify-center bg-opacity-20 max-h-[84px]";
+    "w-full flex p-4 rounded-[10px] bg-grey-e flex-col gap-2 items-between justify-center bg-opacity-20";
 
   return (
     <li className={listTitleClass}>
