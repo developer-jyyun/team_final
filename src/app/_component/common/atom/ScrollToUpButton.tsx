@@ -2,16 +2,17 @@
 
 interface Props {
   viewMore: boolean;
+  viewScroll: boolean;
 }
 
-const ScrollToUpButton = ({ viewMore }: Props) => {
+const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
   const handleUp = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const getAnimation = () => {
-    if (viewMore) return "animate-positionTopAnimation";
-    return "";
+    if (viewMore && viewScroll) return "animate-positionTopAnimation";
+    return "animate-positionTopAnimationReverse";
   };
 
   return (

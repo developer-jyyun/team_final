@@ -11,7 +11,7 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
 import DetailSwiper from "./DetailSwiper";
@@ -44,8 +44,27 @@ const DetailMain = () => {
     searchParams.get("departDate"),
   );
   const [viewMore, setViewMore] = useState(false);
+  const [viewScroll, setViewScroll] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setViewScroll(true);
+      } else {
+        setViewScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (packageDetail.code === 404) {
     return <ItemNotFound />;
@@ -150,7 +169,7 @@ const DetailMain = () => {
         setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
-      {viewMore && <ScrollToUpButton viewMore={viewMore} />}
+      <ScrollToUpButton viewMore={viewMore} viewScroll={viewScroll} />
     </div>
   );
 };
