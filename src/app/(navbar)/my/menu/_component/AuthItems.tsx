@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ListItemProps } from "@/app/types";
 import Dialog from "@/app/_component/common/layout/Dialog";
+import logout from "@/api/my/logout";
+import deleteMyAccount from "@/api/my/deleteMyAccount";
 import Withdraw from "./Withdraw";
 import MenuList from "./MenuList";
 
@@ -13,9 +15,14 @@ const AuthItems = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
 
-  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Logout");
+    try {
+      await logout();
+      router.push("/");
+    } catch (error) {
+      console.error("로그아웃 중 오류 발생:", error);
+    }
     router.push("/");
   };
 
@@ -24,13 +31,19 @@ const AuthItems = () => {
     setIsModalOpen(true);
   };
 
-  const handleWithdraw = () => {
+  const handleWithdraw = async () => {
     setIsWithdrawing(true);
-    setTimeout(() => {
-      console.log("탈퇴😂");
+    try {
+      await deleteMyAccount();
+      console.log("탈퇴 성공😂");
+      setTimeout(() => {
+        setIsWithdrawing(false);
+        router.push("/");
+      }, 3000);
+    } catch (error) {
+      console.error("회원 탈퇴 중 오류 발생:", error);
       setIsWithdrawing(false);
-      router.push("/");
-    }, 3000);
+    }
   };
   const AuthMenu: ListItemProps[] = [
     {
