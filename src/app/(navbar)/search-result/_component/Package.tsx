@@ -1,12 +1,16 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
+import Link from "next/link";
 
 interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
   return (
-    <div className="my-5 flex flex-col gap-2 w-[155px]">
+    <Link
+      href={`/items/${data.packageId}`}
+      className="my-5 flex flex-col gap-2 w-[155px]"
+    >
       <div className="relative h-[120px] rounded-[12px] overflow-hidden">
         <img
           className="object-cover w-full"
@@ -26,7 +30,7 @@ const Package = ({ data }: Props) => {
           {data.minPrice.toLocaleString()}원~
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
