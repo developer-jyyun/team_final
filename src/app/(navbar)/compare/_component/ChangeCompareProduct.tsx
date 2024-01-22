@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "@/app/_component/common/atom/Button";
 import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
-import ProgressBar from "./ProgressBar";
+import LeftProgressBar from "./LeftProgressBar";
+import RightProgressBar from "./RightProgressBar";
 import SectionMargin from "./SectionMargin";
 import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
@@ -59,9 +60,9 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             </span>
           </div>
           <div className="flex justify-between">
-            <ProgressBar />
+            <LeftProgressBar />
             <SectionMargin />
-            <ProgressBar />
+            <RightProgressBar />
           </div>
         </div>
 
@@ -76,9 +77,9 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             <span className="text-black-9 text-xs font-normal">3성급</span>
           </div>
           <div className="flex justify-between">
-            <ProgressBar />
+            <LeftProgressBar />
             <SectionMargin />
-            <ProgressBar />
+            <RightProgressBar />
           </div>
         </div>
 
@@ -93,9 +94,9 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             </span>
           </div>
           <div className="flex justify-between">
-            <ProgressBar />
+            <LeftProgressBar />
             <SectionMargin />
-            <ProgressBar />
+            <RightProgressBar />
           </div>
         </div>
       </div>
