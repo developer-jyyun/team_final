@@ -7,7 +7,6 @@ interface Props {
   reservation: Reservation;
   packageId: number;
   setReservation: React.Dispatch<React.SetStateAction<boolean>>;
-  setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DetailBottomButton = ({
@@ -15,7 +14,6 @@ const DetailBottomButton = ({
   reservation,
   packageId,
   setReservation,
-  setViewMore,
 }: Props) => {
   const getBorderStyle = () => {
     if (!viewMore) return "";
@@ -23,31 +21,8 @@ const DetailBottomButton = ({
     return "border-t-[0.6px] border-solid border-grey-d";
   };
 
-  const scrollToTop = () => {
-    return new Promise<void>((resolve) => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      window.addEventListener("scroll", () => {
-        if (window.scrollY === 0) {
-          resolve();
-        }
-      });
-    });
-  };
-
   const handleReservation = () => {
-    if (viewMore) {
-      if (window.scrollY === 0) {
-        setReservation(true);
-        setViewMore(false);
-      } else {
-        scrollToTop().then(() => {
-          setReservation(true);
-          setViewMore(false);
-        });
-      }
-    } else {
-      setReservation(true);
-    }
+    setReservation(true);
   };
 
   return (

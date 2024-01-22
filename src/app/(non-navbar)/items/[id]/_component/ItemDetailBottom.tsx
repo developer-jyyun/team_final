@@ -182,7 +182,6 @@ const ItemDetailBottom = ({
         viewMore={viewMore}
         setReservation={setReservation}
         packageId={packageDetail.packageId}
-        setViewMore={setViewMore}
         reservation={packageDetail.reservation}
       />
     </div>
