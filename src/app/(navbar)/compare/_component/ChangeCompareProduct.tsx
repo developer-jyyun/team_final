@@ -6,7 +6,6 @@ import RightProgressBar from "./RightProgressBar";
 import SectionMargin from "./SectionMargin";
 import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
-// import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 
@@ -16,6 +15,23 @@ interface Props {
 
 const ChangeCompareProduct = ({ onChange }: Props) => {
   const [, setViewMore] = useState(false);
+  const [leftRating] = useState(5);
+  const [rightRating] = useState(3);
+  const isLeftLower = leftRating < rightRating;
+  const isRightLower = rightRating < leftRating;
+  const [priceLeft] = useState(940000);
+  const [priceRight] = useState(870000);
+  const [shoppingVisitsLeft] = useState(9);
+  const [shoppingVisitsRight] = useState(7);
+
+  const isPriceLeftHigher = priceLeft < priceRight;
+  const leftRate = isPriceLeftHigher ? 4 : 3;
+  const rightRate = isPriceLeftHigher ? 3 : 4;
+
+  const isShoppingVisitsLeftHigher = shoppingVisitsLeft < shoppingVisitsRight;
+  const shoppingRatingLeft = isShoppingVisitsLeftHigher ? 4 : 3;
+  const shoppingRatingRight = isShoppingVisitsLeftHigher ? 3 : 4;
+
   return (
     <div className="mx-6">
       <div className="flex justify-between mt-3">
@@ -23,7 +39,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             고정상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold h-14">
+          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
             청룡의 해 얼리버드 특가
           </h3>
           <Button
@@ -38,7 +54,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             비교상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold h-14">
+          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
             오사카/교토 3박 4일 올인원 패키지
           </h3>
           <Button
@@ -53,50 +69,98 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
       <div className="mt-14">
         <div className="py-3">
           <div className="flex justify-between">
-            <span className="text-black-9 text-xs font-normal">940,000원</span>
+            <span
+              className={`${
+                isPriceLeftHigher
+                  ? "text-pink-main text-[13px]"
+                  : "text-black-9 text-xs"
+              } font-normal`}
+            >
+              {priceLeft.toLocaleString()}원
+            </span>
             <span className="text-black-4 text-sm font-semibold">가격</span>
-            <span className="text-lime-sub3 text-[13px] font-semibold">
-              870,000원
+            <span
+              className={`${
+                isPriceLeftHigher
+                  ? "text-black-9 text-xs"
+                  : "text-lime-sub3 text-[13px]"
+              } font-semibold`}
+            >
+              {priceRight.toLocaleString()}원
             </span>
           </div>
           <div className="flex justify-between">
-            <LeftProgressBar />
+            <LeftProgressBar rating={leftRate} isLower={!isPriceLeftHigher} />
             <SectionMargin />
-            <RightProgressBar />
+            <RightProgressBar rating={rightRate} isLower={isPriceLeftHigher} />
           </div>
         </div>
 
         <div className="py-3">
           <div className="flex justify-between">
-            <span className="text-pink-main text-[13px] font-semibold">
-              5성급
+            <span
+              className={`${
+                leftRating >= rightRating
+                  ? "text-pink-main text-[13px]"
+                  : "text-black-9 text-xs"
+              } font-semibold`}
+            >
+              {leftRating}성급
             </span>
             <span className="text-black-4 text-sm font-semibold">
               숙소 등급
             </span>
-            <span className="text-black-9 text-xs font-normal">3성급</span>
+            <span
+              className={`${
+                rightRating > leftRating
+                  ? "text-lime-sub3 text-[13px]"
+                  : "text-black-9 text-xs"
+              } font-semibold`}
+            >
+              {rightRating}성급
+            </span>
           </div>
           <div className="flex justify-between">
-            <LeftProgressBar />
+            <LeftProgressBar rating={leftRating} isLower={isLeftLower} />
             <SectionMargin />
-            <RightProgressBar />
+            <RightProgressBar rating={rightRating} isLower={isRightLower} />
           </div>
         </div>
 
         <div className="py-3">
           <div className="flex justify-between">
-            <span className="text-black-9 text-xs font-normal">총 9개</span>
+            <span
+              className={`${
+                isShoppingVisitsLeftHigher
+                  ? "text-pink-main text-[13px]"
+                  : "text-black-9 text-xs"
+              } font-normal`}
+            >
+              총 {shoppingVisitsLeft}개
+            </span>
             <span className="text-black-4 text-sm font-semibold">
               쇼핑센터 방문 일정
             </span>
-            <span className="text-lime-sub3 text-[13px] font-semibold">
-              총 7개
+            <span
+              className={`${
+                isShoppingVisitsLeftHigher
+                  ? "text-black-9 text-xs"
+                  : "text-lime-sub3 text-[13px]"
+              } font-semibold`}
+            >
+              총 {shoppingVisitsRight}개
             </span>
           </div>
           <div className="flex justify-between">
-            <LeftProgressBar />
+            <LeftProgressBar
+              rating={shoppingRatingLeft}
+              isLower={!isShoppingVisitsLeftHigher}
+            />
             <SectionMargin />
-            <RightProgressBar />
+            <RightProgressBar
+              rating={shoppingRatingRight}
+              isLower={isShoppingVisitsLeftHigher}
+            />
           </div>
         </div>
       </div>
