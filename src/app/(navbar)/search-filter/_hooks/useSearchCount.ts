@@ -19,7 +19,7 @@ const useSearchCount = () => {
     refetch();
   }, [price, concepts, nations, continents, refetch]);
 
-  return { data };
+  return { data, params };
 };
 
 export default useSearchCount;

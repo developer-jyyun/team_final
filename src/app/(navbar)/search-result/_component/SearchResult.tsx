@@ -8,8 +8,7 @@ interface Props {
 const SearchResult = ({ data }: Props) => {
   return (
     <div className="w-full">
-      <div>해시태그들</div>
-      <PackagesList data={data.packages} />
+      <PackagesList data={data?.packages} />
     </div>
   );
 };
