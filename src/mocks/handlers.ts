@@ -1077,6 +1077,16 @@ const handlers = [
     });
   }),
 
+  // 회원 탈퇴
+  http.delete("/v1/users", async () => {
+    return new Response(JSON.stringify({ code: 200 }), {
+      headers: {
+        "Set-Cookie": "accessToken=;HttpOnly;Path=/;Max-Age=0",
+        "Content-Type": "application/json",
+      },
+    });
+  }),
+
   http.get("/v1/polls", () => {
     console.log("찬반 조회");
 
