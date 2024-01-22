@@ -33,6 +33,7 @@ const DetailTypography = ({
     if (color === "pink-main") return "text-pink-main";
     if (color === "pink-dark") return "text-[#FF2477]";
     if (color === "green") return "text-[#05B200]";
+    if (color === "red") return "text-red";
     return "text-black-2";
   };
 
