@@ -1,9 +1,13 @@
-import React from "react";
 import Image from "next/image";
-import Step from "./Step";
+import type { CompleteData } from "../page";
 import ProgressBar from "./ProgressBar";
+import Step from "./Step";
 
-const ReservationDone = () => {
+interface Props {
+  complete: CompleteData;
+}
+
+const ReservationDone = ({ complete }: Props) => {
   return (
     <div className="mx-4">
       <div className="sticky top-0 pb-2 bg-white">
@@ -30,7 +34,7 @@ const ReservationDone = () => {
             예약번호
           </span>
           <p className="ml-3 text-sm text-black-2 font-semibold">
-            2023122610352
+            {complete.orderCode}
           </p>
         </div>
         <div className="flex gap-12 my-3 ml-3">
@@ -38,10 +42,11 @@ const ReservationDone = () => {
             예약자 정보
           </span>
           <div className="flex flex-col leading-normal">
-            <p className="text-sm text-black-2 font-semibold">위너원</p>
-            <p className="text-sm text-black-2 font-semibold">010-8765-4321</p>
             <p className="text-sm text-black-2 font-semibold">
-              Lets@winner.one
+              {complete.myInfo.username}
+            </p>
+            <p className="text-sm text-black-2 font-semibold">
+              {complete.myInfo.email}
             </p>
           </div>
         </div>
