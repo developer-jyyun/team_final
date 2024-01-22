@@ -674,6 +674,7 @@ const handlers = [
       {
         orderCode: "2023122910351",
         availableDateId: 0,
+        orderId: 0,
         package: {
           packageId: 0,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -687,10 +688,11 @@ const handlers = [
           reviewed: false, // 리뷰 작성 여부
         },
       },
-
       {
         orderCode: "2023123010351",
         availableDateId: 0,
+        orderId: 1,
+
         package: {
           packageId: 1,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -707,6 +709,7 @@ const handlers = [
       {
         orderCode: "2024122910352",
         availableDateId: 0,
+        orderId: 2,
         package: {
           packageId: 2,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -722,6 +725,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910353",
+        orderId: 3,
         availableDateId: 0,
         package: {
           packageId: 3,
@@ -738,6 +742,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910354",
+        orderId: 4,
         availableDateId: 0,
         package: {
           packageId: 4,
@@ -754,6 +759,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910355",
+        orderId: 5,
         availableDateId: 0,
         package: {
           packageId: 5,
@@ -770,6 +776,8 @@ const handlers = [
       },
       {
         orderCode: "2023122910356",
+        orderId: 6,
+
         availableDateId: 0,
         package: {
           packageId: 6,
@@ -787,6 +795,8 @@ const handlers = [
       {
         orderCode: "2023122910357",
         availableDateId: 0,
+        orderId: 7,
+
         package: {
           packageId: 7,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -803,6 +813,8 @@ const handlers = [
       {
         orderCode: "2023122910358",
         availableDateId: 0,
+        orderId: 8,
+
         package: {
           packageId: 8,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -818,6 +830,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910359",
+        orderId: 9,
         availableDateId: 0,
         package: {
           packageId: 9,
@@ -833,6 +846,7 @@ const handlers = [
         },
       },
       {
+        orderId: 10,
         orderCode: "2023122910310",
         availableDateId: 0,
         package: {
@@ -849,6 +863,7 @@ const handlers = [
         },
       },
       {
+        orderId: 11,
         orderCode: "2023122910311",
         availableDateId: 0,
         package: {
@@ -865,6 +880,7 @@ const handlers = [
         },
       },
       {
+        orderId: 12,
         orderCode: "2023122910312",
         availableDateId: 0,
         package: {

@@ -156,6 +156,7 @@ export interface MyOrderPackage {
 }
 
 export interface MyOrder {
+  orderId: number;
   orderCode: string;
   availableDateId: number;
   package: MyOrderPackage;
