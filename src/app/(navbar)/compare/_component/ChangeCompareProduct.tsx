@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@/app/_component/common/atom/Button";
+import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
 import ProgressBar from "./ProgressBar";
 import SectionMargin from "./SectionMargin";
 import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
-import MoreButton from "./MoreButton";
+// import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const ChangeCompareProduct = ({ onChange }: Props) => {
+  const [, setViewMore] = useState(false);
   return (
     <div className="mx-6">
       <div className="flex justify-between mt-3">
@@ -107,14 +109,17 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         </div>
       </div>
 
-      <div>
+      <div className="relative">
         <h3 className="mb-4 text-black-2 text-lg font-semibold">
           일정 둘러보기
         </h3>
         <span className="text-black-4 text-sm font-medium">1일차</span>
         <div className="flex justify-between my-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
+                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems1.map((item) => (
                 <Schedule
                   key={item.id}
@@ -140,8 +145,11 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         </div>
         <span className="text-black-4 text-sm font-medium">2일차</span>
         <div className="flex justify-between mt-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
+                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems1.map((item) => (
                 <Schedule
                   key={item.id}
@@ -165,7 +173,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             </ul>
           </div>
         </div>
-        <MoreButton />
+        <DetailMoreButton setViewMore={setViewMore} />
       </div>
       <div>
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
