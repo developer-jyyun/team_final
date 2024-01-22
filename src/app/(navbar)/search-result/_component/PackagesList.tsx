@@ -7,7 +7,7 @@ interface Props {
 
 const PackagesList = ({ data }: Props) => {
   return (
-    <div>
+    <div className="flex flex-wrap justify-between">
       {data?.map((item: PackageInfo) => (
         <Package key={item.packageId} data={item} />
       ))}
