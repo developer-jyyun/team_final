@@ -14,8 +14,11 @@ export interface Payment {
   departureDate: Date | null;
   endDate: Date | null;
   adult: number;
+  adultPrice: number;
   infant: number;
+  infantPrice: number;
   baby: number;
+  babyPrice: number;
   totalPrice: number | null;
 }
 
@@ -42,8 +45,11 @@ const usePaymentStore = create<Props>()(
         departureDate: null,
         endDate: null,
         adult: 1,
+        adultPrice: 1,
         infant: 0,
+        infantPrice: 0,
         baby: 0,
+        babyPrice: 0,
         totalPrice: 0,
       },
       setPaymentData: (data) => set({ paymentData: { ...data } }),
@@ -57,8 +63,11 @@ const usePaymentStore = create<Props>()(
             departureDate: null,
             endDate: null,
             adult: 1,
+            adultPrice: 1,
             infant: 0,
+            infantPrice: 0,
             baby: 0,
+            babyPrice: 0,
             totalPrice: 0,
           },
         }),

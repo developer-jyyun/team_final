@@ -46,6 +46,11 @@ const ReservationInfo = ({
     addr2: "",
     postCode: "",
   });
+  // const [totalPrice, setTotalPrice] = useState(
+  //   selectedAdult * paymentData.adultPrice +
+  //     selectedChild * paymentData.infantPrice +
+  //     selectedInfant * paymentData.babyPrice,
+  // );
 
   const updateProgress = useCallback(() => {
     const sectionsCompleted = [
@@ -112,25 +117,48 @@ const ReservationInfo = ({
   }, [paymentData.adult, paymentData.infant, paymentData.baby]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      Number(event.target.value) * paymentData.adultPrice +
+      selectedChild * paymentData.infantPrice +
+      selectedInfant * paymentData.babyPrice;
+
     const newAdultCount = parseInt(event.target.value, 10);
     setSelectedAdult(newAdultCount);
-    setPaymentData({ ...paymentData, adult: newAdultCount });
+    setPaymentData({
+      ...paymentData,
+      adult: newAdultCount,
+      totalPrice,
+    });
     setAdultClass(newAdultCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      selectedAdult * paymentData.adultPrice +
+      Number(event.target.value) * paymentData.infantPrice +
+      selectedInfant * paymentData.babyPrice;
+
+    // setTotalPrice(totalPrice);
+
     const newChildCount = parseInt(event.target.value, 10);
     setSelectedChild(newChildCount);
-    setPaymentData({ ...paymentData, infant: newChildCount });
+    setPaymentData({ ...paymentData, infant: newChildCount, totalPrice });
     setChildClass(newChildCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
   const handleInfantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      selectedAdult * paymentData.adultPrice +
+      selectedChild * paymentData.infantPrice +
+      Number(event.target.value) * paymentData.babyPrice;
+
+    // setTotalPrice(totalPrice);
+
     const newInfantCount = parseInt(event.target.value, 10);
     setSelectedInfant(newInfantCount);
-    setPaymentData({ ...paymentData, baby: newInfantCount });
+    setPaymentData({ ...paymentData, baby: newInfantCount, totalPrice });
     setInfantClass(newInfantCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
@@ -256,7 +284,7 @@ const ReservationInfo = ({
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
-              value={selectedAdult}
+              value={paymentData.adult}
               onChange={handleAdultChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -281,7 +309,7 @@ const ReservationInfo = ({
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
-              value={selectedChild}
+              value={paymentData.infant}
               onChange={handleChildChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -306,7 +334,7 @@ const ReservationInfo = ({
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
-              value={selectedInfant}
+              value={paymentData.baby}
               onChange={handleInfantChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -358,9 +386,9 @@ const ReservationInfo = ({
           </div>
           <div className="text-right text-black-2 text-sm font-semibold leading-normal">
             <p>
-              {paymentData.totalPrice
-                ? paymentData.totalPrice.toLocaleString()
-                : "0"}
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
               <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
@@ -378,9 +406,9 @@ const ReservationInfo = ({
           </div>
           <div className="text-pink-main text-xl font-bold">
             <p>
-              {paymentData.totalPrice
-                ? paymentData.totalPrice.toLocaleString()
-                : "0"}
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
               <b>원</b>
             </p>
           </div>
@@ -828,7 +856,10 @@ const ReservationInfo = ({
           </div>
           <div className="text-right">
             <p className="text-pink-main text-[26px] font-bold">
-              {paymentData.totalPrice?.toLocaleString()}원
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
+              원
             </p>
           </div>
         </div>

@@ -95,8 +95,11 @@ const ItemDetailBottom = ({
           dayOfWeek: packageDetail.endDatetime.dayOfWeek,
         },
         adult: adultStore,
+        adultPrice: packageDetail.totalPrice.adult,
         infant: infantStore,
+        infantPrice: packageDetail.totalPrice.infant,
         baby: babyStore,
+        babyPrice: packageDetail.totalPrice.baby,
         totalPrice: totalPrice,
       });
       router.push("/payment");
