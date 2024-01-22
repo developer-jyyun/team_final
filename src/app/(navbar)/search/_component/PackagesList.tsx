@@ -12,7 +12,9 @@ const PackagesList = () => {
 
   return (
     <div className="h-[263px] overflow-auto whitespace-nowrap last:mr-0">
-      {data?.data.map((item: PackageInfo) => <Package data={item} />)}
+      {data?.data.map((item: PackageInfo) => (
+        <Package key={item.packageId} data={item} />
+      ))}
     </div>
   );
 };
