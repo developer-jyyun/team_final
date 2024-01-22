@@ -54,7 +54,7 @@ const DetailBottomButton = ({
     <nav
       className={`flex justify-between items-center p-6 h-20 bg-white ${getBorderStyle()} web:w-[500px]`}
     >
-      {reservation.remain < reservation.min ? (
+      {reservation.remain === 0 ? (
         <>
           <DetailTypography color={"pink"} size={12} styleClass="ml-3">
             해당 날짜의 인원이 다 찼습니다..

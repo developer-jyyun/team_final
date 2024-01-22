@@ -67,15 +67,12 @@ const ItemDetailBottom = ({
 
   const handlePayment = () => {
     if (
-      adultStore + infantStore + babyStore > packageDetail.reservation.remain ||
-      adultStore + infantStore + babyStore < packageDetail.reservation.min
+      adultStore + infantStore + babyStore >
+      packageDetail.reservation.remain
     ) {
-      const errorMessage =
-        adultStore + infantStore + babyStore > packageDetail.reservation.remain
-          ? `최대 ${packageDetail.reservation.remain}명까지 선택 가능합니다.`
-          : `최소 ${packageDetail.reservation.min}명 이상 선택해야 합니다.`;
-
-      setError(errorMessage);
+      setError(
+        `최대 ${packageDetail.reservation.remain}명까지 선택 가능합니다.`,
+      );
     } else if (!packageDetail.myInfo) {
       setIsLogin(true);
     } else {
