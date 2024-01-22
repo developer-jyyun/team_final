@@ -557,18 +557,15 @@ const handlers = [
     const advertisements = [
       {
         adId: 0,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/6p92q9KD/japan.png",
       },
       {
         adId: 1,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/zG0LR9X3/taiwan.png",
       },
       {
         adId: 2,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/RV1JvWk7/europe.png",
       },
     ];
 
@@ -578,22 +575,91 @@ const handlers = [
     });
   }),
 
-  http.get("/v1/advertisements/{adId}", () => {
+  http.get("/v1/advertisements/:id", () => {
     console.log("광고구좌 조회");
     const advertisementInfo = {
       adId: 0,
-      name: "오사카 특별 기획전",
-      description: "오사카의 13가지 매력속으로!",
-      imageUrls: [
-        "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
-      ],
+      name: "오사카 특별 여행",
       packages: [
         {
           packageId: 0,
-          imageUrl: "",
-          transporation: "",
-          title: "",
-          minPrice: 0,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production188/d1049/eda6e352-4711-4542-bc24-fbf43f612931.jpg",
+          transporation: "비행기",
+          title: "오사카성",
+          minPrice: 270000,
+        },
+        {
+          packageId: 1,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production68/d1303/c8fa75d8-6932-459b-9660-8340f097ebd7.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "배",
+          title: "도톤보리",
+          minPrice: 340000,
+        },
+        {
+          packageId: 2,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production137/d1766/cc50b4a1-2ed1-442f-9892-a9233ff9ef8c.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "도보",
+          title: "유니버설 스튜디오 재팬",
+          minPrice: 400000,
+        },
+        {
+          packageId: 3,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production153/d1748/fdcb8bd4-962b-4892-8e3e-fbaa75211fb4.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "보트",
+          title: "가이유칸 수족관",
+          minPrice: 450000,
+        },
+        {
+          packageId: 4,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production71/d1615/f53f26ff-02e7-4f3f-bb71-4aa8513d4175.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "자전거",
+          title: "덴포잔 대관람차",
+          minPrice: 500000,
+        },
+        {
+          packageId: 5,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production130/d1315/67f50c0e-b127-465f-8bbf-c950d676c968.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "킥보드",
+          title: "야요이문화 현립박물관",
+          minPrice: 550000,
+        },
+        {
+          packageId: 6,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production10/d521/a95d7c84-b083-45dd-8530-8a8d93ad578e.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "자동차",
+          title: "시텐노지",
+          minPrice: 600000,
+        },
+        {
+          packageId: 7,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production0/d434/a646fde9-8b37-43b9-af33-fca9b5754ad2.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "헬리콥터",
+          title: "우메다 스카이 빌딩",
+          minPrice: 650000,
+        },
+        {
+          packageId: 8,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production121/d1659/e49284fe-ddda-44da-b407-dd504da048bc.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "도보",
+          title: "사카이 칼 박물관",
+          minPrice: 700000,
+        },
+        {
+          packageId: 9,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production176/d1897/982b8faf-6bb4-4d2d-b156-e6ac40fcb4f0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "전세기",
+          title: "오사카 스모 대회",
+          minPrice: 800000,
         },
       ],
     };
