@@ -201,3 +201,8 @@ export interface PollsFalse {
   A: string[];
   B: string[];
 }
+
+export interface AdvertisementItem {
+  adId: number;
+  imageUrl: string;
+}

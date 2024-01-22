@@ -23,7 +23,7 @@ const AdvertisementPage = async ({ params }: { params: { id: string } }) => {
     <section className="w-full flex flex-col items-center">
       {/* adId를 기반으로 헤더 텍스트 전달 */}
       <DefaultHeader text={`${getAdsHeaderText(Number(params.id))} 특별여행`} />
-      <HomeAdvertisements />
+      <HomeAdvertisements isDetail />
       <HydrationBoundary state={dehydrateState}>
         <AdvertisementInfomation />
       </HydrationBoundary>
