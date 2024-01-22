@@ -5,6 +5,8 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getAdvertisementInfo from "@/api/advertisement/getAdvertisementInfo";
+import HomeAdvertisements from "@/app/_component/home/HomeAdvertisements";
+import getAdsHeaderText from "@/utils/getAdsHeaderText";
 import AdvertisementInfomation from "./_component/AdvertisementInfomation";
 
 const AdvertisementPage = async ({ params }: { params: { id: string } }) => {
@@ -16,9 +18,12 @@ const AdvertisementPage = async ({ params }: { params: { id: string } }) => {
     },
   });
   const dehydrateState = dehydrate(queryClient);
+
   return (
     <section className="w-full flex flex-col items-center">
-      <DefaultHeader theme="default" text="hi" />
+      {/* adId를 기반으로 헤더 텍스트 전달 */}
+      <DefaultHeader text={`${getAdsHeaderText(Number(params.id))} 특별여행`} />
+      <HomeAdvertisements />
       <HydrationBoundary state={dehydrateState}>
         <AdvertisementInfomation />
       </HydrationBoundary>

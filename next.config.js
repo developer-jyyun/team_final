@@ -10,6 +10,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "i.pinimg.com",
       },
+      {
+        protocol: "https",
+        hostname: "tourimage.interpark.com",
+      },
+      {
+        protocol: "https",
+        hostname: "openimage.interpark.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.interparkcdn.net",
+      },
     ],
   },
 };

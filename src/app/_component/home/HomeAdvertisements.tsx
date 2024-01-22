@@ -89,7 +89,7 @@ const HomeAdvertisements = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="mr-3">
+      <div className="[&>*]:mr-3">
         <SwiperBadge slideIndex={slideIndex} slideLength={3} />
       </div>
     </div>
