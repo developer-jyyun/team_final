@@ -1,15 +1,19 @@
+"use client";
+
 import React from "react";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
+import { useSearchParams } from "next/navigation";
 import SearchEmpty from "./_component/SearchEmpty";
 
-export const dynamic = "force-dynamic";
-
 const SearchResultPage = () => {
-  const empty = true; // 임시 변수입니다!
+  const params = useSearchParams();
+  const keyword = params.get("keyword");
+  const empty = true; // 임시 변수
+
   return (
     <div className="w-full flex flex-col">
       <DefaultHeader text="내가 원하는 여행 리스트" />
-      {empty ? <SearchEmpty /> : <div>검색결과</div>}
+      {empty ? <SearchEmpty keyword={keyword} /> : <div>검색결과</div>}
     </div>
   );
 };
