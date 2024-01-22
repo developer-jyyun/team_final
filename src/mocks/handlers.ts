@@ -615,26 +615,33 @@ const handlers = [
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
     const myInfo = {
-      email: "user@example.com",
-      username: "홍길동",
-      phone: "010-1234-5678",
-      addr1: "서울특별시 강남구",
-      addr2: "역삼동 123-45",
-      postCode: "06178",
+      code: 200,
+      data: {
+        email: "user@example.com",
+        username: "위너원",
+        phone: "010-1234-5678",
+        addr1: "Gangnam-gu, Seoul",
+        addr2: "123-45 Yeoksam-dong",
+        postCode: "06178",
+      },
     };
+
     return HttpResponse.json(myInfo);
   }),
 
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     const upComingPackage = {
-      packageId: 0,
-      imageUrl: "//source.unsplash.com/500x500?america",
-      title: "오사카 특별 패키지",
-      dday: 30,
-      nationName: "일본",
-      departureDate: "2024-02-01",
-      endDate: "2024-02-05",
+      code: 200,
+      data: {
+        packageId: 0,
+        imageUrl: "//source.unsplash.com/500x500?america",
+        title: "오사카 특별 패키지",
+        dday: 30,
+        nationName: "일본",
+        departureDate: "2024-02-01",
+        endDate: "2024-02-05",
+      },
     };
     return HttpResponse.json(upComingPackage);
   }),
@@ -659,69 +666,236 @@ const handlers = [
     });
   }),
 
-  // 예약내역
-  http.get("/v1/orders", async () => {
-    const myOrders = {
-      data: [
-        {
-          orderCode: "2023122910352",
-          availableDateId: 0,
-          package: {
-            packageId: 1,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가1",
-            hashtags: ["일본", "체험", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
+  http.get("/v1/orders", ({ request }) => {
+    const url = new URL(request.url);
+    const orderPage = Number(url.searchParams.get("page")) || 1;
+    const pageSize = Number(url.searchParams.get("pageSize")) || 3;
+    const orderData = [
+      {
+        orderCode: "2023122910351",
+        availableDateId: 0,
+        package: {
+          packageId: 0,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가0`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
         },
-
-        {
-          orderCode: "2023123010352",
-          availableDateId: 0,
-          package: {
-            packageId: 2,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가2",
-            hashtags: ["일본", "체험/액티비티", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
-        },
-        {
-          orderCode: "2024122910352",
-          availableDateId: 0,
-          package: {
-            packageId: 3,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가3",
-            hashtags: ["일본", "체험", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
-        },
-      ],
-      page: {
-        currentPage: 0, // 현재 페이지
-        totalPage: 0, // 끝 페이지
-        currentElements: 0, // 현재 보여지는 목록의 개수
-        totalElements: 0, // 모든 페이지를 통틀어 목록이 몇 개 있는지
       },
-    };
 
-    return HttpResponse.json(myOrders);
+      {
+        orderCode: "2023123010351",
+        availableDateId: 0,
+        package: {
+          packageId: 1,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가1`,
+          hashtags: ["일본", "체험/액티비티", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2024122910352",
+        availableDateId: 0,
+        package: {
+          packageId: 2,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가2`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910353",
+        availableDateId: 0,
+        package: {
+          packageId: 3,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가3`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910354",
+        availableDateId: 0,
+        package: {
+          packageId: 4,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가4`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910355",
+        availableDateId: 0,
+        package: {
+          packageId: 5,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가5`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910356",
+        availableDateId: 0,
+        package: {
+          packageId: 6,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가6`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910357",
+        availableDateId: 0,
+        package: {
+          packageId: 7,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가7`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910358",
+        availableDateId: 0,
+        package: {
+          packageId: 8,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가8`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910359",
+        availableDateId: 0,
+        package: {
+          packageId: 9,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가9`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910310",
+        availableDateId: 0,
+        package: {
+          packageId: 10,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가10`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910311",
+        availableDateId: 0,
+        package: {
+          packageId: 11,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가11`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910312",
+        availableDateId: 0,
+        package: {
+          packageId: 12,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가12`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+    ];
+    // 페이지 사이즈에 따라 데이터 필터링
+    const startIndex = (orderPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const filteredData = orderData.slice(startIndex, endIndex);
+
+    return HttpResponse.json({
+      code: 200,
+      data: filteredData,
+      page: {
+        currentPage: orderPage, // 현재 페이지
+        totalPage: Math.ceil(orderData.length / pageSize),
+        currentElements: pageSize, // 현재 보여지는 목록의 개수
+        totalElements: orderData.length, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+      },
+    });
   }),
 
   // 공지사항 글 목록
@@ -900,6 +1074,16 @@ const handlers = [
 
     return new Response(JSON.stringify(faqDetail), {
       status: 200,
+    });
+  }),
+
+  // 회원 탈퇴
+  http.delete("/v1/users", async () => {
+    return new Response(JSON.stringify({ code: 200 }), {
+      headers: {
+        "Set-Cookie": "accessToken=;HttpOnly;Path=/;Max-Age=0",
+        "Content-Type": "application/json",
+      },
     });
   }),
 

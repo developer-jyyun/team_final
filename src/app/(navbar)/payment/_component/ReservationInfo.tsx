@@ -135,15 +135,11 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   useEffect(() => {
     async function fetchUserInfo() {
-      try {
-        const data = await getMyInfo();
-        if (data && data.data) {
-          setUserInfo(data.data);
-        } else {
-          throw new Error("사용자 정보를 가져오는 데 실패했습니다");
-        }
-      } catch (error) {
-        console.error("fetch 작업 중 문제가 발생했습니다:", error);
+      const data = await getMyInfo();
+      if (data.code === 200) {
+        setUserInfo(data.data);
+      } else {
+        throw new Error("사용자 정보를 가져오는 데 실패했습니다");
       }
     }
 
@@ -351,7 +347,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
           </div>
           <div className="text-right text-black-2 text-sm font-semibold leading-normal">
             <p>
-              876,543
+              {paymentData.totalPrice
+                ? paymentData.totalPrice.toLocaleString()
+                : "0"}
               <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
@@ -369,7 +367,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
           </div>
           <div className="text-pink-main text-xl font-bold">
             <p>
-              100,000<b>원</b>
+              {paymentData.totalPrice
+                ? paymentData.totalPrice.toLocaleString()
+                : "0"}
+              <b>원</b>
             </p>
           </div>
         </div>

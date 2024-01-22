@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useMyUpcomingPackageQuery = () => {
   return useQuery({
-    queryKey: ["upcomingPackages"],
+    queryKey: ["upcomingPackage"],
     queryFn: getMyUpcomingPackage,
   });
 };
