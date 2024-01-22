@@ -5,7 +5,12 @@ import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -24,6 +29,15 @@ const DetailMain = () => {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const getUrl = () => {
+    if (searchParams.get("departDate")) {
+      return `${pathname}?departDate=${searchParams.get("departDate")}`;
+    } else {
+      return `${pathname}`;
+    }
+  };
 
   const { data: packageDetail } = usePackageDetailQuery(
     params.id,
@@ -78,7 +92,7 @@ const DetailMain = () => {
           setIsLogin(false);
         }}
         onConfirm={() => {
-          router.push("/signin");
+          router.push(`/signin?redirect=${getUrl()}`);
         }}
       />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
