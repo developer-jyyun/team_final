@@ -6,6 +6,7 @@ import SearchEmpty from "./_component/SearchEmpty";
 import useKeywordResult from "./_hooks/useKeywordResult";
 import SearchResult from "./_component/SearchResult";
 import useHashtagResult from "./_hooks/useHashtagResult";
+import Options from "./_component/Options";
 
 const SearchResultPage = () => {
   const params = useSearchParams();
@@ -15,25 +16,28 @@ const SearchResultPage = () => {
   const { hashtagData } = useHashtagResult();
 
   if (keyword) {
-    console.log("hi");
     return (
-      <div className="w-full flex flex-col">
+      <div className="flex flex-col w-full">
         <DefaultHeader text="내가 원하는 여행 리스트" />
-        <div>해시태그들</div>
-        {keywordData?.data?.page.totalElements ? (
-          <SearchResult data={keywordData?.data} />
-        ) : (
-          <SearchEmpty keyword={keyword} />
-        )}
+        <section className="w-full px-5 flex flex-col">
+          <Options />
+          {keywordData?.data?.page.totalElements ? (
+            <SearchResult data={keywordData?.data} />
+          ) : (
+            <SearchEmpty keyword={keyword} />
+          )}
+        </section>
       </div>
     );
   }
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex flex-col w-full">
       <DefaultHeader text="내가 원하는 여행 리스트" />
-      <div>해시태그들</div>
-      <SearchResult data={hashtagData?.data} />
+      <section className="w-full px-5 flex flex-col">
+        <Options />
+        <SearchResult data={hashtagData?.data} />
+      </section>
     </div>
   );
 };
