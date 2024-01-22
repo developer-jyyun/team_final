@@ -11,13 +11,15 @@ const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
   };
 
   const getAnimation = () => {
-    if (viewMore && viewScroll) return "animate-positionTopAnimation";
-    return "animate-positionTopAnimationReverse";
+    if (viewMore && viewScroll) return "animate-positionTopAnimationDelay";
+    return "animate-positionTopAnimationReverseDelay";
   };
 
   return (
     <div
-      className={`fixed z-50 ${getAnimation()} w-[40px] h-14 flex justify-center items-center`}
+      className={`${
+        viewMore ? "fixed" : "hidden"
+      } z-50 ${getAnimation()} w-[40px] h-14 flex justify-center items-center duration-700`}
     >
       <button
         type="button"
