@@ -1,10 +1,12 @@
 "use client";
 
 import BottomSlideModal from "@/app/_component/common/layout/BottomSlideModal";
-import type { PackageResponseData } from "@/app/types";
+import type { PackageResponseData, ScheduleResponseData } from "@/app/types";
+import useScheduleListQuery from "@/hooks/query/useScheduleListQuery";
 import useScrollUp from "@/hooks/useScrollUp";
 import usePaymentStore from "@/store/usePaymentStore";
-import { useRouter } from "next/navigation";
+import { UseQueryResult } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import DetailBottomButton from "./DetailBottomButton";
@@ -15,14 +17,24 @@ import StorePerson from "./StorePerson";
 interface Props {
   viewMore: boolean;
   setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
-  // setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   packageDetail: PackageResponseData;
 }
 
-const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
+const ItemDetailBottom = ({
+  viewMore,
+  setViewMore,
+  setIsLogin,
+  packageDetail,
+}: Props) => {
+  const router = useRouter();
+  const params = useParams();
+
   const isScrollUp = useScrollUp();
   const paymentStore = usePaymentStore();
-  const router = useRouter();
+
+  const { data: schedules }: UseQueryResult<ScheduleResponseData, Error> =
+    useScheduleListQuery(params.id);
 
   const [reservation, setReservation] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -32,8 +44,15 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   const [babyStore, setBabyStore] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(packageDetail.totalPrice.adult);
+  const [error, setError] = useState("");
 
-  // console.log(packageDetail.myInfo);
+  const getAailableDate = () => {
+    const availableDate = schedules?.data.find((schedule) => {
+      return schedule.date === packageDetail.departureDatetime.date;
+    });
+
+    return availableDate?.availableDateId;
+  };
 
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
@@ -47,29 +66,44 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
   };
 
   const handlePayment = () => {
-    // if (!packageDetail.myInfo) {
-    //   setIsLogin(true);
-    // }
-    // 이후 로그인 유저 구분
-    const newDepartureDate = packageDetail.departureDatetime.date.split("-");
-    const newEndDate = packageDetail.endDatetime.date.split("-");
-    paymentStore.setPaymentData({
-      title: packageDetail.title,
-      tripDay: `${packageDetail.lodgeDays}박 ${packageDetail.tripDays}일`,
-      departureDate: {
-        date: `${newDepartureDate[1]}.${newDepartureDate[2]}`,
-        dayOfWeek: packageDetail.departureDatetime.dayOfWeek,
-      },
-      endDate: {
-        date: `${newEndDate[1]}.${newEndDate[2]}`,
-        dayOfWeek: packageDetail.endDatetime.dayOfWeek,
-      },
-      adult: adultStore,
-      infant: infantStore,
-      baby: babyStore,
-      totalPrice: totalPrice,
-    });
-    router.push("/payment");
+    if (
+      adultStore + infantStore + babyStore > packageDetail.reservation.remain ||
+      adultStore + infantStore + babyStore < packageDetail.reservation.min
+    ) {
+      const errorMessage =
+        adultStore + infantStore + babyStore > packageDetail.reservation.remain
+          ? `최대 ${packageDetail.reservation.remain}명까지 선택 가능합니다.`
+          : `최소 ${packageDetail.reservation.min}명 이상 선택해야 합니다.`;
+
+      setError(errorMessage);
+    } else if (!packageDetail.myInfo) {
+      setIsLogin(true);
+    } else {
+      const newDepartureDate = packageDetail.departureDatetime.date.split("-");
+      const newEndDate = packageDetail.endDatetime.date.split("-");
+      paymentStore.setPaymentData({
+        availableDateId: getAailableDate() as number,
+        packageId: Number(params.id),
+        title: packageDetail.title,
+        tripDay: `${packageDetail.lodgeDays}박 ${packageDetail.tripDays}일`,
+        departureDate: {
+          date: `${newDepartureDate[1]}.${newDepartureDate[2]}`,
+          dayOfWeek: packageDetail.departureDatetime.dayOfWeek,
+        },
+        endDate: {
+          date: `${newEndDate[1]}.${newEndDate[2]}`,
+          dayOfWeek: packageDetail.endDatetime.dayOfWeek,
+        },
+        adult: adultStore,
+        adultPrice: packageDetail.totalPrice.adult,
+        infant: infantStore,
+        infantPrice: packageDetail.totalPrice.infant,
+        baby: babyStore,
+        babyPrice: packageDetail.totalPrice.baby,
+        totalPrice: totalPrice,
+      });
+      router.push("/payment");
+    }
   };
 
   return (
@@ -80,7 +114,7 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
         ? createPortal(
             <BottomSlideModal setReservation={setReservation}>
               <div className="p-4 border-[0.6px] border-solid border-grey-a rounded-lg">
-                <div className="flex items-end mb-9">
+                <div className="flex items-end">
                   <DetailTypography color={3} size={14}>
                     인원선택
                   </DetailTypography>
@@ -90,6 +124,11 @@ const ItemDetailBottom = ({ viewMore, setViewMore, packageDetail }: Props) => {
                     styleClass="mb-[1px] ml-1 web:mb-1"
                   >
                     (필수)
+                  </DetailTypography>
+                </div>
+                <div className="mb-3">
+                  <DetailTypography color="red" size={10}>
+                    {error}
                   </DetailTypography>
                 </div>
                 <StorePerson

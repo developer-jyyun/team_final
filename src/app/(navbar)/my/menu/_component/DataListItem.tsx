@@ -13,13 +13,7 @@ const DataListItem = ({ data, theme = "notice" }: Props) => {
     <li className={listTitleClass}>
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          {/* 데이터 연동 후 칩 컴포넌트 사용 */}
           <Chip chipData={data?.categories} borderColor="border-black-6" />
-          {/*           {data?.categories?.map((category: string) => (
-            <span className="py-1 px-2 text-[11px] text-black-4 border border-1 border-solid border-black-6 rounded-xl">
-              {category}
-            </span>
-          ))} */}
         </div>
 
         {theme === "notice" && (
@@ -27,10 +21,12 @@ const DataListItem = ({ data, theme = "notice" }: Props) => {
         )}
       </div>
       {theme === "notice" && (
-        <p className="text-black-2 font-semibold">{data?.title}</p>
+        <p className="text-black-2 font-semibold leading-[22px] truncate">
+          {data?.title}
+        </p>
       )}
       {theme === "faq" && (
-        <p className="before:content-['Q.'] before:mr-1.5 text-black-2 font-semibold">
+        <p className="before:content-['Q.'] before:mr-1.5  leading-[22px] text-black-2 font-semibold truncate">
           {data?.title}
         </p>
       )}

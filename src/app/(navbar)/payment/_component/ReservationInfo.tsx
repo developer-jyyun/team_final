@@ -1,21 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import getMyInfo from "@/api/my/getMyInfo";
 import Button from "@/app/_component/common/atom/Button";
 import usePaymentStore from "@/store/usePaymentStore";
-import getMyInfo from "@/api/my/getMyInfo";
-import BottomMyPageMenu from "./BottomMyPageMenu";
+import Image from "next/image";
+import React, { useCallback, useEffect, useState } from "react";
 import AgreeSection from "./AgreeSection";
+import BottomMyPageMenu from "./BottomMyPageMenu";
 import ProgressBar from "./ProgressBar";
 
 interface Props {
   onComplete: () => void;
+  messageValue: string;
+  setMessageValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ReservationInfo = ({ onComplete }: Props) => {
+const ReservationInfo = ({
+  onComplete,
+  messageValue,
+  setMessageValue,
+}: Props) => {
   const { paymentData, setPaymentData } = usePaymentStore((state) => ({
     paymentData: state.paymentData,
     setPaymentData: state.setPaymentData,
   }));
+
   const [selectedAdult, setSelectedAdult] = useState(paymentData.adult);
   const [selectedChild, setSelectedChild] = useState(paymentData.infant);
   const [selectedInfant, setSelectedInfant] = useState(paymentData.baby);
@@ -39,6 +46,11 @@ const ReservationInfo = ({ onComplete }: Props) => {
     addr2: "",
     postCode: "",
   });
+  // const [totalPrice, setTotalPrice] = useState(
+  //   selectedAdult * paymentData.adultPrice +
+  //     selectedChild * paymentData.infantPrice +
+  //     selectedInfant * paymentData.babyPrice,
+  // );
 
   const updateProgress = useCallback(() => {
     const sectionsCompleted = [
@@ -105,25 +117,48 @@ const ReservationInfo = ({ onComplete }: Props) => {
   }, [paymentData.adult, paymentData.infant, paymentData.baby]);
 
   const handleAdultChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      Number(event.target.value) * paymentData.adultPrice +
+      selectedChild * paymentData.infantPrice +
+      selectedInfant * paymentData.babyPrice;
+
     const newAdultCount = parseInt(event.target.value, 10);
     setSelectedAdult(newAdultCount);
-    setPaymentData({ ...paymentData, adult: newAdultCount });
+    setPaymentData({
+      ...paymentData,
+      adult: newAdultCount,
+      totalPrice,
+    });
     setAdultClass(newAdultCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
   const handleChildChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      selectedAdult * paymentData.adultPrice +
+      Number(event.target.value) * paymentData.infantPrice +
+      selectedInfant * paymentData.babyPrice;
+
+    // setTotalPrice(totalPrice);
+
     const newChildCount = parseInt(event.target.value, 10);
     setSelectedChild(newChildCount);
-    setPaymentData({ ...paymentData, infant: newChildCount });
+    setPaymentData({ ...paymentData, infant: newChildCount, totalPrice });
     setChildClass(newChildCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
 
   const handleInfantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalPrice =
+      selectedAdult * paymentData.adultPrice +
+      selectedChild * paymentData.infantPrice +
+      Number(event.target.value) * paymentData.babyPrice;
+
+    // setTotalPrice(totalPrice);
+
     const newInfantCount = parseInt(event.target.value, 10);
     setSelectedInfant(newInfantCount);
-    setPaymentData({ ...paymentData, baby: newInfantCount });
+    setPaymentData({ ...paymentData, baby: newInfantCount, totalPrice });
     setInfantClass(newInfantCount > 0 ? "text-pink-main" : "text-grey-c");
     updateProgress();
   };
@@ -135,15 +170,11 @@ const ReservationInfo = ({ onComplete }: Props) => {
 
   useEffect(() => {
     async function fetchUserInfo() {
-      try {
-        const data = await getMyInfo();
-        if (data && data.data) {
-          setUserInfo(data.data);
-        } else {
-          throw new Error("사용자 정보를 가져오는 데 실패했습니다");
-        }
-      } catch (error) {
-        console.error("fetch 작업 중 문제가 발생했습니다:", error);
+      const data = await getMyInfo();
+      if (data) {
+        setUserInfo(data);
+      } else {
+        throw new Error("사용자 정보를 가져오는 데 실패했습니다");
       }
     }
 
@@ -253,7 +284,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${adultClass}`}
-              value={selectedAdult}
+              value={paymentData.adult}
               onChange={handleAdultChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -278,7 +309,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${childClass}`}
-              value={selectedChild}
+              value={paymentData.infant}
               onChange={handleChildChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -303,7 +334,7 @@ const ReservationInfo = ({ onComplete }: Props) => {
             </span>
             <select
               className={`w-[97px] h-[32px] border border-black-9 rounded-md px-8 appearance-none text-base ${infantClass}`}
-              value={selectedInfant}
+              value={paymentData.baby}
               onChange={handleInfantChange}
             >
               {Array.from({ length: 21 }, (_, i) => (
@@ -335,6 +366,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
           <textarea
             className="w-full h-24 bg-grey-transparent p-2 rounded-lg text-xs"
             placeholder="요청사항을 입력해주세요."
+            value={messageValue}
+            onChange={(e) => {
+              setMessageValue(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -351,7 +386,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
           </div>
           <div className="text-right text-black-2 text-sm font-semibold leading-normal">
             <p>
-              876,543
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
               <b className="text-black-4 text-xxs font-normal">원</b>
             </p>
             <p>
@@ -369,7 +406,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
           </div>
           <div className="text-pink-main text-xl font-bold">
             <p>
-              100,000<b>원</b>
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
+              <b>원</b>
             </p>
           </div>
         </div>
@@ -815,7 +855,12 @@ const ReservationInfo = ({ onComplete }: Props) => {
             <p>총 결제금액</p>
           </div>
           <div className="text-right">
-            <p className="text-pink-main text-[26px] font-bold">100,000원</p>
+            <p className="text-pink-main text-[26px] font-bold">
+              {paymentData.totalPrice === 0
+                ? 0
+                : paymentData.totalPrice?.toLocaleString()}
+              원
+            </p>
           </div>
         </div>
         <p className="mx-2 mb-4 text-black-8 text-xxs font-normal">

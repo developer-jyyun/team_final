@@ -3,7 +3,7 @@ import BottomNav from "@/app/_component/common/layout/BottomNav";
 import ReservationTabContent from "./_component/ReservationTabContent";
 import MyReviewTabContent from "./_component/MyReviewTabContent";
 import UserInfo from "./_component/UserInfo";
-import UpcomingPackages from "./_component/UpcomingPackages";
+import UpcomingPackage from "./_component/UpcomingPackage";
 import InnerSection from "./_component/InnerSection";
 
 export function generateMetadata() {
@@ -24,8 +24,8 @@ const MyPage = async () => {
       iconUrl="/my/menu"
       iconAlt="메뉴 아이콘"
     >
-      <UserInfo />
-      <UpcomingPackages />
+      <UserInfo showEditIcon />
+      <UpcomingPackage />
       <TabsContainer
         tabs={tabsData}
         tabButtonStyle={{

@@ -2,8 +2,8 @@ import BottomNav from "./_component/common/layout/BottomNav";
 import DefaultHeader from "./_component/common/layout/DefaultHeader";
 import HomeAdvertisements from "./_component/home/HomeAdvertisements";
 import HomeHashtags from "./_component/home/HomeHashtags";
-import HomePackages from "./_component/home/HomePackages";
-import HomeProsAndCons from "./_component/home/HomeProsAndCons";
+// import HomePackages from "./_component/home/HomePackages";
+// import HomeProsAndCons from "./_component/home/HomeProsAndCons";
 import HomeThemePackage from "./_component/home/HomeThemePackage";
 import ContentsContainer from "./_component/common/layout/ContentsContainer";
 
@@ -23,13 +23,13 @@ const Home = async () => {
               <HomeThemePackage />
             </ContentsContainer>
             {/* 찬반토론 */}
-            <ContentsContainer title="찬반 토론 참여">
+            {/* <ContentsContainer title="찬반 토론 참여">
               <HomeProsAndCons />
-            </ContentsContainer>
+            </ContentsContainer> */}
             {/* 초특가 패키지 목록 */}
-            <ContentsContainer title="지금 핫한 초특가 상품">
+            {/* <ContentsContainer title="지금 핫한 초특가 상품">
               <HomePackages />
-            </ContentsContainer>
+            </ContentsContainer> */}
           </div>
         </section>
       </main>

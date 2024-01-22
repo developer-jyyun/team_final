@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@/app/_component/common/atom/Button";
+import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
 import ProgressBar from "./ProgressBar";
 import SectionMargin from "./SectionMargin";
 import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
-import MoreButton from "./MoreButton";
+// import MoreButton from "./MoreButton";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 
-const ChangeCompareProduct = () => {
+interface Props {
+  onChange: () => void;
+}
+
+const ChangeCompareProduct = ({ onChange }: Props) => {
+  const [, setViewMore] = useState(false);
   return (
     <div className="mx-6">
       <div className="flex justify-between mt-3">
@@ -16,13 +22,14 @@ const ChangeCompareProduct = () => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             고정상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             청룡의 해 얼리버드 특가
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-pink mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
         <SectionMargin />
@@ -30,13 +37,14 @@ const ChangeCompareProduct = () => {
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             비교상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold">
+          <h3 className="text-black-2 text-lg font-bold h-14">
             오사카/교토 3박 4일 올인원 패키지
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
             styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-green mt-3 py-2 px-7 cursor-pointer
             `}
+            onClickFn={onChange}
           />
         </div>
       </div>
@@ -101,14 +109,17 @@ const ChangeCompareProduct = () => {
         </div>
       </div>
 
-      <div>
+      <div className="relative">
         <h3 className="mb-4 text-black-2 text-lg font-semibold">
           일정 둘러보기
         </h3>
         <span className="text-black-4 text-sm font-medium">1일차</span>
         <div className="flex justify-between my-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
+                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems1.map((item) => (
                 <Schedule
                   key={item.id}
@@ -134,8 +145,11 @@ const ChangeCompareProduct = () => {
         </div>
         <span className="text-black-4 text-sm font-medium">2일차</span>
         <div className="flex justify-between mt-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
+                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems1.map((item) => (
                 <Schedule
                   key={item.id}
@@ -159,13 +173,13 @@ const ChangeCompareProduct = () => {
             </ul>
           </div>
         </div>
-        <MoreButton />
+        <DetailMoreButton setViewMore={setViewMore} />
       </div>
       <div>
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <MyPicProduct />
           <MyPicProduct />
           <MyPicProduct />

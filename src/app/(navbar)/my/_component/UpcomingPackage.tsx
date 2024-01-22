@@ -2,25 +2,20 @@
 
 import Link from "next/link";
 import useMyUpcomingPackageQuery from "@/hooks/query/useMyUpcomingPackageQuery";
+import { TITLE_CLASS } from "@/app/constants";
 import Chip from "./Chip";
 
-const UpcomingPackages = () => {
+const UpcomingPackage = () => {
   const { data, isLoading, isError, error } = useMyUpcomingPackageQuery();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   return (
     <article className="mx-auto mt-8 mb-10">
-      <h2 className="w-full font-semibold text-lg tracking-[0.18px] mb-6">
-        다가오는 패키지가 있어요!
-      </h2>
+      <h2 className={TITLE_CLASS}>다가오는 패키지가 있어요!</h2>
       <div className="flex flex-wrap relative gap-[18px]">
         <div className=" w-[90px] rounded-md overflow-hidden">
-          <img
-            className="w-full h-full"
-            src="//source.unsplash.com/66x66?osaka"
-            alt="다가오는 패키지"
-          />
+          <img className="w-full h-full" src={data.imageUrl} alt={data.title} />
         </div>
         <div className=" flex w-2/3  justify-between items-center">
           <div className="flex flex-col justify-center gap-1 overflow-hidden">
@@ -48,4 +43,4 @@ const UpcomingPackages = () => {
   );
 };
 
-export default UpcomingPackages;
+export default UpcomingPackage;

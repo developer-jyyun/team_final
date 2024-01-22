@@ -254,23 +254,318 @@ const handlers = [
     });
   }),
 
+  http.get("/v1/hashtag-search", ({ request }) => {
+    console.log("검색 -> 결과");
+    const url = new URL(request.url);
+    const keyword = url.searchParams.get("keyword");
+    let packages: unknown[];
+
+    if (keyword === "안녕") {
+      packages = [];
+    } else {
+      packages = [
+        {
+          packageId: 0,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "청룡의 해 얼리버드 특가",
+          hashtags: ["일본", "체험", "로컬 다이닝", "쇼핑"],
+          minPrice: 689000,
+          lodgeDays: 4, // 1박
+          tripDays: 5, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 1,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "나만 알고 싶은 호캉스 초특가",
+          hashtags: ["일본", "역사", "미식"],
+          minPrice: 433000,
+          lodgeDays: 2, // 1박
+          tripDays: 3, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 2,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "일본",
+          title: "새해 소원 홀인원 초핫특가",
+          hashtags: ["일본", "골프", "레저"],
+          minPrice: 1783000,
+          lodgeDays: 8, // 1박
+          tripDays: 9, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 3,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "유럽",
+          title: "유럽 문화 탐방 특가",
+          hashtags: ["유럽", "문화", "체험"],
+          minPrice: 1862000,
+          lodgeDays: 3, // 1박
+          tripDays: 5, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 4,
+          imageUrl:
+            "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+          nationName: "동남아",
+          title: "만나보자 옥태견 호핑 초특가",
+          hashtags: ["동남아", "액티비티", "자연경관", "레저"],
+          minPrice: 513000,
+          lodgeDays: 2, // 1박
+          tripDays: 4, // 2일
+          isWish: false, // 비로그인시에는 항상 false
+        },
+        {
+          packageId: 5,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "유럽",
+          title: "로맨틱한 프랑스 여행",
+          hashtags: ["로맨스", "유럽", "역사"],
+          minPrice: 700000,
+          lodgeDays: 3,
+          tripDays: 6,
+          isWish: false,
+        },
+        {
+          packageId: 6,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "일본",
+          title: "도쿄의 현대 예술 탐방",
+          hashtags: ["아트", "일본", "도시"],
+          minPrice: 620000,
+          lodgeDays: 2,
+          tripDays: 5,
+          isWish: false,
+        },
+        {
+          packageId: 7,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "남미",
+          title: "아마존 정글 탐험",
+          hashtags: ["자연", "아마존", "브라질"],
+          minPrice: 900000,
+          lodgeDays: 4,
+          tripDays: 7,
+          isWish: false,
+        },
+        {
+          packageId: 8,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "아프리카",
+          title: "사하라 사막 사파리",
+          hashtags: ["사파리", "아프리카", "자연"],
+          minPrice: 800000,
+          lodgeDays: 3,
+          tripDays: 6,
+          isWish: false,
+        },
+        {
+          packageId: 9,
+          imageUrl:
+            "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+          nationName: "오세아니아",
+          title: "그레이트 오션 로드 여행",
+          hashtags: ["자연", "호주", "드라이브"],
+          minPrice: 850000,
+          lodgeDays: 2,
+          tripDays: 5,
+          isWish: false,
+        },
+      ];
+    }
+
+    const pages = {
+      currentPage: 1, // 현재 페이지
+      totalPage: 1, // 끝 페이지
+      currentElements: packages.length, // 현재 보여지는 목록의 개수
+      totalElements: packages.length, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        packages,
+        page: pages,
+      },
+    });
+  }),
+
+  http.get("/v1/search", ({ request }) => {
+    console.log("필터 -> 결과");
+
+    const url = new URL(request.url);
+    const sortBy = url.searchParams.get("sortBy");
+    let packages = [
+      {
+        packageId: 0,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "청룡의 해 얼리버드 특가",
+        hashtags: ["일본", "체험", "로컬 다이닝", "쇼핑"],
+        minPrice: 689000,
+        lodgeDays: 4, // 1박
+        tripDays: 5, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 1,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "나만 알고 싶은 호캉스 초특가",
+        hashtags: ["일본", "역사", "미식"],
+        minPrice: 433000,
+        lodgeDays: 2, // 1박
+        tripDays: 3, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 2,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "일본",
+        title: "새해 소원 홀인원 초핫특가",
+        hashtags: ["일본", "골프", "레저"],
+        minPrice: 1783000,
+        lodgeDays: 8, // 1박
+        tripDays: 9, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 3,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "유럽",
+        title: "유럽 문화 탐방 특가",
+        hashtags: ["유럽", "문화", "체험"],
+        minPrice: 1862000,
+        lodgeDays: 3, // 1박
+        tripDays: 5, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 4,
+        imageUrl:
+          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
+        nationName: "동남아",
+        title: "만나보자 옥태견 호핑 초특가",
+        hashtags: ["동남아", "액티비티", "자연경관", "레저"],
+        minPrice: 513000,
+        lodgeDays: 2, // 1박
+        tripDays: 4, // 2일
+        isWish: false, // 비로그인시에는 항상 false
+      },
+      {
+        packageId: 5,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "유럽",
+        title: "로맨틱한 프랑스 여행",
+        hashtags: ["로맨스", "유럽", "역사"],
+        minPrice: 700000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 6,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "일본",
+        title: "도쿄의 현대 예술 탐방",
+        hashtags: ["아트", "일본", "도시"],
+        minPrice: 620000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
+      {
+        packageId: 7,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "남미",
+        title: "아마존 정글 탐험",
+        hashtags: ["자연", "아마존", "브라질"],
+        minPrice: 900000,
+        lodgeDays: 4,
+        tripDays: 7,
+        isWish: false,
+      },
+      {
+        packageId: 8,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "아프리카",
+        title: "사하라 사막 사파리",
+        hashtags: ["사파리", "아프리카", "자연"],
+        minPrice: 800000,
+        lodgeDays: 3,
+        tripDays: 6,
+        isWish: false,
+      },
+      {
+        packageId: 9,
+        imageUrl:
+          "https://i.pinimg.com/564x/c2/c3/40/c2c340540fd915592d229ecb335bda46.jpg",
+        nationName: "오세아니아",
+        title: "그레이트 오션 로드 여행",
+        hashtags: ["자연", "호주", "드라이브"],
+        minPrice: 850000,
+        lodgeDays: 2,
+        tripDays: 5,
+        isWish: false,
+      },
+    ];
+
+    if (sortBy === "price_asc")
+      packages = packages.sort((a, b) => a.minPrice - b.minPrice);
+    if (sortBy === "price_desc")
+      packages = packages.sort((a, b) => b.minPrice - a.minPrice);
+
+    const pages = {
+      currentPage: 1, // 현재 페이지
+      totalPage: 1, // 끝 페이지
+      currentElements: 10, // 현재 보여지는 목록의 개수
+      totalElements: 10, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+    };
+
+    return HttpResponse.json({
+      code: 200,
+      data: {
+        packages,
+        page: pages,
+      },
+    });
+  }),
+
   http.get("/v1/advertisements", () => {
     console.log("광고구좌 목록 조회");
     const advertisements = [
       {
         adId: 0,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/6p92q9KD/japan.png",
       },
       {
         adId: 1,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/zG0LR9X3/taiwan.png",
       },
       {
         adId: 2,
-        imageUrl:
-          "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg",
+        imageUrl: "https://i.postimg.cc/RV1JvWk7/europe.png",
       },
     ];
 
@@ -280,22 +575,91 @@ const handlers = [
     });
   }),
 
-  http.get("/v1/advertisements/{adId}", () => {
+  http.get("/v1/advertisements/:id", () => {
     console.log("광고구좌 조회");
     const advertisementInfo = {
       adId: 0,
-      name: "오사카 특별 기획전",
-      description: "오사카의 13가지 매력속으로!",
-      imageUrls: [
-        "https://images.theconversation.com/files/318067/original/file-20200302-18287-i7bt82.jpg?ixlib=rb-1.1.0&rect=21%2C5%2C3496%2C2747&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip",
-      ],
+      name: "오사카 특별 여행",
       packages: [
         {
           packageId: 0,
-          imageUrl: "",
-          transporation: "",
-          title: "",
-          minPrice: 0,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production188/d1049/eda6e352-4711-4542-bc24-fbf43f612931.jpg",
+          transporation: "비행기",
+          title: "오사카성",
+          minPrice: 270000,
+        },
+        {
+          packageId: 1,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production68/d1303/c8fa75d8-6932-459b-9660-8340f097ebd7.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "배",
+          title: "도톤보리",
+          minPrice: 340000,
+        },
+        {
+          packageId: 2,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production137/d1766/cc50b4a1-2ed1-442f-9892-a9233ff9ef8c.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "도보",
+          title: "유니버설 스튜디오 재팬",
+          minPrice: 400000,
+        },
+        {
+          packageId: 3,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production153/d1748/fdcb8bd4-962b-4892-8e3e-fbaa75211fb4.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "보트",
+          title: "가이유칸 수족관",
+          minPrice: 450000,
+        },
+        {
+          packageId: 4,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production71/d1615/f53f26ff-02e7-4f3f-bb71-4aa8513d4175.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "자전거",
+          title: "덴포잔 대관람차",
+          minPrice: 500000,
+        },
+        {
+          packageId: 5,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production130/d1315/67f50c0e-b127-465f-8bbf-c950d676c968.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "킥보드",
+          title: "야요이문화 현립박물관",
+          minPrice: 550000,
+        },
+        {
+          packageId: 6,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production10/d521/a95d7c84-b083-45dd-8530-8a8d93ad578e.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "자동차",
+          title: "시텐노지",
+          minPrice: 600000,
+        },
+        {
+          packageId: 7,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production0/d434/a646fde9-8b37-43b9-af33-fca9b5754ad2.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "헬리콥터",
+          title: "우메다 스카이 빌딩",
+          minPrice: 650000,
+        },
+        {
+          packageId: 8,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production121/d1659/e49284fe-ddda-44da-b407-dd504da048bc.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "도보",
+          title: "사카이 칼 박물관",
+          minPrice: 700000,
+        },
+        {
+          packageId: 9,
+          imageUrl:
+            "https://a.cdn-hotels.com/gdcs/production176/d1897/982b8faf-6bb4-4d2d-b156-e6ac40fcb4f0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium",
+          transporation: "전세기",
+          title: "오사카 스모 대회",
+          minPrice: 800000,
         },
       ],
     };
@@ -614,36 +978,40 @@ const handlers = [
 
   // 내 정보 조회
   http.get("/v1/my/info", async () => {
-    console.log("내 정보 조회");
     const myInfo = {
-      email: "user@example.com",
-      username: "홍길동",
-      phone: "010-1234-5678",
-      addr1: "서울특별시 강남구",
-      addr2: "역삼동 123-45",
-      postCode: "06178",
+      code: 200,
+      data: {
+        email: "user@example.com",
+        username: "위너원",
+        phone: "010-1234-5678",
+        addr1: "Gangnam-gu, Seoul",
+        addr2: "123-45 Yeoksam-dong",
+        postCode: "06178",
+      },
     };
+
     return HttpResponse.json(myInfo);
   }),
 
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
-    console.log("출발일이 다가오는 패키지");
     const upComingPackage = {
-      packageId: 0,
-      imageUrl: "//source.unsplash.com/500x500?america",
-      title: "오사카 특별 패키지",
-      dday: 30,
-      nationName: "일본",
-      departureDate: "2024-02-01",
-      endDate: "2024-02-05",
+      code: 200,
+      data: {
+        packageId: 0,
+        imageUrl: "//source.unsplash.com/500x500?america",
+        title: "오사카 특별 패키지",
+        dday: 30,
+        nationName: "일본",
+        departureDate: "2024-02-01",
+        endDate: "2024-02-05",
+      },
     };
     return HttpResponse.json(upComingPackage);
   }),
 
   // 내가 쓴 리뷰 목록
   http.get("/v1/reviews/my", async () => {
-    console.log("내가 쓴 리뷰 목록");
     return HttpResponse.json(myReviewData);
   }),
 
@@ -662,75 +1030,240 @@ const handlers = [
     });
   }),
 
-  // 예약내역
-  http.get("/v1/orders", async () => {
-    console.log("예약내역");
-    const myOrders = {
-      data: [
-        {
-          orderCode: "2023122910352",
-          availableDateId: 0,
-          package: {
-            packageId: 1,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가1",
-            hashtags: ["일본", "체험", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
+  http.get("/v1/orders", ({ request }) => {
+    const url = new URL(request.url);
+    const orderPage = Number(url.searchParams.get("page")) || 1;
+    const pageSize = Number(url.searchParams.get("pageSize")) || 3;
+    const orderData = [
+      {
+        orderCode: "2023122910351",
+        availableDateId: 0,
+        package: {
+          packageId: 0,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가0`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
         },
-
-        {
-          orderCode: "2023123010352",
-          availableDateId: 0,
-          package: {
-            packageId: 2,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가2",
-            hashtags: ["일본", "체험/액티비티", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
-        },
-        {
-          orderCode: "2024122910352",
-          availableDateId: 0,
-          package: {
-            packageId: 3,
-            imageUrl: "//source.unsplash.com/90x90?japan",
-            nationName: "일본",
-            title: "청룡의 해 얼리버드 특가3",
-            hashtags: ["일본", "체험", "로컬 다이닝"],
-            lodgeDays: 1, // 1박
-            tripDays: 2, // 2일
-            travelPeriod: "24.02.01~24.02.05",
-            isWish: false,
-            reviewed: false, // 리뷰 작성 여부
-          },
-        },
-      ],
-      page: {
-        currentPage: 0, // 현재 페이지
-        totalPage: 0, // 끝 페이지
-        currentElements: 0, // 현재 보여지는 목록의 개수
-        totalElements: 0, // 모든 페이지를 통틀어 목록이 몇 개 있는지
       },
-    };
 
-    return HttpResponse.json(myOrders);
+      {
+        orderCode: "2023123010351",
+        availableDateId: 0,
+        package: {
+          packageId: 1,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가1`,
+          hashtags: ["일본", "체험/액티비티", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2024122910352",
+        availableDateId: 0,
+        package: {
+          packageId: 2,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가2`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910353",
+        availableDateId: 0,
+        package: {
+          packageId: 3,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가3`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910354",
+        availableDateId: 0,
+        package: {
+          packageId: 4,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가4`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910355",
+        availableDateId: 0,
+        package: {
+          packageId: 5,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가5`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910356",
+        availableDateId: 0,
+        package: {
+          packageId: 6,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가6`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910357",
+        availableDateId: 0,
+        package: {
+          packageId: 7,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가7`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910358",
+        availableDateId: 0,
+        package: {
+          packageId: 8,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가8`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910359",
+        availableDateId: 0,
+        package: {
+          packageId: 9,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가9`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910310",
+        availableDateId: 0,
+        package: {
+          packageId: 10,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가10`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910311",
+        availableDateId: 0,
+        package: {
+          packageId: 11,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가11`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+      {
+        orderCode: "2023122910312",
+        availableDateId: 0,
+        package: {
+          packageId: 12,
+          imageUrl: "//source.unsplash.com/90x90?japan",
+          nationName: "일본",
+          title: `${orderPage}청룡의 해 얼리버드 특가12`,
+          hashtags: ["일본", "체험", "로컬 다이닝"],
+          lodgeDays: 1, // 1박
+          tripDays: 2, // 2일
+          travelPeriod: "24.02.01~24.02.05",
+          isWish: false,
+          reviewed: false, // 리뷰 작성 여부
+        },
+      },
+    ];
+    // 페이지 사이즈에 따라 데이터 필터링
+    const startIndex = (orderPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const filteredData = orderData.slice(startIndex, endIndex);
+
+    return HttpResponse.json({
+      code: 200,
+      data: filteredData,
+      page: {
+        currentPage: orderPage, // 현재 페이지
+        totalPage: Math.ceil(orderData.length / pageSize),
+        currentElements: pageSize, // 현재 보여지는 목록의 개수
+        totalElements: orderData.length, // 모든 페이지를 통틀어 목록이 몇 개 있는지
+      },
+    });
   }),
 
   // 공지사항 글 목록
   http.get("/v1/notices", async () => {
-    console.log("공지사항 글 목록");
     const noticeList = {
       data: [
         {
@@ -754,6 +1287,76 @@ const handlers = [
       ],
     };
     return HttpResponse.json(noticeList);
+  }),
+  // 공지사항 상세보기
+  http.get("/v1/notices/:noticeId", async (req) => {
+    const { noticeId } = req.params;
+    const noticeIdAsString = Array.isArray(noticeId) ? noticeId[0] : noticeId;
+    const numericNoticeId = parseInt(noticeIdAsString, 10);
+    let noticeDetail;
+    console.log(typeof req.params.noticeId);
+
+    if (numericNoticeId === 0) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 0,
+          title: "쉽고 빠른 패키지 예약 플랫폼 ‘LET’S’ 오픈☆1",
+          createdAt: "2010-01-01",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    } else if (numericNoticeId === 1) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 1,
+          title: "2024년 01월 유류 할증료 안내☆2",
+          createdAt: "2010-01-02",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    } else if (numericNoticeId === 2) {
+      noticeDetail = {
+        code: 200,
+        data: {
+          noticeId: 2,
+          title: "공지사항3☆",
+          createdAt: "2010-01-03",
+          content: [
+            "너무 많은 패키지 상품들 찾기 번거로우셨죠? ",
+            "",
+            "LET'S는 여러분이 몇 번의 터치만으로 원하는 패키지를 빠르고 쉽게 찾아 예약할 수 있도록 도와주는 여행 패키지 플랫폼입니다.",
+            "",
+            "LET'S는 ‘우리, 함께’라는 슬로건과 함께 성장하고자 합니다. 모든 여행자를 위해 더 나은 패키지와 서비스를 제공하기 위해 더욱 노력하겠습니다.",
+            "",
+            "감사합니다.",
+          ],
+          categories: ["공지사항", "일반"],
+        },
+      };
+    }
+    return new Response(JSON.stringify(noticeDetail), {
+      status: 200,
+    });
   }),
 
   // 자주 묻는 질문 글 목록
@@ -782,6 +1385,70 @@ const handlers = [
       ],
     };
     return HttpResponse.json(faqList);
+  }),
+
+  // 자주 묻는 질문 상세보기
+  http.get("/v1/faq/:faqId", async (req) => {
+    const { faqId } = req.params;
+    console.log(`faq ID ${faqId}의 상세내용`);
+    const faqIdAsString = Array.isArray(faqId) ? faqId[0] : faqId;
+    const numericFaqId = parseInt(faqIdAsString, 10);
+
+    let faqDetail;
+    if (numericFaqId === 0) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 0,
+          title: "예약하는 방법을 모르겠어요.",
+          createdAt: "2010-01-01",
+          categories: ["패키지", "예약"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    } else if (numericFaqId === 1) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 1,
+          title: "상품예약 후 변경이 가능한가요?",
+          createdAt: "2010-01-02 ",
+          categories: ["패키지", "변경"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    } else if (numericFaqId === 2) {
+      faqDetail = {
+        code: 200,
+        data: {
+          faqId: 2,
+          title: "예약하는 혼자서 패키지 여행에 참여하고 싶은데 추가...",
+          createdAt: "2010-01-01",
+          categories: ["패키지", "기타"],
+          content: [
+            "원하시는 상품을 선택하신 후 이용일 선택, 옵션 선택, 수량 선택 후 정보 입력 및 결제해주시면 예약이 완료됩니다.",
+          ],
+        },
+      };
+    }
+
+    return new Response(JSON.stringify(faqDetail), {
+      status: 200,
+    });
+  }),
+
+  // 회원 탈퇴
+  http.delete("/v1/users", async () => {
+    return new Response(JSON.stringify({ code: 200 }), {
+      headers: {
+        "Set-Cookie": "accessToken=;HttpOnly;Path=/;Max-Age=0",
+        "Content-Type": "application/json",
+      },
+    });
   }),
 
   http.get("/v1/polls", () => {
