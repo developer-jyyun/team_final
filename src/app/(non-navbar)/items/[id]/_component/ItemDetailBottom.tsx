@@ -1,10 +1,12 @@
 "use client";
 
 import BottomSlideModal from "@/app/_component/common/layout/BottomSlideModal";
-import type { PackageResponseData } from "@/app/types";
+import type { PackageResponseData, ScheduleResponseData } from "@/app/types";
+import useScheduleListQuery from "@/hooks/query/useScheduleListQuery";
 import useScrollUp from "@/hooks/useScrollUp";
 import usePaymentStore from "@/store/usePaymentStore";
-import { useRouter } from "next/navigation";
+import { UseQueryResult } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import DetailBottomButton from "./DetailBottomButton";
@@ -25,9 +27,14 @@ const ItemDetailBottom = ({
   setIsLogin,
   packageDetail,
 }: Props) => {
+  const router = useRouter();
+  const params = useParams();
+
   const isScrollUp = useScrollUp();
   const paymentStore = usePaymentStore();
-  const router = useRouter();
+
+  const { data: schedules }: UseQueryResult<ScheduleResponseData, Error> =
+    useScheduleListQuery(params.id);
 
   const [reservation, setReservation] = useState(false);
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
@@ -38,6 +45,14 @@ const ItemDetailBottom = ({
 
   const [totalPrice, setTotalPrice] = useState(packageDetail.totalPrice.adult);
   const [error, setError] = useState("");
+
+  const getAailableDate = () => {
+    const availableDate = schedules?.data.find((schedule) => {
+      return schedule.date === packageDetail.departureDatetime.date;
+    });
+
+    return availableDate?.availableDateId;
+  };
 
   useEffect(() => {
     setPortalElement(document.getElementById("portal"));
@@ -67,6 +82,8 @@ const ItemDetailBottom = ({
       const newDepartureDate = packageDetail.departureDatetime.date.split("-");
       const newEndDate = packageDetail.endDatetime.date.split("-");
       paymentStore.setPaymentData({
+        availableDateId: getAailableDate() as number,
+        packageId: Number(params.id),
         title: packageDetail.title,
         tripDay: `${packageDetail.lodgeDays}박 ${packageDetail.tripDays}일`,
         departureDate: {

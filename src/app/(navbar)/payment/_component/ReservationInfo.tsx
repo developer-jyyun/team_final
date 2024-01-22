@@ -1,21 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import getMyInfo from "@/api/my/getMyInfo";
 import Button from "@/app/_component/common/atom/Button";
 import usePaymentStore from "@/store/usePaymentStore";
-import getMyInfo from "@/api/my/getMyInfo";
-import BottomMyPageMenu from "./BottomMyPageMenu";
+import Image from "next/image";
+import React, { useCallback, useEffect, useState } from "react";
 import AgreeSection from "./AgreeSection";
+import BottomMyPageMenu from "./BottomMyPageMenu";
 import ProgressBar from "./ProgressBar";
 
 interface Props {
   onComplete: () => void;
+  messageValue: string;
+  setMessageValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ReservationInfo = ({ onComplete }: Props) => {
+const ReservationInfo = ({
+  onComplete,
+  messageValue,
+  setMessageValue,
+}: Props) => {
   const { paymentData, setPaymentData } = usePaymentStore((state) => ({
     paymentData: state.paymentData,
     setPaymentData: state.setPaymentData,
   }));
+
   const [selectedAdult, setSelectedAdult] = useState(paymentData.adult);
   const [selectedChild, setSelectedChild] = useState(paymentData.infant);
   const [selectedInfant, setSelectedInfant] = useState(paymentData.baby);
@@ -136,8 +143,8 @@ const ReservationInfo = ({ onComplete }: Props) => {
   useEffect(() => {
     async function fetchUserInfo() {
       const data = await getMyInfo();
-      if (data.code === 200) {
-        setUserInfo(data.data);
+      if (data) {
+        setUserInfo(data);
       } else {
         throw new Error("사용자 정보를 가져오는 데 실패했습니다");
       }
@@ -331,6 +338,10 @@ const ReservationInfo = ({ onComplete }: Props) => {
           <textarea
             className="w-full h-24 bg-grey-transparent p-2 rounded-lg text-xs"
             placeholder="요청사항을 입력해주세요."
+            value={messageValue}
+            onChange={(e) => {
+              setMessageValue(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -816,7 +827,9 @@ const ReservationInfo = ({ onComplete }: Props) => {
             <p>총 결제금액</p>
           </div>
           <div className="text-right">
-            <p className="text-pink-main text-[26px] font-bold">100,000원</p>
+            <p className="text-pink-main text-[26px] font-bold">
+              {paymentData.totalPrice?.toLocaleString()}원
+            </p>
           </div>
         </div>
         <p className="mx-2 mb-4 text-black-8 text-xxs font-normal">

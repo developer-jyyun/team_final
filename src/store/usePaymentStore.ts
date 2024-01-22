@@ -7,6 +7,8 @@ interface Date {
 }
 
 export interface Payment {
+  availableDateId: number | null;
+  packageId: number | null;
   title: string | null;
   tripDay: string | null;
   departureDate: Date | null;
@@ -33,6 +35,8 @@ const usePaymentStore = create<Props>()(
   persist(
     (set) => ({
       paymentData: {
+        availableDateId: null,
+        packageId: null,
         title: null,
         tripDay: null,
         departureDate: null,
@@ -46,6 +50,8 @@ const usePaymentStore = create<Props>()(
       resetPaymentData: () =>
         set({
           paymentData: {
+            availableDateId: null,
+            packageId: null,
             title: null,
             tripDay: null,
             departureDate: null,
