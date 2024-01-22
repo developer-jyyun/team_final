@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/app/_component/common/atom/Button";
 import useInput from "@/hooks/useInput";
 import useSignupStateStore from "@/store/useSignupStateStore";
 import { useRef, useState } from "react";
@@ -16,6 +15,7 @@ interface Props {
   errorMessage?: string;
   onClickFn?: VoidFunction;
   onInputChange?: (value: string) => void;
+  isPending?: boolean;
 }
 
 const SigninInput = ({
@@ -27,6 +27,7 @@ const SigninInput = ({
   errorMessage,
   onClickFn,
   onInputChange,
+  isPending,
 }: Props) => {
   const signupState = useSignupStateStore();
 
@@ -77,13 +78,26 @@ const SigninInput = ({
       />
 
       {theme === "button" && (
-        <Button
-          text={signupState.isCertification ? "다시 요청" : "인증 요청"}
-          theme="md"
-          styleClass="text-blue rounded-lg bg-white absolute top-1/2 right-[6px] -translate-y-1/2  disabled:text-blue-transparent  disabled:bg-[rgba(255,255,255,0.7)]"
-          disabled={input.value === ""}
-          onClickFn={onClickFn}
-        />
+        <button
+          type="button"
+          disabled={input.value === "" || isPending}
+          onClick={onClickFn}
+          className="w-[75px] flex items-center justify-center h-10 text-blue rounded-lg bg-white absolute top-1/2 right-[6px] -translate-y-1/2 
+                  disabled:text-blue-transparent disabled:bg-[rgba(255,255,255,0.7)]"
+        >
+          {!isPending ? (
+            signupState.isCertification ? (
+              "다시 요청"
+            ) : (
+              "인증 요청"
+            )
+          ) : (
+            <div
+              className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current 
+                        border-r-transparent align-[-0.125em] text-danger motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            />
+          )}
+        </button>
       )}
 
       {theme === "count" && (
