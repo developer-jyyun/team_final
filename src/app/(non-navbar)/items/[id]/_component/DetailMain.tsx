@@ -150,7 +150,7 @@ const DetailMain = () => {
         <TravelDate
           departureDatetime={packageDetail.data.departureDatetime}
           endDatetime={packageDetail.data.endDatetime}
-          transporation={packageDetail.data.transporation}
+          transporation={packageDetail.data.transportation}
         />
         <ChangeDateButton packageDetail={packageDetail.data} />
         <TabsContainer
