@@ -2,6 +2,7 @@
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
+import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
@@ -100,9 +101,10 @@ const DetailMain = () => {
   return (
     <div
       className={`${!viewMore && "overflow-hidden"} ${
-        viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
+        viewMore ? "pb-[80px]" : "h-screen"
       } relative`}
     >
+      <DefaultHeader theme="main" back />
       <Dialog
         isOpen={isLogin}
         type="confirm"
