@@ -82,7 +82,7 @@ const HomeAdvertisements = () => {
                 fill
                 className="rounded-lg"
                 onClick={() => {
-                  router.push(`advertisement/${ads.adId}`);
+                  router.push(`/advertisement/${ads.adId}`);
                 }}
               />
             </div>
