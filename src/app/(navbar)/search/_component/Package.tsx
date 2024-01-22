@@ -22,7 +22,7 @@ const Package = ({ data }: Props) => {
         <img
           className="h-[180px] w-full object-cover rounded-[12px]"
           src={data.imageUrl}
-          alt={data.title}
+          alt="대표 이미지"
         />
         <LikeButton id={data.packageId} isWish={data.isWish} />
       </div>

@@ -19,7 +19,7 @@ const SearchResultPage = () => {
     return (
       <div className="flex flex-col w-full">
         <DefaultHeader text="내가 원하는 여행 리스트" />
-        <section className="w-full px-5 flex flex-col">
+        <section className="w-full px-6 flex flex-col">
           <Options />
           {keywordData?.data?.page.totalElements ? (
             <SearchResult data={keywordData?.data} />
@@ -34,7 +34,7 @@ const SearchResultPage = () => {
   return (
     <div className="flex flex-col w-full">
       <DefaultHeader text="내가 원하는 여행 리스트" />
-      <section className="w-full px-5 flex flex-col">
+      <section className="w-full px-6 flex flex-col">
         <Options />
         <SearchResult data={hashtagData?.data} />
       </section>
