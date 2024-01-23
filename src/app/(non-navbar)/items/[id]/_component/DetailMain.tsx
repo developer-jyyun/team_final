@@ -1,6 +1,7 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import LikeButton from "@/app/_component/common/atom/LikeButton";
 import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import Dialog from "@/app/_component/common/layout/Dialog";
@@ -118,11 +119,19 @@ const DetailMain = () => {
       />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
-        <BadgeList>
-          {packageDetail.data.hashtags.map((hashtag: string) => {
-            return <PackageTagBadge key={hashtag} text={hashtag} />;
-          })}
-        </BadgeList>
+        <div className="flex justify-between items-center">
+          <BadgeList>
+            {packageDetail.data.hashtags.map((hashtag: string) => {
+              return <PackageTagBadge key={hashtag} text={hashtag} />;
+            })}
+          </BadgeList>
+          <LikeButton
+            id={packageDetail.data.packageId}
+            isWish={packageDetail.data.isWish}
+            styleClass="mr-0"
+            signinRedirect={getUrl()}
+          />
+        </div>
         <DetailTypography bold={700} size={20}>
           {packageDetail.data.title}
         </DetailTypography>
