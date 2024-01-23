@@ -1,4 +1,8 @@
-const getPackageDetail = async (id: number, query: string | null) => {
+const getPackageDetail = async (
+  id: number,
+  query: string | null,
+  cookie?: string,
+) => {
   let url;
   if (query) {
     url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/${id}?departDate=${query}`;
@@ -9,6 +13,10 @@ const getPackageDetail = async (id: number, query: string | null) => {
   try {
     const result = await fetch(url, {
       cache: "no-store",
+      credentials: "include",
+      headers: {
+        Cookie: cookie as string,
+      },
     });
 
     const data = await result.json();

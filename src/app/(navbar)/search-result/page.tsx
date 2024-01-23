@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import SearchEmpty from "./_component/SearchEmpty";
 import useKeywordResult from "./_hooks/useKeywordResult";
 import SearchResult from "./_component/SearchResult";
-import useHashtagResult from "./_hooks/useHashtagResult";
 import Options from "./_component/Options";
+import useHashtagResult from "./_hooks/useHashtagResult";
 
 const SearchResultPage = () => {
   const params = useSearchParams();
