@@ -128,11 +128,14 @@ const UpdateMyInfoPage = () => {
       });
       console.log("회원 정보 수정완료", myInfo);
       setShowSuccessDialog(true);
-      router.push("/my");
     } catch (err) {
       console.error("API 호출 오류:", err);
       setShowErrorDialog(true);
     }
+  };
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
+    router.push("/my");
   };
 
   const handleAddressSelected = (postData: daum.PostcodeData) => {
@@ -202,7 +205,7 @@ const UpdateMyInfoPage = () => {
           type="alert"
           message="회원정보가 성공적으로 수정되었습니다!"
           isOpen={showSuccessDialog}
-          onClose={() => setShowSuccessDialog(false)}
+          onClose={handleCloseSuccessDialog}
         />
       )}
       {showErrorDialog && (
