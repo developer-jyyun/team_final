@@ -19,8 +19,10 @@ const useInfiniteScroll = (
     );
 
     const currentRef = lastElementRef.current;
-    if (currentRef) {
+    if (currentRef && hasNextPage) {
       observer.observe(currentRef);
+    } else if (currentRef) {
+      observer.unobserve(currentRef);
     }
 
     return () => {

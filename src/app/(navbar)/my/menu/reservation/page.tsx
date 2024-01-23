@@ -3,11 +3,13 @@
 import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
 import { MyOrder } from "@/app/types";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import useSortedOrderList from "@/hooks/useSortedOrderList";
+import canWriteReview from "@/utils/canWriteReview";
 import InnerSection from "../../_component/InnerSection";
 import ReservationItem from "../../_component/ReservationItem";
 import NoItem from "../../_component/NoItem";
 
-const pageSize = 10;
+const pageSize = 6;
 
 const ReservationPage = () => {
   const {
@@ -25,15 +27,16 @@ const ReservationPage = () => {
     hasNextPage,
   );
 
-  const totalCount = orderData?.pages[0]?.page?.totalElements ?? 0;
-
+  const totalCount = orderData?.pages[0]?.data.page?.totalElements ?? 0;
   console.log("orderData:", orderData);
+
+  const { sortedOrders } = useSortedOrderList(pageSize, "detail");
 
   if (isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   if (
     orderData?.pages.every(
-      (page) => !Array.isArray(page.data) || page.data.length === 0,
+      (page) => !Array.isArray(page.data.data) || page.data.data.length === 0,
     )
   ) {
     return (
@@ -62,26 +65,23 @@ const ReservationPage = () => {
         총 <span className="text-pink-main ">{totalCount}</span>
         개의 패키지 상품
       </h2>
-      <ul>
-        {orderData?.pages.map((page) => {
-          if (!Array.isArray(page.data)) {
-            // 데이터가 배열이 아닌 경우 처리
-            return null;
-          }
-          return page.data.map((order: MyOrder) => (
+      <div className="custom-scrollbar h-[75vh] overflow-y-scroll">
+        <ul>
+          {sortedOrders.map((order: MyOrder) => (
             <ReservationItem
               key={order.orderId}
               orderData={order.package}
               orderId={order.orderId}
               theme="reservationMenu"
               hashTag
+              canWriteReview={canWriteReview(order.package.travelPeriod)}
             />
-          ));
-        })}
-        <li ref={lastElementRef} className="w-full h-20 list-none">
-          {isFetching && <div>loading..🎈</div>}
-        </li>
-      </ul>
+          ))}
+          <li ref={lastElementRef} className="w-full h-20 list-none">
+            {isFetching && <div>loading..🎈</div>}
+          </li>
+        </ul>
+      </div>
     </InnerSection>
   );
 };

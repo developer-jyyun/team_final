@@ -7,13 +7,12 @@ const useMyOrdersQuery = (pageSize: number, queryKey: string) => {
     queryFn: ({ pageParam }) => getMyOrders(pageParam, pageSize),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      if (
-        lastPage &&
-        lastPage.page &&
-        lastPage.page.currentPage < lastPage.page.totalPage
-      ) {
-        return lastPage.page.currentPage + 1;
+      const { currentPage } = lastPage.data.page;
+      const { totalPages } = lastPage.data.page;
+      if (currentPage < totalPages) {
+        return currentPage + 1;
       }
+      // 마지막 페이지면 undefined 반환
       return undefined;
     },
 
