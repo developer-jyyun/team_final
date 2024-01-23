@@ -3,6 +3,8 @@
 import { MyOrder } from "@/app/types";
 import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import useSortedOrderList from "@/hooks/useSortedOrderList";
+import canWriteReview from "@/utils/canWriteReview";
 import ReservationItem from "./ReservationItem";
 import NoItem from "./NoItem";
 
@@ -22,6 +24,7 @@ const ReservationTabContent = () => {
     isFetching,
     hasNextPage,
   );
+  const { sortedOrders } = useSortedOrderList(pageSize, "detail");
 
   if (orderData?.pages.every((page) => page.data.data.length === 0)) {
     return <NoItem text="예약내역이 존재하지 않습니다." />;
@@ -30,14 +33,15 @@ const ReservationTabContent = () => {
   console.log("예약내역 확인", orderData);
 
   return (
-    <div className="custom-scrollbar flex flex-col items-center h-[45vh] overflow-y-scroll pt-5">
+    <div className="custom-scrollbar flex flex-col items-center h-[39vh] overflow-y-scroll pt-5 web:h-[43vh]">
       {orderData?.pages.map((page, pageIndex) =>
         Array.isArray(page.data.data) ? (
           <ul
             key={pageIndex}
             className="flex flex-col gap-2 justify-start items-center w-[95.111%] mx-auto"
           >
-            {page.data.data.map((order: MyOrder) => (
+            {/* {page.data.data.map((order: MyOrder) => ( */}
+            {sortedOrders.map((order: MyOrder) => (
               <ReservationItem
                 key={order.orderCode}
                 theme="reservationTab"
@@ -46,6 +50,7 @@ const ReservationTabContent = () => {
                 orderId={order.orderCode}
                 // TODO:api에 orderId 추가된 이후 변경
                 // orderId={order.orderId}
+                canWriteReview={canWriteReview(order.package.travelPeriod)}
               />
             ))}
           </ul>
