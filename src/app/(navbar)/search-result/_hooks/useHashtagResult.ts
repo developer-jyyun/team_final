@@ -13,13 +13,13 @@ const useHashtagResult = () => {
   const nations = params.get("nations");
   const continents = params.get("continents");
 
-  let options = `?maxPrice=${maxPrice}`;
-  if (hashtags) options += `&hashtags=${hashtags}`;
-  if (nations) options += `&nations=${nations}`;
-  if (continents) options += `&continents=${continents}`;
+  let optionsStr = `?maxPrice=${maxPrice}`;
+  if (hashtags) optionsStr += `&hashtags=${hashtags}`;
+  if (nations) optionsStr += `&nations=${nations}`;
+  if (continents) optionsStr += `&continents=${continents}`;
 
   const { data: hashtagData, isLoading: hashtagIsLoading } =
-    useHashtagSearchQuery(options, sort);
+    useHashtagSearchQuery(optionsStr, sort);
 
   return { hashtagData, hashtagIsLoading };
 };
