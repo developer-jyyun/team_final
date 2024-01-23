@@ -1,12 +1,15 @@
 "use client";
 
-import getNaverAuth from "@/api/signin/getNaverAuth";
+// import getNaverAuth from "@/api/signin/getNaverAuth";
 
 const NaverLoginButton = () => {
   const handleNaverAuth = async () => {
-    const res = await getNaverAuth();
-
-    console.log(res);
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/naver`,
+      {
+        mode: "no-cors",
+      },
+    );
   };
 
   return (
