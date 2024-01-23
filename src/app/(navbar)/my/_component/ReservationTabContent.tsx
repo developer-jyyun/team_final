@@ -26,7 +26,7 @@ const ReservationTabContent = () => {
   if (isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
 
-  if (orderData.pages.every((page) => page.data.data.length === 0)) {
+  if (orderData?.pages.every((page) => page.data.data.length === 0)) {
     console.log("예약내역 확인", orderData);
     return <NoItem text="예약내역이 존재하지 않습니다." />;
   }
