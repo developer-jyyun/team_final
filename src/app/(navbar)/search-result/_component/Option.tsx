@@ -9,7 +9,7 @@ interface Props {
 const Option = ({ value, disabled, handleDelete }: Props) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/search-result${handleDelete(value)}`);
+    router.replace(`/search-result${handleDelete(value)}`);
   };
   return (
     <div className="flex items-center px-2 py-1 bg-pink-3 rounded-[12px]">
