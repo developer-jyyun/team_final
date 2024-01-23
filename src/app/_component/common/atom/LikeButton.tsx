@@ -1,36 +1,80 @@
 "use client";
 
-import React, { useState } from "react";
+import useDeleteWishMutation from "@/hooks/query/useDeleteWishMutation";
+import useIsWishMutation from "@/hooks/query/useIsWishMutation";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import Dialog from "../layout/Dialog";
 
 interface Props {
   id: number;
   isWish: boolean;
+  styleClass?: string;
+  signinRedirect?: string;
 }
 
-const LikeButton = ({ id, isWish }: Props) => {
+const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const { mutateAsync: postWish } = useIsWishMutation({ packageId: id });
+  const { mutateAsync: deleteWish } = useDeleteWishMutation({ packageId: id });
+
   const [isLike, setIsLike] = useState(isWish);
 
+  const [isLogin, setIsLogin] = useState(false);
+
   const handleClick = () => {
-    setIsLike((prev) => !prev);
-    console.log(id); // api 연결 전 'id' is defined but never used 에러 해결을 위해 임시추가한 부분입니당
+    if (isLike) {
+      deleteWish().then((res) => {
+        if (res.code === 200) {
+          setIsLike(false);
+        } else if (res.code === 401) {
+          setIsLogin(true);
+        }
+      });
+    } else if (!isLike) {
+      postWish().then((res) => {
+        if (res.code === 200) {
+          setIsLike(true);
+        } else if (res.code === 401) {
+          setIsLogin(true);
+        }
+      });
+    }
   };
 
   return (
-    <button
-      type="button"
-      className="w-6 m-3 rounded-full absolute top-0 right-0"
-      onClick={handleClick}
-    >
-      <img
-        className="w-full"
-        src={
-          isLike
-            ? "/icons/likeActiveButtonIcon.svg"
-            : "/icons/likeButtonIcon.svg"
-        }
-        alt="찜 버튼"
+    <div>
+      <Dialog
+        isOpen={isLogin}
+        type="confirm"
+        theme="login"
+        onClose={() => {
+          setIsLogin(false);
+        }}
+        onConfirm={() => {
+          router.push(`/signin?redirect=${signinRedirect || pathname}`);
+        }}
       />
-    </button>
+      <button
+        type="button"
+        className={`${
+          styleClass || "w-6 m-3 rounded-full absolute top-0 right-0"
+        }`}
+        onClick={handleClick}
+      >
+        <img
+          className="w-full"
+          src={
+            isLike
+              ? "/icons/likeActiveButtonIcon.svg"
+              : "/icons/likeButtonIcon.svg"
+          }
+          alt="찜 버튼"
+        />
+      </button>
+    </div>
   );
 };
 
