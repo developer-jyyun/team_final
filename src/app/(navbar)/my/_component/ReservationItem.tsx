@@ -7,8 +7,9 @@ interface Props {
   theme: string;
   hashTag?: boolean;
   orderData?: MyOrderPackage;
+  orderId?: number;
 }
-const ReservationItem = ({ orderData, theme, hashTag }: Props) => {
+const ReservationItem = ({ orderData, theme, hashTag, orderId }: Props) => {
   return (
     orderData && (
       <li className="mb-6 w-full h-[90px] relative  flex flex-row justify-between gap-[18px]">
@@ -47,12 +48,11 @@ const ReservationItem = ({ orderData, theme, hashTag }: Props) => {
             </div>
           )}
           {theme === "reservationTab" && orderData.reviewed === false && (
-            <Link href="/my/review">
+            <Link href={`/my/review/${orderId}`}>
               <Button
                 text="리뷰 쓰러 가기"
                 styleClass="w-full rounded-xl text-xs font-semibold
           p-1 bg-pink text-white"
-                // TODO:: 목록 이동
               />
             </Link>
           )}
