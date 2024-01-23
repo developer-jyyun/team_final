@@ -7,7 +7,7 @@ import Link from "next/link";
 const KakaoLoginButton = () => {
   const handleKakaoAuth = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/naver`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`,
       {
         mode: "no-cors",
       },
