@@ -19,11 +19,6 @@ const useOptions = () => {
     continents: [...continents],
   };
 
-  // let optionsStr = `?maxPrice=${maxPrice}`;
-  // if (hashtags) optionsStr += `&hashtags=${hashtags}`;
-  // if (nations) optionsStr += `&nations=${nations}`;
-  // if (continents) optionsStr += `&continents=${continents}`;
-
   const customOptionsArr = Object.entries(initialOptionsObj)
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) => {
@@ -33,11 +28,30 @@ const useOptions = () => {
       return [key, value];
     });
 
-  // const updateOptions = (selected: string) => {
-  //   setOptionsArr(initialOptionsArr.filter((item) => item !== selected));
-  // };
+  const updateOptions = (selected: string) => {
+    const newCustomOptionsArr = customOptionsArr
+      .map(([key, values]) => [
+        key,
+        Array.isArray(values) && values.filter((value) => value !== selected),
+      ])
+      .filter(([, value]) => value && value.length > 0)
+      .map(([key, value]) => {
+        if (key === "maxPrice") {
+          return [key, [value.toString().replaceAll(/[^0-9]/g, "")]];
+        }
+        return [key, value];
+      });
 
-  return { customOptionsArr };
+    let newParams = "?";
+    newCustomOptionsArr.forEach(([key, values], idx) => {
+      newParams += `${key}=${Array.isArray(values) && values?.join()}${
+        idx === newCustomOptionsArr.length - 1 ? "" : "&"
+      }`;
+    });
+    return newParams;
+  };
+
+  return { customOptionsArr, updateOptions };
 };
 
 export default useOptions;

@@ -2,8 +2,7 @@ import useOptions from "../_hooks/useOptions";
 import Option from "./Option";
 
 const Options = () => {
-  const { customOptionsArr } = useOptions();
-  console.log(customOptionsArr);
+  const { customOptionsArr, updateOptions } = useOptions();
 
   return (
     <div className="flex flex-wrap gap-2 my-5">
@@ -12,6 +11,8 @@ const Options = () => {
           Array.isArray(values) &&
           values?.map((value: string) => (
             <Option
+              key={value}
+              handleDelete={updateOptions}
               value={value}
               disabled={tagName === "maxPrice" || tagName === "keyword"}
             />

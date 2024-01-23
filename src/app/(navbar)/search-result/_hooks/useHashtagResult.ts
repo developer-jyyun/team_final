@@ -3,6 +3,7 @@
 import { SortItem } from "@/app/types";
 import useHashtagSearchQuery from "@/hooks/query/useHashtagSearchQuery";
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const useHashtagResult = () => {
   const params = useSearchParams();
@@ -18,8 +19,15 @@ const useHashtagResult = () => {
   if (nations) optionsStr += `&nations=${nations}`;
   if (continents) optionsStr += `&continents=${continents}`;
 
-  const { data: hashtagData, isLoading: hashtagIsLoading } =
-    useHashtagSearchQuery(optionsStr, sort);
+  const {
+    data: hashtagData,
+    isLoading: hashtagIsLoading,
+    refetch,
+  } = useHashtagSearchQuery(optionsStr, sort);
+
+  useEffect(() => {
+    refetch();
+  }, [params, refetch]);
 
   return { hashtagData, hashtagIsLoading };
 };
