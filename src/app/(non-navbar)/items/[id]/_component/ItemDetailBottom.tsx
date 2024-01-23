@@ -105,7 +105,7 @@ const ItemDetailBottom = ({
 
   return (
     <div
-      className={`fixed bottom-0 z-50 ${getAnimation()} w-full web:w-[500px]`}
+      className={`fixed bottom-0 z-[100] ${getAnimation()} w-full web:w-[500px]`}
     >
       {reservation && portalElement
         ? createPortal(

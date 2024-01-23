@@ -165,15 +165,17 @@ const DetailMain = () => {
           transporation={packageDetail.data.transportation}
         />
         <ChangeDateButton packageDetail={packageDetail.data} />
-        <TabsContainer
-          tabs={tabsData}
-          tabButtonStyle={{
-            defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
-            selectedClass: "py-1 text-black  border-b-2 border-pink",
-          }}
-          sticky
-          scroll
-        />
+        <div>
+          <TabsContainer
+            tabs={tabsData}
+            tabButtonStyle={{
+              defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
+              selectedClass: "py-1 text-black  border-b-2 border-pink",
+            }}
+            sticky
+            scroll
+          />
+        </div>
       </div>
       <ItemDetailBottom
         viewMore={viewMore}
