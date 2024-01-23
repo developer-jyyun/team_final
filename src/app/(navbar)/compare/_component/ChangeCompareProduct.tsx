@@ -362,7 +362,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
             <ul
               className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
-                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+                          before:left-[6.6px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
             >
               {scheduleItems1.map((item) => (
                 <Schedule
@@ -374,8 +374,11 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
               ))}
             </ul>
           </div>
-          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#AAE3A8] before:absolute 
+                          before:right-[142.5px] web:before:right-[142.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems2.map((item) => (
                 <Schedule
                   key={item.id}
@@ -392,7 +395,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
             <ul
               className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
-                          before:left-[7px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
+                          before:left-[6.6px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
             >
               {scheduleItems1.map((item) => (
                 <Schedule
@@ -404,8 +407,11 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
               ))}
             </ul>
           </div>
-          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg">
-            <ul>
+          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg relative">
+            <ul
+              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#AAE3A8] before:absolute 
+                          before:right-[142.5px] web:before:right-[142.7px] before:top-1/2 before:-translate-y-1/2"
+            >
               {scheduleItems2.map((item) => (
                 <Schedule
                   key={item.id}
@@ -419,6 +425,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         </div>
         <DetailMoreButton setViewMore={setViewMore} />
       </div>
+
       <div>
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
