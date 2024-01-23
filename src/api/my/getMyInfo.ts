@@ -6,6 +6,8 @@ const getMyInfo = async () => {
         credentials: "include",
       },
     );
+
+    if (result.status === 401) return { code: 401 };
     const res = await result.json();
     return res.data;
   } catch (error) {

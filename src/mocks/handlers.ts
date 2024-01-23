@@ -993,6 +993,40 @@ const handlers = [
     return HttpResponse.json(myInfo);
   }),
 
+  // 내 정보 수정
+  http.patch("/v1/my/info", async (info) => {
+    const accessToken = info.request.headers.get("Cookie")?.split("=")[1];
+    if (!accessToken) {
+      return new Response(JSON.stringify({ code: 401, message: "인증 실패" }), {
+        status: 401,
+      });
+    }
+
+    const requestBody = await info.request.json();
+    return new Response(JSON.stringify({ code: 200, data: requestBody }), {
+      status: 200,
+    });
+  }),
+
+  // 비밀번호 수정
+  http.put("/v1/my/password", async (info) => {
+    const accessToken = info.request.headers.get("Cookie")?.split("=")[1];
+    if (!accessToken) {
+      return new Response(
+        JSON.stringify({ code: 401, message: "Authentication failed" }),
+        {
+          status: 401,
+        },
+      );
+    }
+    // const { password } = await info.request.json();
+    // console.log(password);
+
+    return new Response(JSON.stringify({ code: 200 }), {
+      status: 200,
+    });
+  }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     const upComingPackage = {
@@ -1038,6 +1072,7 @@ const handlers = [
       {
         orderCode: "2023122910351",
         availableDateId: 0,
+        orderId: 0,
         package: {
           packageId: 0,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -1051,10 +1086,11 @@ const handlers = [
           reviewed: false, // 리뷰 작성 여부
         },
       },
-
       {
         orderCode: "2023123010351",
         availableDateId: 0,
+        orderId: 1,
+
         package: {
           packageId: 1,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -1071,6 +1107,7 @@ const handlers = [
       {
         orderCode: "2024122910352",
         availableDateId: 0,
+        orderId: 2,
         package: {
           packageId: 2,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -1086,6 +1123,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910353",
+        orderId: 3,
         availableDateId: 0,
         package: {
           packageId: 3,
@@ -1102,6 +1140,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910354",
+        orderId: 4,
         availableDateId: 0,
         package: {
           packageId: 4,
@@ -1118,6 +1157,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910355",
+        orderId: 5,
         availableDateId: 0,
         package: {
           packageId: 5,
@@ -1134,6 +1174,8 @@ const handlers = [
       },
       {
         orderCode: "2023122910356",
+        orderId: 6,
+
         availableDateId: 0,
         package: {
           packageId: 6,
@@ -1151,6 +1193,8 @@ const handlers = [
       {
         orderCode: "2023122910357",
         availableDateId: 0,
+        orderId: 7,
+
         package: {
           packageId: 7,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -1167,6 +1211,8 @@ const handlers = [
       {
         orderCode: "2023122910358",
         availableDateId: 0,
+        orderId: 8,
+
         package: {
           packageId: 8,
           imageUrl: "//source.unsplash.com/90x90?japan",
@@ -1182,6 +1228,7 @@ const handlers = [
       },
       {
         orderCode: "2023122910359",
+        orderId: 9,
         availableDateId: 0,
         package: {
           packageId: 9,
@@ -1197,6 +1244,7 @@ const handlers = [
         },
       },
       {
+        orderId: 10,
         orderCode: "2023122910310",
         availableDateId: 0,
         package: {
@@ -1213,6 +1261,7 @@ const handlers = [
         },
       },
       {
+        orderId: 11,
         orderCode: "2023122910311",
         availableDateId: 0,
         package: {
@@ -1229,6 +1278,7 @@ const handlers = [
         },
       },
       {
+        orderId: 12,
         orderCode: "2023122910312",
         availableDateId: 0,
         package: {
