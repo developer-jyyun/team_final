@@ -8,7 +8,6 @@ const getKakaoAuth = async () => {
     );
 
     const data = await result.json();
-
     return data;
   } catch (error) {
     console.error(error);
