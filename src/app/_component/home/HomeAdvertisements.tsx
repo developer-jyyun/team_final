@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import getAdvertisements from "@/api/home/getAdvertisements";
+import { AdvertisementItem } from "@/app/types";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -13,14 +14,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 interface Props {
-  adId: number;
-  imageUrl: string;
+  isDetail?: boolean;
 }
 
-const HomeAdvertisements = () => {
+const HomeAdvertisements = ({ isDetail }: Props) => {
   const router = useRouter();
   // 광고구좌 목록 조회 API를 통해 받아온 응답 데이터 관리하기 위한 state 선언
-  const [adsData, setAdsData] = useState<Props[]>([]);
+  const [adsData, setAdsData] = useState<AdvertisementItem[]>([]);
 
   // 광고구좌 데이터 fetch
   useEffect(() => {
@@ -54,7 +54,13 @@ const HomeAdvertisements = () => {
   };
 
   return (
-    <div className="w-[100%] h-[240px] px-6 mb-10 relative">
+    <div
+      className={
+        isDetail
+          ? "w-[100%] h-[240px] mb-10 relative"
+          : "w-[100%] h-[240px] px-6 mb-10 relative"
+      }
+    >
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -75,21 +81,21 @@ const HomeAdvertisements = () => {
       >
         {adsData?.map((ads) => (
           <SwiperSlide key={`ad-${ads.adId}`}>
-            <div className="w-[327px] web:w-full h-[240px] relative">
+            <div className="w-full web:w-full h-[240px] relative">
               <Image
                 src={ads.imageUrl}
                 alt="테스트이미지"
                 fill
-                className="rounded-lg"
+                className={!isDetail ? "rounded-lg" : ""}
                 onClick={() => {
-                  router.push("/"); // 추후 200_광고및프로모션구좌 페이지 URL 결정시 수정 예정
+                  router.push(`/advertisement/${ads.adId}`);
                 }}
               />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="mr-3">
+      <div className="[&>*]:mr-3">
         <SwiperBadge slideIndex={slideIndex} slideLength={3} />
       </div>
     </div>

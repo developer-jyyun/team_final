@@ -1,7 +1,9 @@
 "use client";
 
 import CenterContainer from "@/app/_component/common/atom/CenterContainer";
+import LikeButton from "@/app/_component/common/atom/LikeButton";
 import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
+import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
 import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
@@ -39,10 +41,11 @@ const DetailMain = () => {
     }
   };
 
-  const { data: packageDetail } = usePackageDetailQuery(
-    params.id,
-    searchParams.get("departDate"),
-  );
+  const { data: packageDetail } = usePackageDetailQuery({
+    id: params.id,
+    date: searchParams.get("departDate"),
+    start: true,
+  });
   const [viewMore, setViewMore] = useState(false);
   const [viewScroll, setViewScroll] = useState(false);
 
@@ -100,9 +103,10 @@ const DetailMain = () => {
   return (
     <div
       className={`${!viewMore && "overflow-hidden"} ${
-        viewMore ? "pb-[80px]" : "h-[700px] web:h-[630px]"
+        viewMore ? "pb-[80px]" : "h-screen"
       } relative`}
     >
+      <DefaultHeader theme="main" back />
       <Dialog
         isOpen={isLogin}
         type="confirm"
@@ -116,11 +120,19 @@ const DetailMain = () => {
       />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
-        <BadgeList>
-          {packageDetail.data.hashtags.map((hashtag: string) => {
-            return <PackageTagBadge key={hashtag} text={hashtag} />;
-          })}
-        </BadgeList>
+        <div className="flex justify-between items-center">
+          <BadgeList>
+            {packageDetail.data.hashtags.map((hashtag: string) => {
+              return <PackageTagBadge key={hashtag} text={hashtag} />;
+            })}
+          </BadgeList>
+          <LikeButton
+            id={packageDetail.data.packageId}
+            isWish={packageDetail.data.isWish}
+            styleClass="mr-0"
+            signinRedirect={getUrl()}
+          />
+        </div>
         <DetailTypography bold={700} size={20}>
           {packageDetail.data.title}
         </DetailTypography>

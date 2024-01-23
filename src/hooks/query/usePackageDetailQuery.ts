@@ -1,13 +1,19 @@
 import getPackageDetail from "@/api/items/getPackageDetail";
 import { useQuery } from "@tanstack/react-query";
 
-const usePackageDetailQuery = (id: string | string[], date: string | null) => {
+interface Props {
+  id: string | string[];
+  date: string | null;
+  start: boolean;
+}
+
+const usePackageDetailQuery = ({ id, date, start }: Props) => {
   return useQuery({
     queryKey: ["package-detail", "detail"],
     queryFn: async () => {
       return getPackageDetail(Number(id), date);
     },
-    enabled: false,
+    enabled: start,
   });
 };
 

@@ -7,13 +7,18 @@ interface Date {
 }
 
 export interface Payment {
+  availableDateId: number | null;
+  packageId: number | null;
   title: string | null;
   tripDay: string | null;
   departureDate: Date | null;
   endDate: Date | null;
   adult: number;
+  adultPrice: number;
   infant: number;
+  infantPrice: number;
   baby: number;
+  babyPrice: number;
   totalPrice: number | null;
 }
 
@@ -33,26 +38,36 @@ const usePaymentStore = create<Props>()(
   persist(
     (set) => ({
       paymentData: {
+        availableDateId: null,
+        packageId: null,
         title: null,
         tripDay: null,
         departureDate: null,
         endDate: null,
         adult: 1,
+        adultPrice: 1,
         infant: 0,
+        infantPrice: 0,
         baby: 0,
+        babyPrice: 0,
         totalPrice: 0,
       },
       setPaymentData: (data) => set({ paymentData: { ...data } }),
       resetPaymentData: () =>
         set({
           paymentData: {
+            availableDateId: null,
+            packageId: null,
             title: null,
             tripDay: null,
             departureDate: null,
             endDate: null,
             adult: 1,
+            adultPrice: 1,
             infant: 0,
+            infantPrice: 0,
             baby: 0,
+            babyPrice: 0,
             totalPrice: 0,
           },
         }),
@@ -102,6 +117,7 @@ const usePaymentStore = create<Props>()(
     {
       name: "pp-s",
       storage: createJSONStorage(() => sessionStorage),
+      skipHydration: true,
     },
   ),
 );

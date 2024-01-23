@@ -4,6 +4,11 @@ export interface FetchResponse<T> {
   data?: T;
 }
 
+export interface PackagesWithPage<T> {
+  packages: T;
+  page: Page;
+}
+
 // search 페이지 관련 데이터
 export interface HashtagNames {
   hashtags: string[];
@@ -18,6 +23,8 @@ export interface DestinationItem {
   name: string;
   imageUrl: string;
 }
+
+export type SortItem = "departure_date" | "price_desc" | "price_asc";
 
 // schdule
 
@@ -209,4 +216,9 @@ export interface PollsFalse {
   pollId: number;
   A: string[];
   B: string[];
+}
+
+export interface AdvertisementItem {
+  adId: number;
+  imageUrl: string;
 }
