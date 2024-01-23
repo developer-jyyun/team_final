@@ -41,10 +41,11 @@ const DetailMain = () => {
     }
   };
 
-  const { data: packageDetail } = usePackageDetailQuery(
-    params.id,
-    searchParams.get("departDate"),
-  );
+  const { data: packageDetail } = usePackageDetailQuery({
+    id: params.id,
+    date: searchParams.get("departDate"),
+    start: true,
+  });
   const [viewMore, setViewMore] = useState(false);
   const [viewScroll, setViewScroll] = useState(false);
 
