@@ -4,6 +4,7 @@ import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
 import { MyOrder } from "@/app/types";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useSortedOrderList from "@/hooks/useSortedOrderList";
+import canWriteReview from "@/utils/canWriteReview";
 import InnerSection from "../../_component/InnerSection";
 import ReservationItem from "../../_component/ReservationItem";
 import NoItem from "../../_component/NoItem";
@@ -68,15 +69,12 @@ const ReservationPage = () => {
         <ul>
           {sortedOrders.map((order: MyOrder) => (
             <ReservationItem
-              // TODO:api에 orderId 추가된 이후 변경
-              // key={order.orderId}
-              key={order.orderCode}
+              key={order.orderId}
               orderData={order.package}
-              orderId={order.orderCode}
-              // TODO:api에 orderId 추가된 이후 변경
-              // orderId={order.orderId}
+              orderId={order.orderId}
               theme="reservationMenu"
               hashTag
+              canWriteReview={canWriteReview(order.package.travelPeriod)}
             />
           ))}
           <li ref={lastElementRef} className="w-full h-20 list-none">

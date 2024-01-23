@@ -40,16 +40,13 @@ const ReservationTabContent = () => {
             key={pageIndex}
             className="flex flex-col gap-2 justify-start items-center w-[95.111%] mx-auto"
           >
-            {/* {page.data.data.map((order: MyOrder) => ( */}
             {sortedOrders.map((order: MyOrder) => (
               <ReservationItem
-                key={order.orderCode}
+                key={order.orderId}
                 theme="reservationTab"
                 hashTag
                 orderData={order.package}
-                orderId={order.orderCode}
-                // TODO:api에 orderId 추가된 이후 변경
-                // orderId={order.orderId}
+                orderId={order.orderId}
                 canWriteReview={canWriteReview(order.package.travelPeriod)}
               />
             ))}
