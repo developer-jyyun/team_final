@@ -1,4 +1,6 @@
-const patchMyInfo = async (myInfo) => {
+import { MyInfoData } from "@/app/types";
+
+const patchMyInfo = async (myInfo: MyInfoData) => {
   try {
     const result = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/v1/my/info`,
