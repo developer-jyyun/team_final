@@ -1,8 +1,11 @@
-const getPolls = async () => {
+const getPolls = async (cookie?: string) => {
   try {
     const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/v1/polls`, {
       cache: "no-store",
       credentials: "include",
+      headers: {
+        Cookie: cookie as string,
+      },
     });
 
     if (result.status === 401) return { code: 401 };

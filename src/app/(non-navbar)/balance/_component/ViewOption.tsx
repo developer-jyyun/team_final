@@ -1,30 +1,44 @@
 "use client";
 
 import Dialog from "@/app/_component/common/layout/Dialog";
-import useGetPollsQuery from "@/hooks/query/useGetPollsQuery";
-// import useGetPollsResult from "@/hooks/query/useGetPollsResult";
+import useGetPollsMainQuery from "@/hooks/query/useGetPollsMainQuery";
+import useGetPollsResult from "@/hooks/query/useGetPollsResult";
+import usePollsQuery from "@/hooks/query/usePollsQuery";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DetailTypography from "../../items/[id]/_component/DetailTypography";
-// import SelectA from "./SelectA";
-// import SelectB from "./SelectB";
-// import ViewResult from "./ViewResult";
+import SelectA from "./SelectA";
+import SelectB from "./SelectB";
+import ViewResult from "./ViewResult";
 
 const ViewOption = () => {
   const router = useRouter();
-  const { data: polls } = useGetPollsQuery();
-  // const { data: pollsRessult } = useGetPollsResult();
+  const { data: polls } = useGetPollsMainQuery();
+  const { data: pollsAuth, refetch: refetchPolls } = usePollsQuery();
+  const { data: pollsResult, refetch: refetchResult } = useGetPollsResult();
 
-  console.log(polls);
+  // console.log(polls);
+  // console.log(pollsAuth);
+  // console.log(pollsResult);
+
   const [isLogin, setIsLogin] = useState(false);
 
-  const [activeA] = useState(true);
-  const [activeB] = useState(true);
+  const [activeA, setActiveA] = useState(
+    pollsResult.code !== 200 ? true : pollsResult?.data.A.selected,
+  );
+  const [activeB, setActiveB] = useState(
+    pollsResult.code !== 200 ? true : pollsResult?.data.B.selected,
+  );
 
-  const [aHover] = useState(false);
-  const [bHover] = useState(false);
+  const [current, setCurrent] = useState(
+    pollsResult.data?.A.selected ? "A" : "B",
+  );
 
-  // const [isSelected, setIsSelected] = useState(false);
+  useEffect(() => {
+    setActiveA(pollsResult.code !== 200 ? true : pollsResult?.data.A.selected);
+    setActiveB(pollsResult.code !== 200 ? true : pollsResult?.data.B.selected);
+    setCurrent(pollsResult.data?.A.selected ? "A" : "B");
+  }, [pollsResult.code]);
 
   const getVSStyle = () => {
     if (activeA && !activeB) return "icons/vsvIcon.svg";
@@ -33,12 +47,8 @@ const ViewOption = () => {
     return "icons/vsIcon.svg";
   };
 
-  if (polls.code === 401) {
-    return <div>asd</div>;
-  }
-
   return (
-    <div className="flex flex-col justify-center px-6 web:px-[52px]">
+    <div className="flex flex-col justify-start h-[calc(100%-80px)] px-6 web:px-[52px]">
       <div className="mt-12 web:mt-8">
         <DetailTypography color={6} size={14} bold={600} align="center">
           여러분들의
@@ -51,34 +61,35 @@ const ViewOption = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
           <img src={getVSStyle()} alt="대결" />
         </div>
-        <div
-          className={`${aHover ? "z-10" : ""}`}
-          // onFocus={() => {
-          //   setAHover(true);
-          //   setBHover(false);
-          // }}
-        >
-          {/* <SelectA
+        <div className={`${activeA ? "z-10" : ""}`}>
+          <SelectA
             active={activeA}
             title={polls.data.A}
+            submitted={pollsAuth}
             setIsLogin={setIsLogin}
-          /> */}
+            setActiveA={setActiveA}
+            setActiveB={setActiveB}
+            setCurrent={setCurrent}
+            refetchResult={refetchResult}
+            refetchPolls={refetchPolls}
+            voted={activeA && activeB}
+          />
         </div>
-        <div
-          className={`${bHover ? "z-10" : ""}`}
-          // onFocus={() => {
-          //   setBHover(true);
-          //   setAHover(false);
-          // }}
-        >
-          {/* <SelectB
+        <div className={`${activeB ? "z-10" : ""}`}>
+          <SelectB
             active={activeB}
             title={polls.data.B}
+            submitted={pollsAuth}
             setIsLogin={setIsLogin}
-          /> */}
+            setActiveA={setActiveA}
+            setActiveB={setActiveB}
+            setCurrent={setCurrent}
+            refetchResult={refetchResult}
+            refetchPolls={refetchPolls}
+            voted={activeA && activeB}
+          />
         </div>
       </div>
-      {/* {pollsRessult.code === 200 && <ViewResult />} */}
       <Dialog
         isOpen={isLogin}
         type="confirm"
@@ -87,11 +98,13 @@ const ViewOption = () => {
           setIsLogin(false);
         }}
         onConfirm={() => {
-          router.push("/signin");
+          router.push("/signin?redirect=/balance");
         }}
       />
 
-      {/* <ViewResult /> */}
+      {pollsResult.code === 200 && (
+        <ViewResult result={pollsResult?.data} current={current} />
+      )}
     </div>
   );
 };
