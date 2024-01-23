@@ -2,9 +2,6 @@ const getKakaoAuth = async () => {
   try {
     const result = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`,
-      {
-        credentials: "include",
-      },
     );
 
     const data = await result.json();
