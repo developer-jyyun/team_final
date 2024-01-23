@@ -1,11 +1,9 @@
-"use client";
-
 import Link from "next/link";
 
 const KakaoLoginButton = () => {
   return (
     <Link
-      href={`https://api.winnerone.site/oauth2/authorization/kakao`}
+      href={`${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/kakao`}
       className="w-[327px] h-14 rounded-lg bg-yellow flex justify-center items-center text-brown web:w-[435px] web:text-lg"
     >
       <div className="flex items-center justify-center w-14 h-14 mr-4">
