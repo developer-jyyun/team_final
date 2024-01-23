@@ -6,6 +6,11 @@ export const COUNT_DIGIT = 2;
 // search page
 export const MAX_NUM_OF_COL = 5;
 export const CATEGORY_COLORS = ["#FFF6DB", "#E6EEFA", "#FFEFEF", "#FAFAFA"];
+export const SORT_OPTIONS = {
+  departure_date: "출발일순",
+  price_desc: "높은가격순",
+  price_asc: "낮은가격순",
+};
 
 // my page
 export const TAB_PAGE_SIZE = 3;
