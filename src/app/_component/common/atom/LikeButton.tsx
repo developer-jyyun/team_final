@@ -23,6 +23,7 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
   const [isLike, setIsLike] = useState(isWish);
 
   const [isLogin, setIsLogin] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const handleClick = () => {
     if (isLike) {
@@ -31,6 +32,8 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
           setIsLike(false);
         } else if (res.code === 401) {
           setIsLogin(true);
+        } else {
+          setAlert(true);
         }
       });
     } else if (!isLike) {
@@ -39,6 +42,8 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
           setIsLike(true);
         } else if (res.code === 401) {
           setIsLogin(true);
+        } else {
+          setAlert(true);
         }
       });
     }
@@ -55,6 +60,15 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
         }}
         onConfirm={() => {
           router.push(`/signin?redirect=${signinRedirect || pathname}`);
+        }}
+      />
+      <Dialog
+        isOpen={alert}
+        type="alert"
+        message="존재하지 않는 패키지입니다."
+        onClose={() => {
+          setAlert(false);
+          router.push(`/`);
         }}
       />
       <button
