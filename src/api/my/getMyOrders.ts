@@ -1,7 +1,7 @@
-const getMyOrders = async (page: number, pageSize: number) => {
+const getMyOrders = async (pageParam: number, pageSize: number) => {
   try {
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/orders?page=${page}&pageSize=${pageSize}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/orders?page=${pageParam}&pageSize=${pageSize}`,
       {
         credentials: "include",
       },
