@@ -119,7 +119,7 @@ const ScheduleDetail = ({ departureDatetime, endDatetime }: Props) => {
             </div>
             <div className="relative">
               <ul
-                className="before:contant-[''] before:h-[calc(100%-21px)] web:before:h-[calc(100%-15px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
+                className="before:content-[''] before:h-[calc(100%-16px)] web:before:h-[calc(100%-15px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
                           before:left-[15.4px] web:before:left-[19.5px] before:top-1/2 before:-translate-y-1/2"
               >
                 {schedule.schedule.map((detail) => {
