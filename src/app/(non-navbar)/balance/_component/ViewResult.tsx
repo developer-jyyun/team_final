@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import DetailTypography from "../../items/[id]/_component/DetailTypography";
 
 interface SubmittedData {
@@ -29,10 +28,6 @@ interface Props {
 }
 
 const ViewResult = ({ result, current }: Props) => {
-  useEffect(() => {
-    // console.log(result);
-  }, [current]);
-
   const getSize = (numbe: number) => {
     return (numbe / result.totalCount) * 100;
   };

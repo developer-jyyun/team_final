@@ -17,10 +17,7 @@ const postSignup = async (body: {
       },
     );
 
-    // console.log(result.);
-
     const data = await result.json();
-    console.log(data);
 
     return data;
   } catch (error) {

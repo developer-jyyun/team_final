@@ -17,10 +17,6 @@ const ViewOption = () => {
   const { data: pollsAuth, refetch: refetchPolls } = usePollsQuery();
   const { data: pollsResult, refetch: refetchResult } = useGetPollsResult();
 
-  // console.log(polls);
-  // console.log(pollsAuth);
-  // console.log(pollsResult);
-
   const [isLogin, setIsLogin] = useState(false);
 
   const [activeA, setActiveA] = useState(
