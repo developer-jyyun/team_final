@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { TITLE_CLASS } from "@/app/constants";
 import useMyInfoQuery from "@/hooks/query/useMyInfoQuery";
@@ -11,18 +12,26 @@ import useUpdateMyInfoMutation from "@/hooks/query/useUpdateMyInfoMutation";
 import UserInfo from "@/app/(navbar)/my/_component/UserInfo";
 import InnerSection from "@/app/(navbar)/my/_component/InnerSection";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
+import Dialog from "@/app/_component/common/layout/Dialog";
 import InputWithButton from "./_components.tsx/InputWithButton";
+import AddressSearch from "./_components.tsx/AddressSearch";
 
 const UpdateMyInfoPage = () => {
+  const router = useRouter();
+
   const { data, isLoading, isError, error } = useMyInfoQuery();
   const updateMyInfoMutation = useUpdateMyInfoMutation();
   const updateMyPasswordMutation = useUpdateMyPasswordMutation();
   const [isValueChanged, setIsValueChanged] = useState({
     password: false,
     phone: false,
-    // TODO: 주소 추가해야 함
+    addr1: false,
+    addr2: false,
+    postCode: false,
   });
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   // 데이터 로딩 전 빈 객체로 초기화
   const initialMyInfo = {
@@ -90,8 +99,20 @@ const UpdateMyInfoPage = () => {
       setMyInfo({ ...myInfo, [field]: originalData[field] });
       setIsValueChanged({ ...isValueChanged, [field]: false });
     } else {
-      setMyInfo({ ...myInfo, [field]: "" });
+      if (field === "password") {
+        setMyInfo({ ...myInfo, password: "**********" });
+      } else {
+        setMyInfo({ ...myInfo, [field]: "" });
+      }
       setIsValueChanged({ ...isValueChanged, [field]: false });
+    }
+  };
+  const handlePasswordBlur = () => {
+    if (!isPasswordChanged) {
+      setMyInfo((prevMyInfo) => ({
+        ...prevMyInfo,
+        password: "**********",
+      }));
     }
   };
 
@@ -106,9 +127,20 @@ const UpdateMyInfoPage = () => {
         password: undefined,
       });
       console.log("회원 정보 수정완료", myInfo);
+      setShowSuccessDialog(true);
+      router.push("/my");
     } catch (err) {
       console.error("API 호출 오류:", err);
+      setShowErrorDialog(true);
     }
+  };
+
+  const handleAddressSelected = (postData: daum.PostcodeData) => {
+    setMyInfo((prevMyInfo) => ({
+      ...prevMyInfo,
+      postCode: postData.zonecode, // 우편번호
+      addr1: postData.roadAddress, // 도로명 주소
+    }));
   };
 
   console.log("초기 데이터:", initialMyInfo);
@@ -132,9 +164,11 @@ const UpdateMyInfoPage = () => {
         value={myInfo.password || ""}
         onChange={handleInputChange}
         onFocus={handleFocus}
+        onBlur={handlePasswordBlur}
         buttonText="취소"
         onButtonClick={() => handleCancel("password")}
         isValueChanged={isValueChanged.password}
+        placeholder="비밀번호"
       />
       <InputWithButton
         type="phone"
@@ -146,18 +180,39 @@ const UpdateMyInfoPage = () => {
         buttonText="취소"
         onButtonClick={() => handleCancel("phone")}
         isValueChanged={isValueChanged.phone}
+        placeholder="숫자만 입력해 주세요"
       />
 
       <h2 className={`${TITLE_CLASS} mt-10`}>선택정보</h2>
-      {/* 주소 */}
-
+      <AddressSearch
+        addr1={myInfo.addr1 || ""}
+        addr2={myInfo.addr2 || ""}
+        postCode={myInfo.postCode || ""}
+        onAddressSelected={handleAddressSelected}
+        onInputChange={handleInputChange}
+      />
       {/* 최하단 버튼 */}
       <Button
         text="회원정보 수정"
-        // theme="wide"
         onClickFn={handleUpdateAll}
         styleClass="bg-pink-main text-white font-semibold rounded-xl py-3 fixed bottom-0 left-1/2 -translate-x-1/2 z-100 w-[327px] web:max-w-[436px]"
       />
+      {showSuccessDialog && (
+        <Dialog
+          type="alert"
+          message="회원정보가 성공적으로 수정되었습니다!"
+          isOpen={showSuccessDialog}
+          onClose={() => setShowSuccessDialog(false)}
+        />
+      )}
+      {showErrorDialog && (
+        <Dialog
+          type="alert"
+          message="회원 정보 수정에 실패했습니다."
+          isOpen={showErrorDialog}
+          onClose={() => setShowErrorDialog(false)}
+        />
+      )}
     </InnerSection>
   );
 };

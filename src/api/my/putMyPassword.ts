@@ -12,7 +12,6 @@ const putMyPassword = async (password: string) => {
       },
     );
     const updatedData = await result.json();
-    // updatedData를 사용하여 UI 업데이트 또는 추가 로직 수행해야함
     console.log("updated password:", updatedData);
   } catch (error) {
     console.error(error);
