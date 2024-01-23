@@ -188,6 +188,14 @@ export interface NoticeData extends CommonListData {
 export interface FaqData extends CommonListData {
   faqId: number;
 }
+export interface MyInfoData {
+  phone?: string;
+  addr1?: string;
+  addr2?: string;
+  postCode?: string;
+  password?: string;
+  [key: string]: string | undefined;
+}
 
 // balance
 

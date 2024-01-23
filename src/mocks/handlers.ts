@@ -629,6 +629,40 @@ const handlers = [
     return HttpResponse.json(myInfo);
   }),
 
+  // 내 정보 수정
+  http.patch("/v1/my/info", async (info) => {
+    const accessToken = info.request.headers.get("Cookie")?.split("=")[1];
+    if (!accessToken) {
+      return new Response(JSON.stringify({ code: 401, message: "인증 실패" }), {
+        status: 401,
+      });
+    }
+
+    const requestBody = await info.request.json();
+    return new Response(JSON.stringify({ code: 200, data: requestBody }), {
+      status: 200,
+    });
+  }),
+
+  // 비밀번호 수정
+  http.put("/v1/my/password", async (info) => {
+    const accessToken = info.request.headers.get("Cookie")?.split("=")[1];
+    if (!accessToken) {
+      return new Response(
+        JSON.stringify({ code: 401, message: "Authentication failed" }),
+        {
+          status: 401,
+        },
+      );
+    }
+    // const { password } = await info.request.json();
+    // console.log(password);
+
+    return new Response(JSON.stringify({ code: 200 }), {
+      status: 200,
+    });
+  }),
+
   // 다가오는 패키지
   http.get("/v1/my/upcoming-package", async () => {
     const upComingPackage = {
