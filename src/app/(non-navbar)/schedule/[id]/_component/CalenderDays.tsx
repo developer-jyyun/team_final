@@ -33,8 +33,11 @@ const CalenderDays = ({
 
   const { data: schedule } = useScheduleListQuery(params.id);
   const { data: packageDetail, refetch: detailRefetch } = usePackageDetailQuery(
-    params.id,
-    scheduleDate.date,
+    {
+      id: params.id,
+      date: scheduleDate.date,
+      start: false,
+    },
   );
 
   if (schedule.code === 404 || packageDetail.code === 404) {

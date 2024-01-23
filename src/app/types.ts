@@ -163,6 +163,7 @@ export interface MyOrderPackage {
 }
 
 export interface MyOrder {
+  orderId: number;
   orderCode: string;
   availableDateId: number;
   package: MyOrderPackage;
@@ -193,6 +194,14 @@ export interface NoticeData extends CommonListData {
 
 export interface FaqData extends CommonListData {
   faqId: number;
+}
+export interface MyInfoData {
+  phone?: string;
+  addr1?: string;
+  addr2?: string;
+  postCode?: string;
+  password?: string;
+  [key: string]: string | undefined;
 }
 
 // balance

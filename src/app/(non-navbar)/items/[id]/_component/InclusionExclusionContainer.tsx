@@ -26,9 +26,9 @@ const InclusionExclusionContainer = ({
             </DetailTypography>
           </div>
 
-          {inclusionList.map((inclusion) => {
+          {inclusionList.map((inclusion, index) => {
             return (
-              <div key={inclusion.title} className="mb-2">
+              <div key={inclusion.title + index} className="mb-2">
                 <DetailTypography color={6} size={12}>
                   [{inclusion.title}]
                 </DetailTypography>
@@ -45,9 +45,9 @@ const InclusionExclusionContainer = ({
               불포함 사항
             </DetailTypography>
           </div>
-          {exclusionList.map((exclusion) => {
+          {exclusionList.map((exclusion, index) => {
             return (
-              <div key={exclusion.title} className="mb-2">
+              <div key={exclusion.title + index} className="mb-2">
                 <DetailTypography color={6} size={12}>
                   [{exclusion.title}]
                 </DetailTypography>
