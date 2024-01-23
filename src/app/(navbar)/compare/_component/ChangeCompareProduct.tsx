@@ -1,36 +1,164 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@/app/_component/common/atom/Button";
 import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
 import LeftProgressBar from "./LeftProgressBar";
 import RightProgressBar from "./RightProgressBar";
 import SectionMargin from "./SectionMargin";
-import ProductSummary from "./ProductSummary";
 import Schedule from "./Schedule";
 import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
+import LeftProductSummary from "./LeftProductSummary";
+import RightProductSummary from "./RightProductSummary";
 
 interface Props {
   onChange: () => void;
 }
 
+interface Package {
+  title: string;
+  imageUrl: string;
+  price: number;
+  hotelStars: number;
+  shoppingCount: number;
+  purchasedCount: number;
+  hashtags: string[];
+  lodgeDays: number;
+  tripDays: number;
+  averageStars: number;
+  reviewCount: number;
+  reservationCount: number;
+  minReservationCount: number;
+}
+
+interface ApiResponse {
+  code: number;
+  data: {
+    fixedPackage: Package;
+    comparePackage: Package;
+  };
+}
+
+const fetchPackageData = async (
+  fixedPackageId: number,
+  comparePackageId: number,
+): Promise<ApiResponse> => {
+  const endpoint = `https://api.winnerone.site/v1/packages/compare`;
+  const url = `${endpoint}?fixedPackageId=${fixedPackageId}&comparePackageId=${comparePackageId}`;
+
+  try {
+    const response = await fetch(url, {
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    const result: ApiResponse = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch package data:", error);
+    throw error;
+  }
+};
+
 const ChangeCompareProduct = ({ onChange }: Props) => {
   const [, setViewMore] = useState(false);
   const [leftRating] = useState(5);
-  const [rightRating] = useState(3);
+  const [rightRating, setRightRating] = useState<number>(3);
   const isLeftLower = leftRating < rightRating;
   const isRightLower = rightRating < leftRating;
-  const [priceLeft] = useState(940000);
-  const [priceRight] = useState(870000);
-  const [shoppingVisitsLeft] = useState(9);
-  const [shoppingVisitsRight] = useState(7);
+  const [priceLeft, setPriceLeft] = useState<number | null>(null);
+  const [priceRight, setPriceRight] = useState<number | null>(null);
+  const [packageData, setPackageData] = useState<ApiResponse | null>(null);
+  const [leftHotelStars, setLeftHotelStars] = useState<number | null>(null);
+  const [rightHotelStars, setRightHotelStars] = useState<number | null>(null);
+  const [leftShoppingCount, setLeftShoppingCount] = useState<number | null>(
+    null,
+  );
+  const [rightShoppingCount, setRightShoppingCount] = useState<number | null>(
+    null,
+  );
+  const [leftPurchasedCount, setLeftPurchasedCount] = useState<number | null>(
+    null,
+  );
+  const [rightPurchasedCount, setRightPurchasedCount] = useState<number | null>(
+    null,
+  );
+  const [leftImageUrl, setLeftImageUrl] = useState<string | null>(null);
+  const [rightImageUrl, setRightImageUrl] = useState<string | null>(null);
+  const [leftHashtags, setLeftHashtags] = useState<string[]>([]);
+  const [rightHashtags, setRightHashtags] = useState<string[]>([]);
+  const [leftLodgeDays, setLeftLodgeDays] = useState<number>(0);
+  const [leftTripDays, setLeftTripDays] = useState<number>(0);
+  const [rightLodgeDays, setRightLodgeDays] = useState<number>(0);
+  const [rightTripDays, setRightTripDays] = useState<number>(0);
+  const [leftAverageStars, setLeftAverageStars] = useState<number>(0.0);
+  const [leftReviewCount, setLeftReviewCount] = useState<number>(0);
+  const [rightAverageStars, setRightAverageStars] = useState<number>(0.0);
+  const [rightReviewCount, setRightReviewCount] = useState<number>(0);
+  const [leftReservationCount, setLeftReservationCount] = useState<number>(0);
+  const [leftMinReservationCount, setLeftMinReservationCount] =
+    useState<number>(0);
+  const [rightReservationCount, setRightReservationCount] = useState<number>(0);
+  const [rightMinReservationCount, setRightMinReservationCount] =
+    useState<number>(0);
 
-  const isPriceLeftHigher = priceLeft < priceRight;
+  const isPriceLeftHigher =
+    priceLeft !== null && priceRight !== null && priceLeft < priceRight;
   const leftRate = isPriceLeftHigher ? 4 : 3;
   const rightRate = isPriceLeftHigher ? 3 : 4;
 
-  const isShoppingVisitsLeftHigher = shoppingVisitsLeft < shoppingVisitsRight;
+  const isShoppingVisitsLeftHigher =
+    leftShoppingCount !== null &&
+    rightShoppingCount !== null &&
+    leftShoppingCount > rightShoppingCount;
+
   const shoppingRatingLeft = isShoppingVisitsLeftHigher ? 4 : 3;
   const shoppingRatingRight = isShoppingVisitsLeftHigher ? 3 : 4;
+
+  const isHotelStars =
+    leftHotelStars !== null &&
+    rightHotelStars !== null &&
+    leftHotelStars === rightHotelStars;
+
+  useEffect(() => {
+    const fixedPackageId = 24042217462;
+    const comparePackageId = 24031110220;
+
+    fetchPackageData(fixedPackageId, comparePackageId)
+      .then((data) => {
+        setPackageData(data);
+        setPriceLeft(data.data.fixedPackage.price);
+        setPriceRight(data.data.comparePackage.price);
+        setLeftHotelStars(data.data.fixedPackage.hotelStars);
+        setRightHotelStars(data.data.comparePackage.hotelStars);
+        setLeftShoppingCount(data.data.fixedPackage.shoppingCount);
+        setRightShoppingCount(data.data.comparePackage.shoppingCount);
+        setRightRating(data.data.comparePackage.hotelStars);
+        setLeftPurchasedCount(data.data.fixedPackage.purchasedCount);
+        setRightPurchasedCount(data.data.comparePackage.purchasedCount);
+        setLeftImageUrl(data.data.fixedPackage.imageUrl);
+        setRightImageUrl(data.data.comparePackage.imageUrl);
+        setLeftHashtags(data.data.fixedPackage.hashtags);
+        setRightHashtags(data.data.comparePackage.hashtags);
+        setLeftLodgeDays(data.data.fixedPackage.lodgeDays);
+        setLeftTripDays(data.data.fixedPackage.tripDays);
+        setRightLodgeDays(data.data.comparePackage.lodgeDays);
+        setRightTripDays(data.data.comparePackage.tripDays);
+        setLeftAverageStars(data.data.fixedPackage.averageStars);
+        setLeftReviewCount(data.data.fixedPackage.reviewCount);
+        setRightAverageStars(data.data.comparePackage.averageStars);
+        setRightReviewCount(data.data.comparePackage.reviewCount);
+        setLeftReservationCount(data.data.fixedPackage.reservationCount);
+        setLeftMinReservationCount(data.data.fixedPackage.minReservationCount);
+        setRightReservationCount(data.data.comparePackage.reservationCount);
+        setRightMinReservationCount(
+          data.data.comparePackage.minReservationCount,
+        );
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching package data:", error);
+      });
+  }, []);
 
   return (
     <div className="mx-6">
@@ -40,7 +168,9 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             고정상품
           </span>
           <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
-            청룡의 해 얼리버드 특가
+            {packageData
+              ? packageData.data.fixedPackage.title
+              : "불러오는 중..."}
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
@@ -55,7 +185,9 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
             비교상품
           </span>
           <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
-            오사카/교토 3박 4일 올인원 패키지
+            {packageData
+              ? packageData.data.comparePackage.title
+              : "불러오는 중..."}
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
@@ -76,7 +208,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
                   : "text-black-9 text-xs"
               } font-normal`}
             >
-              {priceLeft.toLocaleString()}원
+              {priceLeft?.toLocaleString()}원
             </span>
             <span className="text-black-4 text-sm font-semibold">가격</span>
             <span
@@ -86,13 +218,21 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
                   : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
-              {priceRight.toLocaleString()}원
+              {priceRight?.toLocaleString()}원
             </span>
           </div>
           <div className="flex justify-between">
-            <LeftProgressBar rating={leftRate} isLower={!isPriceLeftHigher} />
+            <LeftProgressBar
+              rating={leftRate}
+              isLower={!isPriceLeftHigher}
+              isSameRating={false}
+            />
             <SectionMargin />
-            <RightProgressBar rating={rightRate} isLower={isPriceLeftHigher} />
+            <RightProgressBar
+              rating={rightRate}
+              isLower={isPriceLeftHigher}
+              isSameRating={false}
+            />
           </div>
         </div>
 
@@ -100,30 +240,47 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
           <div className="flex justify-between">
             <span
               className={`${
-                leftRating >= rightRating
-                  ? "text-pink-main text-[13px]"
-                  : "text-black-9 text-xs"
+                isHotelStars
+                  ? "text-blue-main text-[13px]"
+                  : leftHotelStars !== null &&
+                      rightHotelStars !== null &&
+                      leftHotelStars >= rightHotelStars
+                    ? "text-pink-main text-[13px]"
+                    : "text-black-9 text-xs"
               } font-semibold`}
             >
-              {leftRating}성급
+              {leftHotelStars ? `${leftHotelStars}성급` : "정보 없음"}
             </span>
             <span className="text-black-4 text-sm font-semibold">
               숙소 등급
             </span>
             <span
               className={`${
-                rightRating > leftRating
-                  ? "text-lime-sub3 text-[13px]"
-                  : "text-black-9 text-xs"
+                isHotelStars
+                  ? "text-blue-main text-[13px]"
+                  : leftHotelStars !== null &&
+                      rightHotelStars !== null &&
+                      rightHotelStars >= leftHotelStars
+                    ? "text-pink-main text-[13px]"
+                    : "text-black-9 text-xs"
               } font-semibold`}
             >
-              {rightRating}성급
+              {rightHotelStars ? `${rightHotelStars}성급` : "정보 없음"}
             </span>
           </div>
+
           <div className="flex justify-between">
-            <LeftProgressBar rating={leftRating} isLower={isLeftLower} />
+            <LeftProgressBar
+              rating={leftRating}
+              isLower={!isHotelStars && isLeftLower}
+              isSameRating={isHotelStars}
+            />
             <SectionMargin />
-            <RightProgressBar rating={rightRating} isLower={isRightLower} />
+            <RightProgressBar
+              rating={rightRating}
+              isLower={!isHotelStars && isRightLower}
+              isSameRating={isHotelStars}
+            />
           </div>
         </div>
 
@@ -136,7 +293,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
                   : "text-black-9 text-xs"
               } font-normal`}
             >
-              총 {shoppingVisitsLeft}개
+              총 {leftShoppingCount ?? "정보 없음"}개
             </span>
             <span className="text-black-4 text-sm font-semibold">
               쇼핑센터 방문 일정
@@ -148,18 +305,20 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
                   : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
-              총 {shoppingVisitsRight}개
+              총 {rightShoppingCount ?? "정보 없음"}개
             </span>
           </div>
           <div className="flex justify-between">
             <LeftProgressBar
               rating={shoppingRatingLeft}
               isLower={!isShoppingVisitsLeftHigher}
+              isSameRating={false}
             />
             <SectionMargin />
             <RightProgressBar
               rating={shoppingRatingRight}
               isLower={isShoppingVisitsLeftHigher}
+              isSameRating={false}
             />
           </div>
         </div>
@@ -168,9 +327,29 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
       <div className="my-12">
         <h3 className="mb-6 text-black-2 text-lg font-semibold">상품 요약</h3>
         <div className="flex justify-between">
-          <ProductSummary />
+          <LeftProductSummary
+            purchasedCount={leftPurchasedCount}
+            imageUrl={leftImageUrl}
+            hashtags={leftHashtags}
+            lodgeDays={leftLodgeDays}
+            tripDays={leftTripDays}
+            averageStars={leftAverageStars}
+            reviewCount={leftReviewCount}
+            reservationCount={leftReservationCount}
+            minReservationCount={leftMinReservationCount}
+          />
           <SectionMargin />
-          <ProductSummary />
+          <RightProductSummary
+            purchasedCount={rightPurchasedCount}
+            imageUrl={rightImageUrl}
+            hashtags={rightHashtags}
+            lodgeDays={rightLodgeDays}
+            tripDays={rightTripDays}
+            averageStars={rightAverageStars}
+            reviewCount={rightReviewCount}
+            reservationCount={rightReservationCount}
+            minReservationCount={rightMinReservationCount}
+          />
         </div>
       </div>
 
