@@ -6,9 +6,6 @@ const NaverLoginButton = () => {
   const handleNaverAuth = async () => {
     await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/naver`,
-      {
-        mode: "no-cors",
-      },
     );
   };
 
