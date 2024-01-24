@@ -1,11 +1,15 @@
 "use client";
 
+import useScrollUp from "@/hooks/useScrollUp";
+
 interface Props {
   viewMore: boolean;
   viewScroll: boolean;
 }
 
 const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
+  const isScrollUp = useScrollUp();
+
   const handleUp = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -18,8 +22,10 @@ const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
   return (
     <div
       className={`${
-        viewMore ? "fixed" : "hidden"
-      } z-50 ${getAnimation()} w-[40px] h-14 flex justify-center items-center duration-700`}
+        viewMore && viewScroll ? "fixed" : "hidden"
+      } z-50 ${getAnimation()} w-[40px] ${
+        isScrollUp && viewScroll ? "h-[120px]" : "h-[70px]"
+      } flex justify-center items-start ml-4 duration-300`}
     >
       <button
         type="button"

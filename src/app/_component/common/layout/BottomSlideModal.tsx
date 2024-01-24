@@ -1,11 +1,32 @@
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import Dialog from "./Dialog";
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];
+  isLogin: boolean;
   setReservation: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BottomSlideModal = ({ children, setReservation }: Props) => {
+const BottomSlideModal = ({
+  children,
+  isLogin,
+  setIsLogin,
+  setReservation,
+}: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const getUrl = () => {
+    if (searchParams.get("departDate")) {
+      return `${pathname}?departDate=${searchParams.get("departDate")}`;
+    } else {
+      return `${pathname}`;
+    }
+  };
+
   const [action, setAction] = useState(true);
 
   const handleOutsideClick = () => {
@@ -22,9 +43,20 @@ const BottomSlideModal = ({ children, setReservation }: Props) => {
         action
           ? "animate-transparencyAnimation"
           : "animate-transparencyAnimationReverse"
-      } overflow-hidden z-50`}
+      } overflow-hidden z-[110]`}
       onClick={handleOutsideClick}
     >
+      <Dialog
+        isOpen={isLogin}
+        type="confirm"
+        theme="login"
+        onClose={() => {
+          setIsLogin(false);
+        }}
+        onConfirm={() => {
+          router.push(`/signin?redirect=${getUrl()}`);
+        }}
+      />
       <div
         className={`absolute ${
           action
