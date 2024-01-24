@@ -13,15 +13,15 @@ interface Props {
 }
 
 const HomeProsAndCons = () => {
-  const [polls, setPolls] = useState<Props[]>();
+  const [, setPolls] = useState<Props[]>();
   const { data } = useGetPollsMainQuery();
-  console.log(data, polls);
+  // console.log(data, polls);
 
   useEffect(() => {
     if (data) {
       setPolls(data?.data);
     }
-    console.log(polls);
+    // console.log(polls);
 
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps

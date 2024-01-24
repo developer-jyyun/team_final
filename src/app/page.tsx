@@ -6,6 +6,7 @@ import {
 import getAdvertisements from "@/api/home/getAdvertisements";
 import getThemePackages from "@/api/home/getThemePackages";
 import getPollsMain from "@/api/balance/getPollsMain";
+import getDestinations from "@/api/search/getDestinations";
 import getSalePackages from "@/api/home/getSalePackages";
 
 import BottomNav from "./_component/common/layout/BottomNav";
@@ -31,6 +32,10 @@ const Home = async () => {
   await queryClient.prefetchQuery({
     queryKey: ["polls"],
     queryFn: getPollsMain,
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["themes"],
+    queryFn: getDestinations,
   });
   await queryClient.prefetchQuery({
     queryKey: ["sales"],
