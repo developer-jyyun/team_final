@@ -3,7 +3,7 @@ import type { DestinationItem } from "@/app/types";
 import Destination from "./Destination";
 
 interface Props {
-  type: "nation" | "continent";
+  type: "nations" | "continents";
 }
 
 const DestinationsList = async ({ type }: Props) => {
