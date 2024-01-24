@@ -4,8 +4,13 @@ const postPolls = async (body: { choose: string }) => {
       method: "POST",
       cache: "no-store",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(body),
     });
+
+    if (result.status === 401) return { code: 401 };
 
     const data = await result.json();
 
