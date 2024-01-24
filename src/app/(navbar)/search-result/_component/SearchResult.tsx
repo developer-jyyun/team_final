@@ -1,23 +1,44 @@
-import { PackageInfo, PackagesWithPage } from "@/app/types";
+import type { PackageInfo, Page } from "@/app/types";
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 import DropDownBox from "./DropDownBox";
 import PackagesList from "./PackagesList";
 
 interface Props {
-  data: PackagesWithPage<PackageInfo[]>;
+  data: PackageInfo[];
+  page: Page;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>;
+  hasNextPage: boolean;
+  isFetching: boolean;
 }
 
-const SearchResult = ({ data }: Props) => {
+const SearchResult = ({
+  data,
+  page,
+  fetchNextPage,
+  isFetching,
+  hasNextPage,
+}: Props) => {
   return (
     <div className="w-full">
       <div className="py-4 flex justify-between items-center">
         <p className="text-lg font-semibold leading-normal tracking-tighter">
-          <span className=" text-pink-main">{data?.page.totalElements}</span>
+          <span className=" text-pink-main">{page.totalElements}</span>
           개의 패키지 상품 검색 결과
         </p>
         <DropDownBox />
       </div>
-
-      <PackagesList data={data?.packages} />
+      <PackagesList
+        data={data}
+        isFetching={isFetching}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+      />
     </div>
   );
 };

@@ -1,12 +1,17 @@
 import getKeywordSearchResult from "@/api/search/getKeywordSearchResult";
 import type { SortItem } from "@/app/types";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const useKeywordSearchQuery = (keyword: string, sort: SortItem) => {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ["search-keyword"],
-    queryFn: () => {
-      return getKeywordSearchResult(keyword, sort);
+    queryFn: ({ pageParam }) =>
+      getKeywordSearchResult(keyword, pageParam, sort),
+    initialPageParam: 1,
+    getNextPageParam: ({ page }) => {
+      return page.currentPage < page.totalPages
+        ? page.currentPage + 1
+        : undefined;
     },
   });
 };
