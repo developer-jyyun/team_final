@@ -9,7 +9,7 @@ export interface PackagesWithPage<T> {
   page: Page;
 }
 
-// search 페이지 관련 데이터f
+// search 페이지 관련 데이터
 export interface HashtagNames {
   hashtags: string[];
 }
