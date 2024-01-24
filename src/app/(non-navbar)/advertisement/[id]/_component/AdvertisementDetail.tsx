@@ -12,7 +12,7 @@ interface Props {
   minPrice: number;
 }
 
-const AdvertisementInfomation = () => {
+const AdvertisementDetail = () => {
   const params = useParams();
   const router = useRouter();
   const [, setAdsPackage] = useState([]);
@@ -54,4 +54,4 @@ const AdvertisementInfomation = () => {
   );
 };
 
-export default AdvertisementInfomation;
+export default AdvertisementDetail;

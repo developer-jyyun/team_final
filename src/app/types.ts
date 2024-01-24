@@ -222,3 +222,19 @@ export interface AdvertisementItem {
   adId: number;
   imageUrl: string;
 }
+
+export interface ThemePackage {
+  imageUrl: string;
+  packageId: number;
+  title: string;
+  transportation: string;
+}
+
+export interface ThemeItem {
+  description: string;
+  imageUrl: string;
+  minPrice: number;
+  name: string;
+  packages: ThemePackage[];
+  themeId: string;
+}
