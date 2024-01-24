@@ -39,6 +39,7 @@ const DetailMain = () => {
     date: searchParams.get("departDate"),
     start: true,
   });
+
   const [viewMore, setViewMore] = useState(false);
   const [viewScroll, setViewScroll] = useState(false);
 
