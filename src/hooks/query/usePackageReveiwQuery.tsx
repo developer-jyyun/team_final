@@ -7,7 +7,7 @@ const usePackageReveiwQuery = (id: string) => {
     queryFn: ({ pageParam }) => getPackageReveiws(Number(id), pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      const page = lastPage.data.page.currentPage;
+      const page = lastPage.page.currentPage;
       return page + 1;
     },
     refetchOnMount: false,

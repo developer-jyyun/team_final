@@ -99,7 +99,7 @@ const DetailMain = () => {
         viewMore ? "pb-[80px]" : "h-screen"
       } relative`}
     >
-      <DefaultHeader theme="main" back />
+      <DefaultHeader theme="main-button" back />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
         <div className="flex justify-between items-center">
