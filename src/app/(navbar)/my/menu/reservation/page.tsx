@@ -27,8 +27,8 @@ const ReservationPage = () => {
     hasNextPage,
   );
 
-  const totalCount = orderData?.pages[0]?.data.page?.totalElements ?? 0;
-  console.log("orderData:", orderData);
+  const totalCount = orderData?.pages[0]?.page?.totalElements ?? 0;
+  console.log("메뉴-order:", orderData);
 
   const { sortedOrders } = useSortedOrderList(pageSize, "detail");
 
@@ -36,7 +36,7 @@ const ReservationPage = () => {
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   if (
     orderData?.pages.every(
-      (page) => !Array.isArray(page.data.data) || page.data.data.length === 0,
+      (page) => !Array.isArray(page.data) || page.data.length === 0,
     )
   ) {
     return (

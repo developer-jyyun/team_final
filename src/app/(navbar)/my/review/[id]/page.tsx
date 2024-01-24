@@ -22,11 +22,11 @@ const WriteReviewPage = () => {
     : parseInt(params.id, 10);
 
   const { data, isLoading, isError, error } = useOrderToReviewQuery();
-  const orderToReview = data?.data.find(
+  const orderToReview = data?.find(
     (order: MyOrder) => order.orderId === orderId,
   );
   console.log(orderToReview);
-  console.log("data?.data", data?.data);
+  console.log("data", data);
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   if (!orderToReview) return <div>주문을 찾을 수 없습니다.</div>;

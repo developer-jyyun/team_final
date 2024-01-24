@@ -26,7 +26,7 @@ const ReservationTabContent = () => {
   );
   const { sortedOrders } = useSortedOrderList(pageSize, "detail");
 
-  if (orderData?.pages.every((page) => page.data.data.length === 0)) {
+  if (orderData?.pages.every((page) => page.data.length === 0)) {
     return <NoItem text="예약내역이 존재하지 않습니다." />;
   }
 
@@ -35,7 +35,7 @@ const ReservationTabContent = () => {
   return (
     <div className="custom-scrollbar flex flex-col items-center h-[39vh] overflow-y-scroll pt-5 web:h-[43vh]">
       {orderData?.pages.map((page, pageIndex) =>
-        Array.isArray(page.data.data) ? (
+        Array.isArray(page.data) ? (
           <ul
             key={pageIndex}
             className="flex flex-col gap-2 justify-start items-center w-[95.111%] mx-auto"

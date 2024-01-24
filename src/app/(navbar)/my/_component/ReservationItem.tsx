@@ -62,7 +62,7 @@ const ReservationItem = ({
 
           {/* 리뷰 작성 가능한 리뷰 탭 경우 */}
           {theme === "reservationTab" && (
-            <Link href={`/my/review/${orderId}`}>
+            <Link href={`/my/review?oid=${orderId}&pid=${orderData.packageId}`}>
               <Button
                 text="리뷰 쓰러 가기"
                 styleClass="w-full rounded-xl text-xs font-semibold p-1 bg-pink text-white"
