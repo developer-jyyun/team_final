@@ -159,12 +159,12 @@ export interface MyOrderPackage {
   tripDays: number;
   travelPeriod: string;
   isWish: boolean;
-  reviewed: boolean;
+  isReviewed: boolean;
 }
 
 export interface MyOrder {
   orderId: number;
-  orderCode: string;
+  orderCode: number;
   availableDateId: number;
   package: MyOrderPackage;
 }
