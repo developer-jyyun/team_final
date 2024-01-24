@@ -21,7 +21,7 @@ const UpcomingPackage = () => {
           <div className="flex flex-col justify-center gap-1 overflow-hidden">
             <p>
               <span className="font-semibold text-xs text-white bg-pink px-2 py-1 rounded-lg">
-                D- {data.dday}
+                D - {data.dday}
               </span>
             </p>
             <h2 className="font-medium text-md truncate max-w-[70%]">
@@ -34,8 +34,12 @@ const UpcomingPackage = () => {
               </span>
             </p>
           </div>
-          <Link href={`/items/${data.packageId}`}>
-            <img src="/icons/rightArrowIcon.svg" alt="자세히 보기 아이콘" />
+          <Link href={`/items/${data.packageId}`} className="block w-10 h-10">
+            <img
+              className="w-full"
+              src="/icons/rightArrowIcon.svg"
+              alt="자세히 보기 아이콘"
+            />
           </Link>
         </div>
       </div>
