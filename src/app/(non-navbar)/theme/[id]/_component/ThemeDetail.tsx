@@ -14,12 +14,11 @@ const ThemeDetail = () => {
 
   useEffect(() => {
     if (data) {
-      setThemeData(data?.data);
-      console.log(data?.data);
+      setThemeData(data);
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.data]);
+  }, [data]);
 
   return (
     <div className="w-full">

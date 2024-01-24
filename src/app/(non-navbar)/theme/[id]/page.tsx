@@ -11,9 +11,7 @@ const ThemePage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["advertisement-info", params.id.toString()],
-    queryFn: async () => {
-      return getThemeDetail(Number(params.id), "departure_date", 1, 10);
-    },
+    queryFn: () => getThemeDetail(Number(params.id), "departure_date", 1, 10),
   });
   const dehydrateState = dehydrate(queryClient);
 
