@@ -30,8 +30,8 @@ const FaqDetailPage = () => {
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message}⚠</div>;
   return (
-    <InnerSection text="공지사항" backUrl="/my/menu">
-      <div className="flex flex-col rounded bg-grey-e bg-opacity-20">
+    <InnerSection text="자주 묻는 질문" backUrl="/my/menu">
+      <div className="flex flex-col rounded bg-grey-e bg-opacity-20 h-[45vh]">
         <DataListItem data={data} theme="faq" />
         <p className="text-xs px-4 my-[-2px]">{data.content}</p>
       </div>

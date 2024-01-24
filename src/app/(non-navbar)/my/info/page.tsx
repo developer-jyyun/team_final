@@ -11,8 +11,9 @@ import useUpdateMyInfoMutation from "@/hooks/query/useUpdateMyInfoMutation";
 
 import UserInfo from "@/app/(navbar)/my/_component/UserInfo";
 import InnerSection from "@/app/(navbar)/my/_component/InnerSection";
-import formatPhoneNumber from "@/utils/formatPhoneNumber";
 import Dialog from "@/app/_component/common/layout/Dialog";
+import validatePassword from "@/utils/validatePassword";
+import formatPhoneNumber from "@/utils/formatPhoneNumber";
 import InputWithButton from "./_components.tsx/InputWithButton";
 import AddressSearch from "./_components.tsx/AddressSearch";
 
@@ -29,6 +30,9 @@ const UpdateMyInfoPage = () => {
     addr2: false,
     postCode: false,
   });
+
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
@@ -66,13 +70,39 @@ const UpdateMyInfoPage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    let newValue = value;
-    if (name === "phone") {
-      newValue = formatPhoneNumber(value);
-    }
+    const newValue = value;
     setMyInfo({ ...myInfo, [name]: newValue });
 
+    if (name === "phone") {
+      const onlyNumbers = value.replace(/[^0-9]/g, "");
+      const formattedNumber = formatPhoneNumber(onlyNumbers);
+      setMyInfo({ ...myInfo, [name]: formattedNumber });
+
+      //  취소 버튼 활성화
+      const isPhoneChanged =
+        !!originalData &&
+        (originalData.phone
+          ? formattedNumber !== originalData.phone
+          : formattedNumber !== "");
+
+      setIsValueChanged({ ...isValueChanged, phone: isPhoneChanged });
+    }
+
     if (name === "password") {
+      if (value) {
+        const isValid = validatePassword(value);
+        setIsPasswordValid(isValid);
+        if (!isValid) {
+          setPasswordMessage(
+            "비밀번호는 8~20자의 영문, 숫자, 특수문자를 포함해야 합니다.",
+          );
+        } else {
+          setPasswordMessage("변경 가능한 비밀번호 입니다");
+        }
+      } else {
+        // 비밀번호 입력이 없는 경우 오류 메시지 초기화
+        setPasswordMessage("");
+      }
       setIsPasswordChanged(value !== initialMyInfo.password);
       setIsValueChanged({ ...isValueChanged, password: true });
     } else if (originalData && name in originalData) {
@@ -89,21 +119,27 @@ const UpdateMyInfoPage = () => {
       const newValue = value.startsWith("010-") ? value : "010-";
       setMyInfo({ ...myInfo, [name]: newValue });
     }
-    if (name === "password") {
+    if (name === "password" && myInfo.password === "**********") {
       setMyInfo({ ...myInfo, password: "" });
     }
   };
 
   const handleCancel = (field: keyof MyInfoData) => {
-    if (originalData && originalData[field] !== undefined) {
+    if (field === "password") {
+      setMyInfo({
+        ...myInfo,
+        password: "**********",
+      });
+      setPasswordMessage("비밀번호 변경하지 않음");
+      setIsPasswordValid(true);
+      setIsPasswordChanged(false);
+      setIsValueChanged({ ...isValueChanged, [field]: false });
+    } else if (originalData && originalData[field] !== undefined) {
+      // 원래 값으로 복원
       setMyInfo({ ...myInfo, [field]: originalData[field] });
       setIsValueChanged({ ...isValueChanged, [field]: false });
     } else {
-      if (field === "password") {
-        setMyInfo({ ...myInfo, password: "**********" });
-      } else {
-        setMyInfo({ ...myInfo, [field]: "" });
-      }
+      setMyInfo({ ...myInfo, [field]: "" });
       setIsValueChanged({ ...isValueChanged, [field]: false });
     }
   };
@@ -113,26 +149,36 @@ const UpdateMyInfoPage = () => {
         ...prevMyInfo,
         password: "**********",
       }));
+      setPasswordMessage("비밀번호 변경하지 않음");
     }
   };
 
   const handleUpdateAll = async () => {
     try {
-      if (isPasswordChanged && myInfo.password) {
-        await updateMyPasswordMutation.mutateAsync(myInfo.password);
-        console.log("수정된 비밀번호:", myInfo.password);
+      if (isPasswordValid) {
+        if (
+          isPasswordChanged &&
+          myInfo.password !== "**********" &&
+          typeof myInfo.password === "string"
+        ) {
+          await updateMyPasswordMutation.mutateAsync(myInfo.password);
+          console.log("수정된 비밀번호:", myInfo.password);
+        }
+        await updateMyInfoMutation.mutateAsync({
+          ...myInfo,
+          password: undefined,
+        });
+        console.log("회원 정보 수정완료", myInfo);
+        setShowSuccessDialog(true);
+      } else {
+        console.error("비밀번호가 유효하지 않습니다.");
       }
-      await updateMyInfoMutation.mutateAsync({
-        ...myInfo,
-        password: undefined,
-      });
-      console.log("회원 정보 수정완료", myInfo);
-      setShowSuccessDialog(true);
     } catch (err) {
       console.error("API 호출 오류:", err);
       setShowErrorDialog(true);
     }
   };
+
   const handleCloseSuccessDialog = () => {
     setShowSuccessDialog(false);
     router.push("/my");
@@ -171,15 +217,27 @@ const UpdateMyInfoPage = () => {
         buttonText="취소"
         onButtonClick={() => handleCancel("password")}
         isValueChanged={isValueChanged.password}
-        placeholder="비밀번호"
+        placeholder="영문+숫자+특수문자 8~20자리"
       />
+
+      {passwordMessage && (
+        <p
+          className={` ${
+            isPasswordValid ? "text-green" : "text-red"
+          } mt-[-4px] ml-2 text-xs font-medium `}
+        >
+          {passwordMessage}
+        </p>
+      )}
+
       <InputWithButton
-        type="phone"
+        type="text"
         name="phone"
         label="휴대폰 번호"
         value={myInfo.phone || ""}
         onChange={handleInputChange}
         onFocus={handleFocus}
+        maxLength={13}
         buttonText="취소"
         onButtonClick={() => handleCancel("phone")}
         isValueChanged={isValueChanged.phone}
@@ -198,7 +256,13 @@ const UpdateMyInfoPage = () => {
       <Button
         text="회원정보 수정"
         onClickFn={handleUpdateAll}
-        styleClass="bg-pink-main text-white font-semibold rounded-xl py-3 fixed bottom-0 left-1/2 -translate-x-1/2 z-100 w-[327px] web:max-w-[436px]"
+        styleClass={`font-semibold rounded-xl py-3 fixed bottom-0 left-1/2 -translate-x-1/2 z-100 w-[327px] web:max-w-[436px]
+        ${
+          isPasswordValid
+            ? "bg-pink-main text-white "
+            : "bg-grey-d text-black-8"
+        } `}
+        disabled={!isPasswordValid}
       />
       {showSuccessDialog && (
         <Dialog

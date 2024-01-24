@@ -31,7 +31,7 @@ const NoticeDetailPage = () => {
   if (isError) return <div>⚠ {error.message}⚠</div>;
   return (
     <InnerSection text="공지사항" backUrl="/my/menu">
-      <div className="flex flex-col rounded bg-grey-e bg-opacity-20">
+      <div className="flex flex-col rounded bg-grey-e bg-opacity-20 h-[45vh]">
         <DataListItem data={data} theme="notice" />
         <p className="text-xs px-4 my-[-2px]">{data.content}</p>
       </div>
