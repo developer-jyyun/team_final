@@ -40,7 +40,13 @@ const ReservationItem = ({
             </span>
           </p>
           <div className="">
-            {hashTag && <Chip chipData={orderData.hashtags} gap="gap-x-1" />}
+            {hashTag && (
+              <Chip
+                chipData={orderData.hashtags}
+                name={orderData.nationName}
+                gap="gap-x-1"
+              />
+            )}
           </div>
           {/* 메뉴 예약 목록에만 노출 */}
           {theme === "reservationMenu" && (
@@ -95,6 +101,7 @@ const ReservationItem = ({
             {hashTag && (
               <Chip
                 chipData={orderData.hashtags}
+                name={orderData.nationName}
                 gap="gap-x-1"
                 borderColor="border-grey-c"
                 textColor="grey-c"
@@ -141,7 +148,13 @@ const ReservationItem = ({
             </span>
           </p>
           <div className="">
-            {hashTag && <Chip chipData={orderData.hashtags} gap="gap-x-1" />}
+            {hashTag && (
+              <Chip
+                chipData={orderData.hashtags}
+                name={orderData.nationName}
+                gap="gap-x-1"
+              />
+            )}
           </div>
 
           <div className="flex justify-start items-center text-[11px] gap-2 web:gap-6">

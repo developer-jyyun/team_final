@@ -20,12 +20,13 @@ const Chip = ({
     ? chipData
         .slice()
         .sort((a, b) => a.localeCompare(b, "ko-KR"))
-        .slice(0, 3)
+        .slice(0, 2)
     : [];
   return (
     <>
       {sortedAndSlicedData.length > 0 && (
         <p className={`flex flex-row items-center justify-start ${gap} `}>
+          {name && <span className={chipClass}>{name}</span>}
           {sortedAndSlicedData.map((chip) => (
             <span key={chip} className={chipClass}>
               {chip}
@@ -33,11 +34,8 @@ const Chip = ({
           ))}
         </p>
       )}
-      {name && (
-        <span className="border text-black-4 border-solid border-black-6 rounded-xl text-[11px] py-1 px-2 web:text-sm">
-          {name}
-        </span>
-      )}
+
+      {name && !chipData && <span className={chipClass}>{name}</span>}
     </>
   );
 };

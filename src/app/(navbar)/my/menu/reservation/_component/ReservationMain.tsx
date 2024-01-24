@@ -60,6 +60,7 @@ const ReservationMain = () => {
                     orderId={order.orderId}
                     theme="reservationMenu"
                     hashTag
+                    name
                     canWriteReview={canWriteReview(order.package.travelPeriod)}
                   />
                 ))}
