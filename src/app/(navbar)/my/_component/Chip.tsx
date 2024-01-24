@@ -14,11 +14,19 @@ const Chip = ({
   gap = "gap-2",
 }: Props) => {
   const chipClass = `text-[11px] text-black-4 border border-solid rounded-xl py-1 px-2 web:text-sm ${borderColor} ${textColor}`;
+
+  // 데이터 정렬
+  const sortedAndSlicedData = chipData
+    ? chipData
+        .slice()
+        .sort((a, b) => a.localeCompare(b, "ko-KR"))
+        .slice(0, 3)
+    : [];
   return (
     <>
-      {chipData && (
+      {sortedAndSlicedData.length > 0 && (
         <p className={`flex flex-row items-center justify-start ${gap} `}>
-          {chipData.map((chip) => (
+          {sortedAndSlicedData.map((chip) => (
             <span key={chip} className={chipClass}>
               {chip}
             </span>
