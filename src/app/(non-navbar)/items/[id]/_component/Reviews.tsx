@@ -4,9 +4,9 @@ import usePackageScoreQuery from "@/hooks/query/usePackageScoreQuery";
 import { useParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import DetailTypography from "./DetailTypography";
+import NoReviews from "./NoReviews";
 import ReviewItem from "./ReviewItem";
 import ReviewRangeList from "./ReviewRangeList";
-import NoReviews from "./NoReviews";
 
 interface Props {
   user: string;
@@ -23,6 +23,8 @@ const Reviews = ({ user }: Props) => {
   const { data: score } = usePackageScoreQuery(params.id as string);
 
   const boxRef = useRef(null);
+
+  console.log(reviews);
 
   useEffect(() => {
     const currentRef = boxRef.current;
@@ -50,7 +52,7 @@ const Reviews = ({ user }: Props) => {
     };
   }, [isFetching, hasNextPage, fetchNextPage]);
 
-  if (reviews?.pages[0].data.data.length === 0) {
+  if (reviews?.pages[0].data.length === 0) {
     return <NoReviews user={user} />;
   }
 
@@ -91,7 +93,7 @@ const Reviews = ({ user }: Props) => {
       {reviews?.pages.map((page) => {
         return (
           <ul>
-            {page.data.data.map((review: PackageReview) => {
+            {page.data.map((review: PackageReview) => {
               return <ReviewItem key={review.reviewId} review={review} />;
             })}
           </ul>
