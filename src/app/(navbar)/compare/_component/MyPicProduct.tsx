@@ -2,7 +2,7 @@ import React from "react";
 
 const MyPicProduct = () => {
   return (
-    <div className="flex my-6">
+    <div className="flex my-3">
       <div className="w-[90px] h-[90px] bg-grey-a rounded-lg mr-[18px]">
         <img src="#" alt="상품사진" />
       </div>
