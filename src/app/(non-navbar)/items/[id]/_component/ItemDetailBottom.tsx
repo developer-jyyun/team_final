@@ -16,6 +16,7 @@ import StorePerson from "./StorePerson";
 
 interface Props {
   viewMore: boolean;
+  isLogin: boolean;
   setViewMore: React.Dispatch<React.SetStateAction<boolean>>;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   packageDetail: PackageResponseData;
@@ -23,6 +24,7 @@ interface Props {
 
 const ItemDetailBottom = ({
   viewMore,
+  isLogin,
   setViewMore,
   setIsLogin,
   packageDetail,
@@ -109,7 +111,11 @@ const ItemDetailBottom = ({
     >
       {reservation && portalElement
         ? createPortal(
-            <BottomSlideModal setReservation={setReservation}>
+            <BottomSlideModal
+              setReservation={setReservation}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            >
               <div className="p-4 border-[0.6px] border-solid border-grey-a rounded-lg">
                 <div className="flex items-end">
                   <DetailTypography color={3} size={14}>
