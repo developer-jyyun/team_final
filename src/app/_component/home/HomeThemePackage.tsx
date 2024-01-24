@@ -4,7 +4,8 @@ import getThemePackages from "@/api/home/getThemePackages";
 import { useEffect, useState } from "react";
 // 베스트 테마 패키지
 import { BEST_THEME } from "@/app/constants";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import getBestPackages from "@/api/home/getBestPackages";
 
 interface Props {
   themeId: number;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const HomeThemePackage = () => {
+  const { id } = useParams();
   const router = useRouter();
   //  /v1/themes 테마 패키지 목록 API에 베스트가 없기에 상수 하드코딩으로 추가
   const [themes, setThemes] = useState<Props[]>(BEST_THEME);
@@ -20,9 +22,14 @@ const HomeThemePackage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getThemePackages();
-        // 베스트에 테마 패키지 목록 추가
-        setThemes([...themes, ...response.data]);
+        if (Number(id) === 0) {
+          console.log("best");
+          const response = await getBestPackages(1, 10);
+          setThemes([...themes, ...response.data]);
+        } else {
+          const response = await getThemePackages();
+          setThemes([...themes, ...response.data]);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -34,8 +41,8 @@ const HomeThemePackage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleThemeClick = (id: number) => {
-    router.push(`/theme/${id}`); // 400_여행패키지컨셉 페이지로 연결
+  const handleThemeClick = (clickedId: number) => {
+    router.push(`/theme/${clickedId}`); // 400_여행패키지컨셉 페이지로 연결
   };
 
   return (
