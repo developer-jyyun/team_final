@@ -11,13 +11,11 @@ interface Props {
 
 const HomeAdvertisements = () => {
   const [adsData, setAdsData] = useState<string[]>([]);
-  console.log(adsData);
 
   // 광고구좌 데이터 fetch
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAdvertisements();
-      console.log(response.data);
       const urls = response.data.map((ads: Props) => ads.imageUrl);
       setAdsData(urls);
     };

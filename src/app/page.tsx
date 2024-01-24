@@ -20,10 +20,6 @@ import ContentsContainer from "./_component/common/layout/ContentsContainer";
 const Home = async () => {
   const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: [],
-  //   queryFn: ,
-  // })
   await queryClient.prefetchQuery({
     queryKey: ["themes"],
     queryFn: getThemePackages,

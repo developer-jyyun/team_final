@@ -3,24 +3,73 @@
 // import getPolls from "@/api/home/getPolls";
 // import Button from "@/app/_component/common/atom/Button";
 import useGetPollsMainQuery from "@/hooks/query/useGetPollsMainQuery";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-// interface Props {
-//   alreadySubmitted: boolean;
-//   subject: string;
-//   pollId: number;
-//   A: string[];
-//   B: string[];
-// }
+interface Props {
+  subject: string;
+  pollId: number;
+  A: string[];
+  B: string[];
+}
 
 const HomeProsAndCons = () => {
-  // const [polls, setPolls] = useState<Props[]>();
+  const [polls, setPolls] = useState<Props[]>();
+  const { data } = useGetPollsMainQuery();
+  console.log(data, polls);
 
-  const { data: polls } = useGetPollsMainQuery();
+  useEffect(() => {
+    if (data) {
+      setPolls(data?.data);
+    }
+    console.log(polls);
 
-  console.log(polls);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
-  return <div>123</div>;
+  return (
+    <div className="w-full h-[80px] flex relative">
+      {/* <img
+        className="absolute w-[50%] h-full object-cover clip-polygon z-10"
+        src="/icons/selectA.svg"
+        alt="pollA"
+        style={{ clipPath: "polygon(0% 0%, 75% 0%, 100% 100%, 0% 100%)" }}
+      />
+       */}
+      <svg
+        className=" w-[170px] h-full object-cover clip-polygon z-10"
+        viewBox="50 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0 L75 0 L100 100 L0 100 Z" fill="black" />
+
+        <image
+          href="/icons/selectA.svg"
+          x="0"
+          y="0"
+          width="100"
+          height="100"
+          clipPath="polygon(0% 0%, 75% 0%, 100% 100%, 0% 100%)"
+        />
+      </svg>
+      <svg
+        className=" w-[170px] h-full object-cover clip-polygon z-10"
+        viewBox="0 0 50 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0 L100 0 L100 100 L25 100 Z" fill="black" />
+
+        <image
+          href="/icons/selectB.svg"
+          x="0"
+          y="0"
+          width="100"
+          height="100"
+          clipPath="polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%)"
+        />
+      </svg>
+    </div>
+  );
 
   // useEffect(() => {
   //   const fetchData = async () => {
