@@ -2,6 +2,7 @@
 export interface FetchResponse<T> {
   code: number;
   data?: T;
+  page?: Page;
 }
 
 export interface PackagesWithPage<T> {

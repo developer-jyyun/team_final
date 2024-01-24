@@ -13,7 +13,7 @@ const PackagesList = () => {
 
   return (
     <div className="h-[263px] overflow-auto whitespace-nowrap last:mr-0">
-      {data?.data.data.map((item: PackageInfo) => (
+      {data?.data.map((item: PackageInfo) => (
         <Package key={item.packageId} data={item} />
       ))}
     </div>

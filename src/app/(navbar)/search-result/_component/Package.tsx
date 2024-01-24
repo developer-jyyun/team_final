@@ -6,6 +6,7 @@ interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
+  // console.log(data);
   return (
     <Link
       href={`/items/${data.packageId}`}

@@ -74,7 +74,8 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
       <button
         type="button"
         className={`${
-          styleClass || "w-6 m-3 rounded-full absolute top-0 right-0"
+          styleClass ||
+          "w-6 m-2 rounded-full absolute top-0 right-0 border border-solid border-grey-e"
         }`}
         onClick={handleClick}
       >
