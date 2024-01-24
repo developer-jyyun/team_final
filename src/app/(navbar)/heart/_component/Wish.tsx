@@ -25,9 +25,9 @@ const Wish = ({ data }: Props) => {
           {data.title}
         </p>
         <div className="flex gap-2">
-          {data?.hashtags.map((tagName) => (
-            <Tag key={tagName} tagName={tagName} />
-          ))}
+          {data?.hashtags
+            .slice(0, 3)
+            .map((tagName) => <Tag key={tagName} tagName={tagName} />)}
         </div>
         <p className="text-red-1 text-xxs font-light">
           {data.lodgeDays}박{data.tripDays}일{" "}
