@@ -1,6 +1,6 @@
 "use client";
 
-import { SortItem } from "@/app/types";
+import type { SortItem } from "@/app/types";
 import useKeywordSearchQuery from "@/hooks/query/useKeywordSearchQuery";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -11,16 +11,28 @@ const useKeywordResult = () => {
   const sort = (params.get("sortBy") as SortItem) || "departure_date";
 
   const {
-    data: keywordData,
+    data,
     isLoading: keywordIsLoading,
     refetch,
+    fetchNextPage: keywordFetchNextPage,
+    hasNextPage: keywordHasNextPage,
+    isFetching: keywordIsFetching,
   } = useKeywordSearchQuery(keyword, sort);
 
   useEffect(() => {
     refetch();
-  }, [params, refetch]);
+  }, [params]);
 
-  return { keywordData, keywordIsLoading };
+  const keywordDataFirst = data?.pages[0];
+
+  return {
+    data,
+    keywordDataFirst,
+    keywordIsLoading,
+    keywordFetchNextPage,
+    keywordHasNextPage,
+    keywordIsFetching,
+  };
 };
 
 export default useKeywordResult;

@@ -20,16 +20,29 @@ const useHashtagResult = () => {
   if (continents) optionsStr += `&continents=${continents}`;
 
   const {
-    data: hashtagData,
+    data,
     isLoading: hashtagIsLoading,
     refetch,
+    fetchNextPage: hashtagFetchNextPage,
+    hasNextPage: hashtagHasNextPage,
+    isFetching: hashtagIsFetching,
   } = useHashtagSearchQuery(optionsStr, sort);
 
   useEffect(() => {
     refetch();
-  }, [params, refetch]);
+  }, [params]);
 
-  return { hashtagData, hashtagIsLoading };
+  const hashtagDataFirst = data?.pages[0];
+  console.log(data);
+
+  return {
+    data,
+    hashtagDataFirst,
+    hashtagIsLoading,
+    hashtagFetchNextPage,
+    hashtagHasNextPage,
+    hashtagIsFetching,
+  };
 };
 
 export default useHashtagResult;

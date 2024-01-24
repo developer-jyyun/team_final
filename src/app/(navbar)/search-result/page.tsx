@@ -12,8 +12,20 @@ const SearchResultPage = () => {
   const params = useSearchParams();
   const keyword = params.get("keyword");
 
-  const { keywordData } = useKeywordResult();
-  const { hashtagData } = useHashtagResult();
+  const {
+    data: keywordData,
+    keywordDataFirst,
+    keywordFetchNextPage,
+    keywordHasNextPage,
+    keywordIsFetching,
+  } = useKeywordResult();
+  const {
+    data: hashtagData,
+    hashtagDataFirst,
+    hashtagFetchNextPage,
+    hashtagHasNextPage,
+    hashtagIsFetching,
+  } = useHashtagResult();
 
   if (keyword) {
     return (
@@ -21,8 +33,14 @@ const SearchResultPage = () => {
         <DefaultHeader text="내가 원하는 여행 리스트" />
         <section className="w-full px-6 flex flex-col">
           <Options />
-          {keywordData?.data?.page.totalElements ? (
-            <SearchResult data={keywordData?.data} />
+          {keywordDataFirst?.page.totalElements ? (
+            <SearchResult
+              data={keywordData}
+              page={keywordDataFirst?.page}
+              fetchNextPage={keywordFetchNextPage}
+              hasNextPage={keywordHasNextPage}
+              isFetching={keywordIsFetching}
+            />
           ) : (
             <SearchEmpty keyword={keyword} />
           )}
@@ -36,10 +54,15 @@ const SearchResultPage = () => {
       <DefaultHeader text="내가 원하는 여행 리스트" />
       <section className="w-full px-6 flex flex-col">
         <Options />
-        <SearchResult data={hashtagData?.data} />
+        <SearchResult
+          data={hashtagData}
+          page={hashtagDataFirst?.page}
+          fetchNextPage={hashtagFetchNextPage}
+          hasNextPage={hashtagHasNextPage}
+          isFetching={hashtagIsFetching}
+        />
       </section>
     </div>
   );
 };
-
 export default SearchResultPage;

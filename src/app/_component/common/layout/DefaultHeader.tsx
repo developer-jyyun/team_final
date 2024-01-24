@@ -12,6 +12,7 @@ interface Props {
   iconSrc?: string;
   iconAlt?: string;
   back?: boolean;
+  onIconClick?: () => void;
 }
 
 const DefaultHeader = ({
@@ -22,6 +23,7 @@ const DefaultHeader = ({
   iconUrl,
   iconSrc,
   iconAlt,
+  onIconClick,
   back = false,
 }: Props) => {
   const router = useRouter();
@@ -72,6 +74,17 @@ const DefaultHeader = ({
         {theme === "main" && (
           <img src="/assets/mainTitle.svg" alt="메인 로고" width={75} />
         )}
+        {theme === "main-button" && (
+          <button
+            type="button"
+            className="flex items-center justify-center"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            <img src="/assets/mainTitle.svg" alt="메인 로고" width={75} />
+          </button>
+        )}
       </div>
 
       {iconUrl && iconSrc && (
@@ -91,6 +104,15 @@ const DefaultHeader = ({
           }}
         >
           <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
+        </button>
+      )}
+      {iconSrc && !iconUrl && (
+        <button
+          type="button"
+          className="absolute right-[32px] top-1/2 -translate-y-1/2"
+          onClick={onIconClick}
+        >
+          <img src={iconSrc} alt={iconAlt} width="24" />
         </button>
       )}
     </div>

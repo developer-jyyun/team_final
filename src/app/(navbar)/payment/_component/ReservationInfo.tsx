@@ -46,11 +46,6 @@ const ReservationInfo = ({
     addr2: "",
     postCode: "",
   });
-  // const [totalPrice, setTotalPrice] = useState(
-  //   selectedAdult * paymentData.adultPrice +
-  //     selectedChild * paymentData.infantPrice +
-  //     selectedInfant * paymentData.babyPrice,
-  // );
 
   const updateProgress = useCallback(() => {
     const sectionsCompleted = [

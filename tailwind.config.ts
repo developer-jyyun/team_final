@@ -75,14 +75,19 @@ const config: Config = {
         "gradient-white":
           "linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%)",
         "gradient-red": "linear-gradient(270deg, #FF3D73 2.25%, #FF758A 100%);",
+        "gradient-grey": "linear-gradient(270deg, #BBB -4.3%, #DDD 100%);",
         "custom-gradient-pink":
           "linear-gradient(122deg, #FF7B99 4.25%, #FF3478 104.25%)",
         "custom-gradient-pink-2":
           "linear-gradient(106deg, #FE546E 0%, #FF3478 100%)",
+        "custom-gradient-pink-3":
+          "linear-gradient(270deg, #FF3777 -4.3%, #FE526E 100%)",
         "custom-gradient-green":
           "linear-gradient(122deg, #17D510 4.25%, #0EAD08 104.25%)",
         "custom-gradient-green-2":
           "linear-gradient(290deg, #0DAA08 0%, #19DB12 108.81%)",
+        "custom-gradient-green-3":
+          "linear-gradient(270deg, #34DB2E -4.3%, #0EAF09 100%, #0EAE09 100%)",
       },
       keyframes: {
         // 약관 동의 애니메이션
@@ -114,6 +119,9 @@ const config: Config = {
         positionTopAnimationDelay: "positionTopAnimation 0.7s ease-in-out forwards",
         positionTopAnimationReverseDelay:
           "positionTopAnimationReverse 0.7s ease-in-out forwards",
+      },
+      lineClamp: {
+        2: "2",
       },
     },
   },
