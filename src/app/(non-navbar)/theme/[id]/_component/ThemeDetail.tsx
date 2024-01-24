@@ -15,6 +15,7 @@ const ThemeDetail = () => {
   useEffect(() => {
     if (data) {
       setThemeData(data?.data);
+      console.log(data?.data);
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
