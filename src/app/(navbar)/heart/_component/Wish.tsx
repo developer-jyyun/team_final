@@ -8,9 +8,11 @@ interface Props {
 }
 
 const Wish = ({ data }: Props) => {
-  //   console.log(data);
   return (
-    <div className="w-full h-[90px] flex gap-4 ">
+    <Link
+      href={`/items/${data.packageId}`}
+      className="w-full h-[90px] flex gap-4 "
+    >
       <div className="w-[90px] h-full rounded-[12px] overflow-hidden">
         <img
           className="object-cover w-full"
@@ -37,7 +39,7 @@ const Wish = ({ data }: Props) => {
       <div className="relative w-[51px]">
         <LikeButton id={data.packageId} isWish={data.isWish} />
         <Link
-          href={"/"}
+          href={`/compare?lid=${data.packageId}`}
           className="w-full text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
         >
           1:1
@@ -45,7 +47,7 @@ const Wish = ({ data }: Props) => {
           비교하기
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
