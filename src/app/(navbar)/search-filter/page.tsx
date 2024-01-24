@@ -17,8 +17,8 @@ const SearchFilterPage = () => {
         <ConceptsList />
       </ContentsContainer>
       <ContentsContainer title="어디로 갈까?" subTitle="복수 선택 가능">
-        <DestinationsList type="nation" />
-        <DestinationsList type="continent" />
+        <DestinationsList type="nations" />
+        <DestinationsList type="continents" />
       </ContentsContainer>
       <SearchButton />
     </section>
