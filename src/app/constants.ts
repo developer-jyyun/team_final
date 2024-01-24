@@ -30,3 +30,12 @@ export const NATION_LISTS = [
   "아프리카",
   "남미",
 ];
+
+// best theme
+export const BEST_THEME = [
+  {
+    themeId: 0,
+    name: "베스트",
+    imageUrl: "/assets/bestTheme.png",
+  },
+];

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 interface Props {
   data: DestinationItem;
-  type: "nation" | "continent";
+  type: "nations" | "continents";
 }
 
 const Destination = ({ data, type }: Props) => {
@@ -14,8 +14,8 @@ const Destination = ({ data, type }: Props) => {
   const { setContinents, setNations } = useSearchFilterStore();
 
   const handleClick = () => {
-    if (type === "continent") setContinents(data.name);
-    if (type === "nation") setNations(data.name);
+    if (type === "continents") setContinents(data.name);
+    if (type === "nations") setNations(data.name);
     setSelected((prev) => !prev);
   };
   return (

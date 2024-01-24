@@ -7,7 +7,7 @@ import {
 import getAdvertisementInfo from "@/api/advertisement/getAdvertisementInfo";
 import HomeAdvertisements from "@/app/_component/home/HomeAdvertisements";
 import getAdsHeaderText from "@/utils/getAdsHeaderText";
-import AdvertisementInfomation from "./_component/AdvertisementInfomation";
+import AdvertisementDetail from "./_component/AdvertisementDetail";
 
 const AdvertisementPage = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
@@ -25,7 +25,7 @@ const AdvertisementPage = async ({ params }: { params: { id: string } }) => {
       <DefaultHeader text={`${getAdsHeaderText(Number(params.id))} 특별여행`} />
       <HomeAdvertisements isDetail />
       <HydrationBoundary state={dehydrateState}>
-        <AdvertisementInfomation />
+        <AdvertisementDetail />
       </HydrationBoundary>
     </section>
   );
