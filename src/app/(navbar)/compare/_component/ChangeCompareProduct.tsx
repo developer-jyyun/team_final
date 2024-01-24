@@ -14,6 +14,13 @@ interface Props {
   onChange: () => void;
 }
 
+interface ScheduleItem {
+  id: number;
+  text: string;
+  iconSrc: string;
+  iconAlt: string;
+}
+
 interface Package {
   title: string;
   imageUrl: string;
@@ -28,6 +35,7 @@ interface Package {
   reviewCount: number;
   reservationCount: number;
   minReservationCount: number;
+  schedules?: string[];
 }
 
 interface ApiResponse {
@@ -35,6 +43,7 @@ interface ApiResponse {
   data: {
     fixedPackage: Package;
     comparePackage: Package;
+    schedules: ScheduleItem[];
   };
 }
 
@@ -101,6 +110,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
   const [rightReservationCount, setRightReservationCount] = useState<number>(0);
   const [rightMinReservationCount, setRightMinReservationCount] =
     useState<number>(0);
+  const [schedules, setSchedules] = useState<ScheduleItem[]>([]);
 
   const isPriceLeftHigher =
     priceLeft !== null && priceRight !== null && priceLeft < priceRight;
@@ -154,6 +164,19 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         setRightMinReservationCount(
           data.data.comparePackage.minReservationCount,
         );
+        if (data.data.fixedPackage.schedules) {
+          const fixedSchedules = data.data.fixedPackage.schedules.map(
+            (scheduleText: string, index: number) => ({
+              id: index,
+              text: scheduleText,
+              iconSrc: "/icons/pinkDot.svg",
+              iconAlt: "핑크점",
+            }),
+          );
+          setSchedules(fixedSchedules);
+        } else {
+          console.error("Fixed package schedules data is missing");
+        }
       })
       .catch((error) => {
         console.error("An error occurred while fetching package data:", error);
@@ -364,12 +387,12 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
               className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
                           before:left-[6.6px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
             >
-              {scheduleItems1.map((item) => (
+              {schedules.map((schedule) => (
                 <Schedule
-                  key={item.id}
-                  text={item.text}
-                  iconSrc={item.iconSrc}
-                  iconAlt={item.iconAlt}
+                  key={schedule.id}
+                  text={schedule.text}
+                  iconSrc={schedule.iconSrc}
+                  iconAlt={schedule.iconAlt}
                 />
               ))}
             </ul>
