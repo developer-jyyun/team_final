@@ -1,11 +1,13 @@
 import getPolls from "@/api/balance/getPolls";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetPollsQuery = () => {
+const usePollsQuery = () => {
   return useQuery({
     queryKey: ["polls"],
-    queryFn: getPolls,
+    queryFn: async () => {
+      return getPolls();
+    },
   });
 };
 
-export default useGetPollsQuery;
+export default usePollsQuery;
