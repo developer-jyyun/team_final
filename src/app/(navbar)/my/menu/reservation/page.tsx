@@ -1,88 +1,32 @@
-"use client";
+import getMyOrders from "@/api/my/getMyOrders";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import { cookies } from "next/headers";
+import ReservationMain from "./_component/ReservationMain";
 
-import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
-import { MyOrder } from "@/app/types";
-import useInfiniteScroll from "@/hooks/useInfiniteScroll";
-import useSortedOrderList from "@/hooks/useSortedOrderList";
-import canWriteReview from "@/utils/canWriteReview";
-import InnerSection from "../../_component/InnerSection";
-import ReservationItem from "../../_component/ReservationItem";
-import NoItem from "../../_component/NoItem";
+const ReservationPage = async () => {
+  const cookieStore = cookies();
 
-const pageSize = 6;
+  const queryClient = new QueryClient();
 
-const ReservationPage = () => {
-  const {
-    data: orderData,
-    isFetching,
-    isError,
-    error,
-    fetchNextPage,
-    hasNextPage,
-  } = useMyOrdersQuery(pageSize, "detail");
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["myOrders", "detail"],
+    queryFn: ({ pageParam }) =>
+      getMyOrders(pageParam, 6, cookieStore.toString()),
+    initialPageParam: 1,
+  });
 
-  const lastElementRef = useInfiniteScroll(
-    fetchNextPage,
-    isFetching,
-    hasNextPage,
-  );
+  const dehydrateState = dehydrate(queryClient);
 
-  const totalCount = orderData?.pages[0]?.data.page?.totalElements ?? 0;
-  console.log("orderData:", orderData);
-
-  const { sortedOrders } = useSortedOrderList(pageSize, "detail");
-
-  if (isFetching) return <div>로딩 중...</div>;
-  if (isError) return <div>⚠ {error.message} ⚠</div>;
-  if (
-    orderData?.pages.every(
-      (page) => !Array.isArray(page.data.data) || page.data.data.length === 0,
-    )
-  ) {
-    return (
-      <InnerSection
-        text="예약 내역"
-        backUrl="/my"
-        iconSrc="/icons/dotMenuIcon.svg"
-        iconUrl="/my/menu"
-        iconAlt="메뉴 아이콘"
-      >
-        <div className="flex flex-col items-center justify-center h-[65vh]">
-          <NoItem text="예약내역이 존재하지 않습니다." />
-        </div>
-      </InnerSection>
-    );
-  }
   return (
-    <InnerSection
-      text="예약 내역"
-      backUrl="/my"
-      iconSrc="/icons/dotMenuIcon.svg"
-      iconUrl="/my/menu"
-      iconAlt="메뉴 아이콘"
-    >
-      <h2 className="font-bold text-black-2 text-lg mb-8">
-        총 <span className="text-pink-main ">{totalCount}</span>
-        개의 패키지 상품
-      </h2>
-      <div className="custom-scrollbar h-[75vh] overflow-y-scroll">
-        <ul>
-          {sortedOrders.map((order: MyOrder) => (
-            <ReservationItem
-              key={order.orderId}
-              orderData={order.package}
-              orderId={order.orderId}
-              theme="reservationMenu"
-              hashTag
-              canWriteReview={canWriteReview(order.package.travelPeriod)}
-            />
-          ))}
-          <li ref={lastElementRef} className="w-full h-20 list-none">
-            {isFetching && <div>loading..🎈</div>}
-          </li>
-        </ul>
-      </div>
-    </InnerSection>
+    <div className="w-full">
+      <HydrationBoundary state={dehydrateState}>
+        <ReservationMain />
+      </HydrationBoundary>
+    </div>
   );
 };
 

@@ -2,12 +2,16 @@ import React from "react";
 
 interface Props {
   text?: string;
+  img?: boolean;
 }
-const NoItem = ({ text }: Props) => {
+const NoItem = ({ text, img }: Props) => {
+  const baseClass = "pt-6 flex flex-col gap-4 items-center justify-center";
+  const noImgClass =
+    "h-[90px] rounded-lg bg-grey-e bg-opacity-40 pt-6  flex-col gap-4 items-center justify-center ";
   return (
-    <div className="pt-6 flex flex-col gap-4 items-center justify-center ">
+    <div className={img ? baseClass : noImgClass}>
       <div>
-        <img src="/assets/noItemImg.png" alt="비행기 이미지" />
+        {img && <img src="/assets/noItemImg.png" alt="내역이 없습니다" />}
       </div>
       <div>
         <p className="text-black-8 text-xs text-center tracking-[0.12px] ">

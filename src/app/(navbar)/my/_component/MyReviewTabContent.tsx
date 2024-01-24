@@ -55,7 +55,6 @@ const MyReviewTabContent = () => {
                     <img src="/icons/starIconMini.svg" alt="별 아이콘" />
                     <span className="text-black-2">{review.averageStars}</span>
                   </div>
-                  {/* <span className="text-black-888"> idididdff****</span> */}
                   <span className="text-black-8"> {review.createdAt}</span>
                 </div>
                 <div className="flex gap-[6px] text-xxs  font-medium">
@@ -97,7 +96,7 @@ const MyReviewTabContent = () => {
           />
         </>
       ) : (
-        <NoItem text="리뷰를 남길 여행 내역이 존재하지 않습니다." />
+        <NoItem text="리뷰를 남길 여행 내역이 존재하지 않습니다." img />
       )}
     </div>
   );
