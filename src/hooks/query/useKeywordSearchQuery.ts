@@ -9,7 +9,7 @@ const useKeywordSearchQuery = (keyword: string, sort: SortItem) => {
       getKeywordSearchResult(keyword, pageParam, sort),
     initialPageParam: 1,
     getNextPageParam: ({ page }) => {
-      return page.currentPage < page.totalPages
+      return page?.currentPage < page?.totalPages
         ? page.currentPage + 1
         : undefined;
     },

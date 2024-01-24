@@ -1,4 +1,4 @@
-import type { PackageInfo, Page } from "@/app/types";
+import type { Page } from "@/app/types";
 import {
   FetchNextPageOptions,
   InfiniteData,
@@ -6,17 +6,6 @@ import {
 } from "@tanstack/react-query";
 import DropDownBox from "./DropDownBox";
 import PackagesList from "./PackagesList";
-
-export interface PackagePages {
-  code: number;
-  data: PackageInfo[];
-  page: {
-    currentPage: number;
-    totalPages: number;
-    currentElements: number;
-    totalElements: number;
-  };
-}
 
 interface Props {
   data: InfiniteData<any, unknown> | undefined;
