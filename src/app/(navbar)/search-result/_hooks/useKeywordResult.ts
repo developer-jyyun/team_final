@@ -3,7 +3,7 @@
 import type { SortItem } from "@/app/types";
 import useKeywordSearchQuery from "@/hooks/query/useKeywordSearchQuery";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const useKeywordResult = () => {
   const params = useSearchParams();
@@ -13,20 +13,23 @@ const useKeywordResult = () => {
   const {
     data,
     isLoading: keywordIsLoading,
-    refetch,
+    // refetch,
     fetchNextPage: keywordFetchNextPage,
     hasNextPage: keywordHasNextPage,
     isFetching: keywordIsFetching,
   } = useKeywordSearchQuery(keyword, sort);
 
-  useEffect(() => {
-    refetch();
-  }, [params, refetch]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [params, refetch]);
 
-  const keywordData = data?.pages[0];
+  console.log(data);
+
+  const keywordDataFirst = data?.pages[0];
 
   return {
-    keywordData,
+    data,
+    keywordDataFirst,
     keywordIsLoading,
     keywordFetchNextPage,
     keywordHasNextPage,
