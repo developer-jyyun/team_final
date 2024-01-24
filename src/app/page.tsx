@@ -3,6 +3,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import getAdvertisements from "@/api/home/getAdvertisements";
 import getPollsMain from "@/api/balance/getPollsMain";
 import getPackages from "@/api/home/getPackages";
 
@@ -26,10 +27,10 @@ const Home = async () => {
   //   queryKey: [],
   //   queryFn: ,
   // })
-  //   await queryClient.prefetchQuery({
-  //   queryKey: [],
-  //   queryFn: ,
-  // })
+  await queryClient.prefetchQuery({
+    queryKey: ["advertisements"],
+    queryFn: getAdvertisements,
+  });
   await queryClient.prefetchQuery({
     queryKey: ["polls"],
     queryFn: getPollsMain,

@@ -49,7 +49,7 @@ const DetailSwiper = ({ imgUrls, delay = "none" }: Props) => {
               <img
                 src={img}
                 alt="패키지 상세 이미지"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill"
               />
             </div>
           </SwiperSlide>
