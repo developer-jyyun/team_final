@@ -1,4 +1,4 @@
-import { PackageInfo } from "@/app/types";
+import type { PackageInfo } from "@/app/types";
 import type {
   FetchNextPageOptions,
   InfiniteData,
@@ -6,7 +6,6 @@ import type {
 } from "@tanstack/react-query";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import Package from "./Package";
-// import { PackagePages } from "./SearchResult";
 
 interface Props {
   data: InfiniteData<any, unknown> | undefined;
@@ -29,7 +28,6 @@ const PackagesList = ({
     hasNextPage,
   );
 
-  // console.log(data);
   return (
     <>
       {data?.pages.map((item, index) => (
@@ -39,7 +37,10 @@ const PackagesList = ({
           })}
         </div>
       ))}
-      <li ref={lastElementRef} className="w-full h-20 list-none">
+      <li
+        ref={lastElementRef}
+        className="w-full text-center text-black-6 h-20 list-none"
+      >
         {isFetching && <div>loading..🎈</div>}
       </li>
     </>

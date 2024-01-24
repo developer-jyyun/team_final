@@ -35,7 +35,6 @@ const SearchResult = ({
   isFetching,
   hasNextPage,
 }: Props) => {
-  // console.log(page);
   return (
     <div className="w-full">
       <div className="py-4 flex justify-between items-center">
