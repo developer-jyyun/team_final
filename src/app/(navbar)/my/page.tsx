@@ -1,16 +1,34 @@
-import TabsContainer from "@/app/_component/common/layout/TabsContainer";
+import getMyOrders from "@/api/my/getMyOrders";
 import BottomNav from "@/app/_component/common/layout/BottomNav";
-import ReservationTabContent from "./_component/ReservationTabContent";
-import MyReviewTabContent from "./_component/MyReviewTabContent";
-import UserInfo from "./_component/UserInfo";
-import UpcomingPackage from "./_component/UpcomingPackage";
+import TabsContainer from "@/app/_component/common/layout/TabsContainer";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import { cookies } from "next/headers";
 import InnerSection from "./_component/InnerSection";
+import MyReviewTabContent from "./_component/MyReviewTabContent";
+import ReservationTabContent from "./_component/ReservationTabContent";
+import UpcomingPackage from "./_component/UpcomingPackage";
+import UserInfo from "./_component/UserInfo";
 
 export function generateMetadata() {
   return { title: "Let's - 마이페이지" };
 }
 
 const MyPage = async () => {
+  const cookieStore = cookies();
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["myOrders", "tab"],
+    queryFn: ({ pageParam }) =>
+      getMyOrders(pageParam, 3, cookieStore.toString()),
+    initialPageParam: 1,
+  });
+  const dehydrateState = dehydrate(queryClient);
+
   const tabsData = [
     { name: "예약 내역", content: <ReservationTabContent /> },
     { name: "내가 쓴 리뷰", content: <MyReviewTabContent /> },
@@ -26,13 +44,16 @@ const MyPage = async () => {
     >
       <UserInfo showEditIcon />
       <UpcomingPackage />
-      <TabsContainer
-        tabs={tabsData}
-        tabButtonStyle={{
-          defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
-          selectedClass: "py-1 text-black  border-b-2 border-grey-a",
-        }}
-      />
+
+      <HydrationBoundary state={dehydrateState}>
+        <TabsContainer
+          tabs={tabsData}
+          tabButtonStyle={{
+            defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
+            selectedClass: "py-1 text-black  border-b-2 border-grey-a",
+          }}
+        />
+      </HydrationBoundary>
       <BottomNav />
     </InnerSection>
   );
