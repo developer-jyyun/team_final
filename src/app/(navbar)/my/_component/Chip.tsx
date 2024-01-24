@@ -2,6 +2,7 @@ interface Props {
   chipData?: string[];
   name?: string;
   borderColor?: string;
+  textColor?: string;
   gap?: string;
 }
 
@@ -9,9 +10,10 @@ const Chip = ({
   chipData,
   name,
   borderColor = "border-grey-a",
+  textColor = "text-black-4",
   gap = "gap-2",
 }: Props) => {
-  const chipClass = `text-[11px] text-black-4 border border-solid rounded-xl py-1 px-2 web:text-sm ${borderColor}`;
+  const chipClass = `text-[11px] text-black-4 border border-solid rounded-xl py-1 px-2 web:text-sm ${borderColor} ${textColor}`;
   return (
     <>
       {chipData && (

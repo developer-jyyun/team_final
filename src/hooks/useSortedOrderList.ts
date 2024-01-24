@@ -8,7 +8,7 @@ const useSortedOrderList = (pageSize: number, queryKey: string) => {
   let sortedOrders: MyOrder[] = [];
   if (orderData && orderData.pages.length > 0) {
     // 모든 페이지의 데이터를 하나의 배열로 합치기
-    const allData = orderData.pages.flatMap((page) => page.data.data);
+    const allData = orderData.pages.flatMap((page) => page.data);
     sortedOrders = sortOrderList(allData);
   }
 
