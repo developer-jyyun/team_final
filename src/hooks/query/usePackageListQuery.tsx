@@ -1,12 +1,14 @@
 import getPackages from "@/api/home/getPackages";
 import { useQuery } from "@tanstack/react-query";
 
-const usePackageListQuery = (pageSize: number = 10) => {
+const usePackageListQuery = (
+  page: number,
+  nation: string,
+  continent: string,
+) => {
   return useQuery({
-    queryKey: ["packages"],
-    queryFn: () => {
-      return getPackages(pageSize);
-    },
+    queryKey: ["packages", page, nation],
+    queryFn: () => getPackages(page, nation, continent),
   });
 };
 

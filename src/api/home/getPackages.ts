@@ -1,12 +1,17 @@
-const getPackages = async (pageSize: number = 10) => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/top-views?pageSize=${pageSize}`,
-  );
-
-  if (!result.ok) {
-    throw new Error("Failed to fetch data");
+const getPackages = async (page: number, nation: string, continent: string) => {
+  let url;
+  if (nation !== "전체") {
+    url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/top-views?continentName=${continent}&nationName=${nation}&page=${page}&pageSize=5`;
+  } else {
+    url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/top-views?page=${page}&pageSize=5`;
   }
 
-  return result.json();
+  try {
+    const result = await fetch(url);
+    return await result.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 export default getPackages;

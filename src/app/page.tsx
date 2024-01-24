@@ -4,12 +4,13 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getPollsMain from "@/api/balance/getPollsMain";
+import getPackages from "@/api/home/getPackages";
 
 import BottomNav from "./_component/common/layout/BottomNav";
 import DefaultHeader from "./_component/common/layout/DefaultHeader";
 import HomeAdvertisements from "./_component/home/HomeAdvertisements";
 import HomeHashtags from "./_component/home/HomeHashtags";
-// import HomePackages from "./_component/home/HomePackages";
+import HomeSalePackages from "./_component/home/HomeSalePackages";
 import HomeProsAndCons from "./_component/home/HomeProsAndCons";
 import HomeThemePackage from "./_component/home/HomeThemePackage";
 import ContentsContainer from "./_component/common/layout/ContentsContainer";
@@ -29,14 +30,15 @@ const Home = async () => {
   //   queryKey: [],
   //   queryFn: ,
   // })
-  //   await queryClient.prefetchQuery({
-  //   queryKey: [],
-  //   queryFn: ,
-  // })
   await queryClient.prefetchQuery({
-    queryKey: ["polls", "main"],
+    queryKey: ["polls"],
     queryFn: getPollsMain,
   });
+  await queryClient.prefetchQuery({
+    queryKey: ["sales"],
+    queryFn: () => getPackages(1, "전체", ""),
+  });
+
   const dehydrateState = dehydrate(queryClient);
 
   return (
@@ -59,9 +61,9 @@ const Home = async () => {
                 <HomeProsAndCons />
               </ContentsContainer>
               {/* 초특가 패키지 목록 */}
-              {/* <ContentsContainer title="지금 핫한 초특가 상품">
-                <HomePackages />
-              </ContentsContainer> */}
+              <ContentsContainer title="지금 핫한 초특가 상품">
+                <HomeSalePackages />
+              </ContentsContainer>
             </div>
           </HydrationBoundary>
         </section>
