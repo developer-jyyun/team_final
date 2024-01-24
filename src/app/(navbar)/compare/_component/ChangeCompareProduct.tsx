@@ -4,21 +4,30 @@ import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMor
 import LeftProgressBar from "./LeftProgressBar";
 import RightProgressBar from "./RightProgressBar";
 import SectionMargin from "./SectionMargin";
-import Schedule from "./Schedule";
-import { scheduleItems1, scheduleItems2 } from "./ScheduleItems";
 import MyPicProduct from "./MyPicProduct";
 import LeftProductSummary from "./LeftProductSummary";
 import RightProductSummary from "./RightProductSummary";
 
+interface Product {
+  title: string;
+  imageUrl: string;
+  price: number;
+  hashtags: string[];
+  lodgeDays: number;
+  tripDays: number;
+}
+
 interface Props {
+  products: Product[];
   onChange: () => void;
 }
 
 interface ScheduleItem {
-  id: number;
-  text: string;
-  iconSrc: string;
-  iconAlt: string;
+  day: number;
+  schedule: string[];
+  breakfast: string;
+  lunch: string;
+  dinner: string;
 }
 
 interface Package {
@@ -35,7 +44,7 @@ interface Package {
   reviewCount: number;
   reservationCount: number;
   minReservationCount: number;
-  schedules?: string[];
+  schedules: ScheduleItem[];
 }
 
 interface ApiResponse {
@@ -44,6 +53,7 @@ interface ApiResponse {
     fixedPackage: Package;
     comparePackage: Package;
     schedules: ScheduleItem[];
+    similarProducts: Product[];
   };
 }
 
@@ -69,7 +79,24 @@ const fetchPackageData = async (
   }
 };
 
-const ChangeCompareProduct = ({ onChange }: Props) => {
+const fetchSimilarProducts = async (
+  fixedPackageId: number,
+): Promise<Product[]> => {
+  const url = `https://api.winnerone.site/v1/packages/similar-packages?fixedPackageId=${fixedPackageId}`;
+
+  const response = await fetch(url, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`);
+  }
+
+  const result = await response.json();
+  return result.data;
+};
+
+const ChangeCompareProduct = ({ products, onChange }: Props) => {
   const [, setViewMore] = useState(false);
   const [leftRating] = useState(5);
   const [rightRating, setRightRating] = useState<number>(3);
@@ -111,6 +138,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
   const [rightMinReservationCount, setRightMinReservationCount] =
     useState<number>(0);
   const [schedules, setSchedules] = useState<ScheduleItem[]>([]);
+  const [myPicProducts, setMyPicProducts] = useState<Product[]>(products);
 
   const isPriceLeftHigher =
     priceLeft !== null && priceRight !== null && priceLeft < priceRight;
@@ -120,7 +148,7 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
   const isShoppingVisitsLeftHigher =
     leftShoppingCount !== null &&
     rightShoppingCount !== null &&
-    leftShoppingCount > rightShoppingCount;
+    leftShoppingCount < rightShoppingCount;
 
   const shoppingRatingLeft = isShoppingVisitsLeftHigher ? 4 : 3;
   const shoppingRatingRight = isShoppingVisitsLeftHigher ? 3 : 4;
@@ -164,22 +192,50 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         setRightMinReservationCount(
           data.data.comparePackage.minReservationCount,
         );
-        if (data.data.fixedPackage.schedules) {
-          const fixedSchedules = data.data.fixedPackage.schedules.map(
-            (scheduleText: string, index: number) => ({
-              id: index,
-              text: scheduleText,
-              iconSrc: "/icons/pinkDot.svg",
-              iconAlt: "핑크점",
-            }),
+        if (data.data.similarProducts) {
+          setMyPicProducts(
+            data.data.similarProducts.map((product) => ({
+              title: product.title,
+              imageUrl: product.imageUrl,
+              price: product.price,
+              hashtags: product.hashtags,
+              lodgeDays: product.lodgeDays,
+              tripDays: product.tripDays,
+            })),
           );
-          setSchedules(fixedSchedules);
+        }
+        if (data.data.fixedPackage.schedules) {
+          // API 응답에서 받은 스케줄을 ScheduleItem[] 형식으로 매핑합니다.
+          const mappedSchedules: ScheduleItem[] =
+            data.data.fixedPackage.schedules.map((sch) => ({
+              day: sch.day,
+              schedule: sch.schedule,
+              breakfast: sch.breakfast || "불포함",
+              lunch: sch.lunch || "불포함",
+              dinner: sch.dinner || "불포함",
+            }));
+          setSchedules(mappedSchedules);
         } else {
-          console.error("Fixed package schedules data is missing");
+          console.error("고정 패키지 스케줄 데이터가 누락되었습니다.");
         }
       })
+
       .catch((error) => {
         console.error("An error occurred while fetching package data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // 유사한 상품 데이터 가져오기
+    fetchSimilarProducts(24042217462)
+      .then((similarProducts) => {
+        setMyPicProducts(similarProducts);
+      })
+      .catch((error) => {
+        console.error(
+          "An error occurred while fetching similar products:",
+          error,
+        );
       });
   }, []);
 
@@ -380,71 +436,24 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         <h3 className="mb-4 text-black-2 text-lg font-semibold">
           일정 둘러보기
         </h3>
-        <span className="text-black-4 text-sm font-medium">1일차</span>
         <div className="flex justify-between my-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
-            <ul
-              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
-                          before:left-[6.6px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
-            >
-              {schedules.map((schedule) => (
-                <Schedule
-                  key={schedule.id}
-                  text={schedule.text}
-                  iconSrc={schedule.iconSrc}
-                  iconAlt={schedule.iconAlt}
-                />
-              ))}
-            </ul>
+          <div className="px-1 py-2 bg-pink-3 rounded-lg relative">
+            {schedules.map((item, index) => (
+              <div key={index} className="day-schedule text-xxs">
+                <h4>Day {item.day}</h4>
+                <ul>
+                  {item.schedule.map((event, idx) => (
+                    <li key={idx}>{event}</li>
+                  ))}
+                </ul>
+                <p>아침: {item.breakfast || "불포함"}</p>
+                <p>점심: {item.lunch || "불포함"}</p>
+                <p>저녁: {item.dinner || "불포함"}</p>
+                <br />
+              </div>
+            ))}
           </div>
-          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg relative">
-            <ul
-              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#AAE3A8] before:absolute 
-                          before:right-[142.5px] web:before:right-[142.7px] before:top-1/2 before:-translate-y-1/2"
-            >
-              {scheduleItems2.map((item) => (
-                <Schedule
-                  key={item.id}
-                  text={item.text}
-                  iconSrc={item.iconSrc}
-                  iconAlt={item.iconAlt}
-                />
-              ))}
-            </ul>
-          </div>
-        </div>
-        <span className="text-black-4 text-sm font-medium">2일차</span>
-        <div className="flex justify-between mt-3">
-          <div className="px-1 py-2.5 bg-pink-3 rounded-lg relative">
-            <ul
-              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#FFBFD1] before:absolute 
-                          before:left-[6.6px] web:before:left-[6.7px] before:top-1/2 before:-translate-y-1/2"
-            >
-              {scheduleItems1.map((item) => (
-                <Schedule
-                  key={item.id}
-                  text={item.text}
-                  iconSrc={item.iconSrc}
-                  iconAlt={item.iconAlt}
-                />
-              ))}
-            </ul>
-          </div>
-          <div className="px-1 py-2.5 bg-lime-sub4 rounded-lg relative">
-            <ul
-              className="before:content-[''] before:h-[calc(100%-31px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] before:bg-[#AAE3A8] before:absolute 
-                          before:right-[142.5px] web:before:right-[142.7px] before:top-1/2 before:-translate-y-1/2"
-            >
-              {scheduleItems2.map((item) => (
-                <Schedule
-                  key={item.id}
-                  text={item.text}
-                  iconSrc={item.iconSrc}
-                  iconAlt={item.iconAlt}
-                />
-              ))}
-            </ul>
-          </div>
+          <div className="px-1 py-2 bg-lime-sub4 rounded-lg relative" />
         </div>
         <DetailMoreButton setViewMore={setViewMore} />
       </div>
@@ -453,12 +462,18 @@ const ChangeCompareProduct = ({ onChange }: Props) => {
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
-        <div className="flex flex-col items-center">
-          <MyPicProduct />
-          <MyPicProduct />
-          <MyPicProduct />
-          <MyPicProduct />
-          <MyPicProduct />
+        <div className="flex flex-col items-center justify-center">
+          {myPicProducts.slice(0, 5).map((product, index) => (
+            <MyPicProduct
+              key={index}
+              title={product.title}
+              imageUrl={product.imageUrl}
+              price={product.price}
+              hashtags={product.hashtags}
+              lodgeDays={product.lodgeDays}
+              tripDays={product.tripDays}
+            />
+          ))}
         </div>
       </div>
     </div>
