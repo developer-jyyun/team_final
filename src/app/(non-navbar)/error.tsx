@@ -31,14 +31,14 @@ const Error = ({
         <div className="flex justify-center mt-6">
           <button
             type="button"
-            className="border-[1px] border-solid border-pink-sub3 rounded-[6px] px-2 py-1 m-3"
+            className="border-[1px] border-solid border-pink text-pink rounded-[6px] px-2 py-1 m-3"
             onClick={() => reset()}
           >
             다시 시도하기
           </button>
           <button
             type="button"
-            className="border-[1px] border-solid border-pink-sub3 rounded-[6px] px-2 py-1 m-3"
+            className="border-[1px] border-solid border-pink text-pink rounded-[6px] px-2 py-1 m-3"
             onClick={() => router.push("/")}
           >
             홈으로 돌아가기
