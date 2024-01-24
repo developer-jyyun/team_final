@@ -21,7 +21,6 @@ const DropDownBox = () => {
     setShowOptions(false);
 
     const oldParams = params.toString();
-    console.log(oldParams.split("&sortBy")[0]);
 
     if (!params.get("sortBy")) {
       router.replace(`/search-result?${oldParams}&sortBy=${option}`);
