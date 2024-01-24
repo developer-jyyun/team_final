@@ -72,6 +72,17 @@ const DefaultHeader = ({
         {theme === "main" && (
           <img src="/assets/mainTitle.svg" alt="메인 로고" width={75} />
         )}
+        {theme === "main-button" && (
+          <button
+            type="button"
+            className="flex items-center justify-center"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            <img src="/assets/mainTitle.svg" alt="메인 로고" width={75} />
+          </button>
+        )}
       </div>
 
       {iconUrl && iconSrc && (

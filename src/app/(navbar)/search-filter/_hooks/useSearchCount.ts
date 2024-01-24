@@ -8,7 +8,7 @@ const useSearchCount = () => {
   const nationsParams = nations.join();
   const continentsParams = continents.join();
 
-  let params = `?maxPrice=${price}`;
+  let params = `?maxPrice=${price}0000`;
   if (conceptParams) params += `&hashtags=${conceptParams}`;
   if (nationsParams) params += `&nations=${nationsParams}`;
   if (continentsParams) params += `&continents=${continentsParams}`;

@@ -47,7 +47,7 @@ const BalancePage = async () => {
 
   return (
     <div className="w-full">
-      <DefaultHeader text="여행 찬반 토론" />
+      <DefaultHeader text="여행 찬반 토론" redirectUrl="/" />
       <HydrationBoundary state={dehydrateState}>
         <ViewOption />
       </HydrationBoundary>
