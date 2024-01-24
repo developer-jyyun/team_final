@@ -9,21 +9,24 @@ import deleteMyAccount from "@/api/my/deleteMyAccount";
 import Withdraw from "./Withdraw";
 import MenuList from "./MenuList";
 
-// TODO:: 비회원 사용자에게는 노출 X
 const AuthItems = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
 
-  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleLogout = async () => {
+    setIsLogOutModalOpen(true);
     try {
       await logout();
-      router.push("/");
+      setTimeout(() => {
+        setIsLogOutModalOpen(false);
+        router.push("/");
+      }, 1000);
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
+      setIsLogOutModalOpen(false);
     }
-    router.push("/");
   };
 
   const confirmWithdraw = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,6 +48,7 @@ const AuthItems = () => {
       setIsWithdrawing(false);
     }
   };
+
   const AuthMenu: ListItemProps[] = [
     {
       text: "로그아웃",
@@ -72,6 +76,15 @@ const AuthItems = () => {
         type="confirm"
       />
       {isWithdrawing && <Withdraw />}
+
+      {isLogOutModalOpen && (
+        <Dialog
+          isOpen={isLogOutModalOpen}
+          onClose={() => setIsLogOutModalOpen(false)}
+          type="modal"
+          message="로그아웃 되었습니다."
+        />
+      )}
     </>
   );
 };

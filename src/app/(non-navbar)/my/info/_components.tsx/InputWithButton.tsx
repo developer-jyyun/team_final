@@ -10,6 +10,7 @@ interface Props {
   onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
   isValueChanged: boolean;
   placeholder?: string;
+  maxLength?: number;
 }
 const InputWithButton = ({
   type,
@@ -23,13 +24,14 @@ const InputWithButton = ({
   onButtonClick,
   isValueChanged,
   placeholder,
+  maxLength,
 }: Props) => {
   return (
     <div className="my-4">
       <span className="text-black-8 text-[13px]">{label}</span>
-      <div className="h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg">
+      <div className="relative">
         <input
-          className="h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2
+          className="w-full h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2
           focus:outline-none "
           type={type}
           name={name}
@@ -38,12 +40,13 @@ const InputWithButton = ({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
+          maxLength={maxLength}
         />
 
         {isValueChanged && (
           <button
             type="button"
-            className="bg-white rounded-lg py-2 px-4 text-black-4 text-sm font-medium"
+            className="absolute top-2 right-2 bg-white rounded-lg py-2 px-4 text-black-4 text-sm font-medium"
             onClick={onButtonClick}
           >
             {buttonText}
