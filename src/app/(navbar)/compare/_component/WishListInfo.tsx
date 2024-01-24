@@ -1,5 +1,5 @@
 import React from "react";
-import MyPicProduct from "./MyPicProduct";
+// import MyPicProduct from "./MyPicProduct";
 
 const WishListInfo = () => {
   return (
@@ -10,11 +10,11 @@ const WishListInfo = () => {
         </h3>
       </div>
 
+      {/* <MyPicProduct />
       <MyPicProduct />
       <MyPicProduct />
       <MyPicProduct />
-      <MyPicProduct />
-      <MyPicProduct />
+      <MyPicProduct /> */}
     </div>
   );
 };

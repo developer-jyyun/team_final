@@ -7,8 +7,7 @@ const useMyOrdersQuery = (pageSize: number, queryKey: string) => {
     queryFn: ({ pageParam }) => getMyOrders(pageParam, pageSize),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      const { currentPage } = lastPage.data.page;
-      const { totalPages } = lastPage.data.page;
+      const { currentPage, totalPages } = lastPage.page;
       if (currentPage < totalPages) {
         return currentPage + 1;
       }
