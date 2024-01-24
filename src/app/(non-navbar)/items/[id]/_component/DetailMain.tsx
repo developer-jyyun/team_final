@@ -4,15 +4,9 @@ import CenterContainer from "@/app/_component/common/atom/CenterContainer";
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import ScrollToUpButton from "@/app/_component/common/atom/ScrollToUpButton";
 import DefaultHeader from "@/app/_component/common/layout/DefaultHeader";
-import Dialog from "@/app/_component/common/layout/Dialog";
 import TabsContainer from "@/app/_component/common/layout/TabsContainer";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BadgeList from "./BadgeList";
 import ChangeDateButton from "./ChangeDateButton";
@@ -28,7 +22,6 @@ import ScheduleDetail from "./ScheduleDetail";
 import TravelDate from "./TravelDate";
 
 const DetailMain = () => {
-  const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -107,17 +100,6 @@ const DetailMain = () => {
       } relative`}
     >
       <DefaultHeader theme="main" back />
-      <Dialog
-        isOpen={isLogin}
-        type="confirm"
-        theme="login"
-        onClose={() => {
-          setIsLogin(false);
-        }}
-        onConfirm={() => {
-          router.push(`/signin?redirect=${getUrl()}`);
-        }}
-      />
       <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
       <div className="px-8">
         <div className="flex justify-between items-center">
@@ -129,7 +111,7 @@ const DetailMain = () => {
           <LikeButton
             id={packageDetail.data.packageId}
             isWish={packageDetail.data.isWish}
-            styleClass="mr-0"
+            styleClass="m-0"
             signinRedirect={getUrl()}
           />
         </div>
@@ -165,19 +147,22 @@ const DetailMain = () => {
           transporation={packageDetail.data.transportation}
         />
         <ChangeDateButton packageDetail={packageDetail.data} />
-        <TabsContainer
-          tabs={tabsData}
-          tabButtonStyle={{
-            defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
-            selectedClass: "py-1 text-black  border-b-2 border-pink",
-          }}
-          sticky
-          scroll
-        />
+        <div>
+          <TabsContainer
+            tabs={tabsData}
+            tabButtonStyle={{
+              defaultClass: "py-1 text-black-9  border-b-2 border-grey-e",
+              selectedClass: "py-1 text-black  border-b-2 border-pink",
+            }}
+            sticky
+            scroll
+          />
+        </div>
       </div>
       <ItemDetailBottom
         viewMore={viewMore}
         setViewMore={setViewMore}
+        isLogin={isLogin}
         setIsLogin={setIsLogin}
         packageDetail={packageDetail.data}
       />
