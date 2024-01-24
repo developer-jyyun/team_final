@@ -23,7 +23,7 @@ const useOptions = () => {
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) => {
       if (key === "maxPrice") {
-        return [key, [`${value}만원 이하`]];
+        return [key, [`${Number(value) / 10000}만원 이하`]];
       }
       return [key, value];
     });
@@ -37,7 +37,7 @@ const useOptions = () => {
       .filter(([, value]) => value && value.length > 0)
       .map(([key, value]) => {
         if (key === "maxPrice") {
-          return [key, [value.toString().replaceAll(/[^0-9]/g, "")]];
+          return [key, [`${value.toString().replaceAll(/[^0-9]/g, "")}0000`]];
         }
         return [key, value];
       });

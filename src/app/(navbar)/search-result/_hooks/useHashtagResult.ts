@@ -14,7 +14,7 @@ const useHashtagResult = () => {
   const nations = params.get("nations");
   const continents = params.get("continents");
 
-  let optionsStr = `?maxPrice=${maxPrice}0000`;
+  let optionsStr = `?maxPrice=${maxPrice}`;
   if (hashtags) optionsStr += `&hashtags=${hashtags}`;
   if (nations) optionsStr += `&nations=${nations}`;
   if (continents) optionsStr += `&continents=${continents}`;
