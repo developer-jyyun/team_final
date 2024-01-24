@@ -16,7 +16,6 @@ const HomeThemePackage = () => {
   const router = useRouter();
   //  /v1/themes 테마 패키지 목록 API에 베스트가 없기에 상수 하드코딩으로 추가
   const [themes, setThemes] = useState<Props[]>(BEST_THEME);
-  // console.log(themes);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +23,6 @@ const HomeThemePackage = () => {
         const response = await getThemePackages();
         // 베스트에 테마 패키지 목록 추가
         setThemes([...themes, ...response.data]);
-        // console.log(response);
       } catch (error) {
         console.log(error);
       }

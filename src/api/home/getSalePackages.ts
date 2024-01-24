@@ -1,4 +1,8 @@
-const getPackages = async (page: number, nation: string, continent: string) => {
+const getSalePackages = async (
+  page: number,
+  nation: string,
+  continent: string,
+) => {
   let url;
   if (nation !== "전체") {
     url = `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/top-views?continentName=${continent}&nationName=${nation}&page=${page}&pageSize=5`;
@@ -14,4 +18,4 @@ const getPackages = async (page: number, nation: string, continent: string) => {
     throw error;
   }
 };
-export default getPackages;
+export default getSalePackages;

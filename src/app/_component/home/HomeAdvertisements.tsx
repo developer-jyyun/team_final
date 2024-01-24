@@ -17,9 +17,9 @@ const HomeAdvertisements = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAdvertisements();
+      console.log(response.data);
       const urls = response.data.map((ads: Props) => ads.imageUrl);
       setAdsData(urls);
-      console.log(response.data);
     };
 
     fetchData();
@@ -29,9 +29,9 @@ const HomeAdvertisements = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <section className="w-full pb-6">
       <DetailSwiper imgUrls={adsData} delay={4} />
-    </div>
+    </section>
   );
 };
 

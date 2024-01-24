@@ -4,8 +4,9 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getAdvertisements from "@/api/home/getAdvertisements";
+import getThemePackages from "@/api/home/getThemePackages";
 import getPollsMain from "@/api/balance/getPollsMain";
-import getPackages from "@/api/home/getPackages";
+import getSalePackages from "@/api/home/getSalePackages";
 
 import BottomNav from "./_component/common/layout/BottomNav";
 import DefaultHeader from "./_component/common/layout/DefaultHeader";
@@ -23,10 +24,10 @@ const Home = async () => {
   //   queryKey: [],
   //   queryFn: ,
   // })
-  // await queryClient.prefetchQuery({
-  //   queryKey: [],
-  //   queryFn: ,
-  // })
+  await queryClient.prefetchQuery({
+    queryKey: ["themes"],
+    queryFn: getThemePackages,
+  });
   await queryClient.prefetchQuery({
     queryKey: ["advertisements"],
     queryFn: getAdvertisements,
@@ -37,7 +38,7 @@ const Home = async () => {
   });
   await queryClient.prefetchQuery({
     queryKey: ["sales"],
-    queryFn: () => getPackages(1, "전체", ""),
+    queryFn: () => getSalePackages(1, "전체", ""),
   });
 
   const dehydrateState = dehydrate(queryClient);

@@ -1,4 +1,4 @@
-import getPackages from "@/api/home/getPackages";
+import getSalePackages from "@/api/home/getSalePackages";
 import { useQuery } from "@tanstack/react-query";
 
 const usePackageListQuery = (
@@ -8,7 +8,7 @@ const usePackageListQuery = (
 ) => {
   return useQuery({
     queryKey: ["packages", page, nation],
-    queryFn: () => getPackages(page, nation, continent),
+    queryFn: () => getSalePackages(page, nation, continent),
   });
 };
 
