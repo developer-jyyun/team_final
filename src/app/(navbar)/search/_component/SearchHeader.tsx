@@ -8,7 +8,7 @@ const SearchHeader = () => {
   const [keyword, setKeyword] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+    setKeyword(e.target.value.trim());
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,7 +26,7 @@ const SearchHeader = () => {
           value={keyword}
           onChange={handleChange}
         />
-        <button type="button" className="size-6 absolute top-3 right-10">
+        <button type="submit" className="size-6 absolute top-3 right-10">
           <img src="./icons/searchIcon.svg" alt="돋보기 아이콘" />
         </button>
       </form>

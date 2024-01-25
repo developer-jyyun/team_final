@@ -27,16 +27,19 @@ const SearchResultPage = () => {
     hashtagIsFetching,
   } = useHashtagResult();
 
+  const totalCount =
+    keywordDataFirst?.code === 404 ? 0 : keywordDataFirst?.page.totalElements;
+
   if (keyword) {
     return (
       <div className="flex flex-col w-full">
         <DefaultHeader text="내가 원하는 여행 리스트" />
         <section className="w-full px-6 flex flex-col">
           <Options />
-          {keywordDataFirst?.page.totalElements ? (
+          {totalCount ? (
             <SearchResult
               data={keywordData}
-              page={keywordDataFirst?.page}
+              total={totalCount}
               fetchNextPage={keywordFetchNextPage}
               hasNextPage={keywordHasNextPage}
               isFetching={keywordIsFetching}
@@ -56,7 +59,7 @@ const SearchResultPage = () => {
         <Options />
         <SearchResult
           data={hashtagData}
-          page={hashtagDataFirst?.page}
+          total={hashtagDataFirst?.page.totalElements}
           fetchNextPage={hashtagFetchNextPage}
           hasNextPage={hashtagHasNextPage}
           isFetching={hashtagIsFetching}

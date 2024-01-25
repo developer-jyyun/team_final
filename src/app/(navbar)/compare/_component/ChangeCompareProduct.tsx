@@ -195,8 +195,12 @@ const ChangeCompareProduct = ({
     rightShoppingCount !== null &&
     leftShoppingCount < rightShoppingCount;
 
-  const shoppingRatingLeft = isShoppingVisitsLeftHigher ? 4 : 3;
-  const shoppingRatingRight = isShoppingVisitsLeftHigher ? 3 : 4;
+  const shoppingRatingLeft =
+    (leftShoppingCount ?? 0) < (rightShoppingCount ?? 0) ? 4 : 3;
+  const shoppingRatingRight =
+    (rightShoppingCount ?? 0) < (leftShoppingCount ?? 0) ? 4 : 3;
+
+  const isShoppingSame = (leftShoppingCount ?? 0) === (rightShoppingCount ?? 0);
 
   const isHotelStars =
     leftHotelStars !== null &&
@@ -491,14 +495,14 @@ const ChangeCompareProduct = ({
             <LeftProgressBar
               rating={shoppingRatingLeft}
               isLower={!isShoppingVisitsLeftHigher}
-              isSameRating={false}
+              isSameRating={isShoppingSame}
               isZeroCount={leftShoppingCount === 0}
             />
             <SectionMargin />
             <RightProgressBar
               rating={shoppingRatingRight}
               isLower={isShoppingVisitsLeftHigher}
-              isSameRating={false}
+              isSameRating={isShoppingSame}
               isZeroCount={!searchParam.get("rid") || rightShoppingCount === 0}
             />
           </div>
