@@ -11,7 +11,7 @@ const RightProgressBar = ({
   isSameRating: boolean;
   isZeroCount: boolean;
 }) => {
-  const filledWidth = isZeroCount ? "60%" : `${rating * 20}%`;
+  const filledWidth = `${rating * 20}%`;
   const bgColorClass = isZeroCount
     ? "bg-gradient-grey"
     : isSameRating
