@@ -93,7 +93,7 @@ const HomeSalePackages = () => {
 
   return (
     <div className="w-full">
-      <div className="flex text-grey-4 touch-auto overflow-auto">
+      <div className="flex text-grey-4 touch-auto overflow-auto scrollbar-hide">
         {nationList.map((nation) => (
           <div
             className={`px-2 py-1 text-[11px] whitespace-nowrap ${
