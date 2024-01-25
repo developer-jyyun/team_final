@@ -82,6 +82,8 @@ const config: Config = {
           "linear-gradient(106deg, #FE546E 0%, #FF3478 100%)",
         "custom-gradient-pink-3":
           "linear-gradient(270deg, #FF3777 -4.3%, #FE526E 100%)",
+        "custom-gradient-pink-4":
+          "linear-gradient(91deg, #FE556E 0.48%, #FF2278 99.54%)",
         "custom-gradient-green":
           "linear-gradient(122deg, #17D510 4.25%, #0EAD08 104.25%)",
         "custom-gradient-green-2":
@@ -116,7 +118,8 @@ const config: Config = {
         positionTopAnimation: "positionTopAnimation 0.2s ease-in-out forwards",
         positionTopAnimationReverse:
           "positionTopAnimationReverse 0.2s ease-in-out forwards",
-        positionTopAnimationDelay: "positionTopAnimation 0.7s ease-in-out forwards",
+        positionTopAnimationDelay:
+          "positionTopAnimation 0.7s ease-in-out forwards",
         positionTopAnimationReverseDelay:
           "positionTopAnimationReverse 0.7s ease-in-out forwards",
       },
