@@ -54,7 +54,7 @@ const ThemeDetail = () => {
                   <img
                     src={singlePackage.imageUrl}
                     alt="packageImg"
-                    className="w-[155px] h-[180px] web:w-full mb-2 rounded-lg"
+                    className="object-cover w-full h-[180px] web:w-full mb-2 rounded-lg"
                   />
                   <div className="flex flex-col gap-[14px]">
                     <p className="w-[148px] h-[30px] web:w-full text-black-6 text-xs font-normal overflow-hidden">
