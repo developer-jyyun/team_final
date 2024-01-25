@@ -1,12 +1,20 @@
 import React from "react";
-// import WishListInfo from "./WishListInfo";
-import WishListNone from "./WishListNone";
+import WishListInfo from "./WishListInfo";
 
-const WishListPage = () => {
+interface Props {
+  statusA: boolean;
+  statusB: boolean;
+  setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const WishListPage = ({ statusA, statusB, setIsCompareComplete }: Props) => {
   return (
     <div className="ml-6">
-      {/* <WishListInfo /> */}
-      <WishListNone />
+      <WishListInfo
+        statusA={statusA}
+        statusB={statusB}
+        setIsCompareComplete={setIsCompareComplete}
+      />
     </div>
   );
 };
