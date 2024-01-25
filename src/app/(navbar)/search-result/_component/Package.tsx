@@ -6,7 +6,6 @@ interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
-  // console.log(data);
   return (
     <Link
       href={`/items/${data.packageId}`}
@@ -14,7 +13,7 @@ const Package = ({ data }: Props) => {
     >
       <div className="relative h-[120px] rounded-[12px] overflow-hidden">
         <img
-          className="object-cover w-full"
+          className="object-cover w-full h-full"
           src={data.imageUrl}
           alt="대표 이미지"
         />
