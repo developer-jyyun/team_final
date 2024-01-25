@@ -22,7 +22,7 @@ const BottomNav = ({ scrollView = true }: Props) => {
       className={`fixed left-0 bottom-0 w-full h-[56px] bg-white flex justify-center items-center 
     border-t-[0.6px] border-solid border-grey-d shadow-dark ${getAnimation()}`}
     >
-      <ul className="w-[500px] flex">
+      <ul className="w-[375px] flex web:w-[500px]">
         <NavIconButton
           href="/"
           text="홈"

@@ -42,12 +42,8 @@ const NavIconButton = ({ href, text, basic, active }: Props) => {
 
   if (currentUrl === href)
     return (
-      <li className="w-1/4">
-        <button
-          type="button"
-          onClick={handleAuth}
-          className="flex flex-col justify-center items-center"
-        >
+      <li className="w-1/4 flex flex-col justify-center items-center">
+        <button type="button" onClick={handleAuth}>
           <img src={active} alt={`${text} 아이콘`} width={24} />
           <p className="text-pink text-center">{text}</p>
         </button>
@@ -55,11 +51,10 @@ const NavIconButton = ({ href, text, basic, active }: Props) => {
     );
 
   return (
-    <li className="w-1/4">
+    <li className="w-1/4 flex flex-col justify-center items-center">
       <button
         type="button"
         onClick={handleAuth}
-        className="flex flex-col justify-center items-center"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
