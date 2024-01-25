@@ -25,7 +25,8 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
   const [isLogin, setIsLogin] = useState(false);
   const [alert, setAlert] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (isLike) {
       deleteWish().then((res) => {
         if (res.code === 200) {
