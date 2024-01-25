@@ -33,7 +33,6 @@ const AdvertisementDetail = () => {
       if (data) {
         setAdsPackage(data);
       }
-      console.log(data);
     };
     fetchData();
 
@@ -42,8 +41,8 @@ const AdvertisementDetail = () => {
 
   return (
     <>
-      <div className="w-full">
-        <DetailSwiper imgUrls={adsData} />
+      <div className="w-full pb-10 cursor-pointer">
+        <DetailSwiper imgUrls={adsData} hasLink />
       </div>
       <div className="w-full px-6 grid grid-cols-2 grid-rows-2 gap-[17px]">
         {data.packages.map((singlePackage: Props) => (
