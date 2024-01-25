@@ -43,6 +43,10 @@ const ViewOption = () => {
     return "icons/vsIcon.svg";
   };
 
+  if (polls.message === "등록된 찬/반 토론 이벤트가 없습니다.") {
+    return <div>등록된 이벤트가 없습니다.</div>;
+  }
+
   return (
     <div className="flex flex-col justify-start h-[calc(100%-80px)] px-6 web:px-[52px]">
       <div className="mt-12 web:mt-8">
