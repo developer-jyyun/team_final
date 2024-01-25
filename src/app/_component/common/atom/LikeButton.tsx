@@ -27,6 +27,8 @@ const LikeButton = ({ id, isWish, styleClass, signinRedirect }: Props) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    e.preventDefault();
+
     if (isLike) {
       deleteWish().then((res) => {
         if (res.code === 200) {
