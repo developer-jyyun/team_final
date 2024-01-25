@@ -1,4 +1,4 @@
-import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
+import DetailTypography from "@/app/(non-navbar)/items/[id]/_component/DetailTypography";
 import Button from "@/app/_component/common/atom/Button";
 import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useSearchParams } from "next/navigation";
@@ -11,7 +11,6 @@ import RightProgressBar from "./RightProgressBar";
 import SectionMargin from "./SectionMargin";
 
 interface Product {
-  // packageId: number;
   title: string;
   imageUrl: string;
   price: number;
@@ -38,9 +37,7 @@ interface Props {
   compareIndex: number;
   onChangeA: () => void;
   onChangeB: () => void;
-  // setCurrentItem: React.Dispatch<React.SetStateAction<CompareProduct | null>>;
   setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
-  // currentItem: CompareProduct | null;
   setCompareIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -101,32 +98,13 @@ const fetchPackageData = async (
   }
 };
 
-// const fetchSimilarProducts = async (
-//   fixedPackageId: number,
-// ): Promise<CompareProduct[]> => {
-//   const url = `https://api.winnerone.site/v1/packages/similar-packages?fixedPackageId=${fixedPackageId}`;
-
-//   const response = await fetch(url, {
-//     credentials: "include",
-//   });
-
-//   if (!response.ok) {
-//     throw new Error(`Error: ${response.status}`);
-//   }
-
-//   const result = await response.json();
-//   return result.data;
-// };
-
 const ChangeCompareProduct = ({
   products,
   onChangeA,
   onChangeB,
   compareIndex,
   compared,
-  // setCurrentItem,
   setIsCompareComplete,
-  // currentItem,
   setCompareIndex,
 }: Props) => {
   const searchParam = useSearchParams();
@@ -137,7 +115,7 @@ const ChangeCompareProduct = ({
     start: true,
   });
 
-  const [, setViewMore] = useState(false);
+  const [viewMore, setViewMore] = useState(false);
   const [leftRating] = useState(5);
   const [rightRating, setRightRating] = useState<number>(3);
   const isLeftLower = leftRating < rightRating;
@@ -209,15 +187,12 @@ const ChangeCompareProduct = ({
 
   useEffect(() => {
     if (!searchParam.get("rid") || !searchParam.get("lid")) return;
-    // if (compareIndex === -1 && compared?.packageId) return;
     const fixedPackageId = Number(searchParam.get("lid"));
     const comparePackageId =
       compareIndex === 0 ? Number(searchParam.get("rid")) : compared?.packageId;
-    // console.log(comparePackageId);
 
     fetchPackageData(fixedPackageId, comparePackageId)
       .then((data) => {
-        // console.log(data);
         const mappedfixSchedules: ScheduleItem[] =
           data.data.fixedPackage.schedules.map((sch) => ({
             day: sch.day,
@@ -287,43 +262,11 @@ const ChangeCompareProduct = ({
           tripDays: data.data.comparePackage.tripDays,
           price: data.data.comparePackage.price,
         });
-
-        // if (data.data.fixedPackage.schedules) {
-        //   // API 응답에서 받은 스케줄을 ScheduleItem[] 형식으로 매핑합니다.
-        //   const mappedfixSchedules: ScheduleItem[] =
-        //     data.data.fixedPackage.schedules.map((sch) => ({
-        //       day: sch.day,
-        //       schedule: sch.schedule,
-        //       breakfast: sch.breakfast || "불포함",
-        //       lunch: sch.lunch || "불포함",
-        //       dinner: sch.dinner || "불포함",
-        //     }));
-        //   setSchedules(mappedfixSchedules);
-        // } else if (data.data.comparePackage.schedules) {
-        //   const mappedComSchedules: ScheduleItem[] =
-        //     data.data.comparePackage.schedules.map((sch) => ({
-        //       day: sch.day,
-        //       schedule: sch.schedule,
-        //       breakfast: sch.breakfast || "불포함",
-        //       lunch: sch.lunch || "불포함",
-        //       dinner: sch.dinner || "불포함",
-        //     }));
-        //   setComparedSchedules(mappedComSchedules);
-        // } else {
-        //   console.error("고정 패키지 스케줄 데이터가 누락되었습니다.");
-        // }
       })
       .catch((error) => {
         console.error("An error occurred while fetching package data:", error);
       });
   }, [compared?.packageId, searchParam.get("rid"), searchParam.get("lid")]);
-
-  // useEffect(() => {
-  //   console.log(searchParam.get("rid"));
-  // }, [searchParam.get("rid")]);
-  // useEffect(() => {
-  //   console.log(myPicProducts);
-  // }, [myPicProducts]);
 
   return (
     <div className="mx-6">
@@ -332,14 +275,14 @@ const ChangeCompareProduct = ({
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             고정상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
+          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2 mt-4">
             {packageData
               ? packageData.data.fixedPackage.title
               : packageDetail?.data?.title || "불러오는 중..."}
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
-            styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-pink mt-3 py-2 px-7 cursor-pointer
+            styleClass={`w-full text-white text-xs web:text-sm font-medium rounded-lg bg-custom-gradient-pink mt-3 py-3 px-8 cursor-pointer
             `}
             onClickFn={onChangeA}
           />
@@ -349,7 +292,7 @@ const ChangeCompareProduct = ({
           <span className="text-black-8 text-xs font-semibold border-[0.6px] border-grey-e rounded-xl px-2 py-1">
             비교상품
           </span>
-          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
+          <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2 mt-4">
             {!searchParam.get("rid")
               ? "상품을 선택하세요"
               : myPicProducts
@@ -358,7 +301,7 @@ const ChangeCompareProduct = ({
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
-            styleClass={`w-full text-white text-sm font-medium rounded-lg bg-custom-gradient-green mt-3 py-2 px-7 cursor-pointer
+            styleClass={`w-full text-white text-xs web:text-sm font-medium rounded-lg bg-custom-gradient-green mt-3 py-3 px-8 cursor-pointer
             `}
             onClickFn={onChangeB}
           />
@@ -371,8 +314,8 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 isPriceLeftHigher
-                  ? "text-pink-main text-[13px]"
-                  : "text-black-9 text-xs"
+                  ? "text-pink-main text-[13px] web:text-[17px]"
+                  : "text-black-9 text-xs web:text-base"
               } font-normal`}
             >
               {priceLeft?.toLocaleString()}원
@@ -381,8 +324,8 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 isPriceLeftHigher
-                  ? "text-black-9 text-xs"
-                  : "text-lime-sub3 text-[13px]"
+                  ? "text-black-9 text-xs web:text-base"
+                  : "text-lime-sub3 text-[13px] web:text-[17px]"
               } font-semibold`}
             >
               {(myPicProducts?.price || 0).toLocaleString()}원
@@ -410,12 +353,12 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 isHotelStars
-                  ? "text-blue-main text-[13px]"
+                  ? "text-blue-main text-[13px] web:text-[17px]"
                   : leftHotelStars !== null &&
                       rightHotelStars !== null &&
                       leftHotelStars >= rightHotelStars
-                    ? "text-pink-main text-[13px]"
-                    : "text-black-9 text-xs"
+                    ? "text-pink-main text-[13px] web:text-[17px]"
+                    : "text-black-9 text-xs web:text-base"
               } font-semibold`}
             >
               {leftHotelStars ? `${leftHotelStars}성급` : "정보 없음"}
@@ -426,12 +369,12 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 isHotelStars
-                  ? "text-blue-main text-[13px]"
+                  ? "text-blue-main text-[13px] web:text-[17px]"
                   : leftHotelStars !== null &&
                       rightHotelStars !== null &&
                       rightHotelStars >= leftHotelStars
-                    ? "text-pink-main text-[13px]"
-                    : "text-black-9 text-xs"
+                    ? "text-pink-main text-[13px] web:text-[17px]"
+                    : "text-black-9 text-xs web:text-base"
               } font-semibold`}
             >
               {!searchParam.get("rid")
@@ -464,10 +407,10 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 leftShoppingCount === 0
-                  ? "text-black-9 text-xs"
+                  ? "text-black-9 text-xs web:text-base"
                   : isShoppingVisitsLeftHigher
-                    ? "text-black-9 text-xs"
-                    : "text-pink-main text-[13px]"
+                    ? "text-black-9 text-xs web:text-base"
+                    : "text-pink-main text-[13px] web:text-[17px]"
               } font-normal`}
             >
               총 {leftShoppingCount ?? "정보 없음"}개
@@ -478,10 +421,10 @@ const ChangeCompareProduct = ({
             <span
               className={`${
                 !searchParam.get("rid") || rightShoppingCount === 0
-                  ? "text-black-9 text-xs"
+                  ? "text-black-9 text-x web:text-base"
                   : isShoppingVisitsLeftHigher
-                    ? "text-black-9 text-xs"
-                    : "text-lime-sub3 text-[13px]"
+                    ? "text-black-9 text-xs web:text-base"
+                    : "text-lime-sub3 text-[13px] web:text-[17px]"
               } font-semibold`}
             >
               총{" "}
@@ -539,55 +482,111 @@ const ChangeCompareProduct = ({
       </div>
 
       <div className="relative">
-        <h3 className="mb-4 text-black-2 text-lg font-semibold">
-          일정 둘러보기
-        </h3>
-        <div className="flex w-full">
-          <div className="px-1 py-2 bg-pink-3 rounded-lg relative w-1/2 m-1">
-            {schedules.map((item, index) => (
-              <div key={index} className="day-schedule text-xxs">
-                <h4>Day {item.day}</h4>
-                <ul>
-                  {item.schedule.map((event, idx) => (
-                    <li key={idx}>{event}</li>
-                  ))}
-                </ul>
-                <p>아침: {item.breakfast || "불포함"}</p>
-                <p>점심: {item.lunch || "불포함"}</p>
-                <p>저녁: {item.dinner || "불포함"}</p>
-                <br />
-              </div>
-            ))}
+        <div
+          className={`relative ${
+            viewMore ? "h-full" : "h-[450px]"
+          } overflow-hidden`}
+        >
+          <h3 className="mb-4 text-black-2 text-lg font-semibold">
+            일정 둘러보기
+          </h3>
+          <div className="flex">
+            <div className="flex w-full flex-col">
+              {schedules.map((item, index) => {
+                return (
+                  <div className="relative w-[95%] mb-4" key={index}>
+                    <h1 className="text-black-4 text-sm web:text-base font-medium">
+                      {index + 1}일차
+                    </h1>
+                    <ul
+                      className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-80px)] web:before:h-[calc(100%-92px)] before:w-[0.6px] 
+                            before:bg-[#FFBFD1] before:absolute before:left-[13.4px] web:before:left-[18px] before:top-1/2 
+                              before:-translate-y-1/2 bg-pink-3 p-2"
+                    >
+                      {item.schedule.map((detail) => {
+                        return (
+                          <div className="relative" key={detail}>
+                            <li
+                              className="flex mb-3 before:contant-[''] z-10 before:h-[6px] before:w-[6px]
+                                web:before:h-2 web:before:w-2 before:bg-pink before:rounded-[50%] 
+                                before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]"
+                            >
+                              <div className="pl-9">
+                                <DetailTypography
+                                  color={3}
+                                  size={10}
+                                  bold={500}
+                                >
+                                  {detail}
+                                </DetailTypography>
+                              </div>
+                            </li>
+                          </div>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex w-full flex-col items-end">
+              {comparedSchedules?.map((item, index) => {
+                return (
+                  <div className="relative w-[95%] mb-4" key={index}>
+                    <h1 className="text-black-4 text-sm web:text-base font-medium">
+                      {index + 1}일차
+                    </h1>
+                    <ul
+                      className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-80px)] web:before:h-[calc(100%-92px)] before:w-[0.6px] 
+                             before:bg-[#AAE3A8] before:absolute before:left-[13.4px] web:before:left-[18px] before:top-1/2 
+                               before:-translate-y-1/2 bg-[#E8FFE7] p-2"
+                    >
+                      {item.schedule.map((detail) => {
+                        return (
+                          <div className="relative" key={detail}>
+                            <li
+                              className="flex mb-3 before:contant-[''] z-10 before:h-[6px] before:w-[6px]
+                                      web:before:h-2 web:before:w-2 before:bg-[#05B200] before:rounded-[50%] 
+                                      before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]"
+                            >
+                              <div className="pl-9">
+                                <DetailTypography
+                                  color={3}
+                                  size={10}
+                                  bold={500}
+                                >
+                                  {detail}
+                                </DetailTypography>
+                              </div>
+                            </li>
+                          </div>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-
-          <div className="px-1 py-2 bg-[#E8FFE7] rounded-lg relative w-1/2 m-1">
-            {comparedSchedules?.map((item, index) => {
-              return (
-                <div key={index} className="day-schedule text-xxs">
-                  <h4>Day {item.day}</h4>
-                  <ul>
-                    {item.schedule.map((event, idx) => (
-                      <li key={idx}>{event}</li>
-                    ))}
-                  </ul>
-                  <p>아침: {item.breakfast || "불포함"}</p>
-                  <p>점심: {item.lunch || "불포함"}</p>
-                  <p>저녁: {item.dinner || "불포함"}</p>
-                  <br />
-                </div>
-              );
-            })}
-          </div>
-          {/* <div className="px-1 py-2 bg-lime-sub4 rounded-lg relative" /> */}
         </div>
-        <DetailMoreButton setViewMore={setViewMore} />
+        {!viewMore && (
+          <div className="absolute bottom-0 left-0 w-full flex items-center justify-center h-40 bg-gradient-white web:h-20">
+            <Button
+              text="더보기"
+              onClickFn={() => {
+                setViewMore(true);
+              }}
+              styleClass="border-[0.6px] border-solid border-grey-a rounded-[52px] py-1 px-2 text-black-6 bg-white"
+            />
+          </div>
+        )}
       </div>
 
       <div>
         <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col">
           {products.map((product, index) => (
             <MyPicProduct
               key={index}
