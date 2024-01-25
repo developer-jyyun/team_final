@@ -159,9 +159,9 @@ const HomeSalePackages = () => {
                 </div>
               ))}
             </div>
-            <div className="flex items-center pt-2.5 gap-1 text-red-1">
+            <div className="flex items-center  pt-2.5 gap-1 text-red-1">
               <div className="text-xxs web:text-xs mt-[1px]">{`${singlePackage.lodgeDays}박 ${singlePackage.tripDays}일`}</div>
-              <div className="text-sm web:text-base font-semibold">{`${singlePackage.minPrice}원`}</div>
+              <div className="text-sm web:text-base font-semibold">{`${singlePackage.minPrice.toLocaleString()}원`}</div>
             </div>
           </div>
         </div>
