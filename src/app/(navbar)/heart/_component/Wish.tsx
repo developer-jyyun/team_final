@@ -21,9 +21,11 @@ const Wish = ({ data }: Props) => {
         />
       </div>
       <div className="flex flex-col gap-[10px] w-[156px]">
-        <p className="w-full truncate text-lg font-medium text-black-2">
-          {data.title}
-        </p>
+        <div>
+          <p className="w-full truncate text-lg font-medium text-black-2">
+            {data.title}
+          </p>
+        </div>
         <div className="flex gap-2">
           {data?.hashtags
             .slice(0, 3)
@@ -37,7 +39,7 @@ const Wish = ({ data }: Props) => {
         </p>
       </div>
       <div className="relative w-[51px]">
-        <LikeButton id={data.packageId} isWish={data.isWish} />
+        <LikeButton id={data.packageId} isWish />
         <Link
           href={`/compare?lid=${data.packageId}`}
           className="w-full text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
