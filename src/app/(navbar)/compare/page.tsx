@@ -58,7 +58,7 @@ const Compare = () => {
   const [storedProducts, setStoredProducts] = useState<CompareProduct[]>([]); // 저장된 상품들
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [compareIndex, setCompareIndex] = useState(-1); // 비교 상품 인덱스
+  const [compareIndex, setCompareIndex] = useState(0); // 비교 상품 인덱스
 
   const [currentItem, setCurrentItem] = useState<CompareProduct | null>(null);
 
@@ -82,13 +82,13 @@ const Compare = () => {
   useEffect(() => {
     // 컴포넌트가 마운트될 때 추천 상품 데이터를 가져옴
 
-    if (!searchParam.get("rid")) {
+    if (!searchParam.get("rid") || !searchParam.get("lid")) {
       return;
     }
     const fetchData = async () => {
       try {
         const responseData = await fetchSimilarProducts(
-          Number(searchParam.get("rid")),
+          Number(searchParam.get("rid")) || 24042217462,
           currentPage,
           10,
         );
@@ -103,25 +103,31 @@ const Compare = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, searchParam.get("rid")]);
 
   useEffect(() => {
     if (compareIndex === 6) {
       setCurrentPage((prevPage) => prevPage + 1);
-      setCompareIndex(1);
+      setCompareIndex(0);
     }
     // console.log(currentItem);
   }, [compareIndex]);
 
   // useEffect(() => {
-  //   console.log(products, storedProducts);
-  // }, [products, storedProducts]);
+  //   setCurrentItem(null);
+  // }, [searchParam.get("rid")]);
+
+  useEffect(() => {
+    console.log(products, storedProducts);
+    console.log(compareIndex);
+  }, [products, storedProducts]);
 
   // console.log(currentItem);
   const handleRefresh = () => {
     // console.log(1);
     // console.log(storedProducts[compareIndex]);
     setCurrentItem(storedProducts[compareIndex]);
+    console.log(compareIndex);
     // 새로고침 버튼을 클릭할 때의 로직
     // 배열의 다음 5개 항목으로 순환
     // const nextIndex = (compareIndex + 1) % storedProducts.length;
@@ -152,14 +158,17 @@ const Compare = () => {
           statusA={statusA}
           statusB={statusB}
           setIsCompareComplete={setIsCompareComplete}
+          setCompareIndex={setCompareIndex}
         />
       ) : (
         <ChangeCompareProduct
           products={products}
           compared={currentItem as CompareProduct}
           compareIndex={compareIndex}
+          setCompareIndex={setCompareIndex}
           onChangeA={handleCompareCompleteA}
           onChangeB={handleCompareCompleteB}
+          // currentItem={currentItem}
           // setCurrentItem={setCurrentItem}
           setIsCompareComplete={setIsCompareComplete}
         />

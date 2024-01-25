@@ -21,12 +21,14 @@ interface Props {
   statusA?: boolean;
   statusB?: boolean;
   setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
+  setCompareIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const WishListInfo = ({
   statusA = false,
   statusB = true,
   setIsCompareComplete,
+  setCompareIndex,
 }: Props) => {
   const router = useRouter();
 
@@ -111,6 +113,7 @@ const WishListInfo = ({
                       statusA={statusA}
                       statusB={statusB}
                       setIsCompareComplete={setIsCompareComplete}
+                      setCompareIndex={setCompareIndex}
                     />
                   );
                 })}

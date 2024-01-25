@@ -1,5 +1,6 @@
 import DetailMoreButton from "@/app/(non-navbar)/items/[id]/_component/DetailMoreButton";
 import Button from "@/app/_component/common/atom/Button";
+import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import LeftProductSummary from "./LeftProductSummary";
@@ -39,6 +40,8 @@ interface Props {
   onChangeB: () => void;
   // setCurrentItem: React.Dispatch<React.SetStateAction<CompareProduct | null>>;
   setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
+  // currentItem: CompareProduct | null;
+  setCompareIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface ScheduleItem {
@@ -123,8 +126,16 @@ const ChangeCompareProduct = ({
   compared,
   // setCurrentItem,
   setIsCompareComplete,
+  // currentItem,
+  setCompareIndex,
 }: Props) => {
   const searchParam = useSearchParams();
+
+  const { data: packageDetail } = usePackageDetailQuery({
+    id: searchParam.get("lid") as string,
+    date: null,
+    start: true,
+  });
 
   const [, setViewMore] = useState(false);
   const [leftRating] = useState(5);
@@ -193,17 +204,16 @@ const ChangeCompareProduct = ({
     leftHotelStars === rightHotelStars;
 
   useEffect(() => {
-    if (!Number(searchParam.get("rid"))) return;
-    const fixedPackageId = Number(searchParam.get("lid")) || 24042217462;
+    if (!searchParam.get("rid") || !searchParam.get("lid")) return;
+    // if (compareIndex === -1 && compared?.packageId) return;
+    const fixedPackageId = Number(searchParam.get("lid"));
     const comparePackageId =
-      compareIndex === -1
-        ? Number(searchParam.get("rid"))
-        : compared?.packageId || 24042217462;
+      compareIndex === 0 ? Number(searchParam.get("rid")) : compared?.packageId;
     // console.log(comparePackageId);
 
     fetchPackageData(fixedPackageId, comparePackageId)
       .then((data) => {
-        // console.log(data.data);
+        // console.log(data);
         const mappedfixSchedules: ScheduleItem[] =
           data.data.fixedPackage.schedules.map((sch) => ({
             day: sch.day,
@@ -321,7 +331,7 @@ const ChangeCompareProduct = ({
           <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2">
             {packageData
               ? packageData.data.fixedPackage.title
-              : "불러오는 중..."}
+              : packageDetail?.data?.title || "불러오는 중..."}
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
@@ -575,6 +585,8 @@ const ChangeCompareProduct = ({
               tripDays={product.tripDays}
               id={product.packageId}
               setIsCompareComplete={setIsCompareComplete}
+              // setCurrentItem={setCurrentItem}
+              setCompareIndex={setCompareIndex}
             />
           ))}
         </div>
