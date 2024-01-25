@@ -16,7 +16,7 @@ const LeftProgressBar = ({
     !isZeroCount && rating === 4
       ? "bg-gradient-grey"
       : isSameRating
-        ? "bg-gradient-grey"
+        ? "bg-blue-main"
         : isLower
           ? "bg-gradient-grey"
           : "bg-custom-gradient-pink";
