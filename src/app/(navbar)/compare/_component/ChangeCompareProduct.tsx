@@ -459,9 +459,11 @@ const ChangeCompareProduct = ({
           <div className="flex justify-between">
             <span
               className={`${
-                isShoppingVisitsLeftHigher
-                  ? "text-pink-main text-[13px]"
-                  : "text-black-9 text-xs"
+                leftShoppingCount === 0
+                  ? "text-black-9 text-xs"
+                  : isShoppingVisitsLeftHigher
+                    ? "text-pink-main text-[13px]"
+                    : "text-black-9 text-xs"
               } font-normal`}
             >
               총 {leftShoppingCount ?? "정보 없음"}개
@@ -471,9 +473,11 @@ const ChangeCompareProduct = ({
             </span>
             <span
               className={`${
-                isShoppingVisitsLeftHigher
+                !searchParam.get("rid") || rightShoppingCount === 0
                   ? "text-black-9 text-xs"
-                  : "text-lime-sub3 text-[13px]"
+                  : isShoppingVisitsLeftHigher
+                    ? "text-black-9 text-xs"
+                    : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
               총
