@@ -10,7 +10,7 @@ const Tab = ({ children, buttons, sticky }: Props) => {
     <>
       <ul
         className={`${
-          sticky && "sticky top-0 z-40"
+          sticky && "sticky top-12 z-40"
         } flex items-center justify-start bg-white overflow-x-auto`}
       >
         {buttons}
