@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useParams } from "next/navigation";
 import { SetStateAction, useState } from "react";
 import SwiperCore from "swiper";
 import { Autoplay, Navigation, Scrollbar } from "swiper/modules";
@@ -15,9 +16,12 @@ SwiperCore.use([Navigation, Scrollbar, Autoplay]);
 interface Props {
   imgUrls: string[];
   delay?: "none" | 4 | 2;
+  hasLink?: boolean;
 }
 
-const DetailSwiper = ({ imgUrls, delay = "none" }: Props) => {
+const DetailSwiper = ({ imgUrls, delay = "none", hasLink = false }: Props) => {
+  const router = useRouter();
+  const { id: slideId } = useParams();
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleSlideChange = (swiper: { realIndex: SetStateAction<number> }) => {
@@ -40,8 +44,21 @@ const DetailSwiper = ({ imgUrls, delay = "none" }: Props) => {
     return false;
   };
 
+  const handleSwiperClick = () => {
+    if (!hasLink || slideIndex + 1 === Number(slideId)) {
+      return;
+    }
+
+    if (hasLink) {
+      router.push(`/advertisement/${slideIndex + 1}`);
+    }
+  };
+
   return (
-    <div className="relative swiper-container">
+    <div
+      className="relative swiper-container"
+      onClick={() => handleSwiperClick()}
+    >
       <Swiper autoplay={getDelay()} onSlideChange={handleSlideChange}>
         {imgUrls.map((img) => (
           <SwiperSlide key={img}>
@@ -49,7 +66,7 @@ const DetailSwiper = ({ imgUrls, delay = "none" }: Props) => {
               <img
                 src={img}
                 alt="패키지 상세 이미지"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill"
               />
             </div>
           </SwiperSlide>

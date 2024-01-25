@@ -13,12 +13,15 @@ import ViewOption from "./_component/ViewOption";
 export const generateMetadata = async () => {
   const polls = await getPollsMain();
 
-  const title = `${
-    polls.data.subject
-  } - ${polls.data.A.join()} or ${polls.data.B.join()}`;
+  const title =
+    polls.code === 200
+      ? `${
+          polls.data.subject
+        } - ${polls.data.A.join()} or ${polls.data.B.join()}`
+      : "등록된 이벤트가 없습니다...";
 
   return {
-    title: polls.code === 200 ? title : "Let's - 여행 찬반 토론",
+    title: title,
   };
 };
 

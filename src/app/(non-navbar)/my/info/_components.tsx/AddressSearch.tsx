@@ -31,7 +31,6 @@ const AddressSearch = ({
         left: window.screen.width / 2 - window.innerWidth / 2,
         top: window.screen.height / 2 - window.innerHeight / 2,
       });
-      // }).open();
     }
   }, [onAddressSelected]);
 
@@ -43,10 +42,12 @@ const AddressSearch = ({
       />
 
       <div className="my-4 ">
-        <span className="text-black-8 text-[13px]">주소</span>
+        <span className="text-black-2 text-sm font-medium block mb-2">
+          주소
+        </span>
         <div className="flex justify-between items-center gap-2">
           <input
-            className="w-full h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2"
+            className="w-full h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2 "
             type="text"
             name="postCode"
             value={postCode}

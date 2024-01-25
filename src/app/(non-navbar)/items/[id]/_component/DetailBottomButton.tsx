@@ -1,5 +1,8 @@
+"use client";
+
 import type { Reservation } from "@/app/types";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import DetailTypography from "./DetailTypography";
 
 interface Props {
@@ -15,6 +18,9 @@ const DetailBottomButton = ({
   packageId,
   setReservation,
 }: Props) => {
+  const router = useRouter();
+  const params = useParams();
+
   const getBorderStyle = () => {
     if (!viewMore) return "";
 
@@ -23,6 +29,9 @@ const DetailBottomButton = ({
 
   const handleReservation = () => {
     setReservation(true);
+  };
+  const handleCompare = () => {
+    router.push(`/compare?lid=${params.id}`);
   };
 
   return (
@@ -47,6 +56,7 @@ const DetailBottomButton = ({
           <button
             type="button"
             className="w-[151px] h-[40px] bg-pink rounded-lg text-white text-lg font-bold web:w-[210px]"
+            onClick={handleCompare}
           >
             1:1 비교하기
           </button>
