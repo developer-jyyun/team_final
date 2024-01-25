@@ -1,6 +1,18 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
+// interface CompareProduct {
+//   hashtags: string[];
+//   imageUrl: string;
+//   isWish: false;
+//   lodgeDays: number;
+//   minPrice: number;
+//   nationName: string;
+//   packageId: number;
+//   title: string;
+//   tripDays: number;
+// }
+
 interface MyPicProductProps {
   title: string;
   imageUrl: string;
@@ -12,6 +24,8 @@ interface MyPicProductProps {
   statusA?: boolean;
   statusB?: boolean;
   setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
+  // setCurrentItem: React.Dispatch<React.SetStateAction<CompareProduct | null>>;
+  setCompareIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const MyPicProduct = ({
@@ -25,6 +39,7 @@ const MyPicProduct = ({
   statusA = false,
   statusB = true,
   setIsCompareComplete,
+  setCompareIndex,
 }: MyPicProductProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -40,6 +55,8 @@ const MyPicProduct = ({
     if (statusB) {
       router.replace(`/compare?lid=${lid}&rid=${id}`);
     }
+
+    setCompareIndex(0);
   };
 
   return (

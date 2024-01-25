@@ -3,7 +3,7 @@ interface Props {
 }
 
 const BadgeList = ({ children }: Props) => {
-  return <ul className="flex py-[18px] web:py-3">{children}</ul>;
+  return <ul className="flex pt-[18px] flex-wrap web:py-3">{children}</ul>;
 };
 
 export default BadgeList;

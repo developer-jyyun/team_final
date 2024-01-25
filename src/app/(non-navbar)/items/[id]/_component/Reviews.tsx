@@ -24,8 +24,6 @@ const Reviews = ({ user }: Props) => {
 
   const boxRef = useRef(null);
 
-  console.log(reviews);
-
   useEffect(() => {
     const currentRef = boxRef.current;
 
@@ -90,9 +88,9 @@ const Reviews = ({ user }: Props) => {
         />
       </div>
 
-      {reviews?.pages.map((page) => {
+      {reviews?.pages.map((page, index) => {
         return (
-          <ul>
+          <ul key={index}>
             {page.data.map((review: PackageReview) => {
               return <ReviewItem key={review.reviewId} review={review} />;
             })}

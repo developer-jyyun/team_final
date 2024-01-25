@@ -1,4 +1,5 @@
 import type { PackageReview } from "@/app/types";
+import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
 
 interface Props {
   review: PackageReview;
@@ -19,7 +20,10 @@ const ReviewItem = ({ review }: Props) => {
           />
           <span className="text-black-2">{review.averageStars}</span>
         </div>
-        <span className="text-black-8"> {review.createdAt}</span>
+        <span className="text-black-8">
+          {" "}
+          {ReplaceHyphenWithDot(review.createdAt)}
+        </span>
       </div>
       <div className="flex justify-between text-xxs font-medium web:text-sm">
         <dl className="flex gap-1 p-1 rounded-xl bg-pink-transparent web:px-2">
