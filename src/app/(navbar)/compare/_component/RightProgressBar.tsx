@@ -17,8 +17,8 @@ const RightProgressBar = ({
     : isSameRating
       ? "bg-blue-main"
       : isLower
-        ? "bg-gradient-grey"
-        : "bg-custom-gradient-green";
+        ? "bg-custom-gradient-green"
+        : "bg-gradient-grey";
   return (
     <div className="w-full h-2 rounded-full bg-grey-bar flex justify-end">
       <div

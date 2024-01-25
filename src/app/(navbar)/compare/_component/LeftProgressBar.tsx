@@ -17,8 +17,8 @@ const LeftProgressBar = ({
     : isSameRating
       ? "bg-blue-main"
       : isLower
-        ? "bg-gradient-grey"
-        : "bg-custom-gradient-pink";
+        ? "bg-custom-gradient-pink"
+        : "bg-gradient-grey";
   return (
     <div className="w-full h-2 rounded-full bg-grey-bar">
       <div
