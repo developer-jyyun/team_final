@@ -480,7 +480,7 @@ const ChangeCompareProduct = ({
                     : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
-              총
+              총{" "}
               {!searchParam.get("rid")
                 ? "0"
                 : rightShoppingCount ?? "정보 없음"}
