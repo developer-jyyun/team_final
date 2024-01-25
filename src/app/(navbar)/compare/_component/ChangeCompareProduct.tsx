@@ -466,8 +466,8 @@ const ChangeCompareProduct = ({
                 leftShoppingCount === 0
                   ? "text-black-9 text-xs"
                   : isShoppingVisitsLeftHigher
-                    ? "text-pink-main text-[13px]"
-                    : "text-black-9 text-xs"
+                    ? "text-black-9 text-xs"
+                    : "text-pink-main text-[13px]"
               } font-normal`}
             >
               총 {leftShoppingCount ?? "정보 없음"}개
