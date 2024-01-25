@@ -8,14 +8,14 @@ import Link from "next/link";
 import WishesList from "./_component/WishesList";
 
 const HeartPage = () => {
-  const { data: wishData } = useGetWishListQuery();
-  const page = wishData?.pages[0].page;
-  const data = wishData?.pages[0].data;
+  const { data, fetchNextPage, isFetching, hasNextPage } =
+    useGetWishListQuery();
+  const page = data?.pages[0].page;
 
   return (
     <div className="w-full flex flex-col items-center">
       <DefaultHeader text="찜리스트" />
-      <section className="w-full h-full px-6 flex flex-col">
+      <div className="w-full h-full px-6 flex flex-col">
         <p className="my-6 text-lg font-semibold leading-normal tracking-tighter text-left self-start">
           총 <span className=" text-pink-main">{page?.totalElements}</span>
           개의 패키지 상품
@@ -32,9 +32,14 @@ const HeartPage = () => {
             </Link>
           </div>
         ) : (
-          <WishesList data={data} />
+          <WishesList
+            data={data}
+            fetchNextPage={fetchNextPage}
+            isFetching={isFetching}
+            hasNextPage={hasNextPage}
+          />
         )}
-      </section>
+      </div>
     </div>
   );
 };
