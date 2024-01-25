@@ -8,6 +8,12 @@ import type { PackageInfo } from "@/app/types";
 import formatLongText from "@/utils/formatLongText";
 import getDestinations from "@/api/search/getDestinations";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 interface Props {
   name: string;
   imageUrl: string;
@@ -91,20 +97,24 @@ const HomeSalePackages = () => {
     router.push(`/items/${packageId}`);
   };
 
+  console.log(nationList);
   return (
     <div className="w-full">
-      <div className="flex text-grey-4 touch-auto overflow-auto scrollbar-hide">
-        {nationList.map((nation) => (
-          <div
-            className={`px-2 py-1 text-[11px] whitespace-nowrap ${
-              activeNation === nation ? "text-pink" : "text-grey-a "
-            } cursor-pointer`}
-            key={nation}
-            onClick={() => handleActiveNation(nation)}
-          >
-            {nation}
-          </div>
-        ))}
+      <div className="flex text-grey-4">
+        <Swiper slidesPerView={6} spaceBetween={10}>
+          {nationList.map((nation) => (
+            <SwiperSlide key={nation}>
+              <div
+                className={`px-2 py-1 text-[11px] whitespace-nowrap ${
+                  activeNation === nation ? "text-pink" : "text-grey-a "
+                } cursor-pointer flex items-center justify-center`}
+                onClick={() => handleActiveNation(nation)}
+              >
+                {nation}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
       {packages?.map((singlePackage) => (
         <div
@@ -117,7 +127,7 @@ const HomeSalePackages = () => {
             alt="패키지 이미지"
             width={90}
             height={90}
-            className="rounded-lg"
+            className="rounded-lg object-cover"
           />
           <div className="h-[90px] flex flex-col pt-1">
             <div className="text-black-2 text-[16px] font-medium">
