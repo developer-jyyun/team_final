@@ -6,6 +6,7 @@ import type {
 } from "@tanstack/react-query";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import Package from "./Package";
+import SkeletonItem from "./SkeletonItem";
 
 interface Props {
   data: InfiniteData<any, unknown> | undefined;
@@ -41,7 +42,13 @@ const PackagesList = ({
         ref={lastElementRef}
         className="w-full text-center text-black-6 h-20 list-none"
       >
-        {isFetching && <div>loading..🎈</div>}
+        {isFetching && (
+          <div className="w-full flex flex-wrap justify-between bg-white overflow-y-scroll">
+            {[0, 1, 2, 3].map((i) => (
+              <SkeletonItem key={i} />
+            ))}
+          </div>
+        )}
       </li>
     </>
   );

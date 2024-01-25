@@ -1,13 +1,9 @@
 import { useState } from "react";
 
 const useImage = () => {
-  const [error, setError] = useState(false);
+  const [ImagPath, setImagePath] = useState("/assets/imageLoadError.png");
 
-  const handleError = () => {
-    setError(true);
-  };
-
-  return { error, handleError };
+  return { ImagPath, setImagePath };
 };
 
 export default useImage;
