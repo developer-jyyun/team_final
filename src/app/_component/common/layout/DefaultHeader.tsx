@@ -29,7 +29,7 @@ const DefaultHeader = ({
   const router = useRouter();
 
   return (
-    <div className="flex relative w-full h-[48px]">
+    <div className="flex sticky w-full h-[48px] top-0 bg-white z-20">
       {/* 
       메인 페이지인지를 판단하기 위한 외부 삼항 연산자
       넘겨받은 theme 값이 default인 경우, 내부 삼항 연산자 로직으로
