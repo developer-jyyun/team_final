@@ -9,9 +9,7 @@ const useThemeQuery = (
 ) => {
   return useQuery({
     queryKey: ["theme", id, sortBy, page, pageSize],
-    queryFn: async () => {
-      return getThemeDetail(Number(id), sortBy, page, pageSize);
-    },
+    queryFn: () => getThemeDetail(Number(id), sortBy, page, pageSize),
   });
 };
 
