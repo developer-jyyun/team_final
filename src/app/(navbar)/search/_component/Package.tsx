@@ -1,6 +1,7 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
 import Link from "next/link";
+import Image from "next/image";
 import Hashtag from "./Hashtag";
 
 interface Props {
@@ -11,10 +12,14 @@ const Package = ({ data }: Props) => {
   return (
     <Link href={`/items/${data.packageId}`} className="inline-block mr-3">
       <div className="w-[158px] relative">
-        <img
+        <Image
           className="h-[180px] w-full object-cover rounded-[12px]"
           src={data.imageUrl}
           alt="대표 이미지"
+          placeholder="blur"
+          blurDataURL="/assets/imageLoadError.png"
+          width={100}
+          height={100}
         />
         <LikeButton id={data.packageId} isWish={data.isWish} />
       </div>
