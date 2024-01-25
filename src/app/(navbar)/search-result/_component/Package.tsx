@@ -1,6 +1,5 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
-import useImage from "@/hooks/useImage";
 import Image from "next/image";
 import Link from "next/link";
 
