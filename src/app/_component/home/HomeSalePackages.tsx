@@ -1,12 +1,18 @@
 "use client";
 
+import getDestinations from "@/api/search/getDestinations";
+import type { PackageInfo } from "@/app/types";
+import usePackageListQuery from "@/hooks/query/usePackageListQuery";
+import formatLongText from "@/utils/formatLongText";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import usePackageListQuery from "@/hooks/query/usePackageListQuery";
-import type { PackageInfo } from "@/app/types";
-import formatLongText from "@/utils/formatLongText";
-import getDestinations from "@/api/search/getDestinations";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface Props {
   name: string;
@@ -86,6 +92,23 @@ const HomeSalePackages = () => {
     setPage(1);
   };
 
+  //  뷰포트 넓이 가져오기
+  const getViewportWidth = () => {
+    return (
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+    );
+  };
+
+  // 뷰포트에 따른 글자수 가져오기
+  const getStringLength = () => {
+    const viewportWidth = getViewportWidth();
+
+    // 넓이가 380보다 크면 12를 반환, 아니면 6을 반환
+    return viewportWidth > 380 ? 16 : 12;
+  };
+
   // 패키지 상품 선택시 상세페이지 이동
   const handlePackageClick = (packageId: number) => {
     router.push(`/items/${packageId}`);
@@ -93,18 +116,21 @@ const HomeSalePackages = () => {
 
   return (
     <div className="w-full">
-      <div className="flex text-grey-4 touch-auto overflow-auto scrollbar-hide">
-        {nationList.map((nation) => (
-          <div
-            className={`px-2 py-1 text-[11px] whitespace-nowrap ${
-              activeNation === nation ? "text-pink" : "text-grey-a "
-            } cursor-pointer`}
-            key={nation}
-            onClick={() => handleActiveNation(nation)}
-          >
-            {nation}
-          </div>
-        ))}
+      <div className="flex text-grey-4">
+        <Swiper slidesPerView={6} spaceBetween={10}>
+          {nationList.map((nation) => (
+            <SwiperSlide key={nation}>
+              <div
+                className={`px-2 py-1 text-[11px] web:text-base whitespace-nowrap ${
+                  activeNation === nation ? "text-pink" : "text-grey-a "
+                } cursor-pointer flex items-center justify-center`}
+                onClick={() => handleActiveNation(nation)}
+              >
+                {nation}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
       {packages?.map((singlePackage) => (
         <div
@@ -117,16 +143,16 @@ const HomeSalePackages = () => {
             alt="패키지 이미지"
             width={90}
             height={90}
-            className="rounded-lg"
+            className="rounded-lg object-cover web:w-28 web:h-28"
           />
           <div className="h-[90px] flex flex-col pt-1">
-            <div className="text-black-2 text-[16px] font-medium">
-              {formatLongText(singlePackage.title, 16)}
+            <div className="text-black-2 text-lg web:text-xl font-medium">
+              {formatLongText(singlePackage.title, getStringLength())}
             </div>
             <div className="flex gap-1 pt-2">
               {singlePackage.hashtags.map((hashtag) => (
                 <div
-                  className="border-[0.6px] border-solid border-black-6 text-black-4 rounded-[4px] px-2 py-1 text-[11px] whitespace-nowrap"
+                  className="border-[0.6px] border-solid border-black-6 text-black-4 rounded-[39px] px-2 py-1 text-[11px] web:text-sm whitespace-nowrap"
                   key={hashtag}
                 >
                   {hashtag}
@@ -134,8 +160,8 @@ const HomeSalePackages = () => {
               ))}
             </div>
             <div className="flex items-center pt-2.5 gap-1 text-red-1">
-              <div className="text-xxs">{`${singlePackage.lodgeDays}박 ${singlePackage.tripDays}일`}</div>
-              <div className="text-sm font-medium">{`${singlePackage.minPrice}원`}</div>
+              <div className="text-xxs web:text-xs mt-[1px]">{`${singlePackage.lodgeDays}박 ${singlePackage.tripDays}일`}</div>
+              <div className="text-sm web:text-base font-semibold">{`${singlePackage.minPrice}원`}</div>
             </div>
           </div>
         </div>
