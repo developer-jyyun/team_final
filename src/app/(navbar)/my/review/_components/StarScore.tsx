@@ -5,7 +5,6 @@ interface Prop {
 }
 
 const StarScore = ({ averageScore }: Prop) => {
-  console.log("⭐:", averageScore);
   return (
     <article className="mt-12 flex flex-col">
       <h2 className="text-lg text-black-2 font-semibold">
