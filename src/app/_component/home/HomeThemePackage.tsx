@@ -55,7 +55,7 @@ const HomeThemePackage = () => {
           <img
             src={singleTheme.imageUrl}
             alt="테스트이미지"
-            className="w-[93px] h-[93px] rounded-lg"
+            className="w-[93px] h-[93px] web:w-[130px] web:h-[130px] rounded-lg object-cover"
           />
           <p className="pt-2.5 text-center whitespace-nowrap">
             {singleTheme.name}

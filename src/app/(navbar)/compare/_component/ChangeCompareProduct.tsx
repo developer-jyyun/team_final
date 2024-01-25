@@ -196,9 +196,9 @@ const ChangeCompareProduct = ({
     leftShoppingCount < rightShoppingCount;
 
   const shoppingRatingLeft =
-    (leftShoppingCount ?? 0) > (rightShoppingCount ?? 0) ? 4 : 3;
+    (leftShoppingCount ?? 0) < (rightShoppingCount ?? 0) ? 4 : 3;
   const shoppingRatingRight =
-    (rightShoppingCount ?? 0) > (leftShoppingCount ?? 0) ? 4 : 3;
+    (rightShoppingCount ?? 0) < (leftShoppingCount ?? 0) ? 4 : 3;
 
   const isShoppingSame = (leftShoppingCount ?? 0) === (rightShoppingCount ?? 0);
 
