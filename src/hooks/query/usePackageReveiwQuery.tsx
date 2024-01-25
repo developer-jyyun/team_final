@@ -7,8 +7,12 @@ const usePackageReveiwQuery = (id: string) => {
     queryFn: ({ pageParam }) => getPackageReveiws(Number(id), pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      const page = lastPage.page.currentPage;
-      return page + 1;
+      const { currentPage, totalPages } = lastPage.page;
+      if (currentPage < totalPages) {
+        return currentPage + 1;
+      }
+
+      return undefined;
     },
     refetchOnMount: false,
   });
