@@ -17,9 +17,15 @@ interface Props {
   imgUrls: string[];
   delay?: "none" | 4 | 2;
   hasLink?: boolean;
+  thema?: string;
 }
 
-const DetailSwiper = ({ imgUrls, delay = "none", hasLink = false }: Props) => {
+const DetailSwiper = ({
+  imgUrls,
+  delay = "none",
+  hasLink = false,
+  thema,
+}: Props) => {
   const router = useRouter();
   const { id: slideId } = useParams();
   const [slideIndex, setSlideIndex] = useState(0);
@@ -54,25 +60,49 @@ const DetailSwiper = ({ imgUrls, delay = "none", hasLink = false }: Props) => {
     }
   };
 
+  const getSwiperStyle = () => {
+    if (!thema) return "";
+    return `w-[327px] h-[240px] web:w-[450px] web:h-[335px] rounded-md overflow-hidden`;
+  };
+
+  const getImgStyle = () => {
+    if (!thema) return `w-full h-full object-fill`;
+    return `w-[327px] h-[240px] web:w-[450px] web:h-[335px] object-cover object-center`;
+  };
+
+  const getBoxStyle = () => {
+    if (!thema) return `w-full h-[320px]`;
+
+    return "";
+  };
+
   return (
     <div
       className="relative swiper-container"
       onClick={() => handleSwiperClick()}
     >
-      <Swiper autoplay={getDelay()} onSlideChange={handleSlideChange}>
+      <Swiper
+        autoplay={getDelay()}
+        onSlideChange={handleSlideChange}
+        className={`${getSwiperStyle()}`}
+      >
         {imgUrls.map((img, index) => (
           <SwiperSlide key={img + index}>
-            <div className="w-full h-[320px]">
+            <div className={`${getBoxStyle()}`}>
               <img
                 src={img}
                 alt="패키지 상세 이미지"
-                className="w-full h-full object-fill"
+                className={`${getImgStyle()}`}
               />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <SwiperBadge slideIndex={slideIndex} slideLength={imgUrls.length} />
+      <SwiperBadge
+        slideIndex={slideIndex}
+        slideLength={imgUrls.length}
+        thema={thema}
+      />
     </div>
   );
 };

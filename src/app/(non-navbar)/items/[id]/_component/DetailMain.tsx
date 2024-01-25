@@ -101,7 +101,7 @@ const DetailMain = () => {
       } relative`}
     >
       <DefaultHeader theme="main-button" back />
-      <DetailSwiper imgUrls={packageDetail.data.imageUrls} />
+      <DetailSwiper imgUrls={packageDetail.data.imageUrls} thema="main" />
       <div className="px-8">
         <div className="flex justify-between items-center">
           <BadgeList>
