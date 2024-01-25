@@ -33,7 +33,6 @@ const useHashtagResult = () => {
   }, [params]);
 
   const hashtagDataFirst = data?.pages[0];
-  console.log(data);
 
   return {
     data,

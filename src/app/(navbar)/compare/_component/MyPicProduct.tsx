@@ -1,3 +1,4 @@
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 interface MyPicProductProps {
@@ -7,6 +8,10 @@ interface MyPicProductProps {
   price: number;
   lodgeDays: number;
   tripDays: number;
+  id: number;
+  statusA?: boolean;
+  statusB?: boolean;
+  setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MyPicProduct = ({
@@ -16,7 +21,27 @@ const MyPicProduct = ({
   price,
   lodgeDays,
   tripDays,
+  id,
+  statusA = false,
+  statusB = true,
+  setIsCompareComplete,
 }: MyPicProductProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleCompare = () => {
+    const lid = searchParams.get("lid");
+    const rid = searchParams.get("rid");
+    setIsCompareComplete(false);
+    // console.log(statusA, statusB);
+    if (statusA) {
+      router.replace(`/compare?lid=${id}&rid=${rid}`);
+    }
+    if (statusB) {
+      router.replace(`/compare?lid=${lid}&rid=${id}`);
+    }
+  };
+
   return (
     <div className="flex my-3 items-center justify-center w-[330px] relative">
       <div className="bg-grey-a rounded-lg mx-0 my-auto w-[115px]">
@@ -50,6 +75,7 @@ const MyPicProduct = ({
         <button
           type="button"
           className="text-white text-xxs font-medium p-1.5 bg-custom-gradient-pink gap-2 rounded-[16px] absolute right-0 bottom-0"
+          onClick={handleCompare}
         >
           1:1
           <br />
