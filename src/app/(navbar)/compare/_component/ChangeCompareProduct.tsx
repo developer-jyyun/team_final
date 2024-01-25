@@ -381,7 +381,7 @@ const ChangeCompareProduct = ({
                   : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
-              {myPicProducts?.price || 0}원
+              {(myPicProducts?.price || 0).toLocaleString()}원
             </span>
           </div>
           <div className="flex justify-between">
@@ -389,12 +389,14 @@ const ChangeCompareProduct = ({
               rating={leftRate}
               isLower={!isPriceLeftHigher}
               isSameRating={false}
+              isZeroCount={false}
             />
             <SectionMargin />
             <RightProgressBar
               rating={rightRate}
               isLower={isPriceLeftHigher}
               isSameRating={false}
+              isZeroCount={false}
             />
           </div>
         </div>
@@ -441,12 +443,14 @@ const ChangeCompareProduct = ({
               rating={leftRating}
               isLower={!isHotelStars && isLeftLower}
               isSameRating={isHotelStars}
+              isZeroCount={false}
             />
             <SectionMargin />
             <RightProgressBar
               rating={rightRating}
               isLower={!isHotelStars && isRightLower}
               isSameRating={isHotelStars}
+              isZeroCount={false}
             />
           </div>
         </div>
@@ -455,9 +459,11 @@ const ChangeCompareProduct = ({
           <div className="flex justify-between">
             <span
               className={`${
-                isShoppingVisitsLeftHigher
-                  ? "text-pink-main text-[13px]"
-                  : "text-black-9 text-xs"
+                leftShoppingCount === 0
+                  ? "text-black-9 text-xs"
+                  : isShoppingVisitsLeftHigher
+                    ? "text-pink-main text-[13px]"
+                    : "text-black-9 text-xs"
               } font-normal`}
             >
               총 {leftShoppingCount ?? "정보 없음"}개
@@ -467,12 +473,14 @@ const ChangeCompareProduct = ({
             </span>
             <span
               className={`${
-                isShoppingVisitsLeftHigher
+                !searchParam.get("rid") || rightShoppingCount === 0
                   ? "text-black-9 text-xs"
-                  : "text-lime-sub3 text-[13px]"
+                  : isShoppingVisitsLeftHigher
+                    ? "text-black-9 text-xs"
+                    : "text-lime-sub3 text-[13px]"
               } font-semibold`}
             >
-              총{" "}
+              총
               {!searchParam.get("rid")
                 ? "0"
                 : rightShoppingCount ?? "정보 없음"}
@@ -484,12 +492,14 @@ const ChangeCompareProduct = ({
               rating={shoppingRatingLeft}
               isLower={!isShoppingVisitsLeftHigher}
               isSameRating={false}
+              isZeroCount={leftShoppingCount === 0}
             />
             <SectionMargin />
             <RightProgressBar
               rating={shoppingRatingRight}
               isLower={isShoppingVisitsLeftHigher}
               isSameRating={false}
+              isZeroCount={!searchParam.get("rid") || rightShoppingCount === 0}
             />
           </div>
         </div>
