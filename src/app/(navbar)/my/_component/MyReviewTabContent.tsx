@@ -31,7 +31,7 @@ const MyReviewTabContent = () => {
   };
 
   if (totalCount === 0) {
-    return <NoItem text="예약내역이 존재하지 않습니다." img />;
+    return <NoItem text=" 리뷰를 남길 여행 내역이 존재하지 않습니다." img />;
   }
   console.log(myReviewData);
   return (
