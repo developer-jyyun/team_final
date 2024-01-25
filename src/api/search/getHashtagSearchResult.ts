@@ -9,6 +9,7 @@ const getHashtagSearchResult = async (
     `${process.env.NEXT_PUBLIC_BASE_URL}/v1/search${options}&page=${page}&sortBy=${sort}`,
     {
       cache: "no-store",
+      credentials: "include",
     },
   );
   return data.json();
