@@ -28,7 +28,7 @@ const HomeAdvertisements = () => {
 
   return (
     <section className="pb-6 cursor-pointer">
-      <DetailSwiper imgUrls={adsData} delay={4} hasLink />
+      <DetailSwiper imgUrls={adsData} delay={4} hasLink thema="main" />
     </section>
   );
 };
