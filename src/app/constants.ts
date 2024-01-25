@@ -19,18 +19,6 @@ export const TITLE_CLASS =
 export const SUB_TITLE_CLASS =
   "text-sm font-medium text-black-2 mt-3 mb-2.5 px-4";
 
-// home page
-export const NATION_LISTS = [
-  "전체",
-  "일본",
-  "대만",
-  "유럽",
-  "베트남",
-  "북미",
-  "아프리카",
-  "남미",
-];
-
 // best theme
 export const BEST_THEME = [
   {

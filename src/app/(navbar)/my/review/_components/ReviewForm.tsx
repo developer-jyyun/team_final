@@ -1,41 +1,38 @@
 "use client";
 
 import { TITLE_CLASS } from "@/app/constants";
-import { MyOrder } from "@/app/types";
-import useOrderToReviewQuery from "@/hooks/query/useOrderToReviewQuery";
-import convertToFourDigitYear from "@/utils/convertToFourDigitYear";
-import { useParams } from "next/navigation";
+import usePackageDetailQuery from "@/hooks/query/usePackageDetailQuery";
+import ReplaceHyphenWithDot from "@/utils/ReplaceHyphenWithDot";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import Chip from "../../_component/Chip";
 import InnerSection from "../../_component/InnerSection";
 import ReviewScore from "./ReviewScore";
 import WriteReview from "./WriteReview";
-// import ReservationItem from "../../_component/ReservationItem";
-import Chip from "../../_component/Chip";
 
 const ReviewForm = () => {
-  const params = useParams();
-  // console.log(params);
+  const searchParams = useSearchParams();
 
-  // const orderId = parseInt(params.id, 10);
+  const [productScore, setProductScore] = useState(0);
+  const [scheduleScore, setScheduleScore] = useState(0);
+  const [friendlinessScore, setFriendlinessScore] = useState(0);
+  const [appointmentScore, setAppointmentScore] = useState(0);
 
-  const orderId = Array.isArray(params.id)
-    ? parseInt(params.id[0], 10)
-    : parseInt(params.id, 10);
-
-  const { data, isLoading, isError, error } = useOrderToReviewQuery();
-
-  const orderToReview = data.find(
-    (order: MyOrder) => order.orderId === orderId,
-  );
-
-  // console.log(orderToReview);
-  console.log(data);
+  const {
+    data: packageDetail,
+    isLoading,
+    isError,
+    error,
+  } = usePackageDetailQuery({
+    id: searchParams.get("pid") as string,
+    date: null,
+    start: true,
+  });
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
-  if (!orderToReview) return <div>주문을 찾을 수 없습니다.</div>;
-  const convertedYear = convertToFourDigitYear(
-    orderToReview.package.travelPeriod,
-  );
+  if (!packageDetail.data) return <div>주문을 찾을 수 없습니다.</div>;
+  if (!packageDetail.data.myInfo.email) return <div>로그인 해주세요!</div>;
 
   return (
     <InnerSection text="리뷰 작성하기" backUrl="/my">
@@ -44,25 +41,51 @@ const ReviewForm = () => {
         <div className="w-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
           <img
             className="w-full h-full"
-            src={orderToReview.package.imageUrl}
-            alt={orderToReview.package.title}
+            src={packageDetail?.data.imageUrls[0] || "로딩"}
+            alt={packageDetail?.data.title || "로딩"}
           />
         </div>
         <div className="w-2/3  flex flex-col justify-evenly gap-2 ">
           <p className="flex flex-row items-center max-w-[80%] ">
             <span className="font-medium text-lg text-black-2 leaing-3 truncate">
-              {orderToReview.package.title}
+              {packageDetail?.data.title}
             </span>
           </p>
           <div className="">
-            <Chip chipData={orderToReview.package.hashtags} gap="gap-x-1" />
+            <Chip
+              chipData={packageDetail?.data.hashtags || "로딩"}
+              gap="gap-x-1"
+            />
           </div>
-          <p className="text-black-6 font-medium text-sm ">{convertedYear}</p>
+          <p className="text-black-6 font-medium text-sm ">
+            {`${
+              ReplaceHyphenWithDot(
+                packageDetail?.data.departureDatetime.date,
+              ) || 0
+            } -
+              ${
+                ReplaceHyphenWithDot(packageDetail?.data.endDatetime.date) || 0
+              }`}
+          </p>
         </div>
       </li>
 
-      <ReviewScore />
-      <WriteReview />
+      <ReviewScore
+        productScore={productScore}
+        setProductScore={setProductScore}
+        scheduleScore={scheduleScore}
+        setScheduleScore={setScheduleScore}
+        friendlinessScore={friendlinessScore}
+        setFriendlinessScore={setFriendlinessScore}
+        appointmentScore={appointmentScore}
+        setAppointmentScore={setAppointmentScore}
+      />
+      <WriteReview
+        productScore={productScore}
+        scheduleScore={scheduleScore}
+        friendlinessScore={friendlinessScore}
+        appointmentScore={appointmentScore}
+      />
     </InnerSection>
   );
 };

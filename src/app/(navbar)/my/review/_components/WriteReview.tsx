@@ -1,11 +1,39 @@
 "use client";
 
+import DetailTypography from "@/app/(non-navbar)/items/[id]/_component/DetailTypography";
 import Button from "@/app/_component/common/atom/Button";
+import usePostReviewMutation from "@/hooks/query/usePostReviewMutation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
-const WriteReview = () => {
+interface Props {
+  productScore: number;
+  scheduleScore: number;
+  friendlinessScore: number;
+  appointmentScore: number;
+}
+
+const WriteReview = ({
+  productScore,
+  scheduleScore,
+  friendlinessScore,
+  appointmentScore,
+}: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [errorMessage, setErrorMessage] = useState("");
   const [review, setReview] = useState("");
-  const [, setIsReviewWritten] = useState(false);
+  const { mutateAsync } = usePostReviewMutation(
+    {
+      content: review,
+      productScore,
+      scheduleScore,
+      guideScore: friendlinessScore,
+      appointmentScore,
+    },
+    Number(searchParams.get("oid")),
+  );
 
   const handleReviewChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReview(e.target.value);
@@ -14,9 +42,14 @@ const WriteReview = () => {
   const isButtonEnabled = review.length >= 3 && review.length <= 50;
 
   const handleSubmit = () => {
-    console.log("리뷰 제출 🎈", review);
-    setReview("");
-    setIsReviewWritten(true);
+    mutateAsync().then((res) => {
+      console.log(res);
+      if (res.code === 200) {
+        router.replace("/my");
+      } else {
+        setErrorMessage(res.message);
+      }
+    });
   };
   return (
     <div className="mt-4">
@@ -28,6 +61,9 @@ const WriteReview = () => {
         onChange={handleReviewChange}
       />
 
+      <DetailTypography color={"red"} size={8}>
+        {errorMessage}
+      </DetailTypography>
       <Button
         text="리뷰 작성 완료"
         styleClass={`w-full rounded-xl text-xs p-3.5 mt-[18px] ${
