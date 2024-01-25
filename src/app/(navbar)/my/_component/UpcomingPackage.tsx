@@ -18,8 +18,8 @@ const UpcomingPackage = () => {
       {noItem && <NoItem text="다가오는 패키지 내역이 없습니다." img={false} />}
 
       {!noItem && (
-        <div className="flex flex-wrap relative gap-[18px]">
-          <div className=" w-[90px] rounded-md overflow-hidden">
+        <div className="flex flex-nowrap relative gap-[18px]">
+          <div className="w-[90px] shrink-0 rounded-md overflow-hidden">
             <img
               className="w-full h-full"
               src={data.imageUrl}
