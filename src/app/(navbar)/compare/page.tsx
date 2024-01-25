@@ -145,34 +145,33 @@ const Compare = () => {
     setCompareIndex((prevPage) => prevPage + 1);
   };
 
-  return (
+  return isCompareComplete ? (
+    <section>
+      <DefaultHeader text="찜 리스트" />
+      <WishListPage
+        statusA={statusA}
+        statusB={statusB}
+        setIsCompareComplete={setIsCompareComplete}
+        setCompareIndex={setCompareIndex}
+      />
+    </section>
+  ) : (
     <section>
       <DefaultHeader
-        text={isCompareComplete ? "찜 리스트" : "1:1 비교"}
+        text={"1:1 비교"}
         iconSrc="/icons/refreshIcon.svg"
         iconAlt="새로고침"
         onIconClick={handleRefresh}
       />
-      {isCompareComplete ? (
-        <WishListPage
-          statusA={statusA}
-          statusB={statusB}
-          setIsCompareComplete={setIsCompareComplete}
-          setCompareIndex={setCompareIndex}
-        />
-      ) : (
-        <ChangeCompareProduct
-          products={products}
-          compared={currentItem as CompareProduct}
-          compareIndex={compareIndex}
-          setCompareIndex={setCompareIndex}
-          onChangeA={handleCompareCompleteA}
-          onChangeB={handleCompareCompleteB}
-          // currentItem={currentItem}
-          // setCurrentItem={setCurrentItem}
-          setIsCompareComplete={setIsCompareComplete}
-        />
-      )}
+      <ChangeCompareProduct
+        products={products}
+        compared={currentItem as CompareProduct}
+        compareIndex={compareIndex}
+        setCompareIndex={setCompareIndex}
+        onChangeA={handleCompareCompleteA}
+        onChangeB={handleCompareCompleteB}
+        setIsCompareComplete={setIsCompareComplete}
+      />
     </section>
   );
 };
