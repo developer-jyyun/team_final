@@ -1,12 +1,14 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
+import useImage from "@/hooks/useImage";
 import Link from "next/link";
 
 interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
-  // console.log(data);
+  const { handleError, error } = useImage();
+
   return (
     <Link
       href={`/items/${data.packageId}`}
@@ -14,9 +16,10 @@ const Package = ({ data }: Props) => {
     >
       <div className="relative h-[120px] rounded-[12px] overflow-hidden">
         <img
-          className="object-cover w-full"
-          src={data.imageUrl}
+          className="object-cover w-full h-full"
+          src={error ? "/assets/imageLoadError.png" : data.imageUrl}
           alt="대표 이미지"
+          onError={handleError}
         />
         <LikeButton id={data.packageId} isWish={data.isWish} />
       </div>
