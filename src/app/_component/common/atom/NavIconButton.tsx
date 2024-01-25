@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import getMyInfo from "@/api/my/getMyInfo";
 
 interface Props {
   href: string;
@@ -12,8 +12,25 @@ interface Props {
 }
 
 const NavIconButton = ({ href, text, basic, active }: Props) => {
+  const router = useRouter();
+
   const [isHover, setIsHover] = useState(false);
   const currentUrl = usePathname();
+
+  const handleAuth = async () => {
+    if (href === "/heart" || href === "/my") {
+      const data = await getMyInfo();
+
+      if (data.code === 401) {
+        if (href === "/heart") router.push("/signin?redirect=/heart");
+        if (href === "/my") router.push("/signin?redirect=/my");
+      } else if (data.email) {
+        router.push(href);
+      }
+    } else {
+      router.push(href);
+    }
+  };
 
   const handleMouseOver = () => {
     setIsHover(true);
@@ -26,17 +43,22 @@ const NavIconButton = ({ href, text, basic, active }: Props) => {
   if (currentUrl === href)
     return (
       <li className="w-1/4">
-        <Link href={href} className="flex flex-col justify-center items-center">
+        <button
+          type="button"
+          onClick={handleAuth}
+          className="flex flex-col justify-center items-center"
+        >
           <img src={active} alt={`${text} 아이콘`} width={24} />
           <p className="text-pink text-center">{text}</p>
-        </Link>
+        </button>
       </li>
     );
 
   return (
     <li className="w-1/4">
-      <Link
-        href={href}
+      <button
+        type="button"
+        onClick={handleAuth}
         className="flex flex-col justify-center items-center"
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
@@ -45,7 +67,7 @@ const NavIconButton = ({ href, text, basic, active }: Props) => {
         <p className={`${isHover ? "text-pink" : "text-grey-b"} text-center`}>
           {text}
         </p>
-      </Link>
+      </button>
     </li>
   );
 };
