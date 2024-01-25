@@ -21,10 +21,10 @@ const LeftProgressBar = ({
           ? "bg-gradient-grey"
           : "bg-custom-gradient-pink";
   return (
-    <div className="w-full h-2 rounded-full bg-grey-bar">
+    <div className="w-full h-[14px] rounded-full bg-grey-bar">
       <div
         style={{ width: filledWidth }}
-        className={`h-2 rounded-full  ${bgColorClass}`}
+        className={`h-[14px] rounded-full  ${bgColorClass}`}
       />
     </div>
   );
