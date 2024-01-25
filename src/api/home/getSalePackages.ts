@@ -11,7 +11,10 @@ const getSalePackages = async (
   }
 
   try {
-    const result = await fetch(url);
+    const result = await fetch(url, {
+      credentials: "include",
+      cache: "no-store",
+    });
     return await result.json();
   } catch (error) {
     console.error(error);
