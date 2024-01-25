@@ -480,8 +480,8 @@ const ChangeCompareProduct = ({
                 !searchParam.get("rid") || rightShoppingCount === 0
                   ? "text-black-9 text-xs"
                   : isShoppingVisitsLeftHigher
-                    ? "text-black-9 text-xs"
-                    : "text-lime-sub3 text-[13px]"
+                    ? "text-lime-sub3 text-[13px]"
+                    : "text-black-9 text-xs"
               } font-semibold`}
             >
               총{" "}
