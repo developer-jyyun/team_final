@@ -4,7 +4,7 @@ import React from "react";
 import usePackageListQuery from "@/hooks/query/usePackageListQuery";
 import type { PackageInfo } from "@/app/types";
 import Package from "./Package";
-import SkeletonItem from "./Skeleption";
+import SkeletonItem from "./SkeletonItem";
 
 const PackagesList = () => {
   const { data, isLoading } = usePackageListQuery();
