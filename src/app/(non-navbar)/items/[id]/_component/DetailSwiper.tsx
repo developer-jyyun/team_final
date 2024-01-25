@@ -60,8 +60,8 @@ const DetailSwiper = ({ imgUrls, delay = "none", hasLink = false }: Props) => {
       onClick={() => handleSwiperClick()}
     >
       <Swiper autoplay={getDelay()} onSlideChange={handleSlideChange}>
-        {imgUrls.map((img) => (
-          <SwiperSlide key={img}>
+        {imgUrls.map((img, index) => (
+          <SwiperSlide key={img + index}>
             <div className="w-full h-[320px]">
               <img
                 src={img}
