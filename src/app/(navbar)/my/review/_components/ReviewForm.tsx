@@ -13,10 +13,10 @@ import WriteReview from "./WriteReview";
 const ReviewForm = () => {
   const searchParams = useSearchParams();
 
-  const [productScore, setProductScore] = useState(0);
-  const [scheduleScore, setScheduleScore] = useState(0);
-  const [friendlinessScore, setFriendlinessScore] = useState(0);
-  const [appointmentScore, setAppointmentScore] = useState(0);
+  const [productScore, setProductScore] = useState(5);
+  const [scheduleScore, setScheduleScore] = useState(5);
+  const [friendlinessScore, setFriendlinessScore] = useState(5);
+  const [appointmentScore, setAppointmentScore] = useState(5);
 
   const {
     data: packageDetail,
