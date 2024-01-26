@@ -2,7 +2,7 @@ import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
 import Image from "next/image";
 import Link from "next/link";
-import Tag from "../../../_component/common/atom/Tag";
+import Tag from "@/app/_component/common/atom/Tag";
 
 interface Props {
   data: PackageInfo;
@@ -46,7 +46,7 @@ const Wish = ({ data }: Props) => {
         <LikeButton id={data.packageId} isWish />
         <Link
           href={`/compare?lid=${data.packageId}`}
-          className="w-full text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
+          className="w-[50px] text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
         >
           1:1
           <br />

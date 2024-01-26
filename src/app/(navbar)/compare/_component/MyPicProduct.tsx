@@ -1,4 +1,5 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
+import Tag from "@/app/_component/common/atom/Tag";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -72,14 +73,9 @@ const MyPicProduct = ({
         <div className="my-2.5 flex flex-wrap gap-1 max-w-[200px] web:mb-6">
           {hashtags
             .sort((prev, next) => prev.length - next.length)
-            .slice(0, 2)
-            .map((tag, index) => (
-              <span
-                key={index}
-                className="text-black-4 text-[11px] font-normal py-1 px-2 border-[0.6px] border-black-6 rounded-[39px]"
-              >
-                {tag}
-              </span>
+            .slice(0, 3)
+            .map((tagName) => (
+              <Tag key={tagName} tagName={tagName} />
             ))}
         </div>
         <p className="text-red-1 text-xxs web:text-base font-lightt">
@@ -89,13 +85,12 @@ const MyPicProduct = ({
           </span>
         </p>
       </div>
-      <div className="grow" />
       <div className="relative w-[51px]">
         <LikeButton id={id} isWish={isWish as boolean} />
         <button
           type="button"
           onClick={handleCompare}
-          className="w-full text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
+          className="w-[50px] text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
         >
           1:1
           <br />
