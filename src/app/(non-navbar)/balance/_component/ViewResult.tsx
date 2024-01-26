@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import DetailTypography from "../../items/[id]/_component/DetailTypography";
 
 interface SubmittedData {
@@ -28,8 +29,17 @@ interface Props {
 }
 
 const ViewResult = ({ result, current }: Props) => {
+  const router = useRouter();
+
   const getSize = (numbe: number) => {
     return (numbe / result.totalCount) * 100;
+  };
+
+  const handleClickAHashTag = () => {
+    router.push(`/search-result?keyword=${result.A.linkHashTag}`);
+  };
+  const handleClickBHashTag = () => {
+    router.push(`/search-result?keyword=${result.B.linkHashTag}`);
   };
 
   return (
@@ -77,9 +87,10 @@ const ViewResult = ({ result, current }: Props) => {
         <button
           type="button"
           className="w-[151px] h-20 bg-custom-gradient-pink-2 rounded-lg web:w-44 web:h-[90px]"
+          onClick={handleClickAHashTag}
         >
           <DetailTypography color="f" size={14} bold={700} align="center">
-            휴양/레저
+            {result.A.linkHashTag}
           </DetailTypography>
           <DetailTypography color="f" size={12} bold={500} align="center">
             구경하기
@@ -88,9 +99,10 @@ const ViewResult = ({ result, current }: Props) => {
         <button
           type="button"
           className="w-[151px] h-20 bg-custom-gradient-green-2 rounded-lg web:w-44 web:h-[90px]"
+          onClick={handleClickBHashTag}
         >
           <DetailTypography color="f" size={14} bold={700} align="center">
-            체험/액티비티
+            {result.B.linkHashTag}
           </DetailTypography>
           <DetailTypography color="f" size={12} bold={500} align="center">
             구경하기
