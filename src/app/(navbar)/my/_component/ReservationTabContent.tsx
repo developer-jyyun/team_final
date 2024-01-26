@@ -6,6 +6,7 @@ import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import canWriteReview from "@/utils/canWriteReview";
 import ReservationItem from "./ReservationItem";
 import NoItem from "./NoItem";
+import Skeleton from "./Skeleton";
 
 const pageSize = 3;
 const ReservationTabContent = () => {
@@ -55,9 +56,11 @@ const ReservationTabContent = () => {
         ref={lastElementRef}
         className=" w-full h-20 p-2 text-center text-black-8"
       >
-        {isFetching || (hasNextPage && <div>loading..🎈</div>)}
+        {isFetching || (hasNextPage && <Skeleton />)}
 
-        {!isFetching && !hasNextPage && <div>마지막 목록입니다 😊</div>}
+        {!isFetching && !hasNextPage && (
+          <div className="mt-4 p-4">마지막 목록입니다!</div>
+        )}
         {isError && <div>⚠ {error.message} ⚠</div>}
       </div>
     </div>

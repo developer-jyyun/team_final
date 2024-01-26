@@ -7,7 +7,6 @@ import DataList from "../_component/DataList";
 
 const FaqPage = () => {
   const { data, isLoading, isError, error } = useFaqListQuery();
-  console.log("데이터 확인:", data);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message}⚠</div>;
