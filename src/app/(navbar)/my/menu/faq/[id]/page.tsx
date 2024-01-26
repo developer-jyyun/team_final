@@ -10,7 +10,6 @@ import DataListItem from "../../_component/DataListItem";
 
 const FaqDetailPage = () => {
   const { id } = useParams();
-  console.log(id);
   const faqId = Array.isArray(id) ? id[0] : id; // 배열일 경우 첫 번째 요소를 선택
 
   // parseInt 함수를 사용할 때 진법 지정해줘야 함

@@ -6,7 +6,6 @@ import DataList from "../_component/DataList";
 
 const NoticePage = () => {
   const { data, isLoading, isError, error } = useNoticeListQuery();
-  console.log("데이터 확인:", data);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>⚠ {error.message}⚠</div>;

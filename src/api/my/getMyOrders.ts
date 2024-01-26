@@ -14,7 +14,6 @@ const getMyOrders = async (
       },
     );
     const res = await result.json();
-    // console.log("order-data:", res);
     return res;
   } catch (error) {
     console.error(error);
