@@ -14,7 +14,7 @@ const HeartPage = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <DefaultHeader text="찜리스트" />
+      <DefaultHeader text="찜 리스트" />
       <section className="w-full h-full px-6 flex flex-col">
         <p className="my-6 text-lg font-semibold leading-normal tracking-tighter text-left self-start">
           총 <span className=" text-pink-main">{page?.totalElements}</span>

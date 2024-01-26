@@ -1,7 +1,10 @@
+import LikeButton from "@/app/_component/common/atom/LikeButton";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-interface MyPicProductProps {
+interface Props {
   title: string;
   imageUrl: string;
   hashtags: string[];
@@ -13,6 +16,7 @@ interface MyPicProductProps {
   statusB?: boolean;
   setIsCompareComplete: React.Dispatch<React.SetStateAction<boolean>>;
   setCompareIndex: React.Dispatch<React.SetStateAction<number>>;
+  isWish?: boolean;
 }
 
 const MyPicProduct = ({
@@ -27,15 +31,17 @@ const MyPicProduct = ({
   statusB = true,
   setIsCompareComplete,
   setCompareIndex,
-}: MyPicProductProps) => {
+  isWish = true,
+}: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleCompare = () => {
+  const handleCompare = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     const lid = searchParams.get("lid");
     const rid = searchParams.get("rid");
     setIsCompareComplete(false);
-    console.log(hashtags);
     if (statusA) {
       router.replace(`/compare?lid=${id}&rid=${rid}`);
     }
@@ -47,48 +53,57 @@ const MyPicProduct = ({
   };
 
   return (
-    <div className="flex my-3 relative">
-      <div className="bg-grey-a rounded-lg w-[90px] h-[90px] web:w-[145px] web:h-[145px] overflow-hidden">
-        <img
+    <Link href={`/items/${id}`} className="flex my-3 relative">
+      <div className="bg-grey-a rounded-lg w-[90px] h-[90px] web:w-[135px] web:h-[135px] overflow-hidden">
+        <Image
+          width={100}
+          height={100}
           src={imageUrl}
           alt="상품사진"
-          className="w-[90px] h-[90px] web:w-[145px] web:h-[145px]"
+          className="w-[90px] h-[90px] web:w-[135px] web:h-[135px] object-cover"
         />
       </div>
-      <div className="ml-[18px] w-[215px]">
-        <h3 className="flex text-black-2 text-base web:text-xl font-medium truncate object-cover web:mb-6">
-          {title.length > 12 ? `${title.substring(0, 12)}...` : title}
-          <img
-            src="/icons/likeActiveButtonIcon.svg"
-            alt="하트"
-            className="absolute top-0 right-0 web:w-8"
-          />
-        </h3>
-        <div className="my-2.5 flex flex-wrap gap-1 max-w-[200px] web:mb-6">
-          <span className="text-black-4 text-[11px] font-normal py-1 px-2 border-[0.6px] border-black-6 rounded-[39px]">
-            {hashtags[0]}
-          </span>
-          <span className="text-black-4 text-[11px] font-normal py-1 px-2 border-[0.6px] border-black-6 rounded-[39px]">
-            {hashtags[1]}
-          </span>
-        </div>
-        <div className="mt-2.5">
-          <p className="text-red-1 text-xxs web:text-base font-light">
-            <b>{lodgeDays}</b>박 <b>{tripDays}</b>일
-            <b className="ml-1 text-sm web:text-lg font-semibold">{price}원</b>
+      <div className="ml-[18px] w-[200px]">
+        <div>
+          <p className="flex text-black-2 text-base web:text-xl font-medium truncate object-cover web:mb-6">
+            {title.length > 12 ? `${title.substring(0, 12)}...` : title}
           </p>
         </div>
+        <div className="my-2.5 flex flex-wrap gap-1 max-w-[200px] web:mb-6">
+          {hashtags
+            .sort((prev, next) => prev.length - next.length)
+            .slice(0, 3)
+            .map((tagName, index) => (
+              <span
+                key={index}
+                className="text-black-4 web:text-[11px] font-normal web:py-1 web:px-2 web:rounded-[39px] overflow-clip text-nowrap border-[0.6px] border-black-6
+                            text-[10px] px-1 py-0.5 rounded-[12px]"
+              >
+                {tagName}
+              </span>
+            ))}
+        </div>
+        <p className="text-red-1 text-xxs web:text-base font-lightt">
+          {lodgeDays}박{tripDays}일
+          <span className="ml-1 text-sm web:text-lg font-semibold">
+            {price.toLocaleString()}원
+          </span>
+        </p>
+      </div>
+      <div className="grow" />
+      <div className="relative w-[51px]">
+        <LikeButton id={id} isWish={isWish as boolean} />
         <button
           type="button"
-          className="text-white text-xxs font-medium p-1.5 web:p-3 bg-custom-gradient-pink gap-2 rounded-[16px] absolute right-0 bottom-0"
           onClick={handleCompare}
+          className="w-[50px] text-center h-[41px] text-white text-xxs font-medium p-2 leading-3 tracking-tighter bg-custom-gradient-pink gap-2 rounded-[12px] absolute bottom-0 right-0"
         >
           1:1
           <br />
           비교하기
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 

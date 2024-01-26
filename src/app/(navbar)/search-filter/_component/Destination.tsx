@@ -11,11 +11,19 @@ interface Props {
 
 const Destination = ({ data, type }: Props) => {
   const [selected, setSelected] = useState(false);
-  const { setContinents, setNations } = useSearchFilterStore();
+  const { addContinents, deleteContinents, addNations, deleteNations } =
+    useSearchFilterStore();
 
   const handleClick = () => {
-    if (type === "continents") setContinents(data.name);
-    if (type === "nations") setNations(data.name);
+    if (type === "continents") {
+      if (!selected) addContinents(data.name);
+      if (selected) deleteContinents(data.name);
+    }
+
+    if (type === "nations") {
+      if (!selected) addNations(data.name);
+      if (selected) deleteNations(data.name);
+    }
     setSelected((prev) => !prev);
   };
   return (

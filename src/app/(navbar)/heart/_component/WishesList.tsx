@@ -32,7 +32,7 @@ const WishesList = ({
     <>
       {data?.pages.map((page, pageIndex) => {
         return (
-          <ul key={pageIndex} className={"flex flex-col gap-6"}>
+          <ul key={pageIndex} className={"flex flex-col"}>
             {page.data.map((wish: PackageInfo, index: number) => (
               <Wish key={wish.packageId + index} data={wish} />
             ))}

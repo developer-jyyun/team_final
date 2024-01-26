@@ -11,10 +11,11 @@ interface Props {
 
 const Concept = ({ concept, bgColor }: Props) => {
   const [selected, setSelected] = useState(false);
-  const { setConcepts } = useSearchFilterStore();
+  const { addConcepts, deleteConcepts } = useSearchFilterStore();
 
   const handleClick = () => {
-    setConcepts(concept.name);
+    if (!selected) addConcepts(concept.name);
+    if (selected) deleteConcepts(concept.name);
     setSelected((prev) => !prev);
   };
   return (

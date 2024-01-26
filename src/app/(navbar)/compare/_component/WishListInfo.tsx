@@ -71,18 +71,16 @@ const WishListInfo = ({
     return <WishListNone />;
   }
 
-  // console.log(wish);
-
   return (
     <div>
       <div className="my-7">
-        <h3 className="text-black-2 text-lg font-semibold">
+        <p className="my-6 text-lg font-semibold leading-normal tracking-tighter text-left self-start">
           총{" "}
-          <b className="text-pink-main">
+          <span className=" text-pink-main">
             {wish?.pages[0].page.totalElements || 0}
-          </b>
+          </span>
           개의 패키지 상품
-        </h3>
+        </p>
       </div>
       {!wish ? (
         <button
@@ -95,7 +93,7 @@ const WishListInfo = ({
           로그인 하러 가기
         </button>
       ) : (
-        <>
+        <ul className="flex flex-col gap-3">
           {wish?.pages.map((item, index) => {
             return (
               <div key={index}>
@@ -121,7 +119,7 @@ const WishListInfo = ({
             );
           })}
           <div ref={boxRef} className="w-full h-24" />
-        </>
+        </ul>
       )}
     </div>
   );

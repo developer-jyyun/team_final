@@ -2,33 +2,48 @@ import { create } from "zustand";
 
 interface State {
   price: number;
-  setPrice: (newPrice: number) => void;
+  updatePrice: (newPrice: number) => void;
 
   concepts: string[];
-  setConcepts: (newConcept: string) => void;
+  addConcepts: (newConcept: string) => void;
+  deleteConcepts: (oldConcept: string) => void;
 
   nations: string[];
-  setNations: (newNation: string) => void;
+  addNations: (newNation: string) => void;
+  deleteNations: (oldNation: string) => void;
 
   continents: string[];
-  setContinents: (newContinent: string) => void;
+  addContinents: (newContinent: string) => void;
+  deleteContinents: (oldContinent: string) => void;
 }
 
 const useSearchFilterStore = create<State>((set) => ({
   price: 200,
-  setPrice: (newPrice) => set(() => ({ price: newPrice })),
+  updatePrice: (newPrice) => set(() => ({ price: newPrice })),
 
   concepts: [],
-  setConcepts: (newConcept) =>
+  addConcepts: (newConcept) =>
     set((state) => ({ concepts: [...state.concepts, newConcept] })),
+  deleteConcepts: (oldConcept) =>
+    set((state) => ({
+      concepts: state.concepts.filter((c) => c !== oldConcept),
+    })),
 
   nations: [],
-  setNations: (newNation) =>
+  addNations: (newNation) =>
     set((state) => ({ nations: [...state.nations, newNation] })),
+  deleteNations: (oldNation) =>
+    set((state) => ({
+      nations: state.nations.filter((n) => n !== oldNation),
+    })),
 
   continents: [],
-  setContinents: (newContinent) =>
+  addContinents: (newContinent) =>
     set((state) => ({ continents: [...state.continents, newContinent] })),
+  deleteContinents: (oldContinent) =>
+    set((state) => ({
+      continents: state.continents.filter((c) => c !== oldContinent),
+    })),
 }));
 
 export default useSearchFilterStore;

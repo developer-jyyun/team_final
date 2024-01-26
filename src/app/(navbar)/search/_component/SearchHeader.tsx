@@ -12,8 +12,8 @@ const SearchHeader = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    router.push(`/search-result?keyword=${keyword}`);
     e.preventDefault();
+    if (keyword) router.push(`/search-result?keyword=${keyword}`);
   };
 
   return (
