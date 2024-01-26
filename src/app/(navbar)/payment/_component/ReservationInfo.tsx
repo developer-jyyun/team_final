@@ -425,19 +425,6 @@ const ReservationInfo = ({
           </h4>
 
           <div className="mt-4 mx-4">
-            <div className="flex ml-2 mb-4">
-              <Image
-                src={allAgreedImageSrc}
-                alt="체크전이미지"
-                width={24}
-                height={24}
-              />
-              <p className="ml-2 text-black-2 text-lg font-semibold">
-                전체동의
-                <b className="ml-1 text-xs font-normal">(선택 포함)</b>
-              </p>
-            </div>
-
             <AgreeSection
               title="취소수수료 동의"
               defaultSrc="/icons/checkIcon2.svg"
