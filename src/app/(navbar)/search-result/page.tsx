@@ -36,7 +36,7 @@ const SearchResultPage = () => {
         <DefaultHeader text="내가 원하는 여행 리스트" />
         <section className="w-full px-6 flex flex-col">
           <Options />
-          {totalCount ? (
+          {totalCount !== 0 ? (
             <SearchResult
               data={keywordData}
               total={totalCount}
