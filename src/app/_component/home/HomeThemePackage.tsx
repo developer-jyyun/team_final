@@ -4,8 +4,7 @@ import getThemePackages from "@/api/home/getThemePackages";
 import { useEffect, useState } from "react";
 // 베스트 테마 패키지
 import { BEST_THEME } from "@/app/constants";
-import { useParams, useRouter } from "next/navigation";
-import getBestPackages from "@/api/home/getBestPackages";
+import { useRouter } from "next/navigation";
 
 interface Props {
   themeId: number;
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const HomeThemePackage = () => {
-  const { id } = useParams();
   const router = useRouter();
   //  /v1/themes 테마 패키지 목록 API에 베스트가 없기에 상수 하드코딩으로 추가
   const [themes, setThemes] = useState<Props[]>(BEST_THEME);
@@ -22,14 +20,8 @@ const HomeThemePackage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (Number(id) === 0) {
-          console.log("best");
-          const response = await getBestPackages(1, 10);
-          setThemes([...themes, ...response.data]);
-        } else {
-          const response = await getThemePackages();
-          setThemes([...themes, ...response.data]);
-        }
+        const response = await getThemePackages();
+        setThemes([...themes, ...response.data]);
       } catch (error) {
         console.log(error);
       }
@@ -50,6 +42,7 @@ const HomeThemePackage = () => {
       {themes.map((singleTheme) => (
         <div
           key={`theme-${singleTheme.name}`}
+          className="cursor-pointer"
           onClick={() => handleThemeClick(singleTheme.themeId)}
         >
           <img

@@ -1,10 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import getBestPackages from "@/api/home/getBestPackages";
 
-const useBestThemeQuery = (page: number, pageSize: number) => {
-  return useQuery({
-    queryKey: ["best-theme", page, pageSize],
-    queryFn: () => getBestPackages(page, pageSize),
+const useBestThemeQuery = () => {
+  return useInfiniteQuery({
+    queryKey: ["best-theme"],
+    queryFn: ({ pageParam }) => getBestPackages(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: ({ page }) => {
+      return page?.currentPage < page?.totalPages
+        ? page.currentPage + 1
+        : undefined;
+    },
   });
 };
 
