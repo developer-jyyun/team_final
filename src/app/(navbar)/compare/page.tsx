@@ -67,13 +67,15 @@ const Compare = () => {
   };
 
   useEffect(() => {
-    if (!searchParam.get("rid") || !searchParam.get("lid")) {
+    if (!searchParam.get("lid")) {
       return;
     }
     const fetchData = async () => {
       try {
         const responseData = await fetchSimilarProducts(
-          Number(searchParam.get("rid")) || 24042217462,
+          !searchParam.get("rid")
+            ? Number(searchParam.get("lid"))
+            : Number(searchParam.get("rid")) || 24042217462,
           currentPage,
           10,
         );
@@ -88,7 +90,7 @@ const Compare = () => {
     };
 
     fetchData();
-  }, [currentPage, searchParam.get("rid")]);
+  }, [currentPage, searchParam.get("rid"), searchParam.get("lid")]);
 
   useEffect(() => {
     if (compareIndex === 6) {
@@ -96,6 +98,8 @@ const Compare = () => {
       setCompareIndex(0);
     }
   }, [compareIndex]);
+
+  // console.log(currentItem);
 
   const handleRefresh = () => {
     setCurrentItem(storedProducts[compareIndex]);
