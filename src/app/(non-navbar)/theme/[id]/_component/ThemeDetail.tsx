@@ -1,31 +1,54 @@
-"use client";
+// 무한스크롤 관련 import
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 
-import useThemeQuery from "@/hooks/query/useThemeQuery";
-import { ThemeItem, ThemePackage } from "@/app/types";
-import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Spinner from "@/app/_component/common/layout/Spinner";
 
-const ThemeDetail = () => {
-  const params = useParams();
-  const router = useRouter();
-  const [themeData, setThemeData] = useState<ThemeItem[]>();
+// 대표 테마 페이지 state를 다루기 위한 type import
+import { ThemeItem } from "@/app/types";
+// 테마 페이지 최초 렌더링시 보여줄 스피너 import
+import Spinner from "@/app/_component/common/layout/Spinner";
+// 테마 패키지 컴포넌트 import
+import ThemePackageItem from "./ThemePackageItem";
+
+interface Props {
+  data: InfiniteData<any, unknown> | undefined;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>;
+  hasNextPage: boolean;
+  isFetching: boolean;
+  isLoading: boolean;
+}
+
+const ThemeDetail = ({
+  data,
+  fetchNextPage,
+  isFetching,
+  hasNextPage,
+  isLoading,
+}: Props) => {
   // 테마 대표 이미지와 소개 텍스트를 한번만 사용하기 위한 대표 테마 패키지를 설정하기 위한 state
   const [themeTitleData, setThemeTitleData] = useState<ThemeItem>();
-  // /v1/themes/{themeId} 테마 패키지 조회 API 호출
-  const { data, isLoading } = useThemeQuery(params.id, "departure_date", 1, 10);
 
   useEffect(() => {
     if (data) {
-      setThemeData(data);
-      setThemeTitleData(data[0]); // 가장 첫 패키지 상품으로 대표 패키지 설정
+      setThemeTitleData(data?.pages[0]?.data[0]); // 가장 첫 패키지 상품으로 대표 패키지 설정
     }
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  // 테마 페이지에서 최초 렌더링시 isLoading boolean 값 여부에 따라 스피너 노출
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -47,38 +70,13 @@ const ThemeDetail = () => {
           </p>
         </div>
       </div>
-      <div className="px-6 grid grid-cols-2 grid-rows-2 gap-[17px]">
-        {themeData?.map((theme, index) => (
-          <div key={`themePackage-${index}`}>
-            {/* 테마 내 패키지에서 이미지, 가격, 제목 정보 나열 */}
-            {theme.packages?.map((singlePackage: ThemePackage) => (
-              <div
-                key={singlePackage.packageId}
-                className="w-full h-auto flex-col relative"
-                onClick={() => router.push(`/items/${singlePackage.packageId}`)} // 클릭시 상세 페이지 연결
-              >
-                <img
-                  src={
-                    singlePackage.imageUrl
-                      ? singlePackage.imageUrl
-                      : "/assets/imageLoadError.png"
-                  }
-                  alt="packageImg"
-                  className="object-cover w-full h-[180px] web:w-full mb-2 rounded-lg"
-                />
-                <div className="flex flex-col gap-[14px]">
-                  <p className="w-[100%] h-[30px] web:w-full text-black-6 text-xs font-normal overflow-hidden">
-                    {singlePackage.title}
-                  </p>
-                  <p className="text-black text-base font-bold">
-                    {`${theme.minPrice.toLocaleString()}원~`}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      {/* 테마 패키지 목록 */}
+      <ThemePackageItem
+        data={data}
+        isFetching={isFetching}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+      />
     </div>
   );
 };
