@@ -10,7 +10,9 @@ interface Props {
 const UserInfo = ({ showEditIcon = true }: Props) => {
   const { data, isLoading, isError, error } = useMyInfoQuery();
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading)
+    return <div className=" h-[122px] rounded-lg bg-grey-e animate-pulse" />;
+
   if (isError) return <div>⚠ {error.message}⚠</div>;
 
   return (
@@ -19,13 +21,11 @@ const UserInfo = ({ showEditIcon = true }: Props) => {
         <p className="font-semibold font-black-2 text-xxl">{data.username}</p>
         {showEditIcon && (
           <Link href="/my/info" className="w-6 h-6">
-            {/* <div > */}
             <img
               className="w-full "
               src="./icons/editIcon.svg"
               alt="내 정보 수정"
             />
-            {/* </div> */}
           </Link>
         )}
       </div>
