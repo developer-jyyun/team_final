@@ -119,7 +119,13 @@ const Compare = () => {
 
   return isCompareComplete ? (
     <section>
-      <DefaultHeader text="찜 리스트" />
+      <DefaultHeader
+        text="찜 리스트"
+        theme="function"
+        onClick={() => {
+          setIsCompareComplete(false);
+        }}
+      />
       <WishListPage
         statusA={statusA}
         statusB={statusB}
@@ -134,6 +140,7 @@ const Compare = () => {
         iconSrc="/icons/refreshIcon.svg"
         iconAlt="새로고침"
         onIconClick={handleRefresh}
+        back
       />
       {isCompareComplete ? (
         <WishListPage
