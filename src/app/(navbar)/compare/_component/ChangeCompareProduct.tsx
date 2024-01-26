@@ -116,10 +116,6 @@ const ChangeCompareProduct = ({
   });
 
   const [viewMore, setViewMore] = useState(false);
-  const [leftRating] = useState(5);
-  const [rightRating, setRightRating] = useState<number>(3);
-  const isLeftLower = leftRating < rightRating;
-  const isRightLower = rightRating < leftRating;
   const [priceLeft, setPriceLeft] = useState<number | null>(null);
   const [priceRight, setPriceRight] = useState<number | null>(null);
   const [packageData, setPackageData] = useState<ApiResponse | null>(null);
@@ -163,27 +159,7 @@ const ChangeCompareProduct = ({
 
   const [myPicProducts, setMyPicProducts] = useState<Product | null>(null);
 
-  const isPriceLeftHigher =
-    priceLeft !== null && priceRight !== null && priceLeft < priceRight;
-  const leftRate = isPriceLeftHigher ? 4 : 3;
-  const rightRate = isPriceLeftHigher ? 3 : 4;
-
-  const isShoppingVisitsLeftHigher =
-    leftShoppingCount !== null &&
-    rightShoppingCount !== null &&
-    leftShoppingCount < rightShoppingCount;
-
-  const shoppingRatingLeft =
-    (leftShoppingCount ?? 0) < (rightShoppingCount ?? 0) ? 4 : 3;
-  const shoppingRatingRight =
-    (rightShoppingCount ?? 0) < (leftShoppingCount ?? 0) ? 4 : 3;
-
   const isShoppingSame = (leftShoppingCount ?? 0) === (rightShoppingCount ?? 0);
-
-  const isHotelStars =
-    leftHotelStars !== null &&
-    rightHotelStars !== null &&
-    leftHotelStars === rightHotelStars;
 
   useEffect(() => {
     if (!searchParam.get("rid") || !searchParam.get("lid")) return;
@@ -224,8 +200,6 @@ const ChangeCompareProduct = ({
 
         setLeftShoppingCount(data.data.fixedPackage.shoppingCount);
         setRightShoppingCount(data.data.comparePackage.shoppingCount);
-
-        setRightRating(data.data.comparePackage.hotelStars);
 
         setLeftPurchasedCount(data.data.fixedPackage.purchasedCount);
         setRightPurchasedCount(data.data.comparePackage.purchasedCount);
@@ -307,307 +281,338 @@ const ChangeCompareProduct = ({
           />
         </div>
       </div>
-
-      <div className="mt-14">
-        <div className="py-3">
-          <div className="flex justify-between">
-            <span
-              className={`${
-                isPriceLeftHigher
-                  ? "text-pink-main text-[13px] web:text-[17px]"
-                  : "text-black-9 text-xs web:text-base"
-              } font-normal`}
-            >
-              {priceLeft?.toLocaleString()}원
-            </span>
-            <span className="text-black-4 text-sm font-semibold">가격</span>
-            <span
-              className={`${
-                isPriceLeftHigher
-                  ? "text-black-9 text-xs web:text-base"
-                  : "text-lime-sub3 text-[13px] web:text-[17px]"
-              } font-semibold`}
-            >
-              {(myPicProducts?.price || 0).toLocaleString()}원
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <LeftProgressBar
-              rating={leftRate}
-              isLower={!isPriceLeftHigher}
-              isSameRating={false}
-              isZeroCount={false}
-            />
-            <SectionMargin />
-            <RightProgressBar
-              rating={rightRate}
-              isLower={isPriceLeftHigher}
-              isSameRating={false}
-              isZeroCount={false}
-            />
-          </div>
-        </div>
-
-        <div className="py-3">
-          <div className="flex justify-between">
-            <span
-              className={`${
-                isHotelStars
-                  ? "text-blue-main text-[13px] web:text-[17px]"
-                  : leftHotelStars !== null &&
-                      rightHotelStars !== null &&
-                      leftHotelStars >= rightHotelStars
-                    ? "text-pink-main text-[13px] web:text-[17px]"
-                    : "text-black-9 text-xs web:text-base"
-              } font-semibold`}
-            >
-              {leftHotelStars ? `${leftHotelStars}성급` : "정보 없음"}
-            </span>
-            <span className="text-black-4 text-sm font-semibold">
-              숙소 등급
-            </span>
-            <span
-              className={`${
-                isHotelStars
-                  ? "text-blue-main text-[13px] web:text-[17px]"
-                  : leftHotelStars !== null &&
-                      rightHotelStars !== null &&
-                      rightHotelStars >= leftHotelStars
-                    ? "text-pink-main text-[13px] web:text-[17px]"
-                    : "text-black-9 text-xs web:text-base"
-              } font-semibold`}
-            >
-              {!searchParam.get("rid")
-                ? "0"
-                : rightHotelStars
-                  ? `${rightHotelStars}성급`
-                  : "정보 없음"}
-            </span>
-          </div>
-
-          <div className="flex justify-between">
-            <LeftProgressBar
-              rating={leftRating}
-              isLower={!isHotelStars && isLeftLower}
-              isSameRating={isHotelStars}
-              isZeroCount={false}
-            />
-            <SectionMargin />
-            <RightProgressBar
-              rating={rightRating}
-              isLower={!isHotelStars && isRightLower}
-              isSameRating={isHotelStars}
-              isZeroCount={false}
-            />
-          </div>
-        </div>
-
-        <div className="py-3">
-          <div className="flex justify-between">
-            <span
-              className={`${
-                leftShoppingCount === 0
-                  ? "text-black-9 text-xs web:text-base"
-                  : isShoppingVisitsLeftHigher
-                    ? "text-black-9 text-xs web:text-base"
-                    : "text-pink-main text-[13px] web:text-[17px]"
-              } font-normal`}
-            >
-              총 {leftShoppingCount ?? "정보 없음"}개
-            </span>
-            <span className="text-black-4 text-sm font-semibold">
-              쇼핑센터 방문 일정
-            </span>
-            <span
-              className={`${
-                !searchParam.get("rid") || rightShoppingCount === 0
-                  ? "text-black-9 text-x web:text-base"
-                  : isShoppingVisitsLeftHigher
-                    ? "text-black-9 text-xs web:text-base"
-                    : "text-lime-sub3 text-[13px] web:text-[17px]"
-              } font-semibold`}
-            >
-              총{" "}
-              {!searchParam.get("rid")
-                ? "0"
-                : rightShoppingCount ?? "정보 없음"}
-              개
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <LeftProgressBar
-              rating={shoppingRatingLeft}
-              isLower={!isShoppingVisitsLeftHigher}
-              isSameRating={isShoppingSame}
-              isZeroCount={leftShoppingCount === 0}
-            />
-            <SectionMargin />
-            <RightProgressBar
-              rating={shoppingRatingRight}
-              isLower={isShoppingVisitsLeftHigher}
-              isSameRating={isShoppingSame}
-              isZeroCount={!searchParam.get("rid") || rightShoppingCount === 0}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="my-12">
-        <h3 className="mb-6 text-black-2 text-lg font-semibold">상품 요약</h3>
-        <div className="flex justify-between">
-          <LeftProductSummary
-            purchasedCount={leftPurchasedCount}
-            imageUrl={leftImageUrl}
-            hashtags={leftHashtags}
-            lodgeDays={leftLodgeDays}
-            tripDays={leftTripDays}
-            averageStars={leftAverageStars}
-            reviewCount={leftReviewCount}
-            reservationCount={leftReservationCount}
-            minReservationCount={leftMinReservationCount}
-          />
-          <SectionMargin />
-          <RightProductSummary
-            purchasedCount={rightPurchasedCount}
-            imageUrl={rightImageUrl}
-            hashtags={rightHashtags}
-            lodgeDays={rightLodgeDays}
-            tripDays={rightTripDays}
-            averageStars={rightAverageStars}
-            reviewCount={rightReviewCount}
-            reservationCount={rightReservationCount}
-            minReservationCount={rightMinReservationCount}
-          />
-        </div>
-      </div>
-
-      <div className="relative">
-        <div
-          className={`relative ${
-            viewMore ? "h-full" : "h-[450px]"
-          } overflow-hidden`}
-        >
-          <h3 className="mb-4 text-black-2 text-lg font-semibold">
-            일정 둘러보기
-          </h3>
-          <div className="flex">
-            <div className="flex w-full flex-col">
-              {schedules.map((item, index) => {
-                return (
-                  <div className="relative w-[95%] mb-4" key={index}>
-                    <h1 className="text-black-4 text-sm web:text-base font-medium">
-                      {index + 1}일차
-                    </h1>
-                    <ul
-                      className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-80px)] web:before:h-[calc(100%-92px)] before:w-[0.6px] 
-                            before:bg-[#FFBFD1] before:absolute before:left-[13.4px] web:before:left-[18px] before:top-1/2 
-                              before:-translate-y-1/2 bg-pink-3 p-2"
-                    >
-                      {item.schedule.map((detail) => {
-                        return (
-                          <div className="relative" key={detail}>
-                            <li
-                              className="flex mb-3 before:contant-[''] z-10 before:h-[6px] before:w-[6px]
-                                web:before:h-2 web:before:w-2 before:bg-pink before:rounded-[50%] 
-                                before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]"
-                            >
-                              <div className="pl-9">
-                                <DetailTypography
-                                  color={3}
-                                  size={10}
-                                  bold={500}
-                                >
-                                  {detail}
-                                </DetailTypography>
-                              </div>
-                            </li>
-                          </div>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                );
-              })}
+      {compared ? (
+        <>
+          <div className="mt-14">
+            <div className="py-3">
+              <div className="flex justify-between">
+                <span
+                  className={`${
+                    (priceLeft ?? 0) < (priceRight ?? 0)
+                      ? "text-pink-main text-[13px] web:text-[17px] font-semibold"
+                      : "text-black-9 text-xs web:text-base"
+                  }`}
+                >
+                  {priceLeft?.toLocaleString()}원
+                </span>
+                <span className="text-black-4 text-sm font-semibold">가격</span>
+                <span
+                  className={`${
+                    (priceLeft ?? 0) < (priceRight ?? 0)
+                      ? "text-black-9 text-xs web:text-base"
+                      : "text-lime-sub3 text-[13px] web:text-[17px] font-semibold"
+                  }`}
+                >
+                  {(myPicProducts?.price || 0).toLocaleString()}원
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <LeftProgressBar
+                  rating={(priceLeft ?? 0) < (priceRight ?? 0) ? 5 : 4}
+                  isLower={(priceLeft ?? 0) > (priceRight ?? 0)}
+                  isSameRating={false}
+                  isZeroCount={false}
+                />
+                <SectionMargin />
+                <RightProgressBar
+                  rating={(priceLeft ?? 0) > (priceRight ?? 0) ? 5 : 4}
+                  isLower={(priceLeft ?? 0) < (priceRight ?? 0)}
+                  isSameRating={false}
+                  isZeroCount={false}
+                />
+              </div>
             </div>
-            <div className="flex w-full flex-col items-end">
-              {comparedSchedules?.map((item, index) => {
-                return (
-                  <div className="relative w-[95%] mb-4" key={index}>
-                    <h1 className="text-black-4 text-sm web:text-base font-medium">
-                      {index + 1}일차
-                    </h1>
-                    <ul
-                      className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-80px)] web:before:h-[calc(100%-92px)] before:w-[0.6px] 
-                             before:bg-[#AAE3A8] before:absolute before:left-[13.4px] web:before:left-[18px] before:top-1/2 
-                               before:-translate-y-1/2 bg-[#E8FFE7] p-2"
-                    >
-                      {item.schedule.map((detail) => {
-                        return (
-                          <div className="relative" key={detail}>
-                            <li
-                              className="flex mb-3 before:contant-[''] z-10 before:h-[6px] before:w-[6px]
-                                      web:before:h-2 web:before:w-2 before:bg-[#05B200] before:rounded-[50%] 
-                                      before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]"
-                            >
-                              <div className="pl-9">
-                                <DetailTypography
-                                  color={3}
-                                  size={10}
-                                  bold={500}
-                                >
-                                  {detail}
-                                </DetailTypography>
-                              </div>
-                            </li>
-                          </div>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                );
-              })}
+
+            <div className="py-3">
+              <div className="flex justify-between">
+                <span
+                  className={`${
+                    (leftHotelStars ?? 0) === (rightHotelStars ?? 0)
+                      ? "text-blue-main text-[13px] web:text-[17px] font-semibold"
+                      : (leftHotelStars ?? 0) < (rightHotelStars ?? 0)
+                        ? "text-black-9 text-xs web:text-base"
+                        : "text-pink-main text-[13px] web:text-[17px]"
+                  }`}
+                >
+                  {leftHotelStars ? `${leftHotelStars}성급` : "정보 없음"}
+                </span>
+                <span className="text-black-4 text-sm font-semibold">
+                  숙소 등급
+                </span>
+                <span
+                  className={`${
+                    (leftHotelStars ?? 0) === (rightHotelStars ?? 0)
+                      ? "text-blue-main text-[13px] web:text-[17px] font-semibold"
+                      : (leftHotelStars ?? 0) > (rightHotelStars ?? 0)
+                        ? "text-black-9 text-xs web:text-base"
+                        : "text-lime-sub3 text-[13px] web:text-[17px] font-semibold"
+                  }`}
+                >
+                  {!searchParam.get("rid")
+                    ? "0"
+                    : rightHotelStars
+                      ? `${rightHotelStars}성급`
+                      : "정보 없음"}
+                </span>
+              </div>
+
+              <div className="flex justify-between">
+                <LeftProgressBar
+                  rating={
+                    (leftHotelStars ?? 0) < (rightHotelStars ?? 0) ? 4 : 5
+                  }
+                  isLower={(leftHotelStars ?? 0) < (rightHotelStars ?? 0)}
+                  isSameRating={
+                    (leftHotelStars ?? 0) === (rightHotelStars ?? 0)
+                  }
+                  isZeroCount={false}
+                />
+                <SectionMargin />
+                <RightProgressBar
+                  rating={
+                    (leftHotelStars ?? 0) > (rightHotelStars ?? 0) ? 4 : 5
+                  }
+                  isLower={(leftHotelStars ?? 0) > (rightHotelStars ?? 0)}
+                  isSameRating={
+                    (leftHotelStars ?? 0) === (rightHotelStars ?? 0)
+                  }
+                  isZeroCount={false}
+                />
+              </div>
+            </div>
+
+            <div className="py-3">
+              <div className="flex justify-between">
+                <span
+                  className={`${
+                    isShoppingSame
+                      ? "text-blue-main text-[13px] web:text-[17px] font-semibold"
+                      : (leftShoppingCount ?? 0) > (rightShoppingCount ?? 0)
+                        ? "text-black-9 text-xs web:text-base"
+                        : "text-pink-main text-[13px] web:text-[17px] font-semibold"
+                  }`}
+                >
+                  총 {leftShoppingCount ?? "정보 없음"}개
+                </span>
+                <span className="text-black-4 text-sm font-semibold">
+                  쇼핑센터 방문 일정
+                </span>
+                <span
+                  className={`${
+                    isShoppingSame
+                      ? "text-blue-main text-[13px] web:text-[17px] font-semibold"
+                      : (leftShoppingCount ?? 0) < (rightShoppingCount ?? 0)
+                        ? "text-black-9 text-xs web:text-base"
+                        : "text-lime-sub3 text-[13px] web:text-[17px] font-semibold"
+                  }`}
+                >
+                  총{" "}
+                  {!searchParam.get("rid")
+                    ? "0"
+                    : rightShoppingCount ?? "정보 없음"}
+                  개
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <LeftProgressBar
+                  rating={
+                    (leftShoppingCount ?? 0) < (rightShoppingCount ?? 0) ? 5 : 4
+                  }
+                  isLower={(leftShoppingCount ?? 0) > (rightShoppingCount ?? 0)}
+                  isSameRating={isShoppingSame}
+                  isZeroCount={leftShoppingCount === 0}
+                />
+                <SectionMargin />
+                <RightProgressBar
+                  rating={
+                    (leftShoppingCount ?? 0) > (rightShoppingCount ?? 0) ? 5 : 4
+                  }
+                  isLower={(leftShoppingCount ?? 0) < (rightShoppingCount ?? 0)}
+                  isSameRating={isShoppingSame}
+                  isZeroCount={
+                    !searchParam.get("rid") || rightShoppingCount === 0
+                  }
+                />
+              </div>
             </div>
           </div>
-        </div>
-        {!viewMore && (
-          <div className="absolute bottom-0 left-0 w-full flex items-center justify-center h-40 bg-gradient-white web:h-20">
-            <Button
-              text="더보기"
-              onClickFn={() => {
-                setViewMore(true);
-              }}
-              styleClass="border-[0.6px] border-solid border-grey-a rounded-[52px] py-1 px-2 text-black-6 bg-white"
-            />
-          </div>
-        )}
-      </div>
 
-      <div>
-        <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
-          내가 고른 상품과 유사한 추천 상품 보기
-        </h3>
-        <div className="flex flex-col">
-          {products.map((product, index) => {
-            console.log(product);
-            return (
-              <MyPicProduct
-                key={index}
-                title={product.title}
-                imageUrl={product.imageUrl}
-                price={product.minPrice}
-                hashtags={product.hashtags}
-                lodgeDays={product.lodgeDays}
-                tripDays={product.tripDays}
-                id={product.packageId}
-                setIsCompareComplete={setIsCompareComplete}
-                // setCurrentItem={setCurrentItem}
-                setCompareIndex={setCompareIndex}
-                isWish={product.isWish}
+          <div className="my-12">
+            <h3 className="mb-6 text-black-2 text-lg font-semibold">
+              상품 요약
+            </h3>
+            <div className="flex justify-between">
+              <LeftProductSummary
+                purchasedCount={leftPurchasedCount}
+                imageUrl={leftImageUrl}
+                hashtags={leftHashtags}
+                lodgeDays={leftLodgeDays}
+                tripDays={leftTripDays}
+                averageStars={leftAverageStars}
+                reviewCount={leftReviewCount}
+                reservationCount={leftReservationCount}
+                minReservationCount={leftMinReservationCount}
               />
-            );
-          })}
+              <SectionMargin />
+              <RightProductSummary
+                purchasedCount={rightPurchasedCount}
+                imageUrl={rightImageUrl}
+                hashtags={rightHashtags}
+                lodgeDays={rightLodgeDays}
+                tripDays={rightTripDays}
+                averageStars={rightAverageStars}
+                reviewCount={rightReviewCount}
+                reservationCount={rightReservationCount}
+                minReservationCount={rightMinReservationCount}
+              />
+            </div>
+          </div>
+
+          <div className="relative">
+            <div
+              className={`relative ${
+                viewMore ? "h-full" : "h-[450px]"
+              } overflow-hidden`}
+            >
+              <h3 className="mb-4 text-black-2 text-lg font-semibold">
+                일정 둘러보기
+              </h3>
+              <div className="flex">
+                <div className="flex w-full flex-col">
+                  {schedules.map((item, index) => {
+                    return (
+                      <div className="mb-4" key={index}>
+                        <h1 className="text-black-4 text-sm web:text-base font-medium">
+                          {index + 1}일차
+                        </h1>
+                        <div className="relative">
+                          <ul
+                            className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-30px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] 
+                            before:bg-[#FFBFD1] before:absolute before:left-[13.5px] web:before:left-[18.3px] before:top-1/2
+                              before:-translate-y-1/2 
+                              bg-pink-3 p-2"
+                          >
+                            {item.schedule.map((detail, detailIndex) => {
+                              return (
+                                <li
+                                  key={detailIndex}
+                                  className={`relative flex pl-6 pb-2 last-of-type:pb-0 after:last-of-type:contant-['']
+                                after:last-of-type:border-2 after:last-of-type:border-solid after:last-of-type:border-pink-3
+                                after:last-of-type:absolute after:last-of-type:left-[5px] after:last-of-type:top-[12px] after:last-of-type:w-[1px] 
+                                after:last-of-type:h-[calc(100%-13px)] web:after:last-of-type:left-[9px] web:after:last-of-type:top-[14px]
+                                before:contant-[''] z-10 before:h-[6px] before:w-[6px] web:before:h-2 web:before:w-2 before:bg-pink before:rounded-[50%] 
+                                before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]`}
+                                >
+                                  <div className="">
+                                    <DetailTypography
+                                      color={3}
+                                      size={10}
+                                      bold={500}
+                                    >
+                                      {detail}
+                                    </DetailTypography>
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex w-full flex-col items-end">
+                  {comparedSchedules?.map((item, index) => {
+                    return (
+                      <div className="relative w-[95%] mb-4" key={index}>
+                        <h1 className="text-black-4 text-sm web:text-base font-medium">
+                          {index + 1}일차
+                        </h1>
+                        <div className="relative">
+                          <ul
+                            className="w-[95%] rounded-lg before:content-[''] before:h-[calc(100%-30px)] web:before:h-[calc(100%-30px)] before:w-[0.6px] 
+                     before:bg-[#AAE3A8] before:absolute before:left-[13.5px] web:before:left-[18.3px] before:top-1/2
+                       before:-translate-y-1/2 
+                       bg-[#E8FFE7] p-2"
+                          >
+                            {item.schedule.map((detail, detailIndex) => {
+                              return (
+                                <li
+                                  key={detailIndex}
+                                  className={`relative flex pl-6 pb-2 last-of-type:pb-0 after:last-of-type:contant-['']
+                                 after:last-of-type:border-2 after:last-of-type:border-solid after:last-of-type:border-[#E8FFE7]
+                                 after:last-of-type:absolute after:last-of-type:left-[5px] after:last-of-type:top-[12px] after:last-of-type:w-[1px] 
+                                 after:last-of-type:h-[calc(100%-13px)] web:after:last-of-type:left-[9px] web:after:last-of-type:top-[14px]
+                                 before:contant-[''] z-10 before:h-[6px] before:w-[6px] web:before:h-2 web:before:w-2 before:bg-[#05B200] before:rounded-[50%] 
+                                 before:absolute before:left-[3px] web:before:left-[7px] before:top-[6px]`}
+                                >
+                                  <div className="pl-9">
+                                    <DetailTypography
+                                      color={3}
+                                      size={10}
+                                      bold={500}
+                                    >
+                                      {detail}
+                                    </DetailTypography>
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            {!viewMore && (
+              <div className="z-30 absolute bottom-0 left-0 w-full flex items-center justify-center h-40 bg-gradient-white web:h-20">
+                <Button
+                  text="더보기"
+                  onClickFn={() => {
+                    setViewMore(true);
+                  }}
+                  styleClass="border-[0.6px] border-solid border-grey-a rounded-[52px] py-1 px-2 text-black-6 bg-white"
+                />
+              </div>
+            )}
+          </div>
+
+          <div>
+            <h3 className="mt-14 mb-4 text-black-2 text-lg font-semibold">
+              내가 고른 상품과 유사한 추천 상품 보기
+            </h3>
+            <div className="flex flex-col">
+              {products.map((product, index) => {
+                return (
+                  <MyPicProduct
+                    key={index}
+                    title={product.title}
+                    imageUrl={product.imageUrl}
+                    price={product.minPrice}
+                    hashtags={product.hashtags}
+                    lodgeDays={product.lodgeDays}
+                    tripDays={product.tripDays}
+                    id={product.packageId}
+                    setIsCompareComplete={setIsCompareComplete}
+                    // setCurrentItem={setCurrentItem}
+                    setCompareIndex={setCompareIndex}
+                    isWish={product.isWish}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="mt-12 text-center flex flex-col items-center justify-center">
+          <img src="/assets/mainTitle.svg" alt="메인 로고" className="w-40" />
+          <h1 className="mt-4 text-black-2 text-lg font-bold">
+            비교 상품을 골라 주세요
+          </h1>
         </div>
-      </div>
+      )}
     </div>
   );
 };
