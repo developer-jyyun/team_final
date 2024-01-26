@@ -38,7 +38,6 @@ const AuthItems = () => {
     setIsWithdrawing(true);
     try {
       await deleteMyAccount();
-      console.log("탈퇴 성공😂");
       setTimeout(() => {
         setIsWithdrawing(false);
         router.push("/");

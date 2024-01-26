@@ -13,7 +13,6 @@ const logout = async () => {
     }
 
     const data = await result.json();
-    console.log("로그아웃", data);
     return data;
   } catch (error) {
     console.error(error);

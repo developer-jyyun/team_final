@@ -8,7 +8,6 @@ const getOrderToReview = async () => {
       },
     );
     const res = await result.json();
-    console.log("getOrderToReview:", res);
     return res.data;
   } catch (error) {
     console.error(error);

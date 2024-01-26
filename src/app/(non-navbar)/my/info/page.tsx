@@ -63,10 +63,7 @@ const UpdateMyInfoPage = () => {
     }
   }, [isLoading, isError, data]);
 
-  useEffect(() => {
-    console.log("업데이트된 myInfo:", myInfo);
-  }, [myInfo]);
-  console.log("originalData:", originalData);
+  useEffect(() => {}, [myInfo]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

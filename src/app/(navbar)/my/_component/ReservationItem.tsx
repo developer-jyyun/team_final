@@ -26,9 +26,9 @@ const ReservationItem = ({
   if (orderData && !orderData.isReviewed && canWriteReview) {
     return (
       <li className="mb-6 w-full h-[90px] relative  flex flex-row gap-1 justify-evenly web:h-[120px]">
-        <div className="w-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
+        <div className="w-[90px] h-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px] web:h-[120px]">
           <img
-            className="w-full h-full"
+            className="w-full h-full object-cover"
             src={orderData.imageUrl}
             alt={orderData.title}
           />
@@ -84,9 +84,9 @@ const ReservationItem = ({
   if (theme === "reservationTab" && (orderData.isReviewed || !canWriteReview)) {
     return (
       <li className=" mb-6 w-full h-[90px] relative flex flex-row gap-1 justify-evenly web:h-[120px]">
-        <div className="w-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
+        <div className="w-[90px] h-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
           <img
-            className="w-full h-full grayscale "
+            className="w-full h-full object-cover grayscale "
             src={orderData.imageUrl}
             alt={orderData.title}
           />
@@ -134,9 +134,9 @@ const ReservationItem = ({
   ) {
     return (
       <li className="mb-6 w-full h-[90px] relative  flex flex-row gap-1 justify-evenly web:h-[120px]">
-        <div className="w-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
+        <div className="w-[90px] h-[90px] shrink-0 rounded-lg overflow-hidden web:w-[120px]">
           <img
-            className="w-full h-full"
+            className="w-full h-full object-cover"
             src={orderData.imageUrl}
             alt={orderData.title}
           />

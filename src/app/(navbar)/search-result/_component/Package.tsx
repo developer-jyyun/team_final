@@ -1,6 +1,5 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
-import useImage from "@/hooks/useImage";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,8 +7,6 @@ interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
-  const { ImagPath, setImagePath } = useImage();
-
   return (
     <Link
       href={`/items/${data.packageId}`}
@@ -20,11 +17,8 @@ const Package = ({ data }: Props) => {
           width={100}
           height={100}
           className="object-cover w-full h-full"
-          src={ImagPath}
+          src={data.imageUrl}
           alt="대표 이미지"
-          onError={() => {
-            setImagePath(data.imageUrl);
-          }}
           placeholder="blur"
           blurDataURL="/assets/imageLoadError.png"
         />

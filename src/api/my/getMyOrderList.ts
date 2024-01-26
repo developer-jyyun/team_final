@@ -1,11 +1,7 @@
-const getMyOrders = async (
-  pageParam: number,
-  pageSize: number,
-  cookie?: string,
-) => {
+const getMyOrderList = async (cookie?: string) => {
   try {
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/orders?page=${pageParam}&pageSize=${pageSize}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/v1/orders`,
       {
         credentials: "include",
         headers: {
@@ -14,10 +10,11 @@ const getMyOrders = async (
       },
     );
     const res = await result.json();
+    console.log("order-data:", res);
     return res;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-export default getMyOrders;
+export default getMyOrderList;

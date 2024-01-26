@@ -15,7 +15,7 @@ const WishListPage = ({
   setCompareIndex,
 }: Props) => {
   return (
-    <div className="ml-6">
+    <div className="mx-6">
       <WishListInfo
         statusA={statusA}
         statusB={statusB}

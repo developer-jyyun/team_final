@@ -6,16 +6,6 @@ import { useEffect, useState } from "react";
 import ChangeCompareProduct from "./_component/ChangeCompareProduct";
 import WishListPage from "./_component/WishListPage";
 
-// interface Product {
-//   packageId: number;
-//   title: string;
-//   imageUrl: string;
-//   price: number;
-//   hashtags: string[];
-//   lodgeDays: number;
-//   tripDays: number;
-// }
-
 interface CompareProduct {
   hashtags: string[];
   imageUrl: string;
@@ -76,12 +66,7 @@ const Compare = () => {
     setStatusB(true);
   };
 
-  // console.log(searchParam.get("lid"));
-  // console.log(searchParam.get("rid"));
-  // lid=24020823618&rid=24033121265
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 추천 상품 데이터를 가져옴
-
     if (!searchParam.get("rid") || !searchParam.get("lid")) {
       return;
     }
@@ -110,38 +95,10 @@ const Compare = () => {
       setCurrentPage((prevPage) => prevPage + 1);
       setCompareIndex(0);
     }
-    // console.log(currentItem);
   }, [compareIndex]);
 
-  // useEffect(() => {
-  //   setCurrentItem(null);
-  // }, [searchParam.get("rid")]);
-
-  useEffect(() => {
-    console.log(products, storedProducts);
-    console.log(compareIndex);
-  }, [products, storedProducts]);
-
-  // console.log(currentItem);
   const handleRefresh = () => {
-    // console.log(1);
-    // console.log(storedProducts[compareIndex]);
     setCurrentItem(storedProducts[compareIndex]);
-    console.log(compareIndex);
-    // 새로고침 버튼을 클릭할 때의 로직
-    // 배열의 다음 5개 항목으로 순환
-    // const nextIndex = (compareIndex + 1) % storedProducts.length;
-    // setCompareIndex(nextIndex);
-
-    // 상품 목록 업데이트
-    // const newProducts = [
-    //   ...storedProducts.slice(nextIndex, nextIndex + 4),
-    //   ...storedProducts.slice(0, nextIndex),
-    // ].slice(0, 5);
-
-    // setProducts(newProducts);
-
-    // setCurrentPage를 사용하여 페이지를 업데이트합니다.
     setCompareIndex((prevPage) => prevPage + 1);
   };
 
@@ -168,8 +125,6 @@ const Compare = () => {
           setCompareIndex={setCompareIndex}
           onChangeA={handleCompareCompleteA}
           onChangeB={handleCompareCompleteB}
-          // currentItem={currentItem}
-          // setCurrentItem={setCurrentItem}
           setIsCompareComplete={setIsCompareComplete}
         />
       )}
