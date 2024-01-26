@@ -587,21 +587,25 @@ const ChangeCompareProduct = ({
           내가 고른 상품과 유사한 추천 상품 보기
         </h3>
         <div className="flex flex-col">
-          {products.map((product, index) => (
-            <MyPicProduct
-              key={index}
-              title={product.title}
-              imageUrl={product.imageUrl}
-              price={product.minPrice}
-              hashtags={product.hashtags}
-              lodgeDays={product.lodgeDays}
-              tripDays={product.tripDays}
-              id={product.packageId}
-              setIsCompareComplete={setIsCompareComplete}
-              // setCurrentItem={setCurrentItem}
-              setCompareIndex={setCompareIndex}
-            />
-          ))}
+          {products.map((product, index) => {
+            console.log(product);
+            return (
+              <MyPicProduct
+                key={index}
+                title={product.title}
+                imageUrl={product.imageUrl}
+                price={product.minPrice}
+                hashtags={product.hashtags}
+                lodgeDays={product.lodgeDays}
+                tripDays={product.tripDays}
+                id={product.packageId}
+                setIsCompareComplete={setIsCompareComplete}
+                // setCurrentItem={setCurrentItem}
+                setCompareIndex={setCompareIndex}
+                isWish={product.isWish}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
