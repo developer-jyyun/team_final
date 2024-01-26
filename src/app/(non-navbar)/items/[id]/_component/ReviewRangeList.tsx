@@ -23,7 +23,7 @@ const ReviewRangeList = ({ text, score }: Props) => {
       <ReviewRange score={score} />
       <div className="w-1/12 ml-3">
         <DetailTypography color={5} size={10}>
-          {score === 5 ? "5.0" : score}
+          {score.toFixed(1)}
         </DetailTypography>
       </div>
     </div>
