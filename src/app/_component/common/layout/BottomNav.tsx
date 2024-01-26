@@ -20,7 +20,7 @@ const BottomNav = ({ scrollView = true }: Props) => {
   return (
     <nav
       className={`fixed left-0 bottom-0 w-full h-[56px] bg-white flex justify-center items-center 
-    border-t-[0.6px] border-solid border-grey-d shadow-dark ${getAnimation()}`}
+    border-t-[0.6px] border-solid border-grey-d shadow-dark ${getAnimation()} z-50`}
     >
       <ul className="w-[375px] flex web:w-[500px]">
         <NavIconButton

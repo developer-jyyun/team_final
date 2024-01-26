@@ -12,6 +12,7 @@ const RightProgressBar = ({
   isZeroCount: boolean;
 }) => {
   const filledWidth = `${rating * 20}%`;
+
   const bgColorClass =
     !isZeroCount && rating === 4
       ? "bg-gradient-grey"
