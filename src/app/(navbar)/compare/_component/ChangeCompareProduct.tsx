@@ -162,10 +162,13 @@ const ChangeCompareProduct = ({
   const isShoppingSame = (leftShoppingCount ?? 0) === (rightShoppingCount ?? 0);
 
   useEffect(() => {
-    if (!searchParam.get("rid") || !searchParam.get("lid")) return;
+    if (!searchParam.get("lid")) return;
     const fixedPackageId = Number(searchParam.get("lid"));
-    const comparePackageId =
-      compareIndex === 0 ? Number(searchParam.get("rid")) : compared?.packageId;
+    const comparePackageId = !searchParam.get("rid")
+      ? compared?.packageId
+      : compareIndex === 0
+        ? Number(searchParam.get("rid"))
+        : compared?.packageId;
 
     fetchPackageData(fixedPackageId, comparePackageId)
       .then((data) => {
@@ -267,11 +270,7 @@ const ChangeCompareProduct = ({
             비교상품
           </span>
           <h3 className="text-black-2 text-lg font-bold h-14 overflow-hidden line-clamp-2 mt-4">
-            {!searchParam.get("rid")
-              ? "상품을 선택하세요"
-              : myPicProducts
-                ? myPicProducts.title
-                : "불러오는 중..."}
+            {myPicProducts ? myPicProducts.title : "불러오는 중..."}
           </h3>
           <Button
             text={"비교 상품 바꾸기"}
@@ -348,11 +347,7 @@ const ChangeCompareProduct = ({
                         : "text-lime-sub3 text-[13px] web:text-[17px] font-semibold"
                   }`}
                 >
-                  {!searchParam.get("rid")
-                    ? "0"
-                    : rightHotelStars
-                      ? `${rightHotelStars}성급`
-                      : "정보 없음"}
+                  {rightHotelStars ? `${rightHotelStars}성급` : "정보 없음"}
                 </span>
               </div>
 
@@ -406,11 +401,7 @@ const ChangeCompareProduct = ({
                         : "text-lime-sub3 text-[13px] web:text-[17px] font-semibold"
                   }`}
                 >
-                  총{" "}
-                  {!searchParam.get("rid")
-                    ? "0"
-                    : rightShoppingCount ?? "정보 없음"}
-                  개
+                  총 {rightShoppingCount ?? "정보 없음"}개
                 </span>
               </div>
               <div className="flex justify-between">
@@ -429,9 +420,7 @@ const ChangeCompareProduct = ({
                   }
                   isLower={(leftShoppingCount ?? 0) < (rightShoppingCount ?? 0)}
                   isSameRating={isShoppingSame}
-                  isZeroCount={
-                    !searchParam.get("rid") || rightShoppingCount === 0
-                  }
+                  isZeroCount={rightShoppingCount === 0 || true}
                 />
               </div>
             </div>

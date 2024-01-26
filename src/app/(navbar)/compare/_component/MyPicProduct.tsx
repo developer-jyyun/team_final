@@ -43,7 +43,11 @@ const MyPicProduct = ({
     const rid = searchParams.get("rid");
     setIsCompareComplete(false);
     if (statusA) {
-      router.replace(`/compare?lid=${id}&rid=${rid}`);
+      if (rid) {
+        router.replace(`/compare?lid=${id}&rid=${rid}`);
+      } else {
+        router.replace(`/compare?lid=${id}`);
+      }
     }
     if (statusB) {
       router.replace(`/compare?lid=${lid}&rid=${id}`);
