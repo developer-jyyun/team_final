@@ -169,9 +169,11 @@ const ChangeCompareProduct = ({
       : compareIndex === 0
         ? Number(searchParam.get("rid"))
         : compared?.packageId;
+    console.log(compared?.packageId);
 
     fetchPackageData(fixedPackageId, comparePackageId)
       .then((data) => {
+        console.log(data);
         const mappedfixSchedules: ScheduleItem[] =
           data.data.fixedPackage.schedules.map((sch) => ({
             day: sch.day,
