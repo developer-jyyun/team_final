@@ -13,6 +13,7 @@ interface Props {
   iconAlt?: string;
   back?: boolean;
   onIconClick?: () => void;
+  onClick?: () => void;
 }
 
 const DefaultHeader = ({
@@ -24,6 +25,7 @@ const DefaultHeader = ({
   iconSrc,
   iconAlt,
   onIconClick,
+  onClick,
   back = false,
 }: Props) => {
   const router = useRouter();
@@ -35,6 +37,15 @@ const DefaultHeader = ({
       넘겨받은 theme 값이 default인 경우, 내부 삼항 연산자 로직으로
       default가 아닌 경우(메인 페이지), null을 반환해 화살표 노출하지 않음
       */}
+      {theme === "function" ? (
+        <button
+          type="button"
+          className="absolute left-[32px] top-1/2 -translate-y-1/2"
+          onClick={onClick}
+        >
+          <img src="/icons/leftArrowIcon.svg" alt="왼쪽 화살표" width="24px" />
+        </button>
+      ) : null}
       {theme === "default" ? (
         redirectUrl ? (
           <Link
@@ -66,6 +77,12 @@ const DefaultHeader = ({
 
       <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-[18px] text-black-2 font-semibold">
         {theme === "default" && (
+          <>
+            <span>{text}</span>
+            <span className="font-thin">{subText}</span>
+          </>
+        )}
+        {theme === "function" && (
           <>
             <span>{text}</span>
             <span className="font-thin">{subText}</span>

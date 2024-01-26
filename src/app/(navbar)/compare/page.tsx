@@ -66,6 +66,8 @@ const Compare = () => {
     setStatusB(true);
   };
 
+  // 24051319368
+
   useEffect(() => {
     if (!searchParam.get("lid")) {
       return;
@@ -75,7 +77,7 @@ const Compare = () => {
         const responseData = await fetchSimilarProducts(
           !searchParam.get("rid")
             ? Number(searchParam.get("lid"))
-            : Number(searchParam.get("rid")) || 24042217462,
+            : Number(searchParam.get("rid")) || Number(searchParam.get("lid")),
           currentPage,
           10,
         );
@@ -84,6 +86,15 @@ const Compare = () => {
           setStoredProducts(responseData.data.slice(5)); // 나머지 5개를 저장
           setCurrentItem(responseData.data.slice(5)[1]);
         }
+
+        if (responseData.data.length < 10) {
+          setProducts([...responseData.data]);
+          setStoredProducts([...responseData.data]);
+          setCurrentItem(responseData.data[0]);
+          setCompareIndex(1);
+        }
+
+        console.log(responseData.data);
       } catch (error) {
         console.error("Failed to fetch products:", error);
       }
@@ -93,7 +104,7 @@ const Compare = () => {
   }, [currentPage, searchParam.get("rid"), searchParam.get("lid")]);
 
   useEffect(() => {
-    if (compareIndex === 6) {
+    if (compareIndex === products.length + 1) {
       setCurrentPage((prevPage) => prevPage + 1);
       setCompareIndex(0);
     }
@@ -108,7 +119,13 @@ const Compare = () => {
 
   return isCompareComplete ? (
     <section>
-      <DefaultHeader text="찜 리스트" />
+      <DefaultHeader
+        text="찜 리스트"
+        theme="function"
+        onClick={() => {
+          setIsCompareComplete(false);
+        }}
+      />
       <WishListPage
         statusA={statusA}
         statusB={statusB}
@@ -123,6 +140,7 @@ const Compare = () => {
         iconSrc="/icons/refreshIcon.svg"
         iconAlt="새로고침"
         onIconClick={handleRefresh}
+        back
       />
       {isCompareComplete ? (
         <WishListPage

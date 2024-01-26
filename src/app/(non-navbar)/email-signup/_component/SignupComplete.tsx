@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import useSignupInfoStore from "@/store/useSignupInfoStore";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const SignupComplete = () => {
+  const signupInfo = useSignupInfoStore();
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -25,8 +28,10 @@ const SignupComplete = () => {
         로그인 완료
       </p>
       <b className="text-center text-[28px] font-bold mt-4 web:text-3xl">
-        <span className="text-[32px] text-pink web:text-4xl">위너원</span>님,{" "}
-        <br />
+        <span className="text-[32px] text-pink web:text-4xl">
+          {signupInfo.name}
+        </span>
+        님, <br />
         어서오세요!
       </b>
     </div>
