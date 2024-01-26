@@ -585,7 +585,6 @@ const ChangeCompareProduct = ({
             </h3>
             <div className="flex flex-col">
               {products.map((product, index) => {
-                console.log(product);
                 return (
                   <MyPicProduct
                     key={index}
