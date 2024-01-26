@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const LeftProgressBar = ({
@@ -12,6 +14,7 @@ const LeftProgressBar = ({
   isZeroCount: boolean;
 }) => {
   const filledWidth = `${rating * 20}%`;
+
   const bgColorClass =
     !isZeroCount && rating === 4
       ? "bg-gradient-grey"

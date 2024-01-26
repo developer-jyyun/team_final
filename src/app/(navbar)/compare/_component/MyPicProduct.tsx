@@ -1,5 +1,4 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
-import Tag from "@/app/_component/common/atom/Tag";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -74,8 +73,14 @@ const MyPicProduct = ({
           {hashtags
             .sort((prev, next) => prev.length - next.length)
             .slice(0, 3)
-            .map((tagName) => (
-              <Tag key={tagName} tagName={tagName} />
+            .map((tagName, index) => (
+              <span
+                key={index}
+                className="text-black-4 web:text-[11px] font-normal web:py-1 web:px-2 web:rounded-[39px] overflow-clip text-nowrap border-[0.6px] border-black-6
+                            text-[10px] px-1 py-0.5 rounded-[12px]"
+              >
+                {tagName}
+              </span>
             ))}
         </div>
         <p className="text-red-1 text-xxs web:text-base font-lightt">
@@ -85,6 +90,7 @@ const MyPicProduct = ({
           </span>
         </p>
       </div>
+      <div className="grow" />
       <div className="relative w-[51px]">
         <LikeButton id={id} isWish={isWish as boolean} />
         <button
