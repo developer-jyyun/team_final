@@ -1,8 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
 import getMyInfo from "@/api/my/getMyInfo";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   href: string;
@@ -13,8 +12,6 @@ interface Props {
 
 const NavIconButton = ({ href, text, basic, active }: Props) => {
   const router = useRouter();
-
-  const [isHover, setIsHover] = useState(false);
   const currentUrl = usePathname();
 
   const handleAuth = async () => {
@@ -32,36 +29,21 @@ const NavIconButton = ({ href, text, basic, active }: Props) => {
     }
   };
 
-  const handleMouseOver = () => {
-    setIsHover(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHover(false);
-  };
-
-  if (currentUrl === href)
+  if (currentUrl !== href)
     return (
       <li className="w-1/4 flex flex-col justify-center items-center">
         <button type="button" onClick={handleAuth}>
-          <img src={active} alt={`${text} 아이콘`} width={24} />
-          <p className="text-pink text-center">{text}</p>
+          <img src={basic} alt={`${text} 아이콘`} width={24} />
+          <p className={` text-grey-b text-center`}>{text}</p>
         </button>
       </li>
     );
 
   return (
     <li className="w-1/4 flex flex-col justify-center items-center">
-      <button
-        type="button"
-        onClick={handleAuth}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      >
-        <img src={isHover ? active : basic} alt={`${text} 아이콘`} width={24} />
-        <p className={`${isHover ? "text-pink" : "text-grey-b"} text-center`}>
-          {text}
-        </p>
+      <button type="button" onClick={handleAuth}>
+        <img src={active} alt={`${text} 아이콘`} width={24} />
+        <p className="text-pink text-center">{text}</p>
       </button>
     </li>
   );
