@@ -5,7 +5,6 @@ const getMyUpcomingPackage = async () => {
       { credentials: "include" },
     );
     const res = await result.json();
-    console.log("다가오는 패키지", res);
 
     if (!result.ok) {
       throw new Error(res.error || "API 호출에 실패했습니다.");

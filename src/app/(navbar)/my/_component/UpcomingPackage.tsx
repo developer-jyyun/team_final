@@ -5,10 +5,11 @@ import useMyUpcomingPackageQuery from "@/hooks/query/useMyUpcomingPackageQuery";
 import { TITLE_CLASS } from "@/app/constants";
 import Chip from "./Chip";
 import NoItem from "./NoItem";
+import SkeletonTitle from "./SkeletonTitle";
 
 const UpcomingPackage = () => {
   const { data, isLoading, isError, error } = useMyUpcomingPackageQuery();
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) return <SkeletonTitle />;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
   const noItem = !data || Object.keys(data).length === 0;
 
@@ -18,8 +19,8 @@ const UpcomingPackage = () => {
       {noItem && <NoItem text="다가오는 패키지 내역이 없습니다." img={false} />}
 
       {!noItem && (
-        <div className="flex flex-nowrap relative gap-[18px]">
-          <div className="w-[90px] shrink-0 rounded-md overflow-hidden">
+        <div className="flex flex-nowrap relative gap-[18px] h-[90px]">
+          <div className="w-[90px] h-[90px] shrink-0 rounded-md overflow-hidden">
             <img
               className="w-full h-full"
               src={data.imageUrl}
@@ -45,7 +46,7 @@ const UpcomingPackage = () => {
             </div>
             <Link href={`/items/${data.packageId}`} className="block w-10 h-10">
               <img
-                className="w-full"
+                className="object-cover"
                 src="/icons/rightArrowIcon.svg"
                 alt="자세히 보기 아이콘"
               />

@@ -5,7 +5,6 @@ const getNoticeList = async () => {
     );
 
     const res = await result.json();
-    console.log("notice:", res);
     return res.data;
   } catch (error) {
     console.error(error);

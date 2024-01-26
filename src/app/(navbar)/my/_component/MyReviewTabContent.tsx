@@ -5,6 +5,7 @@ import useMyReviewsQuery from "@/hooks/query/useMyReviewsQuery";
 import useDeleteReviewMutation from "@/hooks/query/useDeleteReviewMutation";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import NoItem from "./NoItem";
+import SkeletonText from "./SkeletonText";
 
 const pageSize = 3;
 const MyReviewTabContent = () => {
@@ -91,9 +92,11 @@ const MyReviewTabContent = () => {
         ref={lastElementRef}
         className=" w-full h-20 p-2 text-center text-black-8"
       >
-        {isFetching || (hasNextPage && <div>loading..🎈</div>)}
+        {isFetching || (hasNextPage && <SkeletonText />)}
 
-        {!isFetching && !hasNextPage && <div>마지막 목록입니다 😊</div>}
+        {!isFetching && !hasNextPage && (
+          <div className="p-4">마지막 목록입니다!</div>
+        )}
         {isError && <div>⚠ {error.message} ⚠</div>}
       </div>
     </div>

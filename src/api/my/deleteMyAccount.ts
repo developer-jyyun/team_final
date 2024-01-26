@@ -10,7 +10,6 @@ const deleteMyAccount = async () => {
     }
 
     const data = await result.json();
-    console.log("탈퇴", data);
     return data;
   } catch (error) {
     console.error(error);

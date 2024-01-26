@@ -54,10 +54,10 @@ const AdvertisementDetail = () => {
             <img
               src={singlePackage.imageUrl}
               alt="packageImg"
-              className="w-[155px] h-[180px] web:w-full mb-2 rounded-lg"
+              className="w-[100%] h-[180px] web:w-full mb-2 rounded-lg"
             />
             <div className="flex flex-col gap-[14px]">
-              <p className="w-[148px] h-[30px] web:w-full text-black-6 text-xs font-normal overflow-hidden">
+              <p className="w-[100%] h-[30px] web:w-full text-black-6 text-xs font-normal overflow-hidden">
                 {singlePackage.title}
               </p>
               <p className="text-black text-base font-bold">
