@@ -15,7 +15,7 @@ const UpcomingPackage = () => {
 
   return (
     <article className="mx-auto mt-8 mb-10">
-      <h2 className={TITLE_CLASS}>다가오는 패키지가 있어요!</h2>
+      <h2 className={TITLE_CLASS}>다가오는 패키지</h2>
       {noItem && <NoItem text="다가오는 패키지 내역이 없습니다." img={false} />}
 
       {!noItem && (
