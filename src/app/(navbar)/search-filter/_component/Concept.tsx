@@ -31,7 +31,7 @@ const Concept = ({ concept, bgColor }: Props) => {
         src={concept.imageUrl}
         alt={`${concept.name} 이미지`}
       />
-      <p className="flex items-center whitespace-pre-line w-14 h-[42px] text-black text-base web:text-xl font-medium leading-5 tracking-tighter">
+      <p className="flex items-center whitespace-pre-line w-14 web:w-20 h-[42px] text-black text-base web:text-xl font-medium leading-5 tracking-tighter">
         {concept.name.replace("/", "\n")}
       </p>
     </div>
