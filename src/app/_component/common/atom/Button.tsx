@@ -1,3 +1,5 @@
+import React from "react";
+
 interface Props {
   text: string;
   styleClass?: string;
@@ -20,12 +22,17 @@ const Button = ({
   theme = "",
   icon,
 }: Props) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onClickFn) onClickFn();
+  };
   return (
     <button
       type="button"
       className={`${themes[theme]} ${styleClass}`}
       disabled={disabled}
-      onClick={onClickFn}
+      onClick={handleClick}
     >
       {icon && <img src={icon} alt={text} />}
       {text}
