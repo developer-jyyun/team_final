@@ -21,14 +21,11 @@ const Dialog = ({
   styleClass,
 }: Props) => {
   const ref = useRef<HTMLDialogElement>(null);
-  /*   useOnClickOutside(ref, (e) => {
-    e.stopPropagation();
-    onClose(e);
-  }); */
 
   useOnClickOutside(ref, () => {
     onClose();
   });
+
   if (!isOpen) return null;
 
   return (

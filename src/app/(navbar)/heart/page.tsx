@@ -25,7 +25,7 @@ const HeartPage = () => {
             <EmptyContainer text="찜한 상품이 없습니다." />
             <Link
               href={"/theme/0"}
-              className="rounded-xl my-6 bg-pink text-white text-lg font-semibold py-2 px-16 cursor-pointer"
+              className="rounded-xl my-6 bg-pink text-center text-white text-lg font-semibold py-2 px-16 cursor-pointer"
             >
               다양한 상품 둘러보러 가기
             </Link>
