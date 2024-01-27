@@ -23,8 +23,6 @@
 
 프로젝트 규칙: https://github.com/yanolja-finalproject/LETS_FE/wiki
 
----
-
 ## 📝 프로젝트 소개
 
 소개 내용 작성
@@ -173,9 +171,9 @@ Remove : 파일 삭제
       <th>메인 페이지</th>
     </tr>
     <tr>      
-      <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
-height="400"></td>
-       <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+      <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/d04a78f7-89b0-47d8-987e-ed5b5fa36111" height="400">
+</td>
+       <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/9f853c37-5b00-4668-b90f-4dce1d21f3df"
 height="400"></td>   
     </tr>    
     <tr align="center">
@@ -183,9 +181,9 @@ height="400"></td>
       <th>비교페이지</th>         
     </tr>
     <tr>      
-      <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+      <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/89bb851d-d195-4c1f-82c7-ffecfccf50f3"
 height="400"></td>
-        <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+        <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/3a443f97-25cf-463b-a5db-aff7712537b1"
 height="400"></td>
     </tr>    
             <tr align="center">
@@ -193,9 +191,9 @@ height="400"></td>
       <th>결제페이지</th>
     </tr>
     <tr>      
-        <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+        <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/de6df220-790d-49c5-9abc-f3b55360b245"
 height="400"></td>
-        <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+        <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/f91b3818-1d92-474a-aba9-e86b83100ba2"
 height="400"></td>
     </tr> 
      <tr align="center">
@@ -203,9 +201,9 @@ height="400"></td>
       <th>찜하기</th>    
     </tr>
     <tr>      
-       <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+       <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/eb217d96-48c7-4da9-b3f0-706b5cedf236"
 height="400"></td>
-        <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+        <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/8fa483e0-fbfa-46fa-8169-b05c22cc2159"
 height="400"></td>
     </tr> 
          <tr align="center">
@@ -213,7 +211,7 @@ height="400"></td>
       <th>페이지</th>    
     </tr>
     <tr>      
-       <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
+       <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/32e68eba-d9ee-44bd-8f62-c9c33262c5bc"
 height="400"></td>
         <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
 height="400"></td>
@@ -255,11 +253,11 @@ height="400"></td>
         <td align="center"><a href="https://github.com/Eojodeveloper-jyyun">윤지영<br>팀원</a></td>
         <td align="center"><a href="https://github.com/marshallku">구영표<br>멘토</a></td>
     </tr>    
-    <tr>
-        <td>로그인&회원가입 페이지, 패키지 상세보기 페이지, 여행 일정 선택 페이지</td>
-        <td>패키지 리스트 공통 컴포넌트, 검색&해시태그 페이지, 검색결과 화면</td>
-        <td>비교페이지, 결제페이지</td>
-        <td>홈 화면, 광고&테마 패키지 리스트</td>
+    <tr align="center">
+        <td>로그인&회원가입 페이지<br/>패키지 상세보기 페이지<br/>여행 일정 선택 페이지</td>
+        <td>패키지 리스트 공통 컴포넌트<br/>검색&해시태그 페이지<br/>검색결과 화면</td>
+        <td>비교페이지<br/>결제페이지</td>
+        <td>홈 화면<br/>광고&테마 패키지 리스트</td>
         <td>마이페이지</td>  
         <td>멘토링</td>  
     </tr>
