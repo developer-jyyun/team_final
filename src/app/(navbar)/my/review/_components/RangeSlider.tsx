@@ -35,7 +35,7 @@ const RangeSlider = ({
         value={value}
         step={step}
         onChange={(e) => onChange(Number(e.target.value))}
-        style={progressStyle} // 임시 css 적용
+        style={progressStyle}
         list="options"
       />
       {mark === "show" && (
