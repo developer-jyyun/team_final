@@ -8,7 +8,7 @@ interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
-  const { error, handleError } = useDefaultImage();
+  const { error, handleError, loadErrorImageUrl } = useDefaultImage();
 
   return (
     <Link
@@ -20,11 +20,7 @@ const Package = ({ data }: Props) => {
           width={100}
           height={100}
           className="object-cover w-full h-full"
-          src={
-            error
-              ? "https://github.com/yanolja-finalproject/LETS_FE/assets/125979833/13c73347-220e-4062-a535-17bbed7943e6"
-              : data.imageUrl
-          }
+          src={error ? loadErrorImageUrl : data.imageUrl}
           alt="대표 이미지"
           placeholder="blur"
           blurDataURL="/assets/imageLoadError.png"
