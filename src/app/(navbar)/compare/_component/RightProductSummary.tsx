@@ -1,3 +1,4 @@
+import useDefaultImage from "@/hooks/useDefaultImage";
 import React from "react";
 
 const RightProductSummary = ({
@@ -21,6 +22,8 @@ const RightProductSummary = ({
   reservationCount: number;
   minReservationCount: number;
 }) => {
+  const { loadErrorImageUrl, error, handleError } = useDefaultImage();
+
   return (
     <div className="flex flex-col">
       <p className="text-black-4 text-sm font-medium mb-2">
@@ -33,12 +36,17 @@ const RightProductSummary = ({
       <div className="w-[155px] h-[140px] web:w-[200px] web:h-[190px] rounded-lg bg-grey-a overflow-hidden">
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={error ? loadErrorImageUrl : imageUrl}
             alt="상품사진"
-            className="w-[155px] h-[140px] web:w-[200px] web:h-[190px] object-cover"
+            className="w-full h-full web:w-[200px] web:h-[190px] object-cover"
+            onError={handleError}
           />
         ) : (
-          <div>이미지 준비 중...</div>
+          <img
+            src={loadErrorImageUrl}
+            alt="상품사진"
+            className="w-full h-full web:w-[200px] web:h-[190px] object-cover"
+          />
         )}
       </div>
       <div className="my-2.5 flex gap-2">
