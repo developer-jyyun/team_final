@@ -25,7 +25,7 @@ const SearchResult = ({
 }: Props) => {
   return (
     <div className="w-full">
-      <div className="py-4 flex justify-between items-center">
+      <div className="sticky top-[100px] py-4 bg-white z-10 bg-gradient-to-b from-white to-transparent flex justify-between items-center">
         <p className="text-lg font-semibold leading-normal tracking-tighter">
           <span className=" text-pink-main">{total}</span>
           개의 패키지 상품 검색 결과

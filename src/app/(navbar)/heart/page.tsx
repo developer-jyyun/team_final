@@ -18,14 +18,14 @@ const HeartPage = () => {
       <section className="w-full h-full px-6 flex flex-col">
         <p className="my-6 text-lg font-semibold leading-normal tracking-tighter text-left self-start">
           총 <span className=" text-pink-main">{page?.totalElements}</span>
-          개의 패키지 상품
+          개의 찜한 패키지 상품
         </p>
         {!page?.totalElements ? (
           <div className="h-full flex flex-col justify-between">
             <EmptyContainer text="찜한 상품이 없습니다." />
             <Link
               href={"/theme/0"}
-              className="rounded-xl my-6 bg-pink text-center text-white text-lg font-semibold py-2 px-16 cursor-pointer"
+              className="rounded-xl web:w-[330px] mx-auto my-6 bg-pink text-center text-white text-lg font-semibold py-2 px-16 cursor-pointer"
             >
               다양한 상품 둘러보러 가기
             </Link>

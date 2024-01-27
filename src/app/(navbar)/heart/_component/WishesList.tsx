@@ -6,6 +6,7 @@ import {
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
 import Wish from "./Wish";
+import Skeleton from "../../my/_component/Skeleton";
 
 interface Props {
   data: InfiniteData<any, unknown> | undefined;
@@ -40,11 +41,8 @@ const WishesList = ({
         );
       })}
 
-      <li
-        ref={lastElementRef}
-        className="w-full text-center text-black-6 h-20 list-none"
-      >
-        {isFetching && <div>loading..🎈</div>}
+      <li ref={lastElementRef} className="w-full bg-white list-none">
+        {isFetching && [0, 1, 2].map((i) => <Skeleton key={i} />)}
       </li>
     </>
   );

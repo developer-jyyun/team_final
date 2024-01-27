@@ -34,7 +34,7 @@ const SearchResultPage = () => {
     return (
       <div className="flex flex-col w-full">
         <DefaultHeader text="내가 원하는 여행 리스트" />
-        <section className="w-full px-6 flex flex-col">
+        <section className="relative w-full px-6 flex flex-col">
           <Options />
           {totalCount !== 0 ? (
             <SearchResult
