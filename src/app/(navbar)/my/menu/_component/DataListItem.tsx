@@ -2,7 +2,7 @@ import { CommonListData } from "@/app/types";
 import Chip from "../../_component/Chip";
 
 interface Props {
-  data: CommonListData;
+  data?: CommonListData;
   theme: string;
 }
 const DataListItem = ({ data, theme = "notice" }: Props) => {
