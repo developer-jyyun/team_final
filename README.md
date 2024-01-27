@@ -35,12 +35,6 @@
  <img src="https://img.shields.io/badge/notion-ffffff?style=for-the-badge&logo=notion&logoColor=black">
     <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-
-노션: https://www.notion.so/1-76f7bb1b4e264d6a81eef1b66866138b
-<br/>
-피그마:
-<br/>
-백엔드 레포지토리:
 <br/>
 프로젝트 규칙: https://github.com/yanolja-finalproject/LETS_FE/wiki
 <br/><br/>
@@ -92,26 +86,30 @@
 
 ## 🧑🏻‍💻 Git convention
 
-### ✅ Work Flow
 
 ### ✅ Commit log
 
 ```
-Feat : 새로운 기능 추가
-Fix : 버그 수정
-Style : 코드 스타일 수정 (세미 콜론, 인덴트 등의 스타일적인 부분만)
-Refactor : 코드 리팩토링 (더 효율적인 코드로 변경 등)
-Design : CSS 등 디자인 추가/수정
-Comment : 주석 추가/수정
-Docs : 내부 문서 추가/수정
-Test : 테스트 추가/수정
-Chore : 빌드 관련 코드 수정, 개발 환경 관련 설정
-Move : 파일 및 폴더명 수정
-Remove : 파일 삭제
+Feat: 새로운 기능 추가
+Fix: 버그 수정
+Env: 개발 환경 관련 설정
+Style: 코드 스타일 수정 (세미 콜론, 인덴트 등의 스타일적인 부분만), 주석 추가/수정
+Refactor: 코드 리팩토링 (더 효율적인 코드로 변경 등)
+Design: CSS 등 디자인 추가/수정
+Docs: 내부 문서 추가/수정
+Test: 테스트 추가/수정
+Chore: 빌드, 세팅 관련 코드 수정
+Move: 파일 삭제, 이름 변경
+!HOTFIX: 급하게 버그를 고쳐야하는 경우
 ```
 
 ### ✅ Branch strategy
-
+```
+main 브랜치
+develop 브랜치
+feature/기능이름
+hotfix 브랜치
+```
 ---
 
 ## 📂 폴더 구조
