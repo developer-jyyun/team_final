@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import useDefaultImage from "@/hooks/useDefaultImage";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const RightProductSummary = ({
   purchasedCount,
@@ -21,6 +25,10 @@ const RightProductSummary = ({
   reservationCount: number;
   minReservationCount: number;
 }) => {
+  const params = useSearchParams();
+  const rid = params.get("rid");
+  const { loadErrorImageUrl, error, handleError } = useDefaultImage();
+
   return (
     <div className="flex flex-col">
       <p className="text-black-4 text-sm font-medium mb-2">
@@ -30,24 +38,34 @@ const RightProductSummary = ({
         </b>
         명이 이용했어요!
       </p>
-      <div className="w-[155px] h-[140px] web:w-[200px] web:h-[190px] rounded-lg bg-grey-a overflow-hidden">
+      <Link
+        href={`/items/${rid}`}
+        className="w-[155px] h-[140px] web:w-[200px] web:h-[190px] rounded-lg bg-grey-a overflow-hidden"
+      >
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={error ? loadErrorImageUrl : imageUrl}
             alt="상품사진"
-            className="w-[155px] h-[140px] web:w-[200px] web:h-[190px] object-cover"
+            className="w-full h-full web:w-[200px] web:h-[190px] object-cover"
+            onError={handleError}
           />
         ) : (
-          <div>이미지 준비 중...</div>
+          <img
+            src={loadErrorImageUrl}
+            alt="상품사진"
+            className="w-full h-full web:w-[200px] web:h-[190px] object-cover"
+          />
         )}
-      </div>
+      </Link>
       <div className="my-2.5 flex gap-2">
-        <span className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal">
-          {hashtags[0]}
-        </span>
-        <span className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal">
-          {hashtags[1]}
-        </span>
+        {hashtags.slice(0, 2).map((tagName, idx) => (
+          <span
+            key={idx}
+            className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal"
+          >
+            {tagName}
+          </span>
+        ))}
       </div>
       <div>
         <h4 className="mb-2 text-black-4 text-base web:text-lg font-semibold">
