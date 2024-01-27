@@ -1,5 +1,6 @@
 import LikeButton from "@/app/_component/common/atom/LikeButton";
 import type { PackageInfo } from "@/app/types";
+import useDefaultImage from "@/hooks/useDefaultImage";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,6 +8,8 @@ interface Props {
   data: PackageInfo;
 }
 const Package = ({ data }: Props) => {
+  const { error, handleError } = useDefaultImage();
+
   return (
     <Link
       href={`/items/${data.packageId}`}
@@ -17,10 +20,15 @@ const Package = ({ data }: Props) => {
           width={100}
           height={100}
           className="object-cover w-full h-full"
-          src={data.imageUrl}
+          src={
+            error
+              ? "https://github.com/yanolja-finalproject/LETS_FE/assets/125979833/13c73347-220e-4062-a535-17bbed7943e6"
+              : data.imageUrl
+          }
           alt="대표 이미지"
           placeholder="blur"
           blurDataURL="/assets/imageLoadError.png"
+          onError={handleError}
         />
         <LikeButton id={data.packageId} isWish={data.isWish} />
       </div>
