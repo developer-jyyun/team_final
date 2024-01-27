@@ -123,43 +123,56 @@ Remove : 파일 삭제
 📦src
  ┣ 📂api
  ┣ 📂app
- ┣ 📂components
- ┃ ┣ 📂layout
- ┃ ┣ 📂template
- ┃ ┃ ┣ 📂account
- ┃ ┃ ┣ 📂cart
- ┃ ┃ ┣ 📂main
- ┃ ┃ ┣ 📂mypage
- ┃ ┃ ┣ 📂notFound
+ ┃ ┣ 📂_components
+ ┃ ┣ 📂_test
+ ┃ ┣ 📂(navbar)
+ ┃ ┃ ┣ 📂compare
+ ┃ ┃ ┣ 📂heart
+ ┃ ┃ ┣ 📂my
+ ┃ ┃ ┣ 📂email-signup
+ ┃ ┃ ┣ 📂items
+ ┃ ┃ ┣ 📂my
  ┃ ┃ ┣ 📂payment
- ┃ ┃ ┗ 📂products
- ┃ ┃ ┃ ┣ 📂GuestModal
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📂search-filter
+ ┃ ┃ ┣ 📂search-result
+ ┃ ┃ ┣ 📜error.tsx
+ ┃ ┃ ┗  📜layout.tsx
+ ┃ ┣ 📂(non-navbar)
+ ┃ ┃ ┣ 📂advertisement
+ ┃ ┃ ┣ 📂balance
+ ┃ ┃ ┣ 📂email-signin
+ ┃ ┃ ┣ 📂email-signup
+ ┃ ┃ ┣ 📂items
+ ┃ ┃ ┣ 📂my
+ ┃ ┃ ┣ 📂schedule
+ ┃ ┃ ┣ 📂signin
+ ┃ ┃ ┣ 📂my
+ ┃ ┃ ┣ 📜error.tsx
+ ┃ ┃ ┗  📜layout.tsx
+ ┃ ┣ 📜 constants.ts
+ ┃ ┣ 📜 globals.css
+ ┃ ┣ 📜 layout.tsx
+ ┃ ┣ 📜 page.tsx
+ ┃ ┣ 📜 test-utils.ts
+ ┃ ┗ 📜 types.ts
  ┣ 📂hooks
- ┣ 📂interfaces
- ┣ 📂pages
- ┃ ┣ 📂cart
- ┃ ┣ 📂main
- ┃ ┣ 📂mypage
- ┃ ┣ 📂payment
- ┃ ┗ 📂products
- ┣ 📂router
- ┣ 📂states
- ┣ 📂style
- ┃ ┣ 📂account
- ┃ ┣ 📂cart
- ┃ ┣ 📂common
- ┃ ┣ 📂header
- ┃ ┣ 📂main
- ┃ ┣ 📂mypage
- ┃ ┣ 📂payment
- ┃ ┣ 📂products
- ┣ 📂util
- ┣ 📜App.tsx
- ┣ 📜constant.ts
- ┣ 📜constants.ts
- ┣ 📜index.css
- ┣ 📜main.tsx
- ┗ 📜vite-env.d.ts
+ ┃   ┗ 📂query 
+ ┣ 📂mocks
+ ┣ 📂store
+ ┣ 📂utils
+ ┣ 📜.env
+ ┣ 📜.eslintrc.json
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜package.json
+ ┣ 📜package-lock.json
+ ┣ 📜local.cert.pem
+ ┣ 📜local.key.pem
+ ┣ 📜server.js
+ ┣ 📜README.md
+ ┣ 📜tailwind.config.ts
+ ┗ 📜tsconfig.json
 ```
 
 ## 🧑🏻‍💻 주요 기능
