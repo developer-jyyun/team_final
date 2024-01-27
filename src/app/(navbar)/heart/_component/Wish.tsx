@@ -3,12 +3,15 @@ import type { PackageInfo } from "@/app/types";
 import Image from "next/image";
 import Link from "next/link";
 import Tag from "@/app/_component/common/atom/Tag";
+import useDefaultImage from "@/hooks/useDefaultImage";
 
 interface Props {
   data: PackageInfo;
 }
 
 const Wish = ({ data }: Props) => {
+  const { error, loadErrorImageUrl, handleError } = useDefaultImage();
+
   return (
     <Link
       href={`/items/${data.packageId}`}
@@ -19,8 +22,9 @@ const Wish = ({ data }: Props) => {
           width={100}
           height={100}
           className="object-cover w-full h-full"
-          src={data.imageUrl}
+          src={error ? loadErrorImageUrl : data.imageUrl}
           alt={"상품사진"}
+          onError={handleError}
         />
       </div>
       <div className="flex flex-col gap-[10px] w-[156px] web:w-[300px]">

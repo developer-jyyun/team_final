@@ -38,12 +38,9 @@ const PackagesList = ({
           })}
         </div>
       ))}
-      <li
-        ref={lastElementRef}
-        className="w-full text-center text-black-6 h-20 list-none"
-      >
+      <li ref={lastElementRef} className="w-full list-none">
         {isFetching && (
-          <div className="w-full flex flex-wrap justify-between bg-white overflow-y-scroll">
+          <div className="w-full flex flex-wrap justify-between">
             {[0, 1, 2, 3].map((i) => (
               <SkeletonItem key={i} />
             ))}
