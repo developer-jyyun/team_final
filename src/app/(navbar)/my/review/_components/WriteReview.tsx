@@ -43,7 +43,6 @@ const WriteReview = ({
 
   const handleSubmit = () => {
     mutateAsync().then((res) => {
-      console.log(res);
       if (res.code === 200) {
         router.replace("/my");
       } else {

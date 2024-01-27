@@ -202,8 +202,6 @@ const UpdateMyInfoPage = () => {
           ...myInfo,
           password: undefined,
         });
-
-        console.log("회원 정보 수정완료", myInfo);
         setShowSuccessDialog(true);
       } else {
         console.error("비밀번호가 유효하지 않습니다.");

@@ -11,7 +11,6 @@ interface Props {
   canWriteReview?: boolean;
 }
 
-// TODO: 해시태그 가나다순 3개까지만 노출
 const ReservationItem = ({
   orderData,
   theme,

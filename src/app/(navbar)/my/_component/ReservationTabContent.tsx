@@ -30,8 +30,6 @@ const ReservationTabContent = () => {
     return <NoItem text="예약내역이 존재하지 않습니다." img />;
   }
 
-  console.log("예약내역 확인", orderData);
-
   return (
     <div className="custom-scrollbar flex flex-col items-center h-[39vh] overflow-y-scroll pt-5 web:h-[43vh]">
       {orderData?.pages.map((page, pageIndex) => (

@@ -16,7 +16,6 @@ const useUpdateMyInfoMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["myInfo"],
       });
-      console.log("수정성공");
     },
 
     onError: (err) => {
