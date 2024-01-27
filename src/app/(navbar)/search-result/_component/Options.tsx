@@ -5,7 +5,7 @@ const Options = () => {
   const { customOptionsArr, updateOptions } = useOptions();
 
   return (
-    <div className="flex flex-wrap gap-2 my-5">
+    <div className="sticky top-[48px] bg-white z-10 flex flex-wrap gap-2 py-5">
       {customOptionsArr.map(
         ([tagName, values]) =>
           Array.isArray(values) &&
