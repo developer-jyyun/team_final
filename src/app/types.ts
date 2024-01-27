@@ -192,7 +192,7 @@ export interface CommonListData {
 export interface NoticeData extends CommonListData {
   noticeId: number;
 }
-export type NoticeDetail = {
+export type ArticleDetail = {
   id: number;
   title: string;
   content: string;
