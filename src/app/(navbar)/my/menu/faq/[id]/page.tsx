@@ -6,33 +6,36 @@ import { useParams } from "next/navigation";
 import useFaqDetailQuery from "@/hooks/query/useFaqDetailQuery";
 import Link from "next/link";
 import { SUB_TITLE_CLASS } from "@/app/constants";
+import SmallSpinner from "@/app/_component/common/layout/SmallSpinner";
 import DataListItem from "../../_component/DataListItem";
 
 const FaqDetailPage = () => {
   const { id } = useParams();
-  const faqId = Array.isArray(id) ? id[0] : id; // 배열일 경우 첫 번째 요소를 선택
-
-  // parseInt 함수를 사용할 때 진법 지정해줘야 함
+  const faqId = Array.isArray(id) ? id[0] : id;
   const prevFaqId = parseInt(faqId, 10) - 1;
   const nextFaqId = parseInt(faqId, 10) + 1;
 
-  // 현재 글
   const { data, isLoading, isError, error } = useFaqDetailQuery(faqId);
-  // 이전 글
   const { data: prevData } = useFaqDetailQuery(`${prevFaqId}`);
-  // 다음 글
   const { data: nextData } = useFaqDetailQuery(`${nextFaqId}`);
 
   const prevLink = `/my/menu/faq/${prevFaqId}`;
   const nextLink = `/my/menu/faq/${nextFaqId}`;
 
-  if (isLoading) return <div>로딩 중...</div>;
+  const contentLines: string[] =
+    data && Array.isArray(data.content) ? data.content : [];
+
+  if (isLoading) return <SmallSpinner />;
   if (isError) return <div>⚠ {error.message}⚠</div>;
   return (
     <InnerSection text="자주 묻는 질문" backUrl="/my/menu">
       <div className="flex flex-col rounded bg-grey-e bg-opacity-20 h-[45vh]">
-        <DataListItem data={data} theme="faq" />
-        <p className="text-xs px-4 my-[-2px]">{data.content}</p>
+        {data && <DataListItem data={data} theme="notice" />}
+        {contentLines.map((line: string, index: number) => (
+          <p key={index} className="text-xs px-4 my-2">
+            {line}
+          </p>
+        ))}
       </div>
       <div className="mt-10">
         <h2 className={SUB_TITLE_CLASS}>이전 글</h2>
