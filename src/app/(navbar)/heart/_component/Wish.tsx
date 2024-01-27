@@ -23,7 +23,7 @@ const Wish = ({ data }: Props) => {
           alt={"상품사진"}
         />
       </div>
-      <div className="flex flex-col gap-[10px] w-[156px]">
+      <div className="flex flex-col gap-[10px] w-[156px] web:w-[300px]">
         <div>
           <p className="w-full truncate text-lg font-medium text-black-2">
             {data.title}
