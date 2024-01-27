@@ -58,12 +58,14 @@ const LeftProductSummary = ({
         )}
       </Link>
       <div className="my-2.5 flex gap-2">
-        <span className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal">
-          {hashtags[0]}
-        </span>
-        <span className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal">
-          {hashtags[1]}
-        </span>
+        {hashtags.slice(0, 2).map((tagName, idx) => (
+          <span
+            key={idx}
+            className="py-1 px-2 border-[0.6px] border-black-6 rounded-[39px] text-black-4 text-[11px] web:text-sm font-normal"
+          >
+            {tagName}
+          </span>
+        ))}
       </div>
       <div>
         <h4 className="mb-2 text-black-4 text-base web:text-lg font-semibold">
