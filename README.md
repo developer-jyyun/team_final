@@ -240,9 +240,6 @@ height="400"></td>
         <td align="center">
             <img alt="avatar" src="https://github.com/developer-jyyun.png" width="100">
         </td>
-         <td align="center">
-            <img alt="avatar" src="https://avatars.githubusercontent.com/u/33550065?v=4" width="100">
-        </td> 
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/2YH02">이용훈<br>팀장</a></td>
@@ -251,7 +248,6 @@ height="400"></td>
         </td>
         <td align="center"><a href="https://github.com/applevalley">남현준<br>팀원</a></td>
         <td align="center"><a href="https://github.com/Eojodeveloper-jyyun">윤지영<br>팀원</a></td>
-        <td align="center"><a href="https://github.com/marshallku">구영표<br>멘토</a></td>
     </tr>    
     <tr align="center">
         <td>로그인&회원가입 페이지<br/>패키지 상세보기 페이지<br/>여행 일정 선택 페이지</td>
@@ -259,7 +255,6 @@ height="400"></td>
         <td>비교페이지<br/>결제페이지</td>
         <td>홈 화면<br/>광고&테마 패키지 리스트</td>
         <td>마이페이지</td>  
-        <td>멘토링</td>  
     </tr>
  </table>
 
