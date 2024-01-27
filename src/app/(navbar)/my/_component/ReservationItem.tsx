@@ -2,6 +2,7 @@ import Button from "@/app/_component/common/atom/Button";
 import Link from "next/link";
 import { MyOrderPackage } from "@/app/types";
 import Chip from "./Chip";
+import ReviewButton from "./ReviewButton";
 
 interface Props {
   theme: string;
@@ -67,12 +68,7 @@ const ReservationItem = ({
 
           {/* 리뷰 작성 가능한 리뷰 탭 경우 */}
           {theme === "reservationTab" && (
-            <Link href={`/my/review?oid=${orderId}&pid=${orderData.packageId}`}>
-              <Button
-                text="리뷰 쓰러 가기"
-                styleClass="w-full rounded-xl text-xs font-semibold p-1 bg-pink text-white"
-              />
-            </Link>
+            <ReviewButton orderId={orderId} packageId={orderData.packageId} />
           )}
         </div>
       </li>
@@ -96,7 +92,7 @@ const ReservationItem = ({
               {orderData.title}
             </span>
           </p>
-          <div className="">
+          <div>
             {hashTag && (
               <Chip
                 chipData={orderData.hashtags}
