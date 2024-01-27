@@ -1,4 +1,4 @@
-# Frontend Repo
+# WinnerOne [LET'S]
 
 <div align="center">
 
@@ -15,23 +15,11 @@
 
 <br/>
 
-## 📆 기간
+## 📆 프로젝트 기간
 
-`2023.11.20 ~ 2023.12.01`
+`2023.12.26 ~ 2024.01.29`
 
-### 어떤 내용이 구현되고 있는지
-
-- 아직 기능적으로 코드를 작성하고 있는 부분은 많지 않고, 레이아웃 구조 잡는 코드가 많습니다.
-- 로그인페이지, 회원가입페이지, 홈, 마이페이지, 검색페이지, 결제페이지, 일정선택페이지 기능 및 레이아웃 코드 작성중입니다.
-
-### 어떤 부분 피드백 받고 싶은지
-
-어느 정도로 자세하게 작성해야 하는지 확실하지 않아서 저희가 크게 고민했던 2가지를 적어보겠습니다.
-
-1. 폴더 구조 (처음 보는 사람도 이해하기 쉽게 구조가 잡혀있는지)
-2. 컴포넌트 분리가 잘 돼 있는지 여부 (분리가 과한지, 분리가 너무 안 돼 있는지)
-
-### 참고
+## 참고
 
 프로젝트 규칙: https://github.com/yanolja-finalproject/LETS_FE/wiki
 
@@ -62,7 +50,6 @@
 ## 🖌️ 프로젝트 아키텍처
 
 <div align="center">
-
 
 </div>
 <br/>
@@ -238,10 +225,6 @@ height="400"></td>
 
 ## 🧑🏻‍💻 팀 소개 및 역할
 
-<img alt="avatar" src="https://avatars.githubusercontent.com/u/33550065?v=4" width="100">
-    구영표 멘토님
-<hr>
-
 <table align="center">
     <tr>
         <td align="center">
@@ -259,7 +242,9 @@ height="400"></td>
         <td align="center">
             <img alt="avatar" src="https://github.com/developer-jyyun.png" width="100">
         </td>
-        </td>   
+         <td align="center">
+            <img alt="avatar" src="https://avatars.githubusercontent.com/u/33550065?v=4" width="100">
+        </td> 
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/2YH02">이용훈<br>팀장</a></td>
@@ -268,13 +253,15 @@ height="400"></td>
         </td>
         <td align="center"><a href="https://github.com/applevalley">남현준<br>팀원</a></td>
         <td align="center"><a href="https://github.com/Eojodeveloper-jyyun">윤지영<br>팀원</a></td>
+        <td align="center"><a href="https://github.com/marshallku">구영표<br>멘토</a></td>
     </tr>    
     <tr>
-        <td>담당 역할</td>
-        <td>담당 역할</td>
-        <td>담당 역할</td>
-        <td>담당 역할</td>
-        <td>담당 역할</td>  
+        <td>로그인&회원가입 페이지, 패키지 상세보기 페이지, 여행 일정 선택 페이지</td>
+        <td>패키지 리스트 공통 컴포넌트, 검색&해시태그 페이지, 검색결과 화면</td>
+        <td>비교페이지, 결제페이지</td>
+        <td>홈 화면, 광고&테마 패키지 리스트</td>
+        <td>마이페이지</td>  
+        <td>멘토링</td>  
     </tr>
  </table>
 

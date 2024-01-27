@@ -587,7 +587,6 @@ const ChangeCompareProduct = ({
                     tripDays={product.tripDays}
                     id={product.packageId}
                     setIsCompareComplete={setIsCompareComplete}
-                    // setCurrentItem={setCurrentItem}
                     setCompareIndex={setCompareIndex}
                     isWish={product.isWish}
                   />
