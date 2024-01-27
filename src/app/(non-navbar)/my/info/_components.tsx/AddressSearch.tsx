@@ -47,7 +47,7 @@ const AddressSearch = ({
         </span>
         <div className="flex justify-between items-center gap-2">
           <input
-            className="w-full h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2 "
+            className="focus:outline-none w-full h-[50px] flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2 "
             type="text"
             name="postCode"
             value={postCode}
@@ -62,7 +62,7 @@ const AddressSearch = ({
         </div>
 
         <input
-          className="mt-[10px] h-[50px] w-full flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2"
+          className="focus:outline-none mt-[10px] h-[50px] w-full flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2"
           type="text"
           name="addr1"
           value={addr1}
@@ -71,7 +71,7 @@ const AddressSearch = ({
         />
 
         <input
-          className="mt-[10px] h-[50px] w-full  flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2"
+          className="focus:outline-none mt-[10px] h-[50px] w-full flex items-center justify-between bg-grey-e bg-opacity-40 rounded-lg px-4 py-2"
           type="text"
           name="addr2"
           value={addr2}

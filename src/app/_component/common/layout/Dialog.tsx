@@ -7,6 +7,7 @@ interface Props {
   onClose: VoidFunction;
   type: string;
   message?: string;
+  brMessage?: React.ReactNode;
   theme?: string;
   onConfirm?: VoidFunction;
   styleClass?: string;
@@ -18,6 +19,7 @@ const Dialog = ({
   theme,
   type,
   message,
+  brMessage,
   styleClass,
 }: Props) => {
   const ref = useRef<HTMLDialogElement>(null);
@@ -84,7 +86,12 @@ const Dialog = ({
           className="z-[550] w-[87.2%] web:w-[327px] h-[176px] mx-auto absolute top-[30%] rounded-md bg-white flex flex-col justify-evenly shadow-md"
           ref={ref}
         >
-          <p className="text-4.5 font-bold text-left px-8">{message}</p>
+          {(message || brMessage) && (
+            <div className="text-4.5 font-bold px-8">
+              {message && <p className="text-left">{message}</p>}
+              {brMessage && <p className="text-center">{brMessage}</p>}
+            </div>
+          )}
 
           <div className="flex flex-row justify-end items-between px-8">
             <Button

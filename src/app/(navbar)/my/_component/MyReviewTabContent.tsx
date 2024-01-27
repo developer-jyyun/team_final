@@ -34,7 +34,6 @@ const MyReviewTabContent = () => {
   if (totalCount === 0) {
     return <NoItem text=" 리뷰를 남길 여행 내역이 존재하지 않습니다." img />;
   }
-  console.log(myReviewData);
   return (
     <div className="custom-scrollbar flex flex-col items-center h-[39vh] overflow-y-scroll pt-5 web:h-[43vh]">
       {myReviewData?.pages.map((page, pageIndex) => (

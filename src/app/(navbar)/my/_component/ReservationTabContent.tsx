@@ -30,8 +30,19 @@ const ReservationTabContent = () => {
     return <NoItem text="예약내역이 존재하지 않습니다." img />;
   }
 
-  console.log("예약내역 확인", orderData);
+  if (isFetching) {
+    return (
+      <>
+        {Array.from({ length: 3 }, (_, index) => (
+          <Skeleton key={index} />
+        ))}
+      </>
+    );
+  }
 
+  if (isError) {
+    return <div>⚠ {error.message} ⚠</div>;
+  }
   return (
     <div className="custom-scrollbar flex flex-col items-center h-[39vh] overflow-y-scroll pt-5 web:h-[43vh]">
       {orderData?.pages.map((page, pageIndex) => (
@@ -57,11 +68,6 @@ const ReservationTabContent = () => {
         className=" w-full h-20 p-2 text-center text-black-8"
       >
         {isFetching || (hasNextPage && <Skeleton />)}
-
-        {!isFetching && !hasNextPage && (
-          <div className="mt-4 p-4">마지막 목록입니다!</div>
-        )}
-        {isError && <div>⚠ {error.message} ⚠</div>}
       </div>
     </div>
   );

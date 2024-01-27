@@ -1,6 +1,5 @@
 import { MyOrder } from "@/app/types";
 
-// 출발일을 Date 객체로 변환
 function getStartDate(travelPeriod: string): Date {
   const [start] = travelPeriod.split("~");
   const [year, month, day] = start.split(".").map(Number);

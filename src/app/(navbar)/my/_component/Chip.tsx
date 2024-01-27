@@ -15,7 +15,6 @@ const Chip = ({
 }: Props) => {
   const chipClass = `text-[11px] text-black-4 border border-solid rounded-xl py-1 px-2 web:text-sm ${borderColor} ${textColor}`;
 
-  // 데이터 정렬
   const sortedAndSlicedData = chipData
     ? chipData
         .slice()

@@ -4,9 +4,11 @@ import { MyOrder } from "@/app/types";
 import useMyOrdersQuery from "@/hooks/query/useMyOrdersQuery";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import canWriteReview from "@/utils/canWriteReview";
+import SmallSpinner from "@/app/_component/common/layout/SmallSpinner";
 import InnerSection from "../../../_component/InnerSection";
 import NoItem from "../../../_component/NoItem";
 import ReservationItem from "../../../_component/ReservationItem";
+import Skeleton from "../../../_component/Skeleton";
 
 const pageSize = 6;
 
@@ -27,9 +29,8 @@ const ReservationMain = () => {
   );
 
   const totalCount = orderData?.pages[0]?.page?.totalElements ?? 0;
-  console.log("orderData:", orderData);
 
-  if (isFetching) return <div>로딩 중...</div>;
+  if (isFetching) return <SmallSpinner />;
   if (isError) return <div>⚠ {error.message} ⚠</div>;
 
   return (
@@ -67,7 +68,7 @@ const ReservationMain = () => {
             );
           })}
           <li ref={lastElementRef} className="w-full h-20 list-none">
-            {isFetching && <div>loading..🎈</div>}
+            {isFetching && <Skeleton />}
           </li>
         </div>
       )}
