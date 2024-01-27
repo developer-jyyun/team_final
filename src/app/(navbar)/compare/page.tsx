@@ -31,6 +31,7 @@ const fetchSimilarProducts = async (
 ): Promise<SimilarProductsdata> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/v1/packages/similar-packages?fixedPackageId=${fixedPackageId}&page=${page}&pageSize=${pageSize}`,
+    { credentials: "include", cache: "no-store" },
   );
   if (!response.ok) {
     throw new Error("Network response was not ok.");

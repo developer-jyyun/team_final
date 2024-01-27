@@ -134,8 +134,6 @@ const ReservationInfo = ({
       Number(event.target.value) * paymentData.infantPrice +
       selectedInfant * paymentData.babyPrice;
 
-    // setTotalPrice(totalPrice);
-
     const newChildCount = parseInt(event.target.value, 10);
     setSelectedChild(newChildCount);
     setPaymentData({ ...paymentData, infant: newChildCount, totalPrice });
@@ -148,8 +146,6 @@ const ReservationInfo = ({
       selectedAdult * paymentData.adultPrice +
       selectedChild * paymentData.infantPrice +
       Number(event.target.value) * paymentData.babyPrice;
-
-    // setTotalPrice(totalPrice);
 
     const newInfantCount = parseInt(event.target.value, 10);
     setSelectedInfant(newInfantCount);
