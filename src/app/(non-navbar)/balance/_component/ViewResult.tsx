@@ -42,6 +42,8 @@ const ViewResult = ({ result, current }: Props) => {
     router.push(`/search-result?keyword=${result.B.linkHashTag}`);
   };
 
+  console.log(result);
+
   return (
     <>
       <div className="flex flex-col mt-10 web:mt-7">
@@ -55,6 +57,9 @@ const ViewResult = ({ result, current }: Props) => {
           </DetailTypography>
         </div>
         <div className="relative">
+          <div className="z-10 absolute top-1/2 left-3 translate-y-1/2 text-white text-[10px] web:text-xs font-semibold">
+            {current === "A" ? `${result.A.percentage}%` : ""}
+          </div>
           <div className="absolute top-0 left-[50%] -translate-x-1/2 w-[100%] h-[22px] bg-grey-e rounded-[44px] mt-1" />
           <div
             className={`${
@@ -72,6 +77,9 @@ const ViewResult = ({ result, current }: Props) => {
               width: `${getSize(result.B.count)}%`,
             }}
           />
+          <div className="z-10 absolute top-1/2 right-3 translate-y-1/2 text-white text-[10px] web:text-xs font-semibold">
+            {current === "B" ? `${result.B.percentage}%` : ""}
+          </div>
         </div>
         <div className="flex justify-between items-center px-1 mt-8">
           <DetailTypography color={5} size={14} bold={500}>
