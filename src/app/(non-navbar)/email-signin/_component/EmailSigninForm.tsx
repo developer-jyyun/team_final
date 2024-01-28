@@ -80,7 +80,7 @@ const EmailSigninForm = () => {
       }}
     >
       <SigninInput
-        title="아이디 또는 이메일"
+        title="이메일"
         type="text"
         name="signin-email"
         id="signin-email"
