@@ -1,22 +1,24 @@
+// page.tsx 메인
+
+import getPollsMain from "@/api/balance/getPollsMain";
+import getAdvertisements from "@/api/home/getAdvertisements";
+import getSalePackages from "@/api/home/getSalePackages";
+import getThemePackages from "@/api/home/getThemePackages";
+import getDestinations from "@/api/search/getDestinations";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import getAdvertisements from "@/api/home/getAdvertisements";
-import getThemePackages from "@/api/home/getThemePackages";
-import getPollsMain from "@/api/balance/getPollsMain";
-import getDestinations from "@/api/search/getDestinations";
-import getSalePackages from "@/api/home/getSalePackages";
 
 import BottomNav from "./_component/common/layout/BottomNav";
+import ContentsContainer from "./_component/common/layout/ContentsContainer";
 import DefaultHeader from "./_component/common/layout/DefaultHeader";
 import HomeAdvertisements from "./_component/home/HomeAdvertisements";
 import HomeHashtags from "./_component/home/HomeHashtags";
-import HomeSalePackages from "./_component/home/HomeSalePackages";
 import HomeProsAndCons from "./_component/home/HomeProsAndCons";
+import HomeSalePackages from "./_component/home/HomeSalePackages";
 import HomeThemePackage from "./_component/home/HomeThemePackage";
-import ContentsContainer from "./_component/common/layout/ContentsContainer";
 
 const Home = async () => {
   const queryClient = new QueryClient();
@@ -30,11 +32,11 @@ const Home = async () => {
     queryFn: getAdvertisements,
   });
   await queryClient.prefetchQuery({
-    queryKey: ["polls"],
+    queryKey: ["polls", "main"],
     queryFn: getPollsMain,
   });
   await queryClient.prefetchQuery({
-    queryKey: ["themes"],
+    queryKey: ["des"],
     queryFn: getDestinations,
   });
   await queryClient.prefetchQuery({

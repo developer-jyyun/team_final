@@ -1,37 +1,22 @@
+// HomeThemePackage
+
 "use client";
 
 import getThemePackages from "@/api/home/getThemePackages";
-import { useEffect, useState } from "react";
 // 베스트 테마 패키지
 import { BEST_THEME } from "@/app/constants";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-
-interface Props {
-  themeId: number;
-  name: string;
-  imageUrl: string;
-}
 
 const HomeThemePackage = () => {
   const router = useRouter();
-  //  /v1/themes 테마 패키지 목록 API에 베스트가 없기에 상수 하드코딩으로 추가
-  const [themes, setThemes] = useState<Props[]>(BEST_THEME);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getThemePackages();
-        setThemes([...themes, ...response.data]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const { data } = useQuery({
+    queryKey: ["themes"],
+    queryFn: getThemePackages,
+  });
 
-    fetchData();
-    // cleanup
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const themes = [...BEST_THEME, ...data.data];
 
   const handleThemeClick = (clickedId: number) => {
     router.push(`/theme/${clickedId}`); // 400_여행패키지컨셉 페이지로 연결
