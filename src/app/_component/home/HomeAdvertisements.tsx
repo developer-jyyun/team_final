@@ -1,8 +1,10 @@
+// HomeAdvertisements
+
 "use client";
 
-import { useEffect, useState } from "react";
 import getAdvertisements from "@/api/home/getAdvertisements";
 import DetailSwiper from "@/app/(non-navbar)/items/[id]/_component/DetailSwiper";
+import { useQuery } from "@tanstack/react-query";
 
 interface Props {
   name: string;
@@ -10,21 +12,12 @@ interface Props {
 }
 
 const HomeAdvertisements = () => {
-  const [adsData, setAdsData] = useState<string[]>([]);
+  const { data } = useQuery({
+    queryKey: ["advertisements"],
+    queryFn: getAdvertisements,
+  });
 
-  // 광고구좌 데이터 fetch
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAdvertisements();
-      const urls = response.data.map((ads: Props) => ads.imageUrl);
-      setAdsData(urls);
-    };
-
-    fetchData();
-    // cleanup
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const adsData = data.data.map((ads: Props) => ads.imageUrl);
 
   return (
     <section className="pb-6 cursor-pointer">
