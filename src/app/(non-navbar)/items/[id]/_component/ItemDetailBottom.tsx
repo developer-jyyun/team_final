@@ -60,10 +60,31 @@ const ItemDetailBottom = ({
     setPortalElement(document.getElementById("portal"));
   }, [reservation]);
 
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      setIsScrolling(true);
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const getAnimation = () => {
     if (!viewMore) return "";
 
-    if (isScrollUp) return "animate-positionTopAnimation";
+    if (isScrollUp || !isScrolling) return "animate-positionTopAnimation";
     else return "animate-positionTopAnimationReverse";
   };
 
