@@ -49,7 +49,7 @@ const TermsForm = ({ setTermsForm }: Props) => {
         action
           ? "animate-transparencyAnimation"
           : "animate-transparencyAnimationReverse"
-      } overflow-hidden`}
+      } overflow-hidden z-50`}
       onClick={handleOutsideClick}
     >
       <div
