@@ -48,21 +48,33 @@ const StorePerson = ({
           </DetailTypography>
         </div>
         <DetailTypography size={14} bold={600}>
-          {price.toLocaleString()}원
+          {price === 0 ? `문의요망` : `${price.toLocaleString()}원`}
         </DetailTypography>
       </div>
       <div className="flex">
-        <button type="button" onClick={handleClickMinus}>
-          <img src="/icons/minusIcon.svg" alt="빼기" className="web:w-7" />
+        <button type="button" onClick={handleClickMinus} disabled={price === 0}>
+          {price === 0 ? (
+            <img
+              src="/icons/minusGrayIcon.svg"
+              alt="빼기"
+              className="web:w-7"
+            />
+          ) : (
+            <img src="/icons/minusIcon.svg" alt="빼기" className="web:w-7" />
+          )}
         </button>
         <div className="flex items-center justify-center w-12">
-          <DetailTypography color={1} size={16}>
+          <DetailTypography color={price === 0 ? 8 : 1} size={16}>
             {store}
           </DetailTypography>
         </div>
 
-        <button type="button" onClick={handleClickPlus}>
-          <img src="/icons/plusIcon.svg" alt="더하기" className="web:w-7" />
+        <button type="button" onClick={handleClickPlus} disabled={price === 0}>
+          {price === 0 ? (
+            <img src="/icons/plusGrayIcon.svg" alt="빼기" className="web:w-7" />
+          ) : (
+            <img src="/icons/plusIcon.svg" alt="빼기" className="web:w-7" />
+          )}
         </button>
       </div>
     </div>
