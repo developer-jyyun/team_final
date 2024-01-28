@@ -42,8 +42,6 @@ const ViewResult = ({ result, current }: Props) => {
     router.push(`/search-result?keyword=${result.B.linkHashTag}`);
   };
 
-  console.log(result);
-
   return (
     <>
       <div className="flex flex-col mt-10 web:mt-7">
