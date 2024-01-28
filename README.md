@@ -31,17 +31,14 @@
 
 🔐 TEST용 PASSWORD:
 
-<br/>
- <img src="https://img.shields.io/badge/notion-ffffff?style=for-the-badge&logo=notion&logoColor=black">
-    <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
-  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<br/>
+
 프로젝트 규칙: https://github.com/yanolja-finalproject/LETS_FE/wiki
 <br/><br/>
 
 ## 🖌️ 프로젝트 아키텍처
 
 <div align="center">
+<img src="https://github.com/yanolja-finalproject/LETS_FE/assets/131247158/766886b1-728c-4d9f-9690-22d94f630be5" alt="프로젝트 아키텍처">
 
 </div>
 <br/>
@@ -270,3 +267,23 @@ height="400"></td>
  </table>
 
 ## 🧑🏻‍💻 회고 & 트러블 슈팅
+<details>
+<summary>이용훈</summary>
+  
+</details>
+
+<details>
+<summary>최선파</summary>
+</details>
+
+<details>
+  <summary>남현준</summary>
+</details>
+<details>
+<summary>이진욱</summary>
+</details>
+
+<details>
+<summary>윤지영</summary>
+  느낀점
+</details>
