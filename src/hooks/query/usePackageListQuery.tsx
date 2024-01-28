@@ -7,7 +7,7 @@ const usePackageListQuery = (
   continent: string = "",
 ) => {
   return useQuery({
-    queryKey: ["packages", page, nation],
+    queryKey: ["packages", page, nation, continent],
     queryFn: () => getSalePackages(page, nation, continent),
   });
 };
