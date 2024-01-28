@@ -29,17 +29,25 @@ const HomeSalePackages = () => {
   const [continentList, setContinentList] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   // /v1/packages/top-views API 응답 데이터
-  const { data } = usePackageListQuery(page, activeNation, activeContinent);
+  const { data, isFetching, isLoading } = usePackageListQuery(
+    page,
+    activeNation,
+    activeContinent,
+  );
 
   // 첫 렌더링 -> 국가, 대륙명 저장
   useEffect(() => {
     const fetchData = async () => {
       const destinations = await getDestinations();
+      const continentFilter = destinations.data.continents.filter(
+        (singleContinent: Props) => singleContinent.name !== "남미",
+      );
 
       const nation = destinations.data.nations.map(
         (singleNation: Props) => singleNation.name,
       );
-      const continent = destinations.data.continents.map(
+
+      const continent = continentFilter.map(
         (singleContinent: Props) => singleContinent.name,
       );
 
@@ -132,10 +140,10 @@ const HomeSalePackages = () => {
           ))}
         </Swiper>
       </div>
-      {packages?.map((singlePackage) => (
+      {packages?.map((singlePackage, index) => (
         <div
           className="flex gap-[18px] pt-4 cursor-pointer"
-          key={`salePackage-${singlePackage.packageId}`}
+          key={`page:${page}-index:${index}salePackage-${singlePackage.packageId}`}
           onClick={() => handlePackageClick(singlePackage.packageId)}
         >
           <Image
@@ -143,10 +151,10 @@ const HomeSalePackages = () => {
             alt="패키지 이미지"
             width={90}
             height={90}
-            className="rounded-lg object-cover web:w-28 web:h-28"
+            className="rounded-lg object-cover w-[90px] h-[90px] web:w-28 web:h-28"
           />
           <div className="h-[90px] flex flex-col pt-1">
-            <div className="text-black-2 text-lg web:text-xl font-medium">
+            <div className="text-black-2 text-lg web:text-xl font-medium whitespace-pre">
               {formatLongText(singlePackage.title, getStringLength())}
             </div>
             <div className="flex gap-1 pt-2">
@@ -167,12 +175,14 @@ const HomeSalePackages = () => {
         </div>
       ))}
       <div className="flex justify-center pt-7">
-        <span
-          className="text-black-4 text-center underline pt-7 cursor-pointer"
-          onClick={() => handleLoadMore()}
-        >
-          더보기
-        </span>
+        {!isFetching && !isLoading && packages.length === 0 ? null : (
+          <span
+            className="text-black-4 text-center underline pt-7 cursor-pointer"
+            onClick={() => handleLoadMore()}
+          >
+            더보기
+          </span>
+        )}
       </div>
     </div>
   );
