@@ -36,8 +36,6 @@ const ScrollToUpButton = ({ viewMore, viewScroll }: Props) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  console.log(isScrolling);
-
   const getAnimation = () => {
     if ((viewMore && viewScroll) || !isScrolling)
       return "animate-positionTopAnimationDelay";
