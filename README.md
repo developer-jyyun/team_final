@@ -171,7 +171,98 @@ hotfix 브랜치
  ┗ 📜tsconfig.json
 ```
 
-## 🧑🏻‍💻 주요 기능
+##  🧑🏻‍💻 담당역할 ::  마이페이지 , 공통 컴포넌트 (Tab,Dialog, RangeSlider)
+
+### ⭐ 마이이페이지:: 메인
+#### 💻 유저 정보 등록 / 수정
+- 비밀번호 및 휴대폰 번호 유효성 검사 및 수정 <br> <br>
+![editinfo](https://github.com/developer-jyyun/team_final/assets/131247158/6120c894-8358-44cb-90fc-ed9776fa1a58)
+
+- 카카오 api를 활용한 주소 등록 / 수정 <br> <br>
+![address](https://github.com/developer-jyyun/team_final/assets/131247158/33d54b05-2e00-4a17-aa01-a40744a3f074)
+
+#### 💻 리뷰 작성 / 예약 목록 및 내가 쓴 리뷰 목록<br> <br>
+- 탭 공통 컴포넌트 제작
+- input Range Slider 공통 컴포넌트 제작.
+- input range를 활용한 4개 영역의 리뷰 점수 표시
+- 각 리뷰항목 점수 상태에 따른 평점 계산 노출 및 별 이미지 렌더링
+- useInfiniteQuery, Intersection Observer 사용한 무한 스크롤 구현<br> <br>
+![Let's_review](https://github.com/developer-jyyun/team_final/assets/131247158/6edac354-2f2f-4cff-828f-c7b0ab907dbb)
+
+#### 💻 리뷰 삭제<br> <br>
+- useInfiniteQuery, Intersection Observer 사용한 무한 스크롤 구현<br> <br>
+![delete](https://github.com/developer-jyyun/team_final/assets/131247158/3a745739-f997-4ed4-9100-ce1c36c5d34a)
+
+### ⭐ 마이페이지 :: 서브 페이지
+#### 💻 공지사항, 자주 묻는 질문<br> <br>
+![Let's_notice_faq](https://github.com/developer-jyyun/team_final/assets/131247158/3c895851-837d-4579-ac79-fa92e3f3a90c)
+
+#### 💻 이용약관 및 개인정보 처리방침<br> <br>
+![Let's_terms](https://github.com/developer-jyyun/team_final/assets/131247158/1af74d9a-e68d-4345-9af2-97213fc9d37e)
+
+#### 💻 예약 내역
+- useInfiniteQuery, Intersection Observer 사용한 무한 스크롤 구현<br> <br>
+![image](https://github.com/developer-jyyun/team_final/assets/131247158/408af463-138f-4ff1-a565-c252e98eaf71)
+
+#### 💻 로그아웃
+![KakaoTalk_20240205_223938147](https://github.com/developer-jyyun/team_final/assets/131247158/2008c967-32da-4ea7-b651-d88bd1d3af06)
+
+#### 💻 회원 탈퇴
+![withdraw](https://github.com/developer-jyyun/team_final/assets/131247158/89e3c8f5-ed82-46fc-8df2-0752ef178eaa)
+
+
+### ⭐ 공통 컴포넌트
+#### 💻 Tab
+- TabsContainer 컴포넌트: 탭의 전체적인 상태 관리와 레이아웃
+  tabs prop을 통해 탭의 이름과 내용을 배열로 받습니다.
+  tabButtonStyle prop을 통해 선택된 탭(defaultClass)과 기본 탭(selectedClass)의 스타일을 정의합니다.
+- Tabs 컴포넌트: 탭 메뉴, 탭 콘텐츠 렌더링
+  탭 버튼(buttons)과 탭 컨텐츠(children)를 받아 렌더링합니다.
+  탭 버튼들을 감싸고 있는 ul 태그에 overflow-x-auto 속성 주어 가로 스크롤 가능하도록 하였습니다.
+- TabButtons 컴포넌트
+  tabName, onClick, isSelected,defaultClass, selectedClass을 props로 받습니다.
+```javascript
+const TabTest = () => {
+
+  const tabsData = [
+    { name: "test1", content: <Test1 /> },
+    { name: "test2", content: <Test2 /> },
+    { name: "test3", content: <Test3 /> },
+  ];
+  return (
+    <>
+      <TabsContainer
+        tabs={tabsData}
+        tabButtonStyle={{
+          defaultClass: "py-2 border-b border-1 border-gray-400",
+          selectedClass:
+            "py-2 text-black border-b border-1 border-pink border-solid",
+        }}
+      />
+    </>
+  );
+};
+
+export default TabTest;
+```
+![Untitled-2](https://github.com/developer-jyyun/team_final/assets/131247158/07e9dafd-213d-4ee7-91e4-870221542af8)
+
+#### 💻 Dialog
+- theme, message, styleClass 등을 prop으로 전달
+- type 설정에 따라 confirm, alert, modal 사용 가능(예: type=”confirm")<br><br>
+![Untitled-1](https://github.com/developer-jyyun/team_final/assets/131247158/fa160d32-3262-422f-a47b-ff012236c59f)
+
+
+## 🧑🏻‍💻 회고
+이번 프로젝트에는 유사한 UI들이 많아서 작업 초반, 재사용성, 일관성 등의 측면을 기대하고 공통으로 사용될 컴포넌트들을 여럿 만들었습니다. <br/>
+하지만 작업이 계속될수록 컴포넌트 간의 의존성 문제 때문에 코드를 변경하고, 추가하는 데 어려움을 느끼게 되었고, 코드가 갈수록 복잡해지고 가독성이 저하되는 상황이 발생하였습니다. <br/>
+이런 현상을 프로젝트 후반부에서야 인지하게 되었고, 컴포넌트를 각각의 책임만을 가질 수 있도록 더 작은 단위로 쪼갰어야 했다는 점을 깨닫게 되었습니다. <br/>
+이러한 경험을 통해 초반 컴포넌트 설계의 중요성을 직접 체감할 수 있었으며, 잘 짜여진 팀원들의 코드를 제 코드와 비교해 보며 많은 것들을 배우고, 부족한 부분을 메꿀 수 있었습니다. <br/>
+도움이 필요 할 때면 자신이 맡은 역할 외에도 적극적으로 도움을 주고받는 멋진 팀원들과 함께하며 많은 것을 배우며 성장할 수 있는 뜻깊은 시간이었습니다.
+
+
+
+## 🧑🏻‍💻 전체 페이지 주요 기능
 
 <div align="center">
   <table>
@@ -217,12 +308,9 @@ height="400"></td>
     </tr> 
          <tr align="center">
       <th>마이페이지</th>    
-      <th>페이지</th>    
     </tr>
     <tr>      
        <td><img src="https://github.com/yanolja-finalproject/LETS_FE/assets/59171592/32e68eba-d9ee-44bd-8f62-c9c33262c5bc"
-height="400"></td>
-        <td><img src="https://github.com/developer-jyyun/lets/assets/131247158/5daa1fff-3d58-44b9-b8cb-c8a354b55ca4"
 height="400"></td>
     </tr> 
   </table>
@@ -230,7 +318,12 @@ height="400"></td>
 
  <br>
 
-## 🧑🏻‍💻 팀 소개 및 역할
+
+<details>
+  <summary>
+    ## 🧑🏻‍💻 팀 소개 및 역할
+
+  </summary>
 
 <table align="center">
     <tr>
@@ -327,6 +420,7 @@ height="400"></td>
 </details>
 
 
+</details>
 
 
 <br><br><br><br><br>
