@@ -3,7 +3,7 @@
 <div align="center">
 
 </br>
-<img src="https://github.com/developer-jyyun/lets/assets/131247158/807bdd12-651c-433f-89e4-0d0511d3ba95" width=300 />
+<img src="https://github.com/developer-jyyun/team_final/assets/131247158/9a25b928-342c-45ba-9399-0852e4d244d6" width=300 />
 
 <p align="center">
   <a href="https://winnerone.site/">
